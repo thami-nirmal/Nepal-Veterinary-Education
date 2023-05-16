@@ -1,6 +1,48 @@
 from django.db import models
 
 # Create your models here.
+class Level(models.Model):
+    """
+    Represents a Level i.e Bachelor,Diploma with specific attributes
+    """
+    level_name                    = models.CharField(max_length=50,blank=True)
+    is_visible                    = models.BooleanField(default=True)
+
+    def __str__(self):
+        """
+        :return: the level name representation of the Level.
+        """
+        return self.level_name
+
+class SemYear(models.Model):
+    """
+    Represents a Semester Or Year with specific attributes
+    """
+    sem_year_num                  = models.PositiveSmallIntegerField(null=True)
+    is_visible                    = models.BooleanField(default=True)
+    level                         = models.ForeignKey(Level, related_name='SemYear_Level', on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        """
+        :return: the semester number or year number  representation of the SemYear.
+        """
+        return str(self.sem_year_num)
+
+class MaterialType(models.Model):
+    """
+    Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
+    """
+    material_name                 = models.CharField(max_length=50,blank=True)
+    slug                          = models.SlugField(max_length=50)
+    is_visible                    = models.BooleanField(default=True)
+    sem_year                      = models.ForeignKey(SemYear, related_name='MaterialType_SemYear', on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        """
+        :return: the material name representation of the MaterialType.
+        """
+        return self.material_name
+
 class Subject(models.Model):
     """
     Represents a subject with specific attributes 
@@ -11,6 +53,7 @@ class Subject(models.Model):
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
     is_visible                    = models.BooleanField(default=True)
+    material_type                 = models.ForeignKey(MaterialType, related_name='Subject_MaterialType', on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         """
@@ -27,7 +70,7 @@ class Chapter(models.Model):
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=False)
     is_visible                    = models.BooleanField(default=True)
-    subject                       = models.ForeignKey(Subject, on_delete=models.CASCADE,null=True)
+    subject                       = models.ForeignKey(Subject, related_name='Chapter_Subject', on_delete=models.CASCADE,null=True)
  
     def __str__(self):
         """
@@ -35,45 +78,6 @@ class Chapter(models.Model):
         """
         return str(self.chapter_no)
     
-class MaterialType(models.Model):
-    """
-    Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
-    """
-    material_name                 = models.CharField(max_length=50,blank=True)
-    slug                          = models.SlugField(max_length=50)
-    is_visible                    = models.BooleanField(default=True)
-
-    def __str__(self):
-        """
-        :return: the material name representation of the MaterialType.
-        """
-        return self.material_name
-
-class SemYear(models.Model):
-    """
-    Represents a Semester Or Year with specific attributes
-    """
-    sem_year_num                  = models.PositiveSmallIntegerField(null=True)
-    is_visible                    = models.BooleanField(default=True)
-
-    def __str__(self):
-        """
-        :return: the semester number or year number  representation of the SemYear.
-        """
-        return str(self.sem_year_num)
-
-class Level(models.Model):
-    """
-    Represents a Level i.e Bachelor,Diploma with specific attributes
-    """
-    level_name                    = models.CharField(max_length=50,blank=True)
-    is_visible                    = models.BooleanField(default=True)
-
-    def __str__(self):
-        """
-        :return: the level name representation of the Level.
-        """
-        return self.level_name
     
 #  class SyllabusInfo(models.Model):
     # university_choices = (
