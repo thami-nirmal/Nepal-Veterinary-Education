@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class PastQuestion(models.Model):
     """
-    Represents a Past Question with specific attributes
+    Represents a Past Question with specific attributes.
     """
     year                  = models.PositiveIntegerField(null=True)
     is_shown              = models.BooleanField(default=True)
@@ -19,7 +19,7 @@ class PastQuestion(models.Model):
 
 class GK(models.Model):
     """
-    Represents a GK i.e. General Knowledge with specific attributes
+    Represents a GK i.e. General Knowledge with specific attributes.
     """
     name                   = models.CharField(max_length=50,blank=True)
     is_shown               = models.BooleanField(default=True)
@@ -29,13 +29,13 @@ class GK(models.Model):
 
     def __str__(self):
         """
-        :return: the name of General Knowledge with specific attributes
+        :return: the name of General Knowledge with specific attributes.
         """
         return self.name
 
 class ModelQuestion(models.Model):
     """
-    Represents a Model Question with specific attributes
+    Represents a Model Question with specific attributes.
     """
     name                   = models.CharField(max_length=50,blank=True)
     is_shown               = models.BooleanField(default=True)
@@ -45,7 +45,7 @@ class ModelQuestion(models.Model):
 
     def __str__(self):
         """
-        :return: the name of Model Question with specific attributes
+        :return: the name of Model Question with specific attributes.
         """
         return self.name
 
@@ -71,13 +71,13 @@ class SyllabusInfo(models.Model):
 
     def __str__(self):
         """
-        :return: the University Choices  with specific attributes
+        :return: the University Choices  with specific attributes.
         """
         return self.university_choices
 
 class CollegeInfo(models.Model):
     """
-    Represents a College Info with specific attributes
+    Represents a College Info with specific attributes.
     """
     university_choices              = (
                                        ('un1', 'university 1'),
@@ -97,7 +97,7 @@ class CollegeInfo(models.Model):
 
     def __str__(self):
         """
-        :return: the University Choices with specific attributes
+        :return: the University Choices with specific attributes.
         """
         return self.university_choices
     
