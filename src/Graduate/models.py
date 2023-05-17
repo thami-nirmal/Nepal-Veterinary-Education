@@ -24,7 +24,7 @@ class SemYear(models.Model):
 
     def __str__(self):
         """
-        :return: the semester number or year number  representation of the SemYear.
+        :return: the semester number or year number representation of the SemYear.
         """
         return str(self.sem_year_num)
 

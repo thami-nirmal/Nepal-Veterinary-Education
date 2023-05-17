@@ -29,7 +29,7 @@ class GK(models.Model):
 
     def __str__(self):
         """
-        :return: the name of General Knowledge with specific attributes.
+        :return: the name of General Knowledge representation of the GK.
         """
         return self.name
 
@@ -45,7 +45,7 @@ class ModelQuestion(models.Model):
 
     def __str__(self):
         """
-        :return: the name of Model Question with specific attributes.
+        :return: the name of Model Question representation of the Model.
         """
         return self.name
 
@@ -71,7 +71,7 @@ class SyllabusInfo(models.Model):
 
     def __str__(self):
         """
-        :return: the University Choices  with specific attributes.
+        :return: the University Choices  representation of SyllabusInfo.
         """
         return self.university_choices
 
@@ -97,9 +97,10 @@ class CollegeInfo(models.Model):
 
     def __str__(self):
         """
-        :return: the University Choices with specific attributes.
+        :return: the University Choices representation of CollegeInfo.
         """
         return self.university_choices
+
     
     
     
