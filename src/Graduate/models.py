@@ -77,8 +77,7 @@ class Chapter(models.Model):
         :return: the chapter number representation of the chapter.
         """
         return str(self.chapter_no)
-    
-    
+        
 #  class SyllabusInfo(models.Model):
     # university_choices = (
     #     ('un1', 'university 1'),
