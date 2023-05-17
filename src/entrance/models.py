@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class PastQuestion(models.Model):
     """
-    Represents a Entrance with specific attributes
+    Represents a Past Question with specific attributes
     """
     year                  = models.PositiveIntegerField(null=True)
     is_shown              = models.BooleanField(default=True)
@@ -13,7 +13,7 @@ class PastQuestion(models.Model):
 
     def __str__(self):
         """
-        :return: the Entrance Year representation of the Entrance.
+        :return: the Year representation of the Past Question.
         """
         return str(self.year)
 
