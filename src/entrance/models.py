@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Entrance(models.Model):
+class PastQuestion(models.Model):
     """
     Represents a Entrance with specific attributes
     """
@@ -21,6 +21,7 @@ class GK(models.Model):
     """
     Represents a GK i.e. General Knowledge with specific attributes
     """
+    name                   = models.CharField(max_length=50,blank=True)
     is_shown               = models.BooleanField(default=True)
     pdf_url                = models.URLField(max_length=200)
     is_pdf                 = models.BooleanField(default=False)
@@ -28,9 +29,25 @@ class GK(models.Model):
 
     def __str__(self):
         """
-        :return: the PDF URL for GK with specific attributes
+        :return: the name of General Knowledge with specific attributes
         """
-        return self.pdf_url
+        return self.name
+
+class ModelQuestion(models.Model):
+    """
+    Represents a Model Question with specific attributes
+    """
+    name                   = models.CharField(max_length=50,blank=True)
+    is_shown               = models.BooleanField(default=True)
+    pdf_url                = models.URLField(max_length=200)
+    is_pdf                 = models.BooleanField(default=False)
+    content                = models.CharField(max_length=300, blank=True)
+
+    def __str__(self):
+        """
+        :return: the name of Model Question with specific attributes
+        """
+        return self.name
 
 class SyllabusInfo(models.Model):
     """
