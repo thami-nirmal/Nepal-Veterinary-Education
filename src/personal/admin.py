@@ -1,5 +1,6 @@
 from django.contrib import admin
 from personal.models import Notice, Experts, KrishiDiarys, Ads
+
 # Register your models here.
 class NoticeAdmin(admin.ModelAdmin):
     list_display = ['name','url','is_shown','is_external']

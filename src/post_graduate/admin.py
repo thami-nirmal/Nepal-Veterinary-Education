@@ -1,5 +1,6 @@
 from django.contrib import admin
 from post_graduate.models import CouncilAct, CouncilRegulation, CouncilModelQuestion, LoksewaModelQuestion, CouncilPastQuestion, LoksewaPastQuestion, LoksewaNotes, SyllabusInfo, CollegeInfo
+
 # Register your models here.
 class CouncilActAdmin(admin.ModelAdmin):
     list_display = ['name','pdf_url','is_shown']
