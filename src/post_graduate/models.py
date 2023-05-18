@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class CouncilAct(models.Model):
     """
-    Represents council act with specific attributes.
+    Represents council act with specific attributes
     """
     name                = models.CharField(max_length=50,blank=True)
     pdf_url             = models.URLField(max_length=200)
