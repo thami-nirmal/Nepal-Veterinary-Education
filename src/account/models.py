@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     """
-    Represents profile i.e. user profile with specific attributes
+    Represents profile i.e. user profile with specific attributes.
     """
     uuid                 = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user                 = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -19,6 +19,6 @@ class Profile(models.Model):
 
     def __str__(self):
         """
-        :return: the user-name of User representation of Profile
+        :return: the user-name of User representation of Profile.
         """
         return self.user.username
