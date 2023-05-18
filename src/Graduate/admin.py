@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Graduate.models import Subject, Chapter, MaterialType, SemYear, Level
+from graduate.models import Subject, Chapter, MaterialType, SemYear, Level
 
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):

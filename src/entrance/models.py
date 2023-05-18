@@ -17,6 +17,9 @@ class PastQuestion(models.Model):
         """
         return str(self.year)
 
+    class Meta:
+        verbose_name_plural = 'Past Question'
+
 class GK(models.Model):
     """
     Represents a GK i.e. General Knowledge with specific attributes.
@@ -32,6 +35,10 @@ class GK(models.Model):
         :return: the name of General Knowledge representation of the GK.
         """
         return self.name
+    
+    class Meta:
+        verbose_name_plural = 'GK'
+        
 
 class ModelQuestion(models.Model):
     """
@@ -49,20 +56,25 @@ class ModelQuestion(models.Model):
         """
         return self.name
 
-class SyllabusInfo(models.Model):
-    """
-    Represents a Syllabus Info  with specific attributes
-    """
-    university_choices        = (
+    class Meta:
+        verbose_name_plural = 'Model Question'
+
+
+university_choices        = (
                                  ('un1', 'university 1'),
                                  ('un2', 'university 2'),
                                  ('un3', 'university 3'),
                                 )
-    faculty_choices           = (
+faculty_choices           = (
                                  ('fc1', 'faculty 1'),
                                  ('fc2', 'faculty 2'),
                                  ('fc3', 'faculty 3'),
                                 )
+
+class SyllabusInfo(models.Model):
+    """
+    Represents a Syllabus Info  with specific attributes
+    """
     university_choices        = models.CharField(max_length=10, choices=university_choices, blank=True)
     faculty_choices           = models.CharField(max_length=10, choices=faculty_choices, blank=True)
     subject                   = models.CharField(max_length=50,blank=True)
@@ -75,20 +87,13 @@ class SyllabusInfo(models.Model):
         """
         return self.university_choices
 
+    class Meta:
+        verbose_name_plural = 'Syllabus Info'
+
 class CollegeInfo(models.Model):
     """
     Represents a College Info with specific attributes.
     """
-    university_choices              = (
-                                       ('un1', 'university 1'),
-                                       ('un2', 'university 2'),
-                                       ('un3', 'university 3'),
-                                      )
-    faculty_choices                 = (
-                                       ('fc1', 'faculty 1'),
-                                       ('fc2', 'faculty 2'),
-                                       ('fc3', 'faculty 3'),
-                                      )
     university_choices              = models.CharField(max_length=10, choices=university_choices,default='')
     faculty_choices                 = models.CharField(max_length=10, choices=faculty_choices,default='')
     department                      = models.CharField(max_length=50,blank=True)
@@ -100,6 +105,9 @@ class CollegeInfo(models.Model):
         :return: the University Choices representation of CollegeInfo.
         """
         return self.university_choices
+
+    class Meta:
+        verbose_name_plural = 'College Info'
 
     
     

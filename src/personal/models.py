@@ -15,6 +15,9 @@ class Notice(models.Model):
         :return: the name of Notice representation of Notice
         """
         return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Notice'
 
 class Experts(models.Model):
     """
@@ -29,6 +32,9 @@ class Experts(models.Model):
         """
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Expert'
+
 class KrishiDiarys(models.Model):
     """
     Represents KrishiDiarys with specific attributes
@@ -42,6 +48,9 @@ class KrishiDiarys(models.Model):
         :return: the name of Krishi Diarys representation of KrishiDiarys
         """
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Krishi Diary'
         
 class Ads(models.Model):
     """
@@ -56,6 +65,9 @@ class Ads(models.Model):
         :return: the position of Ads representation of Ads
         """
         return self.position
+    
+    class Meta:
+        verbose_name_plural = 'Ads'
 
 
     

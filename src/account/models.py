@@ -22,3 +22,6 @@ class Profile(models.Model):
         :return: the user-name of User representation of Profile.
         """
         return self.user.username
+
+    class Meta:
+        verbose_name_plural = 'User Profile'

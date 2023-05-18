@@ -13,6 +13,9 @@ class Level(models.Model):
         :return: the level name representation of the Level.
         """
         return self.level_name
+    
+    class Meta:
+        verbose_name_plural = 'Level'
 
 class SemYear(models.Model):
     """
@@ -28,6 +31,9 @@ class SemYear(models.Model):
         """
         return str(self.sem_year_num)
 
+    class Meta:
+        verbose_name_plural = 'Semester Year'
+
 class MaterialType(models.Model):
     """
     Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
@@ -42,6 +48,9 @@ class MaterialType(models.Model):
         :return: the material name representation of the MaterialType.
         """
         return self.material_name
+
+    class Meta:
+        verbose_name_plural = 'Material Type'
 
 class Subject(models.Model):
     """
@@ -61,6 +70,9 @@ class Subject(models.Model):
         """
         return self.subject_name
 
+    class Meta:
+        verbose_name_plural = 'Subject'
+
 class Chapter(models.Model):
     """
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
@@ -77,46 +89,11 @@ class Chapter(models.Model):
         :return: the chapter number representation of the chapter.
         """
         return str(self.chapter_no)
+
+    class Meta:
+        verbose_name_plural = 'Chapter'
         
-#  class SyllabusInfo(models.Model):
-    # university_choices = (
-    #     ('un1', 'university 1'),
-    #     ('un2', 'university 2'),
-    #     ('un3', 'university 3'),
-    #     )
-    # faculty_choices = (
-    #     ('fc1', 'faculty 1'),
-    #     ('fc2', 'faculty 2'),
-    #     ('fc3', 'faculty 3'),
-    #     )
 
-    # university_choices = models.CharField(max_length=10, choices=university_choices, blank=True)
-    # faculty_choices = models.CharField(max_length=10, choices=faculty_choices, blank=True)
-    # subject = models.CharField(max_length=50,blank=True)
-    # marks = models.PositiveSmallIntegerField(null=True)
-    # Is_shown = models.BooleanField(default=False)
-
-    # def __str__(self):
-    #     return self.university_choices
-
-# class CollegeInfo(models.Model):
-#     university_choices = (
-#         ('un1', 'university 1'),
-#         ('un2', 'university 2'),
-#         ('un3', 'university 3'),
-#         )
-#     faculty_choices = (
-#         ('fc1', 'faculty 1'),
-#         ('fc2', 'faculty 2'),
-#         ('fc3', 'faculty 3'),
-#         )
-
-#     university_choices = models.CharField(max_length=10, choices=university_choices,default='')
-#     faculty_choices = models.CharField(max_length=10, choices=faculty_choices,default='')
-#     department = models.CharField(max_length=50,blank=True)
-#     no_of_student = models.PositiveSmallIntegerField(null=True)
-#     Is_shown = models.BooleanField(default=False)
-    
 
 
 
