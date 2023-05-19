@@ -123,9 +123,3 @@ class PostTags(models.Model):
 
     class Meta:
         verbose_name_plural = 'Post Tags'
-
-    
-    
-
-
-
