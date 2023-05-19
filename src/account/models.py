@@ -30,7 +30,7 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, **kwargs):
     if Profile.objects.filter(user = instance).exists():
-        Profile.objects.filter(user=instance).update(first_name=instance.first_name,last_name = instance.last_name,email = instance.email)
+        Profile.objects.filter(user = instance).update(first_name=instance.first_name,last_name = instance.last_name,email = instance.email)
     else:
         Profile.objects.create(user=instance,email=instance.username+'@nepalvetedu.com',first_name='admin',last_name='admin')
 

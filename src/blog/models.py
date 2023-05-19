@@ -8,7 +8,7 @@ class Post(models.Model):
     Represents a Post with specific attributes
     """
     uuid                     = models.UUIDField(primary_key = True,default = uuid.uuid4, editable = False)
-    user_id                  = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
+    user                     = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
     slug                     = models.SlugField(max_length = 50)
     title                    = models.CharField(max_length = 50,blank = True)
     feature_image            = models.ImageField(upload_to='profile_images/', blank = True, null = True)
@@ -19,9 +19,9 @@ class Post(models.Model):
 
     def __str__(self):
         """
-        :return: user ID associated with post 
+        :return: user associated with post 
         """
-        return str(self.user_id)
+        return str(self.user)
 
     class Meta:
         verbose_name_plural  = 'Post'
@@ -30,15 +30,15 @@ class PostComments(models.Model):
     """
     Represents comment on a Post with specific attributes
     """
-    user_id               = models.ForeignKey(User, related_name='postComment_user' ,on_delete=models.CASCADE)
-    post_id               = models.ForeignKey(Post, related_name='postComment_post',on_delete=models.CASCADE)
+    user                  = models.ForeignKey(User, related_name='postComment_user' ,on_delete=models.CASCADE)
+    post                  = models.ForeignKey(Post, related_name='postComment_post',on_delete=models.CASCADE)
     comment               = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         """
-        :return: post ID of the post associated with comment
+        :return: user associated with post comment
         """
-        return str(self.post_id)
+        return str(self.user)
 
     class Meta:
         verbose_name_plural = 'Post Comments'
@@ -47,14 +47,14 @@ class PostViews(models.Model):
     """
     Represents views of a post with specific attributes
     """
-    post_id              = models.ForeignKey(Post, related_name='postViews_post',on_delete=models.CASCADE)
+    post                 = models.ForeignKey(Post, related_name='postViews_post',on_delete=models.CASCADE)
     views                = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         """
-        :return: the post ID associated with post views
+        :return: the post associated with post views
         """
-        return str(self.post_id)
+        return str(self.post)
 
     class Meta:
         verbose_name_plural = 'Post Views'
@@ -63,15 +63,15 @@ class PostLikes(models.Model):
     """
     Represents likes on a post with specific attributes
     """
-    user_id              = models.ForeignKey(User, related_name='postLikes_user',on_delete=models.CASCADE)
-    post_id              = models.ForeignKey(Post, related_name='postLikes_post',on_delete=models.CASCADE)
+    user                 = models.ForeignKey(User, related_name='postLikes_user',on_delete=models.CASCADE)
+    post                 = models.ForeignKey(Post, related_name='postLikes_post',on_delete=models.CASCADE)
     is_liked             = models.BooleanField(default=False)
 
     def __str__(self):
         """
-        :return: user ID associated post likes 
+        :return: user associated post likes 
         """
-        return str(self.user_id)
+        return str(self.user)
 
     class Meta:
         verbose_name_plural = 'Post Likes'
@@ -80,14 +80,14 @@ class UserViews(models.Model):
     """
     Represents views of user on a post with specific attributes
     """
-    user_id             = models.ForeignKey(User,related_name='userViews_user', on_delete=models.CASCADE)
-    post_id             = models.ForeignKey(Post,related_name='userViews_post', on_delete=models.CASCADE)
+    user                = models.ForeignKey(User,related_name='userViews_user', on_delete=models.CASCADE)
+    post                = models.ForeignKey(Post,related_name='userViews_post', on_delete=models.CASCADE)
 
     def __str__(self):
         """
-        :return: user id associated with User views
+        :return: user associated with User views
         """
-        return str(self.user_id)
+        return str(self.user)
 
     class Meta:
         verbose_name_plural = 'User Views'
@@ -96,14 +96,14 @@ class PostDescription(models.Model):
     """
     Represents description of a post with specific attributes
     """
-    post_id              = models.ForeignKey(Post, related_name='postDescription_post',on_delete=models.CASCADE)
+    post                 = models.ForeignKey(Post, related_name='postDescription_post',on_delete=models.CASCADE)
     description          = models.CharField(max_length=300,blank=True)  
 
     def __str__(self):
         """
-        :return: post id associated with post description
+        :return: post associated with post description
         """
-        return str(self.post_id)
+        return str(self.post)
 
     class Meta:
         verbose_name_plural = 'Post Description'
@@ -112,14 +112,14 @@ class PostTags(models.Model):
     """
     Represents tags associated with post with specific attributes
     """
-    post_id            = models.ForeignKey(Post,related_name='postTags_post', on_delete=models.CASCADE)
+    post               = models.ForeignKey(Post,related_name='postTags_post', on_delete=models.CASCADE)
     tags               = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         """
-        :return: post ID associated with post tags
+        :return: post associated with post tags
         """
-        return str(self.post_id)
+        return str(self.post)
 
     class Meta:
         verbose_name_plural = 'Post Tags'
