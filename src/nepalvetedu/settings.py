@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'post_graduate',
     'personal',
     'account',
+    'blog',
 ]
 
 MIDDLEWARE = [
