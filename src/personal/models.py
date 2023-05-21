@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class NewsAndNotice(models.Model):
     """
-    Represents Notice with specific attributes.
+    Represents News and Notice with specific attributes.
     """
     name                       = models.CharField(max_length=50,blank=True)
     title                      = models.CharField(max_length=50, blank=True)
@@ -15,7 +15,7 @@ class NewsAndNotice(models.Model):
 
     def __str__(self):
         """
-        :return: the name of Notice representation of Notice
+        :return: the name of News and Notice
         """
         return self.name
     
