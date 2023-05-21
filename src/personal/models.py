@@ -1,14 +1,17 @@
 from django.db import models
 
 # Create your models here.
-class Notice(models.Model):
+class NewsAndNotice(models.Model):
     """
     Represents Notice with specific attributes.
     """
-    name            = models.CharField(max_length=50,blank=True)
-    url             = models.URLField(max_length=200)
-    is_shown        = models.BooleanField(default=True)
-    is_external     = models.BooleanField(default=False)
+    name                       = models.CharField(max_length=50,blank=True)
+    title                      = models.CharField(max_length=50, blank=True)
+    short_description          = models.CharField(max_length=300, blank=True)
+    image                      = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
+    url                        = models.URLField(max_length=200)
+    is_shown                   = models.BooleanField(default=True)
+    is_news                    = models.BooleanField(default=True)
 
     def __str__(self):
         """
@@ -17,15 +20,20 @@ class Notice(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural = 'Notice'
+        verbose_name_plural = 'News and Notice'
 
 
 class Experts(models.Model):
     """
     Represents Experts with specific attributes
     """
-    name            = models.CharField(max_length=50, blank=True)
-    description     = models.TextField()
+    name                    = models.CharField(max_length=50, blank=True)
+    designation             = models.CharField(max_length=50, blank=True)
+    organization            = models.CharField(max_length=50, blank=True)
+    image                   = models.ImageField(upload_to='expert_images/', blank=True, null=True)
+    facebook_url            = models.URLField(max_length=200, null=True)
+    linkedin_url            = models.URLField(max_length=200, null=True)
+    website                 = models.URLField(max_length=200, null=True)
 
     def __str__(self):
         """
@@ -34,16 +42,16 @@ class Experts(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Expert'
+        verbose_name_plural = 'Experts'
 
 
 class KrishiDiarys(models.Model):
     """
     Represents KrishiDiarys with specific attributes
     """
-    name             = models.CharField(max_length=50, blank=True)
-    pdf_url          = models.URLField(max_length=200)
-    is_shown         = models.BooleanField(default=True)
+    name                   = models.CharField(max_length=50, blank=True)
+    pdf_url                = models.URLField(max_length=200)
+    is_shown               = models.BooleanField(default=True)
 
     def __str__(self):
         """
@@ -59,9 +67,9 @@ class Ads(models.Model):
     """
     Represents Ads with specific attributes
     """
-    position          = models.CharField(max_length=50,blank=True)
-    image             = models.ImageField(upload_to='ads/', blank=True, null=True)
-    is_shown          = models.BooleanField(default=True)
+    position                = models.CharField(max_length=30,blank=True)
+    image                   = models.ImageField(upload_to='ads/', blank=True, null=True)
+    is_shown                = models.BooleanField(default=True)
     
     def __str__(self):
         """
@@ -73,7 +81,77 @@ class Ads(models.Model):
         verbose_name_plural = 'Ads'
 
 
-    
+class NewsLetter(models.Model):
+    """
+    Represents 
+    """
+    email                = models.EmailField(max_length=254)
+    subscribe            = models.BooleanField(default=False)
+
+    def __str__(self):
+        """
+        :return:
+        """
+        return self.email
+
+    class Meta:
+        verbose_name_plural = 'News Letter'
 
     
+class CustomerFeedback(models.Model):
+    """
+    Represents
+    """
+    first_name                = models.CharField(max_length=50, blank=True)
+    last_name                 = models.CharField(max_length=50, blank=True)
+    email                     = models.EmailField(max_length=254, null=True)
+    message                   = models.TextField()
+    is_read                   = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.first_name
+
+    class Meta:
+        verbose_name_plural  = 'Customer Feedback'
+
+    
+class UsefulLinks(models.Model):
+    """
+    Represents
+    """
+    name                          = models.CharField(max_length=50, blank=True)
+    url                           = models.URLField(max_length=254)
+    is_shown                      = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural  = 'Useful Links'
+
+
+class DrugIndex(models.Model):
+    """
+    Represents
+    """
+    trade_name                         = models.CharField(max_length=50, blank=True)
+    composition                        = models.CharField(max_length=100, blank=True)
+    indication_contraindication        = models.CharField(max_length=300, blank=True)
+    dosage                             = models.CharField(max_length=50, blank=True)
+    remarks                            = models.CharField(max_length=200, blank=True)
+    image                              = models.ImageField(upload_to='drug_index_images/',blank=True)
+    is_shown                           = models.BooleanField(default=True) 
+
+    def __str__(self):
+        return self.composition
+
+    class Meta: 
+        verbose_name_plural  = 'Drug Index'
+
+         
+
+
+    
+
+
     

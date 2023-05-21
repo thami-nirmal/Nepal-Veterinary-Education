@@ -4,6 +4,23 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 # Create your models here.
+class PostCategory(models.Model):
+    """
+    Represents 
+    """
+    name               = models.CharField(max_length=50, blank=True)
+    colour             = models.CharField(max_length=25, blank=True)
+
+    def __str__(self):
+        """
+        :return: 
+        """
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Post Category'
+
+
 class Post(models.Model):
     """
     Represents a Post with specific attributes
@@ -17,6 +34,7 @@ class Post(models.Model):
     created_at               = models.DateField(auto_now_add = True)
     updated_at               = models.DateField(auto_now = True)
     short_description        = models.CharField(max_length=300, blank=True)
+    post_category            = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         """
@@ -130,3 +148,21 @@ class PostTags(models.Model):
 
     class Meta:
         verbose_name_plural = 'Post Tags'
+
+
+class FeaturePost(models.Model):
+    """
+    Represents
+    """
+    position            = models.CharField(max_length=30, blank=True)
+    post                = models.OneToOneField(Post, related_name='featurePost_post',on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.position
+
+    class Meta:
+        verbose_name_plural = 'Feature Post'
+
+    
+    
+

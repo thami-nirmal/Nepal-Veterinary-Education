@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Post, PostComments, PostViews, PostLikes, UserViews, PostDescription, PostTags
+from .models import Post, PostComments, PostViews, PostLikes, UserViews, PostDescription, PostTags, PostCategory, FeaturePost
 from django.utils.safestring import mark_safe
 
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description']
+    list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category']
 
 admin.site.register(Post, PostAdmin)
 
@@ -49,6 +49,19 @@ class PostTagsAdmin(admin.ModelAdmin):
     list_display = ['post','tags']
 
 admin.site.register(PostTags, PostTagsAdmin)
+
+
+class PostCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name','colour']
+
+admin.site.register(PostCategory, PostCategoryAdmin)
+
+class FeaturePostAdmin(admin.ModelAdmin):
+    list_display = ['position','post']
+
+admin.site.register(FeaturePost, FeaturePostAdmin)
+
+
 
 
 
