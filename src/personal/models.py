@@ -53,14 +53,14 @@ class KrishiDiarys(models.Model):
 
     class Meta:
         verbose_name_plural = 'Krishi Diary'
-      
-        
+
+
 class Ads(models.Model):
     """
     Represents Ads with specific attributes
     """
     position          = models.CharField(max_length=50,blank=True)
-    image             = models.ImageField(upload_to='ads/')
+    image             = models.ImageField(upload_to='ads/', blank=True, null=True)
     is_shown          = models.BooleanField(default=True)
     
     def __str__(self):
