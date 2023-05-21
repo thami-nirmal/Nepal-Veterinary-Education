@@ -83,14 +83,14 @@ class Ads(models.Model):
 
 class NewsLetter(models.Model):
     """
-    Represents 
+    Represents a news letter subscription entry
     """
     email                = models.EmailField(max_length=254)
     subscribe            = models.BooleanField(default=False)
 
     def __str__(self):
         """
-        :return:
+        :return: the email address of subscriber
         """
         return self.email
 
@@ -100,7 +100,7 @@ class NewsLetter(models.Model):
     
 class CustomerFeedback(models.Model):
     """
-    Represents
+    Represents a customer feedback entry
     """
     first_name                = models.CharField(max_length=50, blank=True)
     last_name                 = models.CharField(max_length=50, blank=True)
@@ -109,6 +109,9 @@ class CustomerFeedback(models.Model):
     is_read                   = models.BooleanField(default=False)
 
     def __str__(self):
+        """
+        :return: the first name of customer
+        """
         return self.first_name
 
     class Meta:
@@ -117,13 +120,16 @@ class CustomerFeedback(models.Model):
     
 class UsefulLinks(models.Model):
     """
-    Represents
+    Represents a useful links with specific attributes
     """
     name                          = models.CharField(max_length=50, blank=True)
     url                           = models.URLField(max_length=254)
     is_shown                      = models.BooleanField(default=True)
 
     def __str__(self):
+        """
+        :return: the name of useful links
+        """
         return self.name
 
     class Meta:
@@ -132,7 +138,7 @@ class UsefulLinks(models.Model):
 
 class DrugIndex(models.Model):
     """
-    Represents
+    Represents a drug index entry
     """
     trade_name                         = models.CharField(max_length=50, blank=True)
     composition                        = models.CharField(max_length=100, blank=True)
@@ -143,6 +149,9 @@ class DrugIndex(models.Model):
     is_shown                           = models.BooleanField(default=True) 
 
     def __str__(self):
+        """
+        :return: the composition of drug index
+        """
         return self.composition
 
     class Meta: 

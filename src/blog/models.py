@@ -6,14 +6,14 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class PostCategory(models.Model):
     """
-    Represents 
+    Represents category of the post with specific attributes
     """
     name               = models.CharField(max_length=50, blank=True)
     colour             = models.CharField(max_length=25, blank=True)
 
     def __str__(self):
         """
-        :return: 
+        :return: category name of the post 
         """
         return self.name
 
@@ -152,12 +152,15 @@ class PostTags(models.Model):
 
 class FeaturePost(models.Model):
     """
-    Represents
+    Represents a feature post with specific attributes
     """
     position            = models.CharField(max_length=30, blank=True)
     post                = models.OneToOneField(Post, related_name='featurePost_post',on_delete=models.CASCADE)
 
     def __str__(self):
+        """
+        :return: position of feature post
+        """
         return self.position
 
     class Meta:
