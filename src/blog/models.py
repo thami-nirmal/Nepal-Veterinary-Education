@@ -27,6 +27,7 @@ class Post(models.Model):
     class Meta:
         verbose_name_plural  = 'Post'
 
+
 class PostComments(models.Model):
     """
     Represents comment on a Post with specific attributes
@@ -44,6 +45,7 @@ class PostComments(models.Model):
     class Meta:
         verbose_name_plural = 'Post Comments'
 
+
 class PostViews(models.Model):
     """
     Represents views of a post with specific attributes
@@ -59,6 +61,7 @@ class PostViews(models.Model):
 
     class Meta:
         verbose_name_plural = 'Post Views'
+
 
 class PostLikes(models.Model):
     """
@@ -77,6 +80,7 @@ class PostLikes(models.Model):
     class Meta:
         verbose_name_plural = 'Post Likes'
 
+
 class UserViews(models.Model):
     """
     Represents views of user on a post with specific attributes
@@ -93,6 +97,7 @@ class UserViews(models.Model):
     class Meta:
         verbose_name_plural = 'User Views'
 
+
 class PostDescription(models.Model):
     """
     Represents description of a post with specific attributes
@@ -108,6 +113,7 @@ class PostDescription(models.Model):
 
     class Meta:
         verbose_name_plural = 'Post Description'
+
 
 class PostTags(models.Model):
     """

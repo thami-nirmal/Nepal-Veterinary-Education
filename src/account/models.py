@@ -27,6 +27,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural       = 'User Profile' 
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, **kwargs):
     if Profile.objects.filter(user = instance).exists():

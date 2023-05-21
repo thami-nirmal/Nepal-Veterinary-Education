@@ -1,6 +1,7 @@
 from django.contrib import admin
 from graduate.models import Subject, Chapter, MaterialType, SemYear, Level
 from django.utils.safestring import mark_safe
+
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
     list_display=['subject_name','has_chapter_content','formatted_content','pdf_URL','is_pdf','is_visible','material_type']

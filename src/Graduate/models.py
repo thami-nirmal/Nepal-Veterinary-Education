@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+
 # Create your models here.
 class Level(models.Model):
     """
@@ -16,6 +17,7 @@ class Level(models.Model):
     
     class Meta:
         verbose_name_plural = 'Level'
+
 
 class SemYear(models.Model):
     """
@@ -34,6 +36,7 @@ class SemYear(models.Model):
     class Meta:
         verbose_name_plural = 'Semester Year'
 
+
 class MaterialType(models.Model):
     """
     Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
@@ -51,6 +54,7 @@ class MaterialType(models.Model):
 
     class Meta:
         verbose_name_plural = 'Material Type'
+
 
 class Subject(models.Model):
     """
@@ -72,6 +76,7 @@ class Subject(models.Model):
 
     class Meta:
         verbose_name_plural = 'Subject'
+
 
 class Chapter(models.Model):
     """

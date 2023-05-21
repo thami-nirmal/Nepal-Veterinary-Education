@@ -19,6 +19,7 @@ class Notice(models.Model):
     class Meta:
         verbose_name_plural = 'Notice'
 
+
 class Experts(models.Model):
     """
     Represents Experts with specific attributes
@@ -34,6 +35,7 @@ class Experts(models.Model):
 
     class Meta:
         verbose_name_plural = 'Expert'
+
 
 class KrishiDiarys(models.Model):
     """
@@ -51,6 +53,7 @@ class KrishiDiarys(models.Model):
 
     class Meta:
         verbose_name_plural = 'Krishi Diary'
+      
         
 class Ads(models.Model):
     """

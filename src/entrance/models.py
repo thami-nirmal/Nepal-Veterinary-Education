@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+
 # Create your models here.
 class PastQuestion(models.Model):
     """
@@ -19,6 +20,7 @@ class PastQuestion(models.Model):
 
     class Meta:
         verbose_name_plural = 'Past Question'
+
 
 class GK(models.Model):
     """
@@ -71,6 +73,7 @@ faculty_choices           = (
                                  ('fc3', 'faculty 3'),
                                 )
 
+
 class SyllabusInfo(models.Model):
     """
     Represents a Syllabus Info  with specific attributes
@@ -89,6 +92,7 @@ class SyllabusInfo(models.Model):
 
     class Meta:
         verbose_name_plural = 'Syllabus Info'
+
 
 class CollegeInfo(models.Model):
     """
