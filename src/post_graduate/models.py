@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 class CouncilAct(models.Model):
     """
@@ -42,7 +42,7 @@ class CouncilModelQuestion(models.Model):
     is_shown            = models.BooleanField(default=True)
     pdf_url             = models.URLField(max_length=200)
     is_pdf              = models.BooleanField(default=False)
-    content             = models.CharField(max_length=300, blank=True)
+    content             = RichTextField()
 
     def __str__(self):
         """
@@ -60,7 +60,7 @@ class LoksewaModelQuestion(models.Model):
     is_shown            = models.BooleanField(default=True)
     pdf_url             = models.URLField(max_length=200)
     is_pdf              = models.BooleanField(default=False)
-    content             = models.CharField(max_length=300, blank=True)
+    content             = RichTextField()
 
     def __str__(self):
         """
@@ -79,7 +79,7 @@ class CouncilPastQuestion(models.Model):
     year                = models.PositiveIntegerField(null=True)
     pdf_url             = models.URLField(max_length=200)
     is_pdf              = models.BooleanField(default=False)
-    content             = models.CharField(max_length=300,blank=True)
+    content             = RichTextField()
     
     def __str__(self):
         """
@@ -98,7 +98,7 @@ class LoksewaPastQuestion(models.Model):
     year               = models.PositiveIntegerField(null=True)
     pdf_url            = models.URLField(max_length=200)
     is_pdf             = models.BooleanField(default=False)
-    content            = models.CharField(max_length=300,blank=True)
+    content            = RichTextField()
     
     def __str__(self):
         """
@@ -116,7 +116,7 @@ class LoksewaNotes(models.Model):
     is_shown           = models.BooleanField(default=True)
     pdf_url            = models.URLField(max_length=200)
     is_pdf             = models.BooleanField(default=False)
-    content            = models.CharField(max_length=300, blank=True)
+    content            = RichTextField()
 
     def __str__(self):
         """

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from post_graduate.models import CouncilAct, CouncilRegulation, CouncilModelQuestion, LoksewaModelQuestion, CouncilPastQuestion, LoksewaPastQuestion, LoksewaNotes, SyllabusInfo, CollegeInfo
+from django.utils.safestring import mark_safe
 
 # Register your models here.
 class CouncilActAdmin(admin.ModelAdmin):
@@ -7,40 +8,73 @@ class CouncilActAdmin(admin.ModelAdmin):
 
 admin.site.register(CouncilAct, CouncilActAdmin)
 
+
 class CouncilRegulationAdmin(admin.ModelAdmin):
     list_display = ['name','pdf_url','is_shown']
 
 admin.site.register(CouncilRegulation, CouncilRegulationAdmin)
 
+
 class CouncilModelQuestionAdmin(admin.ModelAdmin):
-    list_display = ['is_shown','pdf_url','is_pdf','content']
+    list_display = ['is_shown','pdf_url','is_pdf','formatted_content']
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+
+    formatted_content.short_description = 'content'
 
 admin.site.register(CouncilModelQuestion, CouncilModelQuestionAdmin)
 
+
 class LoksewaModelQuestionAdmin(admin.ModelAdmin):
-    list_display = ['is_shown','pdf_url','is_pdf','content']
+    list_display = ['is_shown','pdf_url','is_pdf','formatted_content']
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+
+    formatted_content.short_description = 'content'
 
 admin.site.register(LoksewaModelQuestion, LoksewaModelQuestionAdmin)
 
+
 class CouncilPastQuestionAdmin(admin.ModelAdmin):
-    list_display = ['is_shown','year','pdf_url','is_pdf','content']
+    list_display = ['is_shown','year','pdf_url','is_pdf','formatted_content']
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+    
+    formatted_content.short_description = 'content'
 
 admin.site.register(CouncilPastQuestion, CouncilPastQuestionAdmin)
 
+
 class LoksewaPastQuestionAdmin(admin.ModelAdmin):
-    list_display = ['is_shown','year','pdf_url','is_pdf','content']
+    list_display = ['is_shown','year','pdf_url','is_pdf','formatted_content']
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+    
+    formatted_content.short_description = 'content'
 
 admin.site.register(LoksewaPastQuestion, LoksewaPastQuestionAdmin)
 
+
 class LoksewaNotesAdmin(admin.ModelAdmin):
-    list_display = ['is_shown','pdf_url','is_pdf','content']
+    list_display = ['is_shown','pdf_url','is_pdf','formatted_content']
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+
+    formatted_content.short_description = 'content'
 
 admin.site.register(LoksewaNotes, LoksewaNotesAdmin)
+
 
 class SyllabusInfoAdmin(admin.ModelAdmin):
     list_display = ['university_choices','faculty_choices','subject','marks','is_shown']
 
 admin.site.register(SyllabusInfo, SyllabusInfoAdmin)
+
 
 class CollegeInfoAdmin(admin.ModelAdmin):
     list_display = ['university_choices','faculty_choices','department','no_of_student','is_shown']

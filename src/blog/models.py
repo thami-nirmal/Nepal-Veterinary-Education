@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Post(models.Model):
@@ -97,7 +98,7 @@ class PostDescription(models.Model):
     Represents description of a post with specific attributes
     """
     post                 = models.ForeignKey(Post, related_name='postDescription_post',on_delete=models.CASCADE)
-    description          = models.CharField(max_length=300,blank=True)  
+    description          = RichTextField()
 
     def __str__(self):
         """

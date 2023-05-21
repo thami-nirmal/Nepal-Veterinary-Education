@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 class PastQuestion(models.Model):
     """
@@ -9,7 +9,7 @@ class PastQuestion(models.Model):
     is_shown              = models.BooleanField(default=True)
     pdf_url               = models.URLField(max_length=200)
     is_pdf                = models.BooleanField(default=False)
-    content               = models.CharField(max_length=300, blank=True)
+    content               = RichTextField()
 
     def __str__(self):
         """
@@ -28,7 +28,7 @@ class GK(models.Model):
     is_shown               = models.BooleanField(default=True)
     pdf_url                = models.URLField(max_length=200)
     is_pdf                 = models.BooleanField(default=False)
-    content                = models.CharField(max_length=300, blank=True)
+    content                = RichTextField()
 
     def __str__(self):
         """
@@ -48,7 +48,7 @@ class ModelQuestion(models.Model):
     is_shown               = models.BooleanField(default=True)
     pdf_url                = models.URLField(max_length=200)
     is_pdf                 = models.BooleanField(default=False)
-    content                = models.CharField(max_length=300, blank=True)
+    content                = RichTextField()
 
     def __str__(self):
         """

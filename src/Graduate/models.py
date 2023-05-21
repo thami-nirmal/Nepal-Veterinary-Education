@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 class Level(models.Model):
     """
@@ -58,7 +58,7 @@ class Subject(models.Model):
     """
     subject_name                  = models.CharField(max_length=50,blank=True)
     has_chapter_content           = models.BooleanField(default=False)
-    content                       = models.CharField(max_length=300, blank=True) 
+    content                       = RichTextField(null=True) 
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
     is_visible                    = models.BooleanField(default=True)
@@ -78,7 +78,7 @@ class Chapter(models.Model):
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
     """
     chapter_no                    = models.PositiveSmallIntegerField(null=True)
-    content                       = models.CharField(max_length=300, blank=True)
+    content                       = RichTextField()
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=False)
     is_visible                    = models.BooleanField(default=True)
