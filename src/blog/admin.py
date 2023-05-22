@@ -6,6 +6,9 @@ from django.utils.safestring import mark_safe
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category']
+    list_filter = ['is_published', 'post_category']
+    search_fields = ['title', 'short_description']
+    ordering = ['-created_at', '-updated_at']
 
     fieldsets = [
         (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category']}),
