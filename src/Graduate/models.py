@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 
 # Create your models here.
 class Level(models.Model):
@@ -42,7 +43,7 @@ class MaterialType(models.Model):
     Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
     """
     material_name                 = models.CharField(max_length=50,blank=True)
-    slug                          = models.SlugField(max_length=50)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False)
     is_visible                    = models.BooleanField(default=True)
     sem_year                      = models.ForeignKey(SemYear, related_name='MaterialType_SemYear', on_delete=models.CASCADE,null=True)
 
@@ -53,7 +54,13 @@ class MaterialType(models.Model):
         return self.material_name
 
     class Meta:
+        db_table = 'Material Type'
         verbose_name_plural = 'Material Type'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.material_name)
+        super(MaterialType, self).save(*args, **kwargs)
 
 
 class Subject(models.Model):

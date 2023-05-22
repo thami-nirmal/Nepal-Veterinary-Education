@@ -2,6 +2,8 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.urls import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 class PostCategory(models.Model):
@@ -27,7 +29,7 @@ class Post(models.Model):
     """
     uuid                     = models.UUIDField(primary_key = True,default = uuid.uuid4, editable = False)
     user                     = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
-    slug                     = models.SlugField(max_length = 50)
+    slug                     = models.SlugField(max_length = 50, unique=True, editable=False)
     title                    = models.CharField(max_length = 50,blank = True)
     feature_image            = models.ImageField(upload_to='profile_images/', blank = True, null = True)
     is_published             = models.BooleanField(default = False)
@@ -43,8 +45,16 @@ class Post(models.Model):
         return str(self.user)
 
     class Meta:
+        db_table  = 'Post'
         verbose_name_plural  = 'Post'
 
+    # def absolute_url(self):
+    #     return reverse('post_detail', kwargs={'slug':self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
 class PostComments(models.Model):
     """
