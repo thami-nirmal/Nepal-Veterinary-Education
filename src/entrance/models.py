@@ -6,11 +6,15 @@ class PastQuestion(models.Model):
     """
     Represents a Past Question with specific attributes.
     """
-    year                  = models.PositiveIntegerField(null=True)
-    is_shown              = models.BooleanField(default=True)
-    pdf_url               = models.URLField(max_length=200)
-    is_pdf                = models.BooleanField(default=False)
-    content               = RichTextField()
+    year                     = models.PositiveIntegerField(null=True)
+    is_shown                 = models.BooleanField(default=True)
+    pdf_url                  = models.URLField(max_length=200)
+    is_pdf                   = models.BooleanField(default=False)
+    content                  = RichTextField()
+    seo_title                = models.CharField(max_length=50, blank=True)
+    seo_keyword              = models.CharField(max_length=200, blank=True)
+    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description          = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -26,11 +30,16 @@ class GK(models.Model):
     """
     Represents a GK i.e. General Knowledge with specific attributes.
     """
-    name                   = models.CharField(max_length=50,blank=True)
-    is_shown               = models.BooleanField(default=True)
-    pdf_url                = models.URLField(max_length=200)
-    is_pdf                 = models.BooleanField(default=False)
-    content                = RichTextField()
+    name                     = models.CharField(max_length=50,blank=True)
+    is_shown                 = models.BooleanField(default=True)
+    pdf_url                  = models.URLField(max_length=200)
+    is_pdf                   = models.BooleanField(default=False)
+    content                  = RichTextField()
+    seo_title                = models.CharField(max_length=50, blank=True)
+    seo_keyword              = models.CharField(max_length=200, blank=True)
+    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description          = models.TextField(blank=True)
+
 
     def __str__(self):
         """
@@ -46,11 +55,15 @@ class ModelQuestion(models.Model):
     """
     Represents a Model Question with specific attributes.
     """
-    name                   = models.CharField(max_length=50,blank=True)
-    is_shown               = models.BooleanField(default=True)
-    pdf_url                = models.URLField(max_length=200)
-    is_pdf                 = models.BooleanField(default=False)
-    content                = RichTextField()
+    name                     = models.CharField(max_length=50,blank=True)
+    is_shown                 = models.BooleanField(default=True)
+    pdf_url                  = models.URLField(max_length=200)
+    is_pdf                   = models.BooleanField(default=False)
+    content                  = RichTextField()
+    seo_title                = models.CharField(max_length=50, blank=True)
+    seo_keyword              = models.CharField(max_length=200, blank=True)
+    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description          = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -83,6 +96,10 @@ class SyllabusInfo(models.Model):
     subject                   = models.CharField(max_length=50,blank=True)
     marks                     = models.PositiveSmallIntegerField(null=True)
     is_shown                  = models.BooleanField(default=True)
+    seo_title                 = models.CharField(max_length=50, blank=True)
+    seo_keyword               = models.CharField(max_length=200, blank=True)
+    seo_image                 = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description           = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -103,6 +120,10 @@ class CollegeInfo(models.Model):
     department                      = models.CharField(max_length=50,blank=True)
     no_of_student                   = models.PositiveSmallIntegerField(null=True)
     is_shown                        = models.BooleanField(default=True)
+    seo_title                       = models.CharField(max_length=50, blank=True)
+    seo_keyword                     = models.CharField(max_length=200, blank=True)
+    seo_image                       = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                 = models.TextField(blank=True)
 
     def __str__(self):
         """

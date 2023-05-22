@@ -5,9 +5,13 @@ class CouncilAct(models.Model):
     """
     Represents council act with specific attributes
     """
-    name                = models.CharField(max_length=50,blank=True)
-    pdf_url             = models.URLField(max_length=200)
-    is_shown            = models.BooleanField(default=True)
+    name                          = models.CharField(max_length=50,blank=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_shown                      = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -22,9 +26,13 @@ class CouncilRegulation(models.Model):
     """
     Represents council regulation with specific attributes
     """
-    name                = models.CharField(max_length=50, blank=True)
-    pdf_url             = models.URLField(max_length=200)
-    is_shown            = models.BooleanField(default=True)
+    name                          = models.CharField(max_length=50, blank=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_shown                      = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -39,10 +47,14 @@ class CouncilModelQuestion(models.Model):
     """
     Represents council model question with specific attributes
     """
-    is_shown            = models.BooleanField(default=True)
-    pdf_url             = models.URLField(max_length=200)
-    is_pdf              = models.BooleanField(default=False)
-    content             = RichTextField()
+    is_shown                      = models.BooleanField(default=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=False)
+    content                       = RichTextField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -57,10 +69,14 @@ class LoksewaModelQuestion(models.Model):
     """
     Represents loksewa model question with specific attributes
     """
-    is_shown            = models.BooleanField(default=True)
-    pdf_url             = models.URLField(max_length=200)
-    is_pdf              = models.BooleanField(default=False)
-    content             = RichTextField()
+    is_shown                      = models.BooleanField(default=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=False)
+    content                       = RichTextField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -75,11 +91,15 @@ class CouncilPastQuestion(models.Model):
     """
     Represents council past question with specific attributes
     """
-    is_shown            = models.BooleanField(default=True)
-    year                = models.PositiveIntegerField(null=True)
-    pdf_url             = models.URLField(max_length=200)
-    is_pdf              = models.BooleanField(default=False)
-    content             = RichTextField()
+    is_shown                      = models.BooleanField(default=True)
+    year                          = models.PositiveIntegerField(null=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=False)
+    content                       = RichTextField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
     
     def __str__(self):
         """
@@ -94,11 +114,15 @@ class LoksewaPastQuestion(models.Model):
     """
     Represents loksewa past question with specific attributes
     """
-    is_shown           = models.BooleanField(default=True)
-    year               = models.PositiveIntegerField(null=True)
-    pdf_url            = models.URLField(max_length=200)
-    is_pdf             = models.BooleanField(default=False)
-    content            = RichTextField()
+    is_shown                      = models.BooleanField(default=True)
+    year                          = models.PositiveIntegerField(null=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=False)
+    content                       = RichTextField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
     
     def __str__(self):
         """
@@ -113,10 +137,14 @@ class LoksewaNotes(models.Model):
     """
     Represents loksewa notes with specific attributes
     """
-    is_shown           = models.BooleanField(default=True)
-    pdf_url            = models.URLField(max_length=200)
-    is_pdf             = models.BooleanField(default=False)
-    content            = RichTextField()
+    is_shown                      = models.BooleanField(default=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=False)
+    content                       = RichTextField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -143,11 +171,15 @@ class SyllabusInfo(models.Model):
     """
     Represents a Syllabus Info  with specific attributes
     """
-    university_choices        = models.CharField(max_length=10, choices=university_choices, blank=True)
-    faculty_choices           = models.CharField(max_length=10, choices=faculty_choices, blank=True)
-    subject                   = models.CharField(max_length=50,blank=True)
-    marks                     = models.PositiveSmallIntegerField(null=True)
-    is_shown                  = models.BooleanField(default=True)
+    university_choices            = models.CharField(max_length=10, choices=university_choices, blank=True)
+    faculty_choices               = models.CharField(max_length=10, choices=faculty_choices, blank=True)
+    subject                       = models.CharField(max_length=50,blank=True)
+    marks                         = models.PositiveSmallIntegerField(null=True)
+    is_shown                      = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -167,6 +199,10 @@ class CollegeInfo(models.Model):
     department                      = models.CharField(max_length=50,blank=True)
     no_of_student                   = models.PositiveSmallIntegerField(null=True)
     is_shown                        = models.BooleanField(default=True)
+    seo_title                       = models.CharField(max_length=50, blank=True)
+    seo_keyword                     = models.CharField(max_length=200, blank=True)
+    seo_image                       = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                 = models.TextField(blank=True)
 
     def __str__(self):
         """

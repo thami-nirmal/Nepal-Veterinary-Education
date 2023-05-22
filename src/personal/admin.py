@@ -5,6 +5,13 @@ from personal.models import NewsAndNotice, Experts, KrishiDiarys, Ads, NewsLette
 class NewsAndNoticeAdmin(admin.ModelAdmin):
     list_display = ['name','title','short_description','image','url','is_shown','is_news']
 
+    fieldsets = [
+        (None, {'fields': ['name','title','short_description','image','url','is_shown','is_news']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
+
 admin.site.register(NewsAndNotice, NewsAndNoticeAdmin)
 
 
@@ -16,6 +23,13 @@ admin.site.register(Experts, ExpertsAdmin)
 
 class KrishiDiarysAdmin(admin.ModelAdmin):
     list_display = ['name','pdf_url','is_shown']
+
+    fieldsets = [
+        (None, {'fields': ['name','pdf_url','is_shown']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
 
 admin.site.register(KrishiDiarys, KrishiDiarysAdmin)
 
@@ -46,6 +60,13 @@ admin.site.register(UsefulLinks, UsefulLinksAdmin)
 
 class DrugIndexAdmin(admin.ModelAdmin):
     list_display = ['trade_name','composition','dosage','remarks','image','is_shown']
+
+    fieldsets = [
+        (None, {'fields': ['trade_name','composition','dosage','remarks','image','is_shown']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
 
 admin.site.register(DrugIndex, DrugIndexAdmin)
 

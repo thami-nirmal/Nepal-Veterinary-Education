@@ -5,13 +5,17 @@ class NewsAndNotice(models.Model):
     """
     Represents News and Notice with specific attributes.
     """
-    name                       = models.CharField(max_length=50,blank=True)
-    title                      = models.CharField(max_length=50, blank=True)
-    short_description          = models.CharField(max_length=300, blank=True)
-    image                      = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
-    url                        = models.URLField(max_length=200)
-    is_shown                   = models.BooleanField(default=True)
-    is_news                    = models.BooleanField(default=True)
+    name                          = models.CharField(max_length=50,blank=True)
+    title                         = models.CharField(max_length=50, blank=True)
+    short_description             = models.CharField(max_length=300, blank=True)
+    image                         = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
+    url                           = models.URLField(max_length=200)
+    is_shown                      = models.BooleanField(default=True)
+    is_news                       = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -49,9 +53,13 @@ class KrishiDiarys(models.Model):
     """
     Represents KrishiDiarys with specific attributes
     """
-    name                   = models.CharField(max_length=50, blank=True)
-    pdf_url                = models.URLField(max_length=200)
-    is_shown               = models.BooleanField(default=True)
+    name                          = models.CharField(max_length=50, blank=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_shown                      = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -146,7 +154,11 @@ class DrugIndex(models.Model):
     dosage                             = models.CharField(max_length=50, blank=True)
     remarks                            = models.CharField(max_length=200, blank=True)
     image                              = models.ImageField(upload_to='drug_index_images/',blank=True)
-    is_shown                           = models.BooleanField(default=True) 
+    is_shown                           = models.BooleanField(default=True)
+    seo_title                          = models.CharField(max_length=50, blank=True)
+    seo_keyword                        = models.CharField(max_length=200, blank=True)
+    seo_image                          = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                    = models.TextField(blank=True)
 
     def __str__(self):
         """

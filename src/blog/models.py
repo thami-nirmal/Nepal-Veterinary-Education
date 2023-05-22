@@ -10,8 +10,12 @@ class PostCategory(models.Model):
     """
     Represents category of the post with specific attributes
     """
-    name               = models.CharField(max_length=50, blank=True)
-    colour             = models.CharField(max_length=25, blank=True)
+    name                     = models.CharField(max_length=50, blank=True)
+    colour                   = models.CharField(max_length=25, blank=True)
+    seo_title                = models.CharField(max_length=50, blank=True)
+    seo_keyword              = models.CharField(max_length=200, blank=True)
+    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description          = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -37,6 +41,10 @@ class Post(models.Model):
     updated_at               = models.DateField(auto_now = True)
     short_description        = models.CharField(max_length=300, blank=True)
     post_category            = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
+    seo_title                = models.CharField(max_length=50, blank=True)
+    seo_keyword              = models.CharField(max_length=200, blank=True)
+    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description          = models.TextField(blank=True)
 
     def __str__(self):
         """

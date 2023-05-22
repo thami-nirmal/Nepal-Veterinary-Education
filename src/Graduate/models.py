@@ -8,7 +8,11 @@ class Level(models.Model):
     Represents a Level i.e Bachelor,Diploma with specific attributes
     """
     level_name                    = models.CharField(max_length=50,blank=True)
-    is_visible                    = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -25,8 +29,13 @@ class SemYear(models.Model):
     Represents a Semester Or Year with specific attributes
     """
     sem_year_num                  = models.PositiveSmallIntegerField(null=True)
-    is_visible                    = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
     level                         = models.ForeignKey(Level, related_name='SemYear_Level', on_delete=models.CASCADE,null=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
+
 
     def __str__(self):
         """
@@ -44,8 +53,12 @@ class MaterialType(models.Model):
     """
     material_name                 = models.CharField(max_length=50,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False)
-    is_visible                    = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
     sem_year                      = models.ForeignKey(SemYear, related_name='MaterialType_SemYear', on_delete=models.CASCADE,null=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -72,8 +85,12 @@ class Subject(models.Model):
     content                       = RichTextField(null=True) 
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    is_visible                    = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
     material_type                 = models.ForeignKey(MaterialType, related_name='Subject_MaterialType', on_delete=models.CASCADE,null=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -93,9 +110,13 @@ class Chapter(models.Model):
     content                       = RichTextField()
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=False)
-    is_visible                    = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
     subject                       = models.ForeignKey(Subject, related_name='Chapter_Subject', on_delete=models.CASCADE,null=True)
- 
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
+
     def __str__(self):
         """
         :return: the chapter number representation of the chapter.

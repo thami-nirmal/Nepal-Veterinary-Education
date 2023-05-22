@@ -7,6 +7,15 @@ from django.utils.safestring import mark_safe
 class PostAdmin(admin.ModelAdmin):
     list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category']
 
+    fieldsets = [
+        (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
+
+    readonly_fields = ['slug','created_at','updated_at']
+
 admin.site.register(Post, PostAdmin)
 
 
@@ -53,6 +62,14 @@ admin.site.register(PostTags, PostTagsAdmin)
 
 class PostCategoryAdmin(admin.ModelAdmin):
     list_display = ['name','colour']
+
+    fieldsets = [
+        (None, {'fields': ['name', 'colour']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
+
 
 admin.site.register(PostCategory, PostCategoryAdmin)
 
