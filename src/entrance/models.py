@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class PastQuestion(models.Model):
@@ -10,7 +10,8 @@ class PastQuestion(models.Model):
     is_shown                 = models.BooleanField(default=True)
     pdf_url                  = models.URLField(max_length=200)
     is_pdf                   = models.BooleanField(default=False)
-    content                  = RichTextField()
+    content                  = RichTextUploadingField()
+    types                    = models.CharField(max_length=100, blank=True)
     seo_title                = models.CharField(max_length=50, blank=True)
     seo_keyword              = models.CharField(max_length=200, blank=True)
     seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -34,7 +35,7 @@ class GK(models.Model):
     is_shown                 = models.BooleanField(default=True)
     pdf_url                  = models.URLField(max_length=200)
     is_pdf                   = models.BooleanField(default=False)
-    content                  = RichTextField()
+    content                  = RichTextUploadingField()
     seo_title                = models.CharField(max_length=50, blank=True)
     seo_keyword              = models.CharField(max_length=200, blank=True)
     seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -59,7 +60,8 @@ class ModelQuestion(models.Model):
     is_shown                 = models.BooleanField(default=True)
     pdf_url                  = models.URLField(max_length=200)
     is_pdf                   = models.BooleanField(default=False)
-    content                  = RichTextField()
+    content                  = RichTextUploadingField()
+    year                     = models.PositiveIntegerField(null=True)
     seo_title                = models.CharField(max_length=50, blank=True)
     seo_keyword              = models.CharField(max_length=200, blank=True)
     seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)

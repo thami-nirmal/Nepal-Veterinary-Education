@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 
 # Create your models here.
@@ -31,6 +31,7 @@ class SemYear(models.Model):
     sem_year_num                  = models.PositiveSmallIntegerField(null=True)
     is_shown                      = models.BooleanField(default=True)
     level                         = models.ForeignKey(Level, related_name='SemYear_Level', on_delete=models.CASCADE,null=True)
+    is_year                       = models.BooleanField(default=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -82,7 +83,7 @@ class Subject(models.Model):
     """
     subject_name                  = models.CharField(max_length=50,blank=True)
     has_chapter_content           = models.BooleanField(default=False)
-    content                       = RichTextField(null=True) 
+    content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
     is_shown                      = models.BooleanField(default=True)
@@ -107,7 +108,7 @@ class Chapter(models.Model):
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
     """
     chapter_no                    = models.PositiveSmallIntegerField(null=True)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=False)
     is_shown                      = models.BooleanField(default=True)

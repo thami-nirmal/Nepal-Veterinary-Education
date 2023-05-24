@@ -1,23 +1,26 @@
 from django.contrib import admin
-from .models import Post, PostComments, PostViews, PostLikes, UserViews, PostDescription, PostTags, PostCategory, FeaturePost
+from .models import Post, PostComments, PostViews, PostLikes, UserViews, PostTags, PostCategory, FeaturePost
 from django.utils.safestring import mark_safe
 
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category']
+    list_display = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category','formatted_content']
     list_filter = ['is_published', 'post_category']
     search_fields = ['title', 'short_description']
     ordering = ['-created_at', '-updated_at']
 
+    def formatted_content(self, obj):
+        return mark_safe(obj.description)
+
+    formatted_content.short_description = 'description'
+
     fieldsets = [
-        (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category']}),
+        (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category','description']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
     ]
-
-    readonly_fields = ['slug','created_at','updated_at']
 
 admin.site.register(Post, PostAdmin)
 
@@ -46,16 +49,6 @@ class UserViewsAdmin(admin.ModelAdmin):
 admin.site.register(UserViews, UserViewsAdmin)
 
 
-class PostDescriptionAdmin(admin.ModelAdmin):
-    list_display = ['post','formatted_content']
-
-    def formatted_content(self, obj):
-        return mark_safe(obj.description)
-
-    formatted_content.short_description = 'description'
-
-admin.site.register(PostDescription, PostDescriptionAdmin)
-
 
 class PostTagsAdmin(admin.ModelAdmin):
     list_display = ['post','tags']
@@ -73,8 +66,8 @@ class PostCategoryAdmin(admin.ModelAdmin):
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
     ]
 
-
 admin.site.register(PostCategory, PostCategoryAdmin)
+
 
 class FeaturePostAdmin(admin.ModelAdmin):
     list_display = ['position','post']

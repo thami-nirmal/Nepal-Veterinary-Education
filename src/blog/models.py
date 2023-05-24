@@ -1,8 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
-from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 
 # Create your models here.
@@ -41,6 +40,7 @@ class Post(models.Model):
     updated_at               = models.DateField(auto_now = True)
     short_description        = models.CharField(max_length=300, blank=True)
     post_category            = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
+    description              = RichTextUploadingField()
     seo_title                = models.CharField(max_length=50, blank=True)
     seo_keyword              = models.CharField(max_length=200, blank=True)
     seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -132,23 +132,6 @@ class UserViews(models.Model):
 
     class Meta:
         verbose_name_plural = 'User Views'
-
-
-class PostDescription(models.Model):
-    """
-    Represents description of a post with specific attributes
-    """
-    post                 = models.ForeignKey(Post, related_name='postDescription_post',on_delete=models.CASCADE)
-    description          = RichTextField()
-
-    def __str__(self):
-        """
-        :return: post associated with post description
-        """
-        return str(self.post)
-
-    class Meta:
-        verbose_name_plural = 'Post Description'
 
 
 class PostTags(models.Model):

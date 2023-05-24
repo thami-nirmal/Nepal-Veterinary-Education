@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 class CouncilAct(models.Model):
     """
@@ -47,10 +47,11 @@ class CouncilModelQuestion(models.Model):
     """
     Represents council model question with specific attributes
     """
+    name                          = models.CharField(max_length=50, blank=True)
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField()
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -69,10 +70,11 @@ class LoksewaModelQuestion(models.Model):
     """
     Represents loksewa model question with specific attributes
     """
+    name                          = models.CharField(max_length=50, blank=True)
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField()
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -95,7 +97,8 @@ class CouncilPastQuestion(models.Model):
     year                          = models.PositiveIntegerField(null=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField()
+    types                         = models.CharField(max_length=60, blank=True) 
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -118,7 +121,8 @@ class LoksewaPastQuestion(models.Model):
     year                          = models.PositiveIntegerField(null=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField()
+    types                         = models.CharField(max_length=60, blank=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -137,10 +141,11 @@ class LoksewaNotes(models.Model):
     """
     Represents loksewa notes with specific attributes
     """
+    name                          = models.CharField(max_length=50, blank=True)
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=False)
-    content                       = RichTextField()
+    content                       = RichTextUploadingField()
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)

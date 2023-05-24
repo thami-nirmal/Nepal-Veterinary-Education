@@ -38,7 +38,9 @@ class Experts(models.Model):
     facebook_url            = models.URLField(max_length=200, null=True)
     linkedin_url            = models.URLField(max_length=200, null=True)
     website                 = models.URLField(max_length=200, null=True)
+    is_shown                = models.BooleanField(default=True)
 
+    
     def __str__(self):
         """
         :return: the name of Experts representation of Experts
