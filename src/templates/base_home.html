@@ -41,7 +41,7 @@
             <div class="nve-header-top">
                 <a href="#">
                     <div class="top-left">
-                        <img src="{% static 'img/logo.png' %}" alt="Logo" />
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" />
                         <span class="s-name">Nepal Veterinary Education</span>
                     </div>
                 </a>
@@ -120,10 +120,10 @@
                         <div class="responsive-drop tabcontent" id="nav-one">
                             <ul>
                                 <li>
-                                    <a href="http://127.0.0.1:8000/entrance/entrance_prep_syllabus/">Syllabus</a>
+                                    <a href="{% url 'entrance_syllabus_info' %}">Syllabus</a>
                                 </li>
                                 <li>
-                                    <a href="http://127.0.0.1:8000/entrance/entrance_college_info/">College Info</a>
+                                    <a href="{% url 'entrance_college_info' %}">College Info</a>
                                 </li>
                                 <li>
                                     <a href="#">Link 1</a>
@@ -206,7 +206,7 @@
                         <ul>
                             <li>
                                 <div class="navbar-home">
-                                    <a href="#" class="dropdown active">Home</a>
+                                    <a href="{% url 'index' %}" class="dropdown active">Home</a>
                                 </div>
                             </li>
                             <li>
@@ -222,10 +222,10 @@
                                     <div class="dropdown-content">
                                         <ul>
                                             <li>
-                                                <a href="http://127.0.0.1:8000/entrance/entrance_prep_syllabus/">Syllabus</a>
+                                                <a href="{% url 'entrance_syllabus_info' %}">Syllabus</a>
                                             </li>
                                             <li>
-                                                <a href="http://127.0.0.1:8000/entrance/entrance_college_info/">College Info</a>
+                                                <a href="{% url 'entrance_college_info' %}">College Info</a>
                                             </li>
                                             <li>
                                                 <a href="#">Link 1</a>

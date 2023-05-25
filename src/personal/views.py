@@ -9,11 +9,11 @@ class HomeView(View):
     
 class UsefulLinksView(View):
     def get(self, request, *args, **kwargs):
-        template_name = 'useful-links.html'
+        template_name = 'useful_links.html'
         return render(request, template_name)
 
 class NewsNoticeView(View):
     def get(self, request, *args, **kwargs):
-        template_name = 'news-notice-syllabus.html'
+        template_name = 'news_notice_syllabus.html'
         return render(request, template_name)
 

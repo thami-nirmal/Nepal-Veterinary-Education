@@ -1,9 +1,13 @@
 #write urls code here
 from django.urls import path
-from personal.views import HomeView, UsefulLinksView, NewsNoticeView
+from personal.views import (
+    HomeView, 
+    UsefulLinksView, 
+    NewsNoticeView
+    )
 
 urlpatterns = [
     path('',HomeView.as_view(), name='index'),
-    path('useful_links/',UsefulLinksView.as_view(), name='usefullinks'),
-    path('news_notice_syllabus/',NewsNoticeView.as_view(), name='newsnotice'),
+    path('useful-links/',UsefulLinksView.as_view(), name='useful_links'),
+    path('news-notice-syllabus/',NewsNoticeView.as_view(), name='news_notice'),
 ]

@@ -4,6 +4,6 @@ from .views import GkView, SyllabusInfoView, CollegeInfoView
 
 urlpatterns = [
     path('gk/',GkView.as_view(), name='gk'),
-    path('entrance_prep_syllabus/',SyllabusInfoView.as_view(), name='syllabusinfo'),
-    path('entrance_college_info/',CollegeInfoView.as_view(), name='collegeinfo'),
+    path('entrance-prep-syllabus/',SyllabusInfoView.as_view(), name='entrance_syllabus_info'),
+    path('entrance-college-info/',CollegeInfoView.as_view(), name='entrance_college_info'),
 ]
