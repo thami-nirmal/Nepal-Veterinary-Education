@@ -14,4 +14,13 @@ class GkView(View):
         template_name = 'gk.html'
         return render(request, template_name)
 
+class SyllabusInfoView(View):
+    def get(self, request, *args, **kwargs):
+        template_name = 'entrance_prep_syllabus.html'
+        return render(request, template_name)
 
+
+class CollegeInfoView(View):
+    def get(self, request, *args, **kwargs):
+        template_name = 'entrance_college_info.html'
+        return render(request, template_name)
