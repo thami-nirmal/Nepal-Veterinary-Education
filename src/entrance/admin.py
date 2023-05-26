@@ -64,12 +64,12 @@ class ModelQuestionAdmin(admin.ModelAdmin):
 admin.site.register(ModelQuestion, ModelQuestionAdmin)
 
 class SyllabusInfoAdmin(admin.ModelAdmin):
-    list_display         = ['university_choices','faculty_choices','subject','marks','is_shown']
+    list_display         = ['university_choices','faculty_choices','subject','no_of_question','marks','is_shown']
     list_filter          = ['is_shown', 'university_choices','faculty_choices']
     search_fields        = ['subject']
 
     fieldsets = [
-        (None, {'fields': ['university_choices','faculty_choices','subject','marks','is_shown']}),
+        (None, {'fields': ['university_choices','faculty_choices','subject','no_of_question','marks','is_shown']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

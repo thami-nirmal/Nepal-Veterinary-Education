@@ -21,10 +21,13 @@ Entrance Preparation Syallabus
                         </div>
                         <div class="error-404-underline que-coll-line"></div>
                         <div class="ent-prep-left">
+                            <div class="ent-prep-left-item-with-head">
+                                <h2>{{data.first.university_choices}}</h2>
+                                {% for info in data %}
+                                
                             <div class="ent-prep-item">
                                 <div class="ent-prep-item-content flex-column">
-                                    <span>B.V.Sc and A.H Fisheries</span>
-                                    <p>Marks Distribution</p>
+                                    <span>{{info.faculty_choices}}</span>
                                 </div>
                                 <div class="ent-perp-dropdown">
                                     <table>
@@ -34,92 +37,14 @@ Entrance Preparation Syallabus
                                             <th>Marks</th>
                                         </tr>
                                         <tr>
-                                            <td>Englist</td>
-                                            <td>12</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Maths</td>
-                                            <td>13</td>
-                                            <td>15</td>
+                                            <td>{{info.subject}}</td>
+                                            <td>{{info.no_of_questions}}</td>
+                                            <td>{{info.marks}}</td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                            <div class="ent-prep-item">
-                                <div class="ent-prep-item-content flex-column">
-                                    <span>B.V.Sc and A.H Fisheries</span>
-                                    <p>Marks Distribution</p>
-                                </div>
-                                <div class="ent-perp-dropdown">
-                                    <table>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Questions</th>
-                                            <th>Marks</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Englist</td>
-                                            <td>12</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Botany</td>
-                                            <td>13</td>
-                                            <td>15</td>
-                                        </tr>
-                                    </table>
-                                </div>
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
