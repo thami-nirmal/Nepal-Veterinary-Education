@@ -16,36 +16,49 @@ Entrance Preparation Syallabus
                             </a>
                             <i class="fa-sharp fa-solid fa-angle-right"></i>
                             <a href="#">
-                                <span>Useful Links</span>
+                                <span>Entrance</span>
+                            </a>
+                            <i class="fa-sharp fa-solid fa-angle-right"></i>
+                            <a href="#">
+                                <span>Syllabus</span>
                             </a>
                         </div>
                         <div class="error-404-underline que-coll-line"></div>
                         <div class="ent-prep-left">
-                            <div class="ent-prep-left-item-with-head">
-                                <h2>{{data.first.university_choices}}</h2>
-                                {% for info in data %}
-                                
-                            <div class="ent-prep-item">
-                                <div class="ent-prep-item-content flex-column">
-                                    <span>{{info.faculty_choices}}</span>
+                                {% for university,data in group.items %}
+                                <div class="ent-prep-left-item-with-head">
+                                    <h2>{{ university }}</h2>
+                                    {% for faculty,data in data.items %}
+                                        <div class="ent-prep-item">
+                                            <div
+                                                class="ent-prep-item-content flex-column"
+                                            >
+                                                
+                                                <div class="ent-prep-faculty">
+                                                    <p>Faculty : {{ faculty }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="ent-perp-dropdown">
+                                                <table>
+                                                    <tr>
+                                                        <th>Subject</th>
+                                                        <th>Questions</th>
+                                                        <th>Marks</th>
+                                                    </tr>
+                                                    {% for data in data %}
+                                                    <tr>
+                                                        <td>{{ data.0 }}</td>
+                                                        <td>{{ data.1 }}</td>
+                                                        <td>{{ data.2 }}5</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    
+                                    {% endfor %}
                                 </div>
-                                <div class="ent-perp-dropdown">
-                                    <table>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Questions</th>
-                                            <th>Marks</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{info.subject}}</td>
-                                            <td>{{info.no_of_questions}}</td>
-                                            <td>{{info.marks}}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            </div>
+                                {% endfor %}
                         </div>
                     </div>
                     
