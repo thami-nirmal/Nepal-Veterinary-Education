@@ -19,20 +19,21 @@ class SyllabusInfoView(View):
     def get(self, request, *args, **kwargs):
         template_name                  = 'entrance_prep_syllabus.html'
         syllabus_info_object           = SyllabusInfo.objects.filter(is_shown=True)
-        tu_syllabus_info_object        = syllabus_info_object.filter(university_choices = 'TU').order_by('faculty_choices')
         
         group = {}
-        for data in syllabus_info_object:
-            if data.university_choices not in group:
-                group[data.university_choices] = {}
-            if data.faculty_choices not in group[data.university_choices]:
-                group[data.university_choices][data.faculty_choices] = []
-            syllabus_data = [data.subject, data.no_of_question, data.marks]
-            group[data.university_choices][data.faculty_choices].append(syllabus_data)
+        syllabus_data = []
+
+        if syllabus_info_object.exists():
+            for data in syllabus_info_object:
+                if data.university_choices not in group:
+                    group[data.university_choices] = {}
+                if data.faculty_choices not in group[data.university_choices]:
+                    group[data.university_choices][data.faculty_choices] = []
+                syllabus_data = [data.subject, data.no_of_question, data.marks]
+                group[data.university_choices][data.faculty_choices].append(syllabus_data)
 
         # print(group)
         context = {
-            'data' : tu_syllabus_info_object,
             'syllabus_data' : syllabus_data,
             'group': group,
         }
@@ -43,20 +44,22 @@ class CollegeInfoView(View):
     def get(self, request, *args, **kwargs):
         template_name                   = 'entrance_college_info.html'
         college_info_object             = CollegeInfo.objects.filter(is_shown=True)
-        tu_college_info_object          = college_info_object.filter(university_choices = 'TU').order_by('faculty_choices')
 
         group = {}
-        for data in college_info_object:
-            if data.university_choices not in group:
-                group[data.university_choices] = {}
-            if data.faculty_choices not in group[data.university_choices]:
-                group[data.university_choices][data.faculty_choices] = []
-            college_data = [data.quota_name, data.no_of_student]
-            group[data.university_choices][data.faculty_choices].append(college_data)
+        college_data = []
+        
+        if college_info_object.exists():
+            for data in college_info_object:
+                if data.university_choices not in group:
+                    group[data.university_choices] = {}
+                if data.faculty_choices not in group[data.university_choices]:
+                    group[data.university_choices][data.faculty_choices] = []
+                college_data = [data.quota_name, data.no_of_student]
+                group[data.university_choices][data.faculty_choices].append(college_data)
 
         context = {
-            'data' : tu_college_info_object,
             'college_data' : college_data,
             'group' : group,
         }
         return render(request, template_name, context)
+

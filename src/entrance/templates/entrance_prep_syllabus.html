@@ -25,10 +25,10 @@ Entrance Preparation Syllabus
                         </div>
                         <div class="error-404-underline que-coll-line"></div>
                         <div class="ent-prep-left">
-                                {% for university,data in group.items %}
+                                {% for university, faculty_data in group.items %}
                                 <div class="ent-prep-left-item-with-head">
                                     <h2>{{ university }}</h2>
-                                    {% for faculty,data in data.items %}
+                                    {% for faculty, subject_data in faculty_data.items %}
                                         <div class="ent-prep-item">
                                             <div
                                                 class="ent-prep-item-content flex-column"
@@ -45,11 +45,11 @@ Entrance Preparation Syllabus
                                                         <th>Questions</th>
                                                         <th>Marks</th>
                                                     </tr>
-                                                    {% for data in data %}
+                                                    {% for data in subject_data %}
                                                     <tr>
                                                         <td>{{ data.0 }}</td>
                                                         <td>{{ data.1 }}</td>
-                                                        <td>{{ data.2 }}5</td>
+                                                        <td>{{ data.2 }}</td>
                                                     </tr>
                                                     {% endfor %}
                                                 </table>
