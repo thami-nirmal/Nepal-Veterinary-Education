@@ -120,7 +120,7 @@ class CollegeInfo(models.Model):
     """
     university_choices              = models.CharField(max_length=100, choices=university_choices,default='')
     faculty_choices                 = models.CharField(max_length=100, choices=faculty_choices,default='')
-    department                      = models.CharField(max_length=50,blank=True)
+    quota_name                      = models.CharField(max_length=50,blank=True)
     no_of_student                   = models.PositiveSmallIntegerField(null=True)
     is_shown                        = models.BooleanField(default=True)
     seo_title                       = models.CharField(max_length=50, blank=True)

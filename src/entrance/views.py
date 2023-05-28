@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import SyllabusInfo
+from .models import SyllabusInfo, CollegeInfo
 
 # Create your views here.
 class GkView(View):
@@ -21,10 +21,6 @@ class SyllabusInfoView(View):
         syllabus_info_object           = SyllabusInfo.objects.filter(is_shown=True)
         tu_syllabus_info_object        = syllabus_info_object.filter(university_choices = 'TU').order_by('faculty_choices')
         
-        # print(syllabus_info_object)
-        # syllabus_data = SyllabusInfo.objects.order_by('university_choices', ).values('university_choices', 'faculty_choices', 'subject', 'marks')
-        # print(syllabus_data.values()
-        # print(syllabus_info_object)
         group = {}
         for data in syllabus_info_object:
             if data.university_choices not in group:
@@ -45,5 +41,22 @@ class SyllabusInfoView(View):
 
 class CollegeInfoView(View):
     def get(self, request, *args, **kwargs):
-        template_name = 'entrance_college_info.html'
-        return render(request, template_name)
+        template_name                   = 'entrance_college_info.html'
+        college_info_object             = CollegeInfo.objects.filter(is_shown=True)
+        tu_college_info_object          = college_info_object.filter(university_choices = 'TU').order_by('faculty_choices')
+
+        group = {}
+        for data in college_info_object:
+            if data.university_choices not in group:
+                group[data.university_choices] = {}
+            if data.faculty_choices not in group[data.university_choices]:
+                group[data.university_choices][data.faculty_choices] = []
+            college_data = [data.quota_name, data.no_of_student]
+            group[data.university_choices][data.faculty_choices].append(college_data)
+
+        context = {
+            'data' : tu_college_info_object,
+            'college_data' : college_data,
+            'group' : group,
+        }
+        return render(request, template_name, context)

@@ -78,12 +78,12 @@ class SyllabusInfoAdmin(admin.ModelAdmin):
 admin.site.register(SyllabusInfo, SyllabusInfoAdmin)
 
 class CollegeInfoAdmin(admin.ModelAdmin):
-    list_display        = ['university_choices','faculty_choices','department','no_of_student','is_shown']
+    list_display        = ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']
     list_filter         = ['is_shown', 'university_choices','faculty_choices']
     search_fields       = ['department']
 
     fieldsets = [
-        (None, {'fields': ['university_choices','faculty_choices','department','no_of_student','is_shown']}),
+        (None, {'fields': ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
