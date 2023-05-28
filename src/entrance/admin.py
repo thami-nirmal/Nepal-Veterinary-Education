@@ -44,13 +44,13 @@ admin.site.register(GK, GKAdmin)
 
 
 class ModelQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['name','is_shown','pdf_url','is_pdf','formatted_content','year']
+    list_display            = ['name','model_code','is_shown','pdf_url','is_pdf']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['name']
-    ordering                = ['-year']
+
 
     fieldsets = [
-        (None, {'fields': ['name','is_shown','pdf_url','is_pdf','content','year']}),
+        (None, {'fields': ['name','model_code','is_shown','pdf_url','is_pdf']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

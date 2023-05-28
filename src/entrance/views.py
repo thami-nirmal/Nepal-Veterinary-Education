@@ -12,7 +12,7 @@ class GkView(View):
         :param kwargs: additional keyword arguments
         :return: the rendered http response
         """
-        template_name = 'gk.html'
+        template_name = 'graduate.html'
         return render(request, template_name)
 
 class SyllabusInfoView(View):

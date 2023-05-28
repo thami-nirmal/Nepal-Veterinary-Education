@@ -57,11 +57,11 @@ class ModelQuestion(models.Model):
     Represents a Model Question with specific attributes.
     """
     name                     = models.CharField(max_length=50,blank=True)
+    model_code               = models.CharField(max_length=50, blank=True)
     is_shown                 = models.BooleanField(default=True)
     pdf_url                  = models.URLField(max_length=200)
-    is_pdf                   = models.BooleanField(default=False)
+    is_pdf                   = models.BooleanField(default=True)
     content                  = RichTextUploadingField()
-    year                     = models.PositiveIntegerField(null=True)
     seo_title                = models.CharField(max_length=50, blank=True)
     seo_keyword              = models.CharField(max_length=200, blank=True)
     seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
