@@ -27,7 +27,7 @@ Entrance College Informations & Quotations
                             {% for university, faculty_data in group.items %} 
                             <div class="ent-prep-left-item-with-head">
                                 <h2>{{ university }}</h2>
-                                {% for faculty, subject_data in faculty_data.items %}
+                                {% for faculty, no_of_student in faculty_data.items %}
                                 <div class="ent-prep-item">
                                     <div class="ent-perp-dropdown">
                                         <table>
@@ -35,7 +35,7 @@ Entrance College Informations & Quotations
                                                 <th>Quota Name</th>
                                                 <th>{{ faculty }}</th>
                                             </tr>
-                                            {% for data in subject_data %}
+                                            {% for data in no_of_student %}
                                             <tr>
                                                 <td>{{ data.0 }}</td>
                                                 <td>{{ data.1 }}</td>
