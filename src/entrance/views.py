@@ -43,8 +43,7 @@ class GkContentView(View):
 
         return render(request, template_name, context)
     
-    
-    
+
 class SyllabusInfoView(View):
     def get(self, request, *args, **kwargs):
         template_name                  = 'entrance_prep_syllabus.html'

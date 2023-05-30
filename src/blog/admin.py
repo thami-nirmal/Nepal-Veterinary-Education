@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display          = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category','formatted_content']
+    list_display          = ['user','title','slug','feature_image','is_published','created_at','updated_at','short_description','post_category']
     list_filter           = ['is_published', 'post_category']
     search_fields         = ['title', 'short_description']
     ordering              = ['-created_at', '-updated_at']
@@ -16,7 +16,7 @@ class PostAdmin(admin.ModelAdmin):
     formatted_content.short_description = 'description'
 
     fieldsets = [
-        (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category','description']}),
+        (None, {'fields': ['user', 'title','feature_image','is_published','short_description','post_category']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

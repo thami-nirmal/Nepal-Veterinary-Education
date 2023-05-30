@@ -4,12 +4,12 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
-    list_display           = ['subject_name','has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','material_type']
+    list_display           = ['subject_name','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']
     list_filter            = ['has_chapter_content', 'is_pdf','is_shown','material_type']
     search_fields          = ['subject_name']
 
     fieldsets = [
-        (None, {'fields': ['subject_name','has_chapter_content','content','pdf_URL','is_pdf','is_shown','material_type']}),
+        (None, {'fields': ['subject_name','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -24,12 +24,12 @@ admin.site.register(Subject,SubjectAdmin)
 
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display          = ['chapter_no','formatted_content','pdf_URL','is_pdf','is_shown','subject']
+    list_display          = ['chapter_no','pdf_URL','is_pdf','is_shown','subject']
     list_filter           = ['is_shown', 'is_pdf','subject']
     ordering              = ['-chapter_no']
 
     fieldsets = [
-        (None, {'fields': ['chapter_no','content','pdf_URL','is_pdf','is_shown','subject']}),
+        (None, {'fields': ['chapter_no','pdf_URL','is_pdf','is_shown','subject']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
