@@ -1,72 +1,71 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 
-{% block title %}
+{% block pageheading %}
 Entrance Preparation Syllabus
-{% endblock title %}
+{% endblock pageheading %}
 
 
 {% block content %}
+<div class="container">
+    <div class="que-coll-top">
+        <div class="que-coll-top-left">
+            <div class="sub-nav-top">
+                <a href="#">
+                    <span>Home</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Entrance</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Syllabus</span>
+                </a>
+            </div>
+            <div class="error-404-underline que-coll-line"></div>
+            <div class="ent-prep-left">
+                {% for university, faculty_data in group.items %}
+                <div class="ent-prep-left-item-with-head">
+                    <h2>{{ university }}</h2>
+                    {% for faculty, subject_data in faculty_data.items %}
+                    <div class="ent-prep-item">
+                        <div class="ent-prep-item-content flex-column">
 
-            <div class="container">
-                <div class="que-coll-top">
-                    <div class="que-coll-top-left">
-                        <div class="sub-nav-top">
-                            <a href="#">
-                                <span>Home</span>
-                            </a>
-                            <i class="fa-sharp fa-solid fa-angle-right"></i>
-                            <a href="#">
-                                <span>Entrance</span>
-                            </a>
-                            <i class="fa-sharp fa-solid fa-angle-right"></i>
-                            <a href="#">
-                                <span>Syllabus</span>
-                            </a>
+                            <div class="ent-prep-faculty">
+                                <p>Faculty : {{ faculty }}</p>
+                            </div>
                         </div>
-                        <div class="error-404-underline que-coll-line"></div>
-                        <div class="ent-prep-left">
-                                {% for university, faculty_data in group.items %}
-                                <div class="ent-prep-left-item-with-head">
-                                    <h2>{{ university }}</h2>
-                                    {% for faculty, subject_data in faculty_data.items %}
-                                        <div class="ent-prep-item">
-                                            <div
-                                                class="ent-prep-item-content flex-column"
-                                            >
-                                                
-                                                <div class="ent-prep-faculty">
-                                                    <p>Faculty : {{ faculty }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="ent-perp-dropdown">
-                                                <table>
-                                                    <tr>
-                                                        <th>Subject</th>
-                                                        <th>Questions</th>
-                                                        <th>Marks</th>
-                                                    </tr>
-                                                    {% for data in subject_data %}
-                                                    <tr>
-                                                        <td>{{ data.0 }}</td>
-                                                        <td>{{ data.1 }}</td>
-                                                        <td>{{ data.2 }}</td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                </table>
-                                            </div>
-                                        </div>
-                                    
-                                    {% endfor %}
-                                </div>
+                        <div class="ent-perp-dropdown">
+                            <table>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Questions</th>
+                                    <th>Marks</th>
+                                </tr>
+                                {% for data in subject_data %}
+                                <tr>
+                                    <td>{{ data.0 }}</td>
+                                    <td>{{ data.1 }}</td>
+                                    <td>{{ data.2 }}</td>
+                                </tr>
                                 {% endfor %}
+                            </table>
                         </div>
                     </div>
-                    
-        {% include 'snippet_code/popular_post.html' %}
 
-        {% include 'snippet_code/join_with_us.html' %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="que-coll-top-right">
+            {% include 'snippet_code/popular_post.html' %}
 
-        {% include 'snippet_code/other_related_post.html' %}
+            {% include 'snippet_code/join_with_us.html' %}
+        </div>
+    </div>
+    <div class="error-404-underline que-coll-line"></div>
 
-
-        {% endblock content %}
+    {% include 'snippet_code/other_related_post.html' %}
+</div>
+{% endblock content %}

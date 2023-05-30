@@ -2724,3 +2724,25 @@ body::-webkit-scrollbar-track {
 .books-table tbody {
     border: 6px solid #f7f7f7;
 }
+
+
+/* start content fot the iframe content to load the pdf data */
+
+#fullscreenButton {
+    width: 56px;
+    height: 56px;
+}
+
+#fullscreenButton {
+    background: #232e52;
+    border: none;
+    color: #fff;
+    /* font-size: 1.5rem; */
+    padding: 10px;
+}
+
+#fullscreenButton i {
+    font-size: 2rem;
+}
+
+/* end content */

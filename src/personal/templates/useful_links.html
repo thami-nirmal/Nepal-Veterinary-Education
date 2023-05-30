@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
+
 {% load static %}
 
-{% block title %}
+{% block pageheading %}
 Useful Links
-{% endblock title %}
+{% endblock pageheading %}
+
 
 {% block content %}
 <div class="container">
@@ -120,11 +122,14 @@ Useful Links
                 </div>
             </div>
         </div>
-        {% include 'snippet_code/popular_post.html' %}
+        <div class="que-coll-top-right">
+            {% include 'snippet_code/popular_post.html' %}
 
-        {% include 'snippet_code/join_with_us.html' %}
+            {% include 'snippet_code/join_with_us.html' %}
+        </div>
+    </div>
+    <div class="error-404-underline que-coll-line"></div>
 
-        {% include 'snippet_code/other_related_post.html' %}
-       
-</section>
+    {% include 'snippet_code/other_related_post.html' %}
+</div>
 {% endblock content %}

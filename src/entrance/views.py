@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import SyllabusInfo, CollegeInfo
+from .models import SyllabusInfo, CollegeInfo, GK
 
 # Create your views here.
 class GkView(View):
@@ -12,9 +12,39 @@ class GkView(View):
         :param kwargs: additional keyword arguments
         :return: the rendered http response
         """
-        template_name = 'graduate.html'
-        return render(request, template_name)
+        template_name     = 'gk.html'
+        gk_object         = GK.objects.filter(is_shown=True)
 
+        if gk_object.exists():
+            gk_object = gk_object
+        else:
+            gk_object = None 
+
+        context = {
+            'gk_data_list' : gk_object,
+        }
+
+        return render(request, template_name, context)
+    
+class GkContentView(View):
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'gk.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+        template_name      = 'gk_content_view.html'
+        gk_details_object  = GK.objects.get(id = id)
+        context = {
+            'gk_details' : gk_details_object,
+        }
+
+        return render(request, template_name, context)
+    
+    
+    
 class SyllabusInfoView(View):
     def get(self, request, *args, **kwargs):
         template_name                  = 'entrance_prep_syllabus.html'

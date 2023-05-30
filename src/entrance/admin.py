@@ -4,12 +4,12 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 class PastQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['year','is_shown','pdf_url','is_pdf','formatted_content','types']
+    list_display            = ['year','is_shown','pdf_url','is_pdf','types']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['year']
 
     fieldsets = [
-        (None, {'fields': ['year','is_shown','pdf_url','is_pdf','content','types']}),
+        (None, {'fields': ['year','is_shown','pdf_url','is_pdf','types']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -24,12 +24,12 @@ admin.site.register(PastQuestion, PastQuestionAdmin)
 
 
 class GKAdmin(admin.ModelAdmin):
-    list_display          = ['name','is_shown','pdf_url','is_pdf','formatted_content']
+    list_display          = ['name','is_shown','pdf_url','is_pdf']
     list_filter           = ['is_shown']
     search_fields         = ['name']
 
     fieldsets = [
-        (None, {'fields': ['name','is_shown','pdf_url','is_pdf','content']}),
+        (None, {'fields': ['name','is_shown','pdf_url','is_pdf']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
