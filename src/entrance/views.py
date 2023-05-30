@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import SyllabusInfo, CollegeInfo, GK
+from .models import SyllabusInfo, CollegeInfo, GK, PastQuestion
 
 # Create your views here.
 class GkView(View):
@@ -18,7 +18,7 @@ class GkView(View):
         if gk_object.exists():
             gk_object = gk_object
         else:
-            gk_object = None 
+            gk_object = None  
 
         context = {
             'gk_data_list' : gk_object,
@@ -29,7 +29,7 @@ class GkView(View):
 class GkContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
-        Handle HTTP GET request and render the 'gk.html'
+        Handle HTTP GET request and render the 'gk_content_view.html'
         :param request: the HTTP request object
         :param args: additional positional argument
         :param kwargs: additional keyword arguments
@@ -42,7 +42,25 @@ class GkContentView(View):
         }
 
         return render(request, template_name, context)
-    
+
+class PastQuestionView(View):
+    def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'gk_content_view.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+        template_name      = 'past_question.html'
+        past_question_object  = PastQuestion.objects.filter(is_shown=True).first()
+
+        context = {
+            'past_question' : past_question_object,
+        }
+
+        return render(request, template_name, context)
+
 
 class SyllabusInfoView(View):
     def get(self, request, *args, **kwargs):
