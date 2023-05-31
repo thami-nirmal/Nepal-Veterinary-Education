@@ -1,7 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
-from .models import SyllabusInfo, CollegeInfo, GK, PastQuestion
+from .models import (SyllabusInfo, 
+                     CollegeInfo, 
+                     GK, 
+                     PastQuestion, 
+                     ModelQuestion)
 
 # Create your views here.
 class GkView(View):
@@ -54,23 +58,77 @@ class PastQuestionView(View):
         :return: the rendered http response
         """
         
+        # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            id = request.GET['id']
+             # Retrieve the 'id' parameter from the GET request
+            id = request.GET['id']    
+            # Retrieve the PastQuestion object with the given 'id'
             past_question_object  = PastQuestion.objects.get(id = id)
+             # Create a list to hold the PastQuestion data
             past_question_collection_list = []
-            past_question_data = {'year' : past_question_object.year, 'url'  : past_question_object.pdf_url, 'types' : past_question_object.types}
+            # Create a dictionary with the relevant PastQuestion data
+            past_question_data = {
+                'year' : past_question_object.year, 
+                'url'  : past_question_object.pdf_url, 
+                'types' : past_question_object.types
+                }
+            # Append the PastQuestion data dictionary to the collection list
             past_question_collection_list.append(past_question_data)
+            # Return a JSON response containing the past_question_collection_list
             return JsonResponse({'data' : past_question_collection_list})
           
+        # Set the template name for rendering
         template_name      = 'past_question.html'
+        # Retrieve the first PastQuestion object where is_shown is True
         past_question_object  = PastQuestion.objects.filter(is_shown=True).first()
+        # Retrieve all PastQuestion objects where is_shown is True
         past_question_object_list  = PastQuestion.objects.filter(is_shown=True)
 
+        # Prepare the context data for rendering the template
         context = {
             'past_question' : past_question_object,
             'past_question_object_list' : past_question_object_list
         }
 
+        # Render the template with the provided context
+        return render(request, template_name, context)
+
+
+class ModelQuestionView(View):
+    def get(self, request, *args, **kwargs):
+        # Check if the request was made via AJAX
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+             # Retrieve the 'id' parameter from the GET request
+            id = request.GET['id']
+             # Retrieve the ModelQuestion object with the given 'id'
+            model_question_object  = ModelQuestion.objects.get(id = id)
+            # Create a list to hold the ModelQuestion data
+            model_question_collection_list = []
+            # Create a dictionary with the relevant ModelQuestion data
+            model_question_data = {
+                'name' : model_question_object.name, 
+                'url'  : model_question_object.pdf_url, 
+                'model_code' : model_question_object.model_code
+                }
+             # Append the ModelQuestion data dictionary to the collection list
+            model_question_collection_list.append(model_question_data)
+            # Return a JSON response containing the model_question_collection_list
+            return JsonResponse({'data' : model_question_collection_list})
+
+        # Set the template name for rendering
+        template_name      = 'model_question.html'
+        # Retrieve the first ModelQuestion object where is_shown is True
+        model_question_object  = ModelQuestion.objects.filter(is_shown=True).first()
+        # Retrieve all ModelQuestion objects where is_shown is True
+        model_question_object_list  = ModelQuestion.objects.filter(is_shown=True)
+
+        # Prepare the context data for rendering the template
+        context = {
+            'model_question' : model_question_object,
+            'model_question_object_list' : model_question_object_list
+        }
+
+        # Render the template with the provided context
         return render(request, template_name, context)
 
 

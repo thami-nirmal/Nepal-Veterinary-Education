@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block pageheading %}
-Past Question
+Model Question
 {% endblock pageheading %}
 
 
@@ -19,21 +19,23 @@ Past Question
                 </a>
                 <i class="fa-sharp fa-solid fa-angle-right"></i>
                 <a href="#">
-                    <span>Past Question</span>
+                    <span>Model Question</span>
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
-            {% for item in past_question_object_list %}
-            <a id="past_question_id{{item.id}}"
+            {% for item in model_question_object_list %}
+            <a id="model_question_id{{item.id}}"
                 style="margin: 2px; padding: 2px; border: 1px solid #232e52; border-radius: 10px; cursor: pointer; background-color: #232e52; color: white; "
-                past_question_object_data="{{item.id}}">YEAR:{{item.year}}</a>
+                model_question_object_data="{{item.id}}">Name:{{item.name}}</a>
             {% endfor %}
-            <h6 id='past_question_details'>Selected question paper: {{past_question.year}}({{past_question.types}})</h6>
+            <h6 id='model_question_details'>Selected question paper:
+                {{model_question.name}}({{model_question.model_code}})
+            </h6>
             <div class="que-coll-left-container">
                 <div id="pdfContainer" style="position: relative; height: 100vh;" class="que-coll-top-left">
                     <button id="fullscreenButton" style="position: absolute; top: 0; right: 2px;"><i
                             class="fa-solid fa-expand"></i></button>
-                    <iframe id="pdfFrame" style="border: 2px solid #232e52  " src="{{past_question.pdf_url}}"
+                    <iframe id="pdfFrame" style="border: 2px solid #232e52  " src="{{model_question.pdf_url}}"
                         width="100%" height="100%" responsive=true></iframe>
                 </div>
             </div>
@@ -50,28 +52,29 @@ Past Question
 
 <script>
     $(document).ready(function () {
-        $(document).on('click', '[id^="past_question_id"]', function (e) {
-            var past_question_object_id = $(this).attr('past_question_object_data');   // Retrieve the value of the 'past_question_object_data' attribute for the clicked element
+        $(document).on('click', '[id^="model_question_id"]', function (e) {        
+            var past_question_object_id = $(this).attr('model_question_object_data');  // Retrieve the value of the 'model_question_object_data' attribute for the clicked element
             $.ajax({
                 type: 'GET',
                 url: '',
                 "X-Requested-With": "XMLHttpRequest",
                 data: {
-                    id: past_question_object_id        // Pass the 'past_question_object_id' as a parameter in the AJAX request
+                    id: past_question_object_id
                 },
                 success: function (response) {
                     console.log(response.data[0])
-                    year = response.data[0].year       // Get the 'year' value from the response
-                    url = response.data[0].url         // Get the 'url' value from the response
-                    types = response.data[0].types     // Get the 'types' value from the response
-                    $('#pdfFrame').attr('src', url)    // Set the 'src' attribute of the element with ID 'pdfFrame' to the 'url'
-                    $("#past_question_details").text('selected question paper:' + year + '(' + types + ')')    // Set the text content of the element with ID 'past question details' to the selected question paper details
+                    name = response.data[0].name              // Get the 'name' value from the response
+                    url = response.data[0].url                // Get the 'url' value from the response
+                    model_code = response.data[0].model_code  // Get the 'model code' value from the response
+                    $('#pdfFrame').attr('src', url)           // Set the 'src' attribute of the element with ID 'pdfFrame' to the 'url'
+                    $("#model_question_details").text('selected question paper:' + name + '(' + model_code + ')')   // Set the text content of the element with ID 'model question details' to the selected question paper details
                 },
                 error: function (error) {
-                    console.log(error)      // Log any errors that occur during the AJAX request
+                    console.log(error)          // Log any errors that occur during the AJAX request
                 }
             })
         });
     });
 </script>
+
 {% endblock content %}
