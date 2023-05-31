@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from .models import SyllabusInfo, CollegeInfo, GK, PastQuestion
@@ -46,17 +47,28 @@ class GkContentView(View):
 class PastQuestionView(View):
     def get(self, request, *args, **kwargs):
         """
-        Handle HTTP GET request and render the 'gk_content_view.html'
+        Handle HTTP GET request and render the 'past_question.html'
         :param request: the HTTP request object
         :param args: additional positional argument
         :param kwargs: additional keyword arguments
         :return: the rendered http response
         """
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            id = request.GET['id']
+            past_question_object  = PastQuestion.objects.get(id = id)
+            past_question_collection_list = []
+            past_question_data = {'year' : past_question_object.year, 'url'  : past_question_object.pdf_url, 'types' : past_question_object.types}
+            past_question_collection_list.append(past_question_data)
+            return JsonResponse({'data' : past_question_collection_list})
+          
         template_name      = 'past_question.html'
         past_question_object  = PastQuestion.objects.filter(is_shown=True).first()
+        past_question_object_list  = PastQuestion.objects.filter(is_shown=True)
 
         context = {
             'past_question' : past_question_object,
+            'past_question_object_list' : past_question_object_list
         }
 
         return render(request, template_name, context)
