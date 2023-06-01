@@ -24,6 +24,7 @@ Post- Graduate Syallabus
             </div>
             <div class="error-404-underline que-coll-line"></div>
             <div class="ent-prep-left">
+                {% if syllabus_info_object_list %}
                 {% for university, faculty_data in group.items %}
                 <div class="ent-prep-left-item-with-head">
                     <h2>{{ university }}</h2>
@@ -52,10 +53,12 @@ Post- Graduate Syallabus
                             </table>
                         </div>
                     </div>
-
                     {% endfor %}
                 </div>
                 {% endfor %}
+                {% else %}
+                <h1>No Data Found!</h1>
+                {% endif %}
             </div>
         </div>
         <div class="que-coll-top-right">

@@ -25,7 +25,7 @@ class SyllabusInfoView(View):
         # Set the template name
         template_name              = 'post_graduate_syllabus_info.html'
         # Retrieve all syllabus information objects that are marked as shown
-        syllabus_info_object       = SyllabusInfo.objects.filter(is_shown=True)
+        syllabus_info_object_list       = SyllabusInfo.objects.filter(is_shown=True)
 
         # Create an empty dictionary to group the syllabus information
         group = {}
@@ -33,9 +33,9 @@ class SyllabusInfoView(View):
         syllabus_data = []
 
         # Check if any syllaus information exists
-        if syllabus_info_object.exists():
+        if syllabus_info_object_list.exists():
             # iterate through each syllabus information object
-            for data in syllabus_info_object:
+            for data in syllabus_info_object_list:
                 # Check if the university choice exists as a key in the group dictionary
                 if data.university_choices not in group:
                     # Create an empty dictionary for the university choice
@@ -52,6 +52,7 @@ class SyllabusInfoView(View):
         # Prepare the context dictioanry to be passed to the template
         context = {
             'syllabus_data' : syllabus_data,
+            'syllabus_info_object_list' : syllabus_info_object_list,
             'group' : group,
         }
 
@@ -80,7 +81,7 @@ class CollegeInfoView(View):
         # Set the template name
         template_name               = 'post_graduate_college_info.html'
         # Retrieve all college information objects that arer marked as shown
-        college_info_object         = CollegeInfo.objects.filter(is_shown=True)
+        college_info_object_list         = CollegeInfo.objects.filter(is_shown=True)
 
         # Create an empty dictionary to group the college information
         group = {}
@@ -88,9 +89,9 @@ class CollegeInfoView(View):
         college_data = []
 
         # Check if any college information exists
-        if college_info_object.exists():
+        if college_info_object_list.exists():
             # Iterate through each college information object
-            for data in college_info_object:
+            for data in college_info_object_list:
                 # Check if the university choice exists as a key in the group dictionary
                 if data.university_choices not in group:
                     # Create an empty dictionary for the university choice
@@ -107,6 +108,7 @@ class CollegeInfoView(View):
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data' : college_data,
+            'college_info_object_list' : college_info_object_list,
             'group' : group,
         }
 
