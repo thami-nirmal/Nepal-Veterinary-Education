@@ -23,6 +23,7 @@ Model Question
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
+            {% if model_question_object_list %}
             {% for item in model_question_object_list %}
             <a id="model_question_id{{item.id}}"
                 style="margin: 2px; padding: 2px; border: 1px solid #232e52; border-radius: 10px; cursor: pointer; background-color: #232e52; color: white; "
@@ -32,13 +33,20 @@ Model Question
                 {{model_question.name}}({{model_question.model_code}})
             </h6>
             <div class="que-coll-left-container">
+                {% if model_question.is_pdf %}
                 <div id="pdfContainer" style="position: relative; height: 100vh;" class="que-coll-top-left">
                     <button id="fullscreenButton" style="position: absolute; top: 0; right: 2px;"><i
                             class="fa-solid fa-expand"></i></button>
                     <iframe id="pdfFrame" style="border: 2px solid #232e52  " src="{{model_question.pdf_url}}"
                         width="100%" height="100%" responsive=true></iframe>
                 </div>
+                {% else %}
+                {{model_question.content|safe}}
+                {% endif %}
             </div>
+            {% else %}
+            <h1>No Data Found!</h1>
+            {% endif %}
         </div>
         <div class="que-coll-top-right">
             {% include 'snippet_code/popular_post.html' %}

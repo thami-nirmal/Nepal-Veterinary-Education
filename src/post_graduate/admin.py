@@ -145,12 +145,12 @@ admin.site.register(LoksewaNotes, LoksewaNotesAdmin)
 
 
 class SyllabusInfoAdmin(admin.ModelAdmin):
-    list_display                = ['university_choices','faculty_choices','subject','marks','is_shown']
+    list_display                = ['university_choices','faculty_choices','subject','no_of_question','marks','is_shown']
     list_filter                 = ['university_choices','faculty_choices', 'is_shown']
     search_fields               = ['subject']
 
     fieldsets = [
-        (None, {'fields': ['university_choices','faculty_choices','subject','marks','is_shown']}),
+        (None, {'fields': ['university_choices','faculty_choices','subject','no_of_question','marks','is_shown']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -160,12 +160,12 @@ admin.site.register(SyllabusInfo, SyllabusInfoAdmin)
 
 
 class CollegeInfoAdmin(admin.ModelAdmin):
-    list_display             = ['university_choices','faculty_choices','department','no_of_student','is_shown']
+    list_display             = ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']
     list_filter              = ['university_choices', 'faculty_choices','is_shown']
     search_fields            = ['department']
 
     fieldsets = [
-        (None, {'fields': ['university_choices','faculty_choices','department','no_of_student','is_shown']}),
+        (None, {'fields': ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

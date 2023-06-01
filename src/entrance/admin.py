@@ -4,12 +4,12 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 class PastQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['year','is_shown','pdf_url','is_pdf','types']
+    list_display            = ['year','is_shown','pdf_url','is_pdf','formatted_content','types']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['year']
 
     fieldsets = [
-        (None, {'fields': ['year','is_shown','pdf_url','is_pdf','types']}),
+        (None, {'fields': ['year','is_shown','pdf_url','is_pdf','content','types']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -24,12 +24,12 @@ admin.site.register(PastQuestion, PastQuestionAdmin)
 
 
 class GKAdmin(admin.ModelAdmin):
-    list_display          = ['name','is_shown','pdf_url','is_pdf']
+    list_display          = ['name','is_shown','pdf_url','is_pdf','formatted_content']
     list_filter           = ['is_shown']
     search_fields         = ['name']
 
     fieldsets = [
-        (None, {'fields': ['name','is_shown','pdf_url','is_pdf']}),
+        (None, {'fields': ['name','is_shown','pdf_url','is_pdf','content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -44,13 +44,13 @@ admin.site.register(GK, GKAdmin)
 
 
 class ModelQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['name','model_code','is_shown','pdf_url','is_pdf']
+    list_display            = ['name','model_code','is_shown','pdf_url','is_pdf','formatted_content']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['name']
 
 
     fieldsets = [
-        (None, {'fields': ['name','model_code','is_shown','pdf_url','is_pdf']}),
+        (None, {'fields': ['name','model_code','is_shown','pdf_url','is_pdf','content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block pageheading %}
+Post-Graduate College Information
+{% endblock pageheading %}
+
+
+{% block content %}
+<div class="container">
+    <div class="que-coll-top">
+        <div class="que-coll-top-left">
+            <div class="sub-nav-top">
+                <a href="#">
+                    <span>Home</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Post Graduate</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>College Info</span>
+                </a>
+            </div>
+            <div class="error-404-underline que-coll-line"></div>
+            <div class="ent-prep-left">
+                {% for university, faculty_data in group.items %}
+                <div class="ent-prep-left-item-with-head">
+                    <h2>{{ university }}</h2>
+                    {% for faculty, no_of_student in faculty_data.items %}
+                    <div class="ent-prep-item">
+                        <div class="ent-perp-dropdown">
+                            <table>
+                                <tr>
+                                    <th>Quota Name</th>
+                                    <th>{{ faculty }}</th>
+                                </tr>
+                                {% for data in no_of_student %}
+                                <tr>
+                                    <td>{{ data.0 }}</td>
+                                    <td>{{ data.1 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="que-coll-top-right">
+            {% include 'snippet_code/popular_post.html' %}
+
+            {% include 'snippet_code/join_with_us.html' %}
+        </div>
+    </div>
+    <div class="error-404-underline que-coll-line"></div>
+
+    {% include 'snippet_code/other_related_post.html' %}
+</div>
+{% endblock content %}
