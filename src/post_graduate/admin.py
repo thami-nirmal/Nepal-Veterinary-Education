@@ -62,26 +62,6 @@ class CouncilModelQuestionAdmin(admin.ModelAdmin):
 admin.site.register(CouncilModelQuestion, CouncilModelQuestionAdmin)
 
 
-class LoksewaModelQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['name','is_shown','pdf_url','is_pdf']
-    list_filter             = ['is_shown', 'is_pdf']
-    search_fields           = ['name']
-
-    fieldsets = [
-        (None, {'fields': ['name','is_shown','pdf_url','is_pdf']}),
-        ('SEO Options', 
-        {"classes": ["collapse"],
-        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
-    ]
-
-    def formatted_content(self, obj):
-        return mark_safe(obj.content)
-
-    formatted_content.short_description = 'content'
-
-admin.site.register(LoksewaModelQuestion, LoksewaModelQuestionAdmin)
-
-
 class CouncilPastQuestionAdmin(admin.ModelAdmin):
     list_display             = ['is_shown','year','pdf_url','is_pdf','types']
     list_filter              = ['is_shown','is_pdf']
@@ -102,15 +82,14 @@ class CouncilPastQuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(CouncilPastQuestion, CouncilPastQuestionAdmin)
 
-
 class LoksewaPastQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['is_shown','year','pdf_url','is_pdf','types']
+    list_display            = ['is_shown','year','pdf_url','is_pdf','formatted_content','types']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['types']
     ordering                = ['-year']
 
     fieldsets = [
-        (None, {'fields': ['is_shown','year','pdf_url','is_pdf','types']}),
+        (None, {'fields': ['is_shown','year','pdf_url','is_pdf','content','types']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -123,14 +102,33 @@ class LoksewaPastQuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(LoksewaPastQuestion, LoksewaPastQuestionAdmin)
 
+class LoksewaModelQuestionAdmin(admin.ModelAdmin):
+    list_display            = ['name','is_shown','pdf_url','is_pdf','formatted_content']
+    list_filter             = ['is_shown', 'is_pdf']
+    search_fields           = ['name']
+
+    fieldsets = [
+        (None, {'fields': ['name','is_shown','pdf_url','is_pdf','content']}),
+        ('SEO Options', 
+        {"classes": ["collapse"],
+        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    ]
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+
+    formatted_content.short_description = 'content'
+
+admin.site.register(LoksewaModelQuestion, LoksewaModelQuestionAdmin)
+
 
 class LoksewaNotesAdmin(admin.ModelAdmin):
-    list_display           = ['name','is_shown','pdf_url','is_pdf']
+    list_display           = ['name','is_shown','pdf_url','is_pdf','formatted_content']
     list_filter            = ['is_shown', 'is_pdf']
     search_fields          = ['name']
 
     fieldsets = [
-        (None, {'fields': ['name','is_shown','pdf_url','is_pdf']}),
+        (None, {'fields': ['name','is_shown','pdf_url','is_pdf','content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),

@@ -67,29 +67,6 @@ class CouncilModelQuestion(models.Model):
     class Meta:
         verbose_name_plural = 'Council Model Question'
 
-class LoksewaModelQuestion(models.Model):
-    """
-    Represents loksewa model question with specific attributes
-    """
-    name                          = models.CharField(max_length=50, blank=True)
-    is_shown                      = models.BooleanField(default=True)
-    pdf_url                       = models.URLField(max_length=200)
-    is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
-    seo_title                     = models.CharField(max_length=50, blank=True)
-    seo_keyword                   = models.CharField(max_length=200, blank=True)
-    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
-    seo_description               = models.TextField(blank=True)
-
-    def __str__(self):
-        """
-        :return: the pdf url of loksewa model question representation of LoksewaModelQuestion
-        """
-        return self.pdf_url
-
-    class Meta:
-        verbose_name_plural = 'Loksewa Model Question'
-
 class CouncilPastQuestion(models.Model):
     """
     Represents council past question with specific attributes
@@ -113,6 +90,31 @@ class CouncilPastQuestion(models.Model):
 
     class Meta:
         verbose_name_plural = 'Council Past Question'
+
+
+class LoksewaModelQuestion(models.Model):
+    """
+    Represents loksewa model question with specific attributes
+    """
+    name                          = models.CharField(max_length=50, blank=True)
+    is_shown                      = models.BooleanField(default=True)
+    pdf_url                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=True)
+    content                       = RichTextUploadingField()
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
+
+    def __str__(self):
+        """
+        :return: the pdf url of loksewa model question representation of LoksewaModelQuestion
+        """
+        return self.pdf_url
+
+    class Meta:
+        verbose_name_plural = 'Loksewa Model Question'
+
 
 class LoksewaPastQuestion(models.Model):
     """

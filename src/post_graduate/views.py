@@ -1,7 +1,10 @@
 from django.shortcuts import render, HttpResponse
 from django.views import View
 from .models import (SyllabusInfo,
-                     CollegeInfo)
+                     CollegeInfo,
+                     LoksewaModelQuestion,
+                     LoksewaPastQuestion,
+                     LoksewaNotes)
 
 # Create your views here.
 class SyllabusInfoView(View):
@@ -116,5 +119,99 @@ class CollegeInfoView(View):
         return render(request, template_name, context)
 
 
+class LoksewaView(View):
+    def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'loksewa.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
 
+        # Set the template name for rendering
+        template_name     = 'loksewa.html'
+
+
+        loksewa_model_question_object_list         = LoksewaModelQuestion.objects.filter(is_shown=True)
+        loksewa_past_question_object_list          = LoksewaPastQuestion.objects.filter(is_shown=True)
+        loksewa_notes_object_list                  = LoksewaNotes.objects.filter(is_shown=True)
+
+        # Prepare the context data for rendering the template
+        context = {
+            'loksewa_model_question_object_list'  : loksewa_model_question_object_list,
+            'loksewa_past_question_object_list'   : loksewa_past_question_object_list,
+            'loksewa_notes_object_list'           : loksewa_notes_object_list,    
+        }
+
+        # Render the template with the provided context
+        return render(request, template_name, context)
+    
+class LoksewaPastQuestionContentView(View):
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'gk_content_view.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+
+        # Set the template name for rendering
+        template_name      = 'loksewa_past_question_content_view.html'
+        loksewa_past_question_object          = LoksewaPastQuestion.objects.get(id = id)
+
+        # Prepare the context data for rendering the template
+        context = {
+            'loksewa_past_question_object' : loksewa_past_question_object,
+        }
+
+        # Render the template with the provided context
+        return render(request, template_name, context)
+
+
+class LoksewaModelQuestionContentView(View):
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'gk_content_view.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+
+        # Set the template name for rendering
+        template_name      = 'loksewa_model_question_content_view.html'
+        loksewa_model_question_object          = LoksewaModelQuestion.objects.get(id = id)
+
+        # Prepare the context data for rendering the template
+        context = {
+            'loksewa_model_question_object' : loksewa_model_question_object,
+        }
+
+        # Render the template with the provided context
+        return render(request, template_name, context)
+    
+
+class LoksewaNotesContentView(View):
+    def get(self, request, id, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'gk_content_view.html'
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+
+        # Set the template name for rendering
+        template_name      = 'loksewa_notes_content_view.html'
+        loksewa_notes_object          = LoksewaNotes.objects.get(id = id)
+
+        # Prepare the context data for rendering the template
+        context = {
+            'loksewa_notes_object' : loksewa_notes_object,
+        }
+
+        # Render the template with the provided context
+        return render(request, template_name, context)
 
