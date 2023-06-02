@@ -140,6 +140,7 @@ class LoksewaPastQuestion(models.Model):
     class Meta:
         verbose_name_plural = 'Loksewa Past Question'
 
+
 class LoksewaNotes(models.Model):
     """
     Represents loksewa notes with specific attributes
@@ -175,6 +176,7 @@ faculty_choices           = (
                                  ('B.Sc Forestry', 'B.Sc Forestry'),
                                 )
 
+
 class SyllabusInfo(models.Model):
     """
     Represents a Syllabus Info  with specific attributes
@@ -198,6 +200,7 @@ class SyllabusInfo(models.Model):
 
     class Meta:
         verbose_name_plural = 'Syllabus Info'
+
 
 class CollegeInfo(models.Model):
     """
