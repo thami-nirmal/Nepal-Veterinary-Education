@@ -171,7 +171,7 @@ class DrugIndex(models.Model):
     class Meta: 
         verbose_name_plural  = 'Drug Index'
 
-         
+
 
 
     
