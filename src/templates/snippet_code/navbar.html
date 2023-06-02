@@ -1,0 +1,193 @@
+<div id="myLinks" class="responsive-links-top">
+    <ul>
+        <li class="list-responsive">
+            <a href="#" class="tablinks" onclick="openanswer('nav-one')">
+                <span> Entrance Preparation</span>
+                <div class="drop-icon">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <div class="responsive-drop tabcontent" id="nav-one">
+                <ul>
+                    <li>
+                        <a href="{% url 'entrance_syllabus_info' %}">Syllabus</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'entrance_college_info' %}">College Info</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'gk' %}">General Knowledge</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'past_question' %}">Past Question</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'model_question' %}">Model Question</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="list-responsive">
+            <a href="#" class="tablinks" onclick="openanswer('nav-two')">
+                <span> Graduate</span>
+                <div class="drop-icon">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <div class="responsive-drop tabcontent" id="nav-two">
+                <ul>
+                    <li>
+                        <a href="#">Syllabus</a>
+                    </li>
+                    <li>
+                        <a href="#">Notes</a>
+                    </li>
+                    <li>
+                        <a href="#">Books</a>
+                    </li>
+                    <li>
+                        <a href="#">Question</a>
+                    </li>
+                    <li>
+                        <a href="#">Practical Material</a>
+                    </li>
+                    <li>
+                        <a href="#">Assignment</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="list-responsive">
+            <a href="#" class="tablinks" onclick="openanswer('nav-three')">
+                <span> Post Graduate</span>
+                <div class="drop-icon">
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </a>
+            <div class="responsive-drop tabcontent" id="nav-three">
+                <ul>
+                    <li>
+                        <a href="{% url 'post_graduate_syllabus_info' %}">Syllabus Info</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'post_graduate_college_info' %}">College Info</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'post_graduate_loksewa' %}">Loksewa</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'post_graduate_council' %}">Council</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="list-responsive">
+            <a href="#"><span>logout </span>
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="whole-body-layer" onclick="layer()"></div>
+<div class="hr_top"></div>
+<div class="navbar-container" id="myHeader">
+    <nav class="nve-header-navbar container">
+        <div class="navbar-items">
+            <ul>
+                <li>
+                    <div class="navbar-home">
+                        <a href="{% url 'index' %}" class="dropdown active">Home</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <span> Entrance Preparation</span>
+                            <span class="drop-icon-main">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
+                        </button>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'entrance_syllabus_info' %}">Syllabus</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'entrance_college_info' %}">College Info</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'gk' %}">General Knowledge</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'past_question' %}">Past Question</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'model_question' %}">Model Question</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% for level_data in level_detail_list %}
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <span> {{level_data.level_name}}</span>
+                            <span class="drop-icon-main">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
+                        </button>
+                        <div class="dropdown-content">
+                            <ul>
+                                {% for material_data in material_detail_list %}
+                                {% if level_data == material_data.level %}
+                                <li>
+                                    <a href="#">{{material_data.material_name}}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <span> Post Graduate</span>
+                            <span class="drop-icon-main">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </span>
+                        </button>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'post_graduate_syllabus_info' %}">Syllabus Info</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'post_graduate_college_info' %}">College Info</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'post_graduate_loksewa' %}">Loksewa</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'post_graduate_council' %}">Council</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-search">
+            <div class="search-container">
+                <div class="search-box">
+                    <button class="btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <input type="text" class="input-search" placeholder="Search..." />
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

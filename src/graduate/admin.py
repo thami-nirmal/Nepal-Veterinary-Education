@@ -44,12 +44,12 @@ admin.site.register(Chapter,ChapterAdmin)
 
 
 class MaterialTypeAdmin(admin.ModelAdmin):
-    list_display           = ['material_name','slug','is_shown','sem_year']
-    list_filter            = ['is_shown', 'sem_year']
+    list_display           = ['material_name','slug','is_shown','level']
+    list_filter            = ['is_shown', 'level']
     search_fields          = ['material_name']
 
     fieldsets = [
-        (None, {'fields': ['material_name','is_shown','sem_year']}),
+        (None, {'fields': ['material_name','is_shown','level']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
