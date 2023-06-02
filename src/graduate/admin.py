@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
-    list_display           = ['subject_name','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']
+    list_display           = ['subject_name','slug','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']
     list_filter            = ['has_chapter_content', 'is_pdf','is_shown','material_type']
     search_fields          = ['subject_name']
 
@@ -24,7 +24,7 @@ admin.site.register(Subject,SubjectAdmin)
 
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display          = ['chapter_no','pdf_URL','is_pdf','is_shown','subject']
+    list_display          = ['chapter_no','slug','pdf_URL','is_pdf','is_shown','subject']
     list_filter           = ['is_shown', 'is_pdf','subject']
     ordering              = ['-chapter_no']
 
@@ -59,7 +59,7 @@ admin.site.register(MaterialType,MaterialTypeAdmin)
 
 
 class SemYearAdmin(admin.ModelAdmin):
-    list_display          = ['sem_year_num','is_shown','level','is_year']
+    list_display          = ['sem_year_num','slug','is_shown','level','is_year']
     list_filter           = ['is_shown', 'level','is_year']
     search_fields         = ['sem_year_num']
 
@@ -74,7 +74,7 @@ admin.site.register(SemYear,SemYearAdmin)
 
 
 class LevelAdmin(admin.ModelAdmin):
-    list_display          = ['level_name','is_shown']
+    list_display          = ['level_name','slug','is_shown']
     list_filter           = ['is_shown']
     search_fields         = ['level_name']
 

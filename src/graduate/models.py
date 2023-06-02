@@ -8,6 +8,7 @@ class Level(models.Model):
     Represents a Level i.e Bachelor,Diploma with specific attributes
     """
     level_name                    = models.CharField(max_length=50,blank=True)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     is_shown                      = models.BooleanField(default=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
@@ -23,12 +24,18 @@ class Level(models.Model):
     class Meta:
         verbose_name_plural = 'Level'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.level_name)
+        super(Level, self).save(*args, **kwargs)
+
 
 class SemYear(models.Model):
     """
     Represents a Semester Or Year with specific attributes
     """
     sem_year_num                  = models.PositiveSmallIntegerField(null=True)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     is_shown                      = models.BooleanField(default=True)
     level                         = models.ForeignKey(Level, related_name='SemYear_Level', on_delete=models.CASCADE,null=True)
     is_year                       = models.BooleanField(default=True)
@@ -47,13 +54,18 @@ class SemYear(models.Model):
     class Meta:
         verbose_name_plural = 'Semester Year'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.sem_year_num)
+        super(SemYear, self).save(*args, **kwargs)
+
 
 class MaterialType(models.Model):
     """
     Represents a MaterialType i.e. Notes,Syllabus,Question paper,Assignments,Books etc. with specific attributes
     """
     material_name                 = models.CharField(max_length=50,blank=True)
-    slug                          = models.SlugField(max_length=50, unique=True, editable=False)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     is_shown                      = models.BooleanField(default=True)
     sem_year                      = models.ForeignKey(SemYear, related_name='MaterialType_SemYear', on_delete=models.CASCADE,null=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
@@ -82,6 +94,7 @@ class Subject(models.Model):
     Represents a subject with specific attributes 
     """
     subject_name                  = models.CharField(max_length=50,blank=True)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     has_chapter_content           = models.BooleanField(default=False)
     content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=200)
@@ -102,12 +115,18 @@ class Subject(models.Model):
     class Meta:
         verbose_name_plural = 'Subject'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.subject_name)
+        super(Subject, self).save(*args, **kwargs)
+
 
 class Chapter(models.Model):
     """
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
     """
     chapter_no                    = models.PositiveSmallIntegerField(null=True)
+    slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=True)
@@ -126,6 +145,11 @@ class Chapter(models.Model):
 
     class Meta:
         verbose_name_plural = 'Chapter'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.chapter_no)
+        super(Chapter, self).save(*args, **kwargs)
         
 
 
