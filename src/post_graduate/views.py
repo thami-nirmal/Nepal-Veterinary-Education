@@ -13,6 +13,8 @@ from .models import (SyllabusInfo,
 from personal.views import LevelAndMaterialDetails
 
 # Create views here.
+
+#region Syllaubus Info View
 class SyllabusInfoView(View):
     """
     A Django view that retrieves syllabus information from the database and renders it to a template.
@@ -70,8 +72,10 @@ class SyllabusInfoView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+    
+#endregion
 
-
+#region College Info View
 class CollegeInfoView(View):
     """
     A Django view that retrieves college information from the database and renders it to a template.
@@ -129,8 +133,10 @@ class CollegeInfoView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+    
+#endregion
 
-
+#region Loksewa View
 class LoksewaView(View):
     def get(self, request, *args, **kwargs):
         """
@@ -162,6 +168,9 @@ class LoksewaView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
     
+#endregion
+
+#region Loksewa Past Question Content View
 class LoksewaPastQuestionContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -186,8 +195,10 @@ class LoksewaPastQuestionContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+    
+#endregion
 
-
+#region Loksewa Model Question Content View
 class LoksewaModelQuestionContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -212,8 +223,9 @@ class LoksewaModelQuestionContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
+#endregion  
 
+#region Loksewa Notes Content View
 class LoksewaNotesContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -239,6 +251,9 @@ class LoksewaNotesContentView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
+
+#region Council View
 class CouncilView(View):
     def get(self, request, *args, **kwargs):
         """
@@ -270,7 +285,10 @@ class CouncilView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
+
+#endregion
+
+#region Council Act Content View
 class CouncilActContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -295,8 +313,10 @@ class CouncilActContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
 
+#endregion 
+
+#region Council Regulation Content View
 class CouncilRegulationContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -321,8 +341,10 @@ class CouncilRegulationContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
 
+#endregion
+
+#region Council Past Question Content VIew
 class CouncilPastQuestionContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -346,8 +368,10 @@ class CouncilPastQuestionContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
 
+#endregion
+
+#region Council Model Question Content View
 class CouncilModelQuestionContentView(View):
     def get(self, request, id, *args, **kwargs):
         """
@@ -371,3 +395,5 @@ class CouncilModelQuestionContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+
+#endregion

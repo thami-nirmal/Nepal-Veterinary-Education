@@ -11,6 +11,8 @@ from .models import (SyllabusInfo,
 from personal.views import LevelAndMaterialDetails
 
 # Create your views here.
+
+#region GK View
 class GkView(View):
     """
     View class for handling HTTP GET requests related to GK.
@@ -47,7 +49,9 @@ class GkView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
 
+#region GK Content View
 class GkContentView(View):
     """
     View class for handling HTTP GET requests related to GK content.
@@ -79,7 +83,9 @@ class GkContentView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
 
+#region Past Question View
 class PastQuestionView(View):
     """
     View class for handling HTTP GET requests related to past questions.
@@ -136,7 +142,9 @@ class PastQuestionView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
 
+#region Model Question View
 class ModelQuestionView(View):
     """
     View class for handling HTTP GET requests related to model questions.
@@ -192,8 +200,10 @@ class ModelQuestionView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+    
+#endregion
 
-
+#region Syllabus Info View
 class SyllabusInfoView(View):
     """
     A Django view that retrieves syllabus information from the database and renders it to a template.
@@ -251,7 +261,9 @@ class SyllabusInfoView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
 
+#region College Info View
 class CollegeInfoView(View):
     """
     A Django view that retrieves college information from the database and renders it to a template.
@@ -309,3 +321,4 @@ class CollegeInfoView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
+#endregion
