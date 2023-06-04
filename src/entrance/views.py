@@ -32,11 +32,11 @@ class GkView(View):
         gk_object         = GK.objects.filter(is_shown=True)
         # Check if GK objects exist
         if gk_object.exists():
-            gk_object = gk_object
+            gk_object   = gk_object
         else:
-            gk_object = None  
+            gk_object   = None  
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list            = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -64,15 +64,15 @@ class GkContentView(View):
         """
 
         # Set the template name for rendering
-        template_name              = 'gk_content_view.html'
+        template_name                   = 'gk_content_view.html'
         # Retrieve the GK details object with the given 'id'
-        gk_details_object          = GK.objects.get(id = id)
+        gk_details_object               = GK.objects.get(id = id)
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list      = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'gk_details'                  : gk_details_object,
+            'gk_details'                      : gk_details_object,
             'level_material_detail_list'      : level_material_detail_list
         }
 
@@ -124,12 +124,12 @@ class PastQuestionView(View):
         # Retrieve all PastQuestion objects where is_shown is True
         past_question_object_list    = PastQuestion.objects.filter(is_shown=True)
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list   = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'past_question'               : past_question_object,
-            'past_question_object_list'   : past_question_object_list,
+            'past_question'                   : past_question_object,
+            'past_question_object_list'       : past_question_object_list,
             'level_material_detail_list'      : level_material_detail_list,
         }
 
@@ -181,12 +181,12 @@ class ModelQuestionView(View):
         # Retrieve all ModelQuestion objects where is_shown is True
         model_question_object_list    = ModelQuestion.objects.filter(is_shown=True)
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list    = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'model_question'              : model_question_object,
-            'model_question_object_list'  : model_question_object_list,
+            'model_question'                  : model_question_object,
+            'model_question_object_list'      : model_question_object_list,
             'level_material_detail_list'      : level_material_detail_list,
         }
 
@@ -242,10 +242,10 @@ class SyllabusInfoView(View):
         level_material_detail_list          = LevelAndMaterialDetails()
 
         context = {
-            'syllabus_data'               : syllabus_data,
-            'syllabus_info_object_list'   : syllabus_info_object_list,
-            'group'                       : group,
-            'level_material_detail_list'      : level_material_detail_list
+            'syllabus_data'                 : syllabus_data,
+            'syllabus_info_object_list'     : syllabus_info_object_list,
+            'group'                         : group,
+            'level_material_detail_list'    : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -300,9 +300,9 @@ class CollegeInfoView(View):
 
         # Prepare the context dictionary to be passed to the template
         context = {
-            'college_data'                : college_data,
-            'college_info_object_list'    : college_info_object_list,
-            'group'                       : group,
+            'college_data'                    : college_data,
+            'college_info_object_list'        : college_info_object_list,
+            'group'                           : group,
             'level_material_detail_list'      : level_material_detail_list
         }
 

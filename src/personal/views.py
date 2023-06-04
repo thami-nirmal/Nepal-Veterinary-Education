@@ -18,7 +18,13 @@ def LevelAndMaterialDetails():
 class HomeView(View):
     def get(self, request,*args,**kwargs):
         template_name = 'index.html'
-        return render(request, template_name)
+
+        level_material_detail_list     =   LevelAndMaterialDetails()
+
+        context = {
+            'level_material_detail_list'   : level_material_detail_list,
+        }
+        return render(request, template_name, context)
     
 class UsefulLinksView(View):
     def get(self, request, *args, **kwargs):
