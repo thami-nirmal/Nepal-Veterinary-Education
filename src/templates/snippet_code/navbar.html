@@ -27,36 +27,27 @@
                 </ul>
             </div>
         </li>
+        {% for level_data in level_material_detail_list.level_object_list %}
         <li class="list-responsive">
             <a href="#" class="tablinks" onclick="openanswer('nav-two')">
-                <span> Graduate</span>
+                <span> {{level_data.level_name}}</span>
                 <div class="drop-icon">
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
             </a>
             <div class="responsive-drop tabcontent" id="nav-two">
                 <ul>
+                    {% for material_data in level_material_detail_list.material_object_list %}
+                    {% if level_data == material_data.level %}
                     <li>
-                        <a href="#">Syllabus</a>
+                        <a href="#">{{material_data.material_name}}</a> 
                     </li>
-                    <li>
-                        <a href="#">Notes</a>
-                    </li>
-                    <li>
-                        <a href="#">Books</a>
-                    </li>
-                    <li>
-                        <a href="#">Question</a>
-                    </li>
-                    <li>
-                        <a href="#">Practical Material</a>
-                    </li>
-                    <li>
-                        <a href="#">Assignment</a>
-                    </li>
+                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </li>
+        {% endfor %}
         <li class="list-responsive">
             <a href="#" class="tablinks" onclick="openanswer('nav-three')">
                 <span> Post Graduate</span>
@@ -128,7 +119,7 @@
                         </div>
                     </div>
                 </li>
-                {% for level_data in level_detail_list %}
+                {% for level_data in level_material_detail_list.level_object_list %}
                 <li>
                     <div class="dropdown">
                         <button class="dropbtn">
@@ -139,10 +130,10 @@
                         </button>
                         <div class="dropdown-content">
                             <ul>
-                                {% for material_data in material_detail_list %}
+                                {% for material_data in level_material_detail_list.material_object_list %}
                                 {% if level_data == material_data.level %}
                                 <li>
-                                    <a href="#">{{material_data.material_name}}</a>
+                                    <a href="#">{{material_data.material_name}}</a> 
                                 </li>
                                 {% endif %}
                                 {% endfor %}

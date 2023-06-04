@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
@@ -84,9 +85,11 @@ class MaterialType(models.Model):
         db_table = 'Material Type'
         verbose_name_plural = 'Material Type'
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): 
         if not self.slug:
-            self.slug = slugify(self.material_name)
+            base_slug     = slugify(self.material_name)
+            unique_id     = str(uuid.uuid4())[:8]
+            self.slug     = f"{base_slug}{unique_id}"
         super(MaterialType, self).save(*args, **kwargs)
 
 

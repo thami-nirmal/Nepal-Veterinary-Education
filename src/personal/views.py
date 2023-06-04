@@ -1,7 +1,20 @@
 from django.shortcuts import render
 from django.views import View
+from graduate.models import Level, MaterialType
 
 # Create your views here.
+#region function
+def LevelAndMaterialDetails():
+    level_object_list       = Level.objects.filter(is_shown = True)
+    material_object_list    = MaterialType.objects.filter(is_shown = True)
+
+    level_material = {
+        'level_object_list': level_object_list,
+        'material_object_list': material_object_list,
+    }
+    return level_material
+#endregion
+
 class HomeView(View):
     def get(self, request,*args,**kwargs):
         template_name = 'index.html'

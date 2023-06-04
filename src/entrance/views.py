@@ -8,19 +8,9 @@ from .models import (SyllabusInfo,
                      PastQuestion, 
                      ModelQuestion)
 
-
+from personal.views import LevelAndMaterialDetails
 
 # Create your views here.
-def LevelDetails():
-    level_object_list       = Level.objects.filter(is_shown = True)
-    return level_object_list
-
-
-def MaterialDetails():
-    material_object_list    = MaterialType.objects.filter(is_shown = True)
-    return material_object_list
-
-
 class GkView(View):
     """
     View class for handling HTTP GET requests related to GK.
@@ -46,19 +36,17 @@ class GkView(View):
         else:
             gk_object = None  
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'gk_data_list'                : gk_object,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'gk_data_list'                    : gk_object,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
+
 
 class GkContentView(View):
     """
@@ -80,14 +68,12 @@ class GkContentView(View):
         # Retrieve the GK details object with the given 'id'
         gk_details_object          = GK.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'gk_details'                  : gk_details_object,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -138,16 +124,13 @@ class PastQuestionView(View):
         # Retrieve all PastQuestion objects where is_shown is True
         past_question_object_list    = PastQuestion.objects.filter(is_shown=True)
 
-
-        level_detail_list        = LevelDetails()
-        material_detail_list     = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'past_question'               : past_question_object,
             'past_question_object_list'   : past_question_object_list,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list,
         }
 
         # Render the template with the provided context
@@ -198,15 +181,13 @@ class ModelQuestionView(View):
         # Retrieve all ModelQuestion objects where is_shown is True
         model_question_object_list    = ModelQuestion.objects.filter(is_shown=True)
 
-        level_detail_list        = LevelDetails()
-        material_detail_list     = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'model_question'              : model_question_object,
             'model_question_object_list'  : model_question_object_list,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list,
         }
 
         # Render the template with the provided context
@@ -258,15 +239,13 @@ class SyllabusInfoView(View):
                 group[data.university_choices][data.faculty_choices].append(syllabus_data)
 
 
-        level_detail_list        = LevelDetails()
-        material_detail_list     = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         context = {
             'syllabus_data'               : syllabus_data,
             'syllabus_info_object_list'   : syllabus_info_object_list,
             'group'                       : group,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -317,16 +296,14 @@ class CollegeInfoView(View):
                 # append the college data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(college_data)
 
-        level_detail_list        = LevelDetails()
-        material_detail_list     = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                : college_data,
             'college_info_object_list'    : college_info_object_list,
             'group'                       : group,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context

@@ -10,19 +10,7 @@ from .models import (SyllabusInfo,
                      CouncilPastQuestion,
                      CouncilModelQuestion)
 
-from graduate.models import MaterialType
-from graduate.models import Level
-
-# Create function here
-
-def LevelDetails():
-    level_object_list       = Level.objects.filter(is_shown = True)
-    return level_object_list
-
-
-def MaterialDetails():
-    material_object_list    = MaterialType.objects.filter(is_shown = True)
-    return material_object_list
+from personal.views import LevelAndMaterialDetails
 
 # Create views here.
 class SyllabusInfoView(View):
@@ -70,16 +58,14 @@ class SyllabusInfoView(View):
                 # append the syllabus data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(syllabus_data)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context dictioanry to be passed to the template
         context = {
             'syllabus_data'                : syllabus_data,
             'syllabus_info_object_list'    : syllabus_info_object_list,
             'group'                        : group,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'   : level_material_detail_list,
         }
 
         # Render the template with the provided context
@@ -131,16 +117,14 @@ class CollegeInfoView(View):
                 # append the college data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(college_data)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                : college_data,
             'college_info_object_list'    : college_info_object_list,
             'group'                       : group,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'level_material_detail_list'  : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -165,16 +149,14 @@ class LoksewaView(View):
         loksewa_notes_object_list                   = LoksewaNotes.objects.filter(is_shown=True)
 
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list                  = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'loksewa_model_question_object_list'    : loksewa_model_question_object_list,
             'loksewa_past_question_object_list'     : loksewa_past_question_object_list,
             'loksewa_notes_object_list'             : loksewa_notes_object_list,
-            'level_detail_list'                     : level_detail_list,
-            'material_detail_list'                  : material_detail_list,    
+            'level_material_detail_list'            : level_material_detail_list  
         }
 
         # Render the template with the provided context
@@ -194,14 +176,12 @@ class LoksewaPastQuestionContentView(View):
         template_name                         = 'loksewa_past_question_content_view.html'
         loksewa_past_question_object          = LoksewaPastQuestion.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'loksewa_past_question_object'    : loksewa_past_question_object,
-            'level_detail_list'               : level_detail_list,
-            'material_detail_list'            : material_detail_list,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -222,14 +202,12 @@ class LoksewaModelQuestionContentView(View):
         template_name                          = 'loksewa_model_question_content_view.html'
         loksewa_model_question_object          = LoksewaModelQuestion.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list             = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'loksewa_model_question_object'    : loksewa_model_question_object,
-            'level_detail_list'                : level_detail_list,
-            'material_detail_list'             : material_detail_list,
+            'level_material_detail_list'       : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -250,14 +228,12 @@ class LoksewaNotesContentView(View):
         template_name                 = 'loksewa_notes_content_view.html'
         loksewa_notes_object          = LoksewaNotes.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'loksewa_notes_object'        : loksewa_notes_object,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'loksewa_notes_object'            : loksewa_notes_object,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -281,8 +257,7 @@ class CouncilView(View):
         council_past_question_object_list           = CouncilPastQuestion.objects.filter(is_shown=True)
         council_model_question_object_list          = CouncilModelQuestion.objects.filter(is_shown=True)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list                  = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -290,8 +265,7 @@ class CouncilView(View):
             'council_regulation_object_list'         : council_regulation_object_list,
             'council_past_question_object_list'      : council_past_question_object_list,
             'council_model_question_object_list'     : council_model_question_object_list,
-            'level_detail_list'                      : level_detail_list,
-            'material_detail_list'                   : material_detail_list,
+            'level_material_detail_list'             : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -311,14 +285,12 @@ class CouncilActContentView(View):
         template_name                 = 'council_act_content_view.html'
         council_act_object            = CouncilAct.objects.get(id = id)
 
-        level_detail_list             = LevelDetails()
-        material_detail_list          = MaterialDetails()
+        level_material_detail_list    = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'council_act_object'          : council_act_object,
-            'level_detail_list'           : level_detail_list,
-            'material_detail_list'        : material_detail_list,
+            'council_act_object'              : council_act_object,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -339,14 +311,12 @@ class CouncilRegulationContentView(View):
         template_name                        = 'council_regulation_content_view.html'
         council_regulation_object            = CouncilRegulation.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list           = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'council_regulation_object'      : council_regulation_object,
-            'level_detail_list'              : level_detail_list,
-            'material_detail_list'           : material_detail_list,
+            'council_regulation_object'       : council_regulation_object,
+            'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -367,13 +337,11 @@ class CouncilPastQuestionContentView(View):
         template_name                          = 'council_past_question_content_view.html'
         council_past_question_object           = CouncilPastQuestion.objects.get(id = id)
 
-        level_detail_list          = LevelDetails()
-        material_detail_list       = MaterialDetails()
+        level_material_detail_list             = LevelAndMaterialDetails()
         # Prepare the context data for rendering the template
         context = {
             'council_past_question_object'     : council_past_question_object,
-            'level_detail_list'                : level_detail_list,
-            'material_detail_list'             : material_detail_list,
+            'level_material_detail_list'       : level_material_detail_list
         }
 
         # Render the template with the provided context
@@ -394,13 +362,11 @@ class CouncilModelQuestionContentView(View):
         template_name                          = 'council_model_question_content_view.html'
         council_model_question_object          = CouncilModelQuestion.objects.get(id = id)
 
-        level_detail_list             = LevelDetails()
-        material_detail_list          = MaterialDetails()
+        level_material_detail_list             = LevelAndMaterialDetails()
         # Prepare the context data for rendering the template
         context = {
             'council_model_question_object'    : council_model_question_object,
-            'level_detail_list'                : level_detail_list,
-            'material_detail_list'             : material_detail_list,
+            'level_material_detail_list'       : level_material_detail_list
         }
 
         # Render the template with the provided context
