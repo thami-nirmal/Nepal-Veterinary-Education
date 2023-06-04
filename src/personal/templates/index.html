@@ -268,13 +268,14 @@
                     <span>Krishi Diary</span>
                 </div>
                 <div class="krishi-diary-main">
+                    {% for diary_data in krishi_diary_details %}
                     <div class="nve-krishi-diary-item">
                         <div class="diary-item-dot">
                             <span class="dot"></span>
                         </div>
                         <div class="diary-item-middle-text">
                             <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
+                                <span>{{diary_data.name}}</span>
                             </div>
                         </div>
                         <div class="diary-item-view-more">
@@ -284,86 +285,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="nve-krishi-diary-item">
-                        <div class="diary-item-dot">
-                            <span class="dot"></span>
-                        </div>
-                        <div class="diary-item-middle-text">
-                            <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
-                            </div>
-                        </div>
-                        <div class="diary-item-view-more">
-                            <a href="#">
-                                <p>View Now</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nve-krishi-diary-item">
-                        <div class="diary-item-dot">
-                            <span class="dot"></span>
-                        </div>
-                        <div class="diary-item-middle-text">
-                            <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
-                            </div>
-                        </div>
-                        <div class="diary-item-view-more">
-                            <a href="#">
-                                <p>View Now</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nve-krishi-diary-item">
-                        <div class="diary-item-dot">
-                            <span class="dot"></span>
-                        </div>
-                        <div class="diary-item-middle-text">
-                            <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
-                            </div>
-                        </div>
-                        <div class="diary-item-view-more">
-                            <a href="#">
-                                <p>View Now</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nve-krishi-diary-item">
-                        <div class="diary-item-dot">
-                            <span class="dot"></span>
-                        </div>
-                        <div class="diary-item-middle-text">
-                            <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
-                            </div>
-                        </div>
-                        <div class="diary-item-view-more">
-                            <a href="#">
-                                <p>View Now</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nve-krishi-diary-item">
-                        <div class="diary-item-dot">
-                            <span class="dot"></span>
-                        </div>
-                        <div class="diary-item-middle-text">
-                            <div class="diary-item-middle-text-content">
-                                <span>Krishi Diary 2079</span>
-                            </div>
-                        </div>
-                        <div class="diary-item-view-more">
-                            <a href="#">
-                                <p>View Now</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="diary-item-view-more-bottom">
                     <a href="#">

@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
@@ -88,8 +87,8 @@ class MaterialType(models.Model):
     def save(self, *args, **kwargs): 
         if not self.slug:
             base_slug     = slugify(self.material_name)
-            unique_id     = str(uuid.uuid4())[:8]
-            self.slug     = f"{base_slug}{unique_id}"
+            level_name    = slugify(self.level.level_name)
+            self.slug     = f"{base_slug}-{level_name}"
         super(MaterialType, self).save(*args, **kwargs)
 
 
@@ -99,16 +98,11 @@ class Subject(models.Model):
     """
     subject_name                  = models.CharField(max_length=50,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
-    has_chapter_content           = models.BooleanField(default=False)
-    content                       = RichTextUploadingField(null=True)
-    pdf_URL                       = models.URLField(max_length=200)
-    is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)
-    material_type                 = models.ForeignKey(MaterialType, related_name='Subject_MaterialType', on_delete=models.CASCADE,null=True)
-    seo_title                     = models.CharField(max_length=50, blank=True)
-    seo_keyword                   = models.CharField(max_length=200, blank=True)
-    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
-    seo_description               = models.TextField(blank=True)
+    # material_type                 = models.ForeignKey(MaterialType, related_name='Subject_MaterialType', on_delete=models.CASCADE,null=True)
+    sem_year                      = models.ForeignKey(SemYear, related_name='subject_semyear', on_delete=models.CASCADE, null=True)
+    level                         = models.ForeignKey(Level, related_name='subject_level', on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         """
@@ -124,6 +118,31 @@ class Subject(models.Model):
             self.slug = slugify(self.subject_name)
         super(Subject, self).save(*args, **kwargs)
 
+class MaterialContent(models.Model):
+    """
+    Represents a material content with a specific attributes
+    """
+    has_chapter_content           = models.BooleanField(default=True)
+    content                       = RichTextUploadingField(null=True)
+    pdf_URL                       = models.URLField(max_length=200)
+    is_pdf                        = models.BooleanField(default=True)
+    is_shown                      = models.BooleanField(default=True)
+    material_type                 = models.ForeignKey(MaterialType, related_name='materialcontent_materialtype', on_delete=models.CASCADE, null=True)
+    subject                       = models.ForeignKey(Subject, related_name='materialcontent_subject', on_delete=models.CASCADE, null=True)
+    seo_title                     = models.CharField(max_length=50, blank=True)
+    seo_keyword                   = models.CharField(max_length=200, blank=True)
+    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description               = models.TextField(blank=True)
+
+    def __str__(self):
+        """
+        :return: the material content representation of the material
+        """
+        return str(self.has_chapter_content)
+    
+    class Meta:
+        verbose_name_plural = 'Material Content'
+
 
 class Chapter(models.Model):
     """
@@ -135,7 +154,8 @@ class Chapter(models.Model):
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)
-    subject                       = models.ForeignKey(Subject, related_name='Chapter_Subject', on_delete=models.CASCADE,null=True)
+    # subject                       = models.ForeignKey(Subject, related_name='Chapter_Subject', on_delete=models.CASCADE,null=True)
+    material_content              = models.ForeignKey(MaterialContent, related_name='chapter_materialcontent', on_delete=models.CASCADE, null=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)

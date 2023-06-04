@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from graduate.models import Level, MaterialType
+from .models import KrishiDiarys
 
 # Create your views here.
 #region Level and Material Details Function
@@ -19,10 +20,12 @@ def LevelAndMaterialDetails():
 class HomeView(View):
     def get(self, request,*args,**kwargs):
         template_name                  = 'index.html'
-        level_material_detail_list     = LevelAndMaterialDetails()
 
+        krishi_diary_details = KrishiDiarys.objects.filter(is_shown=True)
+        level_material_detail_list     = LevelAndMaterialDetails()
         context = {
             'level_material_detail_list'   : level_material_detail_list,
+            'krishi_diary_details'         : krishi_diary_details,
         }
         return render(request, template_name, context)
 #endregion

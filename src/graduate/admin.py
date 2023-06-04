@@ -1,35 +1,35 @@
 from django.contrib import admin
-from graduate.models import Subject, Chapter, MaterialType, SemYear, Level
+from graduate.models import Subject, Chapter, MaterialType, SemYear, Level, MaterialContent
 from django.utils.safestring import mark_safe
 
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
-    list_display           = ['subject_name','slug','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']
-    list_filter            = ['has_chapter_content', 'is_pdf','is_shown','material_type']
+    list_display           = ['subject_name','slug','is_shown','sem_year','level']
+    list_filter            = ['is_shown','sem_year']
     search_fields          = ['subject_name']
 
-    fieldsets = [
-        (None, {'fields': ['subject_name','has_chapter_content','pdf_URL','is_pdf','is_shown','material_type']}),
-        ('SEO Options', 
-        {"classes": ["collapse"],
-        'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
-    ]
+    # fieldsets = [
+    #     (None, {'fields': ['subject_name','is_shown','sem_year','level']}),
+    #     ('SEO Options', 
+    #     {"classes": ["collapse"],
+    #     'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
+    # ]
 
-    def formatted_content(self, obj):
-        return mark_safe(obj.content)
+    # def formatted_content(self, obj):
+    #     return mark_safe(obj.content)
 
-    formatted_content.short_description = 'content'
+    # formatted_content.short_description = 'content'
 
 admin.site.register(Subject,SubjectAdmin)
 
 
 class ChapterAdmin(admin.ModelAdmin):
-    list_display          = ['chapter_no','slug','pdf_URL','is_pdf','is_shown','subject']
-    list_filter           = ['is_shown', 'is_pdf','subject']
+    list_display          = ['chapter_no','slug','pdf_URL','is_pdf','is_shown','material_content']
+    list_filter           = ['is_shown', 'is_pdf','material_content']
     ordering              = ['-chapter_no']
 
     fieldsets = [
-        (None, {'fields': ['chapter_no','pdf_URL','is_pdf','is_shown','subject']}),
+        (None, {'fields': ['chapter_no','pdf_URL','is_pdf','is_shown','material_content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -86,3 +86,21 @@ class LevelAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(Level,LevelAdmin)
+
+class MaterialContentAdmin(admin.ModelAdmin):
+    list_display     = ['has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','material_type','subject']
+    list_filter      = ['is_shown']
+
+    fieldsets = [
+        (None, {'fields':['has_chapter_content','content','pdf_URL','is_pdf','is_shown','material_type','subject']}),
+        ('SEO Options',
+         {"classes":["collapse"],
+          'fields':['seo_title','seo_keyword','seo_image','seo_description']}),
+    ]
+
+    def formatted_content(self, obj):
+        return mark_safe(obj.content)
+    
+    formatted_content.short_description = 'content'
+
+admin.site.register(MaterialContent, MaterialContentAdmin)
