@@ -87,6 +87,7 @@ class LevelAdmin(admin.ModelAdmin):
 
 admin.site.register(Level,LevelAdmin)
 
+
 class MaterialContentAdmin(admin.ModelAdmin):
     list_display     = ['has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','material_type','subject']
     list_filter      = ['is_shown']

@@ -174,15 +174,3 @@ class Chapter(models.Model):
         if not self.slug:
             self.slug = slugify(self.chapter_no)
         super(Chapter, self).save(*args, **kwargs)
-        
-
-
-
-
-
-    
-    
-
-
-
-    

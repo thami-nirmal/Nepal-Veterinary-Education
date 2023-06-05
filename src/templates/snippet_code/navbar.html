@@ -29,18 +29,18 @@
         </li>
         {% for level_data in level_material_detail_list.level_object_list %}
         <li class="list-responsive">
-            <a href="#" class="tablinks" onclick="openanswer('nav-two')">
+            <a href="#" class="tablinks" onclick="openanswer('nav-{{ forloop.counter }}')">
                 <span> {{level_data.level_name}}</span>
                 <div class="drop-icon">
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
             </a>
-            <div class="responsive-drop tabcontent" id="nav-two">
+            <div class="responsive-drop tabcontent" id="nav-{{ forloop.counter }}">
                 <ul>
                     {% for material_data in level_material_detail_list.material_object_list %}
                     {% if level_data == material_data.level %}
                     <li>
-                        <a href="#">{{material_data.material_name}}</a> 
+                        <a href="#">{{material_data.material_name}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}
