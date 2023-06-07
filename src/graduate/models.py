@@ -49,14 +49,16 @@ class SemYear(models.Model):
         """
         :return: the semester number or year number representation of the SemYear.
         """
-        return str(self.sem_year_num)
+        return self.slug
 
     class Meta:
         verbose_name_plural = 'Semester Year'
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): 
         if not self.slug:
-            self.slug = slugify(self.sem_year_num)
+            base_slug     = slugify(self.sem_year_num)
+            level_name    = slugify(self.level.level_name)
+            self.slug     = f"{level_name}-{base_slug}"
         super(SemYear, self).save(*args, **kwargs)
 
 
@@ -78,7 +80,7 @@ class MaterialType(models.Model):
         """
         :return: the material name representation of the MaterialType.
         """
-        return self.material_name
+        return self.slug
 
     class Meta:
         db_table = 'Material Type'
@@ -88,7 +90,7 @@ class MaterialType(models.Model):
         if not self.slug:
             base_slug     = slugify(self.material_name)
             level_name    = slugify(self.level.level_name)
-            self.slug     = f"{base_slug}-{level_name}"
+            self.slug     = f"{level_name}-{base_slug}"
         super(MaterialType, self).save(*args, **kwargs)
 
 
@@ -113,17 +115,19 @@ class Subject(models.Model):
     class Meta:
         verbose_name_plural = 'Subject'
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): 
         if not self.slug:
-            self.slug = slugify(self.subject_name)
+            semyear_slug     = slugify(self.sem_year)
+            subject_name  = slugify(self.subject_name)
+            self.slug     = f"{semyear_slug}-{subject_name}"
         super(Subject, self).save(*args, **kwargs)
 
 class MaterialContent(models.Model):
     """
     Represents a material content with a specific attributes
     """
-    has_chapter_content           = models.BooleanField(default=True)
-    content                       = RichTextUploadingField(null=True)
+    has_chapter_content           = models.BooleanField(default=False)
+    content                       = RichTextUploadingField(null=True, blank=True)
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)
@@ -138,7 +142,7 @@ class MaterialContent(models.Model):
         """
         :return: the material content representation of the material
         """
-        return str(self.has_chapter_content)
+        return str(self.material_type) + "-" + str(self.subject)
     
     class Meta:
         verbose_name_plural = 'Material Content'
