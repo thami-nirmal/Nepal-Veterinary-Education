@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('personal.urls')),
     path('entrance/',include('entrance.urls')),
     path('post-graduate/',include('post_graduate.urls')),
+    path('graduate/',include('graduate.urls')),
 ]
