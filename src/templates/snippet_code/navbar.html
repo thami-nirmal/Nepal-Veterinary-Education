@@ -40,7 +40,7 @@
                     {% for material_data in level_material_detail_list.material_object_list %}
                     {% if level_data == material_data.level %}
                     <li>
-                        <a href="#">{{material_data.material_name}}</a>
+                        <a href="{% url 'graduate_detail' level_data.level_name|slugify material_data.material_name|slugify %}">{{material_data.material_name}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}

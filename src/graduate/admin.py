@@ -1,9 +1,11 @@
 from django.contrib import admin
 from graduate.models import Subject, Chapter, MaterialType, SemYear, Level, MaterialContent
 from django.utils.safestring import mark_safe
-
+from graduate.forms import SubjectForm
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
+    form                   = SubjectForm
+
     list_display           = ['subject_name','slug','is_shown','level','sem_year']
     list_filter            = ['is_shown','sem_year']
     search_fields          = ['subject_name']
@@ -14,6 +16,11 @@ class SubjectAdmin(admin.ModelAdmin):
         # {"classes": ["collapse"],
         # 'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
     ]
+
+    class Media:
+        js = (
+            'js/chained-level.js',
+        )
 
     # def formatted_content(self, obj):
     #     return mark_safe(obj.content)
