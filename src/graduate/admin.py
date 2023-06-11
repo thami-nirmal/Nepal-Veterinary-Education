@@ -1,7 +1,7 @@
 from django.contrib import admin
 from graduate.models import Subject, Chapter, MaterialType, SemYear, Level, MaterialContent
 from django.utils.safestring import mark_safe
-from graduate.forms import SubjectForm
+from graduate.forms import SubjectForm, MaterialContentForm
 # Register your models here.
 class SubjectAdmin(admin.ModelAdmin):
     form                   = SubjectForm
@@ -19,7 +19,7 @@ class SubjectAdmin(admin.ModelAdmin):
 
     class Media:
         js = (
-            'js/chained-level.js',
+            'js/chained_dropdown.js',
         )
 
     # def formatted_content(self, obj):
@@ -96,19 +96,30 @@ admin.site.register(Level,LevelAdmin)
 
 
 class MaterialContentAdmin(admin.ModelAdmin):
-    list_display     = ['has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','material_type','subject']
+    form             = MaterialContentForm
+
+    list_display     = ['has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
     list_filter      = ['is_shown']
 
     fieldsets = [
-        (None, {'fields':['has_chapter_content','content','pdf_URL','is_pdf','is_shown','material_type','subject']}),
-        ('SEO Options',
-         {"classes":["collapse"],
-          'fields':['seo_title','seo_keyword','seo_image','seo_description']}),
+        (None, {'fields':['has_chapter_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']}),
+        # ('SEO Options',
+        #  {"classes":["collapse"],
+        #   'fields':['seo_title','seo_keyword','seo_image','seo_description']}),
     ]
+
+    def get_level(self, obj):
+        return obj.subject.level
 
     def formatted_content(self, obj):
         return mark_safe(obj.content)
     
     formatted_content.short_description = 'content'
+    get_level.short_description = 'level'
+
+    class Media:
+        js = (
+            'js/chained_dropdown.js',
+        )
 
 admin.site.register(MaterialContent, MaterialContentAdmin)

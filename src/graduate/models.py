@@ -49,7 +49,7 @@ class SemYear(models.Model):
         """
         :return: the semester number or year number representation of the SemYear.
         """
-        return self.slug
+        return str(self.sem_year_num)
 
     class Meta:
         verbose_name_plural = 'Semester Year'
@@ -80,7 +80,7 @@ class MaterialType(models.Model):
         """
         :return: the material name representation of the MaterialType.
         """
-        return self.slug
+        return self.material_name
 
     class Meta:
         db_table = 'Material Type'
