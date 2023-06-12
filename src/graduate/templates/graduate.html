@@ -40,7 +40,6 @@
                                 {% if selected_material_content %}
                                 {% for graduate_data in selected_material_content %}
                                 {% if graduate_data.subject.sem_year.sem_year_num == sem_data.sem_year_num %}
-                                {{graduate_data.sub_content}}
                                 {% if graduate_data.has_sub_content %}
                                 <li>
                                     <p>{{graduate_data.subject}}</p>
@@ -86,9 +85,11 @@
                                     </a>
                                 </li>
                                 {% endif %}
-
+                                
                                 {% endif %}
+
                                 {% endfor %}
+
                                 {% else %}
                                 <h1>No Data Found!</h1>
                                 {% endif %}

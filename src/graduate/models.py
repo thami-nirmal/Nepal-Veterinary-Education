@@ -124,7 +124,7 @@ class MaterialContent(models.Model):
     """
     Represents a material content with a specific attributes
     """
-    has_sub_content                   = models.BooleanField(default=False)
+    has_sub_content               = models.BooleanField(default=False)
     content                       = RichTextUploadingField(null=True, blank=True)
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
@@ -140,7 +140,7 @@ class MaterialContent(models.Model):
         """
         :return: the material content representation of the material
         """
-        return str(self.material_type) + "-" + str(self.subject)
+        return str(self.material_type) + " - " + str(self.subject)
     
     class Meta:
         verbose_name_plural = 'Material Content'
@@ -150,7 +150,7 @@ class SubContent(models.Model):
     """
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
     """
-    sub_content_name                  = models.CharField(max_length=80,blank=True)
+    sub_content_name              = models.CharField(max_length=80,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=220,default='')
@@ -166,7 +166,7 @@ class SubContent(models.Model):
         """
         :return: the chapter number representation of the chapter.
         """
-        return self.sub_content_name
+        return str(self.material_content)
 
     class Meta:
         verbose_name_plural = 'Chapter'

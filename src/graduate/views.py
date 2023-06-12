@@ -61,7 +61,7 @@ class GraduateView(View):
 
         # Rretrieve the material content objects that match the selected level and materail type
         selected_material_content                      = MaterialContent.objects.filter(material_type__level = selected_level_object,material_type = selected_material_type_object)
-        
+
         # Retrieve the semester
         sem_year_object_list                           = SemYear.objects.filter(is_shown=True, level=selected_level_object)
 
@@ -101,8 +101,11 @@ class GraduateContentView(View):
         # Set the template name for rendering
         template_name                                  = 'graduate_content_view.html'
 
-        # Retrieve the graduate dtails object based on the provided 'id'
-        graduate_details_object                        =  MaterialContent.objects.get(id=id)
+        # Retrieve the graduate details object based on the provided 'id'
+        graduate_details_object                        = MaterialContent.objects.get(id=id)
+
+        # Retrieve the graduate level details object based on the provided id
+        graduate_level_details_object                  = graduate_details_object.material_type.level.level_name
 
         # Create a instance of LeveAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
@@ -113,6 +116,7 @@ class GraduateContentView(View):
 
             'level_material_detail_list'               : level_material_detail_list,
 
+            'graduate_level_details_object'            : graduate_level_details_object,
         }
 
         # Render the 'graduate_content_view.html' template with provided context
@@ -164,7 +168,7 @@ class GraduateSubContentView(View):
 
         # Retrieve the sub-content object based on the provided ID
         sub_content_object                             = SubContent.objects.filter(material_content__id=id).first()
-
+        
         # Retrieve all sub-content objects where is_shown is True and material_content matches the provided ID
         sub_content_object_list                        = SubContent.objects.filter(is_shown=True, material_content__id=id)
 
