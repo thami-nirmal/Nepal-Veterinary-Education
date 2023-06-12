@@ -28,7 +28,7 @@ class MaterialContentForm(forms.ModelForm):
     
     class Meta:
         model = MaterialContent
-        fields = ['has_chapter_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']
+        fields = ['has_sub_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']
     def __init__(self, *args, **kwargs):
         super(MaterialContentForm, self).__init__(*args, **kwargs)
         try:

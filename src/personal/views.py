@@ -4,28 +4,35 @@ from graduate.models import Level, MaterialType
 from .models import KrishiDiarys
 
 # Create your views here.
-#region Level and Material Details Function
+# region Level and Material Details Function
 def LevelAndMaterialDetails():
-    level_object_list       = Level.objects.filter(is_shown = True)
-    material_object_list    = MaterialType.objects.filter(is_shown = True)
+    
+    level_object_list                                  = Level.objects.filter(is_shown = True)
+
+    material_object_list                               = MaterialType.objects.filter(is_shown = True)
 
     level_material = {
-        'level_object_list'     : level_object_list,
-        'material_object_list'  : material_object_list,
+        'level_object_list'                            : level_object_list,
+
+        'material_object_list'                         : material_object_list,
     }
     return level_material
-#endregion
+# endregion
 
 #region Home View
 class HomeView(View):
     def get(self, request,*args,**kwargs):
-        template_name                  = 'index.html'
 
-        krishi_diary_details = KrishiDiarys.objects.filter(is_shown=True)
-        level_material_detail_list     = LevelAndMaterialDetails()
+        template_name                                   = 'index.html'
+
+        krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True)
+
+        level_material_detail_list                      = LevelAndMaterialDetails()
+
         context = {
-            'level_material_detail_list'   : level_material_detail_list,
-            'krishi_diary_details'         : krishi_diary_details,
+            'level_material_detail_list'                : level_material_detail_list,
+
+            'krishi_diary_details'                      : krishi_diary_details,
         }
         return render(request, template_name, context)
 #endregion
@@ -33,13 +40,17 @@ class HomeView(View):
 #region Useful Links View
 class UsefulLinksView(View):
     def get(self, request, *args, **kwargs):
-        template_name = 'useful_links.html'
+
+        template_name                                  = 'useful_links.html'
+
         return render(request, template_name)
 #endregion
 
 #region News Notice View
 class NewsNoticeView(View):
     def get(self, request, *args, **kwargs):
-        template_name = 'news_notice_syllabus.html'
+
+        template_name                                  = 'news_notice_syllabus.html'
+
         return render(request, template_name)
 #endregion

@@ -1,13 +1,28 @@
+// function getSemesterYear(level_id) {
+//     let $ = django.jQuery;
+//     $.get('/graduate/sem-year/' + level_id, function (resp) {
+//         let sem_year_list = '<option value="" selected="">----Select Semester-----</option>'
+//         $.each(resp.data, function (i, item) {
+//             sem_year_list += '<option value="' + item.id + '">' + item.sem_year_num + '</option>'
+//         });
+//         $('#id_sem_year').html(sem_year_list);
+//     });
+// }
+
 function getSemesterYear(level_id) {
     let $ = django.jQuery;
+    console.log("function called")
     $.get('/graduate/sem-year/' + level_id, function (resp) {
-        let sem_year_list = '<option value="" selected="">----Select Semester-----</option>'
+        let sem_year_list = '<option value="" selected>----Select Semester-----</option>';
         $.each(resp.data, function (i, item) {
-            sem_year_list += '<option value="' + item.id + '">' + item.sem_year_num + '</option>'
+            sem_year_list += '<option value="' + item.id + '">' + item.sem_year_num + '</option>';
         });
         $('#id_sem_year').html(sem_year_list);
+        $('#id_sem_year').prop('disabled', false);
     });
 }
+
+
 
 function getMaterialType(level_id) {
     let $ = django.jQuery;

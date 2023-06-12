@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+
+{% block pageheading %}
+level_name  material_name  subject_name 
+{% endblock pageheading %}
+
+
+{% block content %}
+<div class="container">
+    <div class="que-coll-top">
+        <div class="que-coll-top-left">
+            <div class="sub-nav-top">
+                <a href="#">
+                    <span>Home</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Entrance</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Past Question</span>
+                </a>
+            </div>
+            <div class="error-404-underline que-coll-line"></div>
+            {% if sub_content_object_list %}
+            {% for item in sub_content_object_list %}
+            <a id="sub_content_object_id{{item.id}}"
+                style="margin: 2px; padding: 2px; border: 1px solid #232e52; border-radius: 10px; cursor: pointer; background-color: #232e52; color: white; "
+                sub_content_object_data="{{item.id}}">YEAR:{{item.sub_content_name}}</a>
+            {% endfor %}
+            <!-- <h6 id='past_question_details'>Selected question paper: {{past_question.year}}({{past_question.types}})</h6> -->
+            <div class="que-coll-left-container">
+                {% if sub_content_object.is_pdf %}
+                <div id="pdfContainer" style="position: relative; height: 100vh;" class="que-coll-top-left">
+                    <button id="fullscreenButton" style="position: absolute; top: 0; right: 2px;"><i
+                            class="fa-solid fa-expand"></i></button>
+                    <iframe id="pdfFrame" style="border: 2px solid #232e52  " src="{{sub_content_object.pdf_URL}}"
+                        width="100%" height="100%" responsive=true></iframe>
+                </div>
+                {% else %}
+                {{sub_content_object.content|safe}}
+                {% endif %}
+            </div>
+            {% else %}
+            <h1>No Data Found!</h1>
+            {% endif %}
+        </div>
+        <div class="que-coll-top-right">
+            {% include 'snippet_code/popular_post.html' %}
+        </div>
+    </div>
+    <div class="error-404-underline que-coll-line"></div>
+
+    {% include 'snippet_code/other_related_post.html' %}
+</div>
+{% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '[id^="sub_content_object_id"]', function (e) {
+            var sub_content_object_id = $(this).attr('sub_content_object_data');   // Retrieve the value of the 'past_question_object_data' attribute for the clicked element
+            $.ajax({
+                type: 'GET',
+                url: '',
+                "X-Requested-With": "XMLHttpRequest",
+                data: {
+                    id: sub_content_object_id        // Pass the 'past_question_object_id' as a parameter in the AJAX request
+                },
+                success: function (response) {
+                    console.log(response.data[0])
+                    url = response.data[0].url      // Get the 'year' value from the response
+                    $('#pdfFrame').attr('src', url)    // Set the 'src' attribute of the element with ID 'pdfFrame' to the 'url'
+                    // $("#past_question_details").text('selected paper:' + name )    // Set the text content of the element with ID 'past question details' to the selected question paper details
+                },
+                error: function (error) {
+                    console.log(error)      // Log any errors that occur during the AJAX request
+                }
+            })
+        });
+    });
+</script>
+{% endblock content %}

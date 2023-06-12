@@ -69,7 +69,6 @@ class MaterialType(models.Model):
     material_name                 = models.CharField(max_length=50,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     is_shown                      = models.BooleanField(default=True)
-    # sem_year                      = models.ForeignKey(SemYear, related_name='MaterialType_SemYear', on_delete=models.CASCADE,null=True)
     level                         = models.ForeignKey(Level,related_name = 'MaterialType_Level',on_delete=models.CASCADE,null=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
@@ -101,7 +100,6 @@ class Subject(models.Model):
     subject_name                  = models.CharField(max_length=50,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     is_shown                      = models.BooleanField(default=True)
-    # material_type                 = models.ForeignKey(MaterialType, related_name='Subject_MaterialType', on_delete=models.CASCADE,null=True)
     sem_year                      = models.ForeignKey(SemYear, related_name='subject_semyear', on_delete=models.CASCADE, null=True)
     level                         = models.ForeignKey(Level, related_name='subject_level', on_delete=models.CASCADE, null=True)
 
@@ -126,7 +124,7 @@ class MaterialContent(models.Model):
     """
     Represents a material content with a specific attributes
     """
-    has_chapter_content           = models.BooleanField(default=False)
+    has_sub_content                   = models.BooleanField(default=False)
     content                       = RichTextUploadingField(null=True, blank=True)
     pdf_URL                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
@@ -148,17 +146,16 @@ class MaterialContent(models.Model):
         verbose_name_plural = 'Material Content'
 
 
-class Chapter(models.Model):
+class SubContent(models.Model):
     """
     Represents a chapter (if Subject has_chapter_content is true) with specific attributes
     """
-    chapter_no                    = models.PositiveSmallIntegerField(null=True)
+    sub_content_name                  = models.CharField(max_length=80,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
     content                       = RichTextUploadingField(null=True)
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)
-    # subject                       = models.ForeignKey(Subject, related_name='Chapter_Subject', on_delete=models.CASCADE,null=True)
     material_content              = models.ForeignKey(MaterialContent, related_name='chapter_materialcontent', on_delete=models.CASCADE, null=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
@@ -169,12 +166,14 @@ class Chapter(models.Model):
         """
         :return: the chapter number representation of the chapter.
         """
-        return str(self.chapter_no)
+        return self.sub_content_name
 
     class Meta:
         verbose_name_plural = 'Chapter'
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.chapter_no)
-        super(Chapter, self).save(*args, **kwargs)
+            sub_content_slug = slugify(self.sub_content_name)
+            material_content = slugify(self.material_content)
+            self.slug = f"{sub_content_slug}-{material_content}"
+        super(SubContent, self).save(*args, **kwargs)

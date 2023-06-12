@@ -1,5 +1,5 @@
 from django.contrib import admin
-from graduate.models import Subject, Chapter, MaterialType, SemYear, Level, MaterialContent
+from graduate.models import Subject, SubContent, MaterialType, SemYear, Level, MaterialContent
 from django.utils.safestring import mark_safe
 from graduate.forms import SubjectForm, MaterialContentForm
 # Register your models here.
@@ -30,13 +30,13 @@ class SubjectAdmin(admin.ModelAdmin):
 admin.site.register(Subject,SubjectAdmin)
 
 
-class ChapterAdmin(admin.ModelAdmin):
-    list_display          = ['chapter_no','slug','pdf_URL','is_pdf','is_shown','material_content']
+class SubContentAdmin(admin.ModelAdmin):
+    list_display          = ['sub_content_name','slug','pdf_URL','is_pdf','is_shown','material_content']
     list_filter           = ['is_shown', 'is_pdf','material_content']
-    ordering              = ['-chapter_no']
+    ordering              = ['-sub_content_name']
 
     fieldsets = [
-        (None, {'fields': ['chapter_no','pdf_URL','is_pdf','is_shown','material_content']}),
+        (None, {'fields': ['sub_content_name','pdf_URL','is_pdf','is_shown','material_content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -47,7 +47,7 @@ class ChapterAdmin(admin.ModelAdmin):
 
     formatted_content.short_description = 'content'
 
-admin.site.register(Chapter,ChapterAdmin)
+admin.site.register(SubContent,SubContentAdmin)
 
 
 class MaterialTypeAdmin(admin.ModelAdmin):
@@ -98,11 +98,11 @@ admin.site.register(Level,LevelAdmin)
 class MaterialContentAdmin(admin.ModelAdmin):
     form             = MaterialContentForm
 
-    list_display     = ['has_chapter_content','formatted_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
+    list_display     = ['has_sub_content','formatted_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
     list_filter      = ['is_shown']
 
     fieldsets = [
-        (None, {'fields':['has_chapter_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']}),
+        (None, {'fields':['has_sub_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']}),
         # ('SEO Options',
         #  {"classes":["collapse"],
         #   'fields':['seo_title','seo_keyword','seo_image','seo_description']}),
