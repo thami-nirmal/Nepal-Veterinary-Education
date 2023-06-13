@@ -153,10 +153,10 @@ class KrishiDiarysView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                        = LevelAndMaterialDetails()
 
-        # Pagination setttings
+        # Pagination settings
         items_per_page                                    = 8
 
-        # Creae Paginator object
+        # Create Paginator object
         paginator = Paginator(krishi_diarys_details_list, items_per_page)
 
         # Get the currrent page number from the request's GET parameters

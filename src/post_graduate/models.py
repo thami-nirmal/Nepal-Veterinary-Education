@@ -52,7 +52,7 @@ class CouncilModelQuestion(models.Model):
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
+    content                       = RichTextUploadingField(null=True, blank=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -75,7 +75,7 @@ class CouncilPastQuestion(models.Model):
     year                          = models.PositiveIntegerField(null=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
+    content                       = RichTextUploadingField(null=True, blank=True)
     types                         = models.CharField(max_length=60, blank=True) 
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
@@ -100,7 +100,7 @@ class LoksewaModelQuestion(models.Model):
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
+    content                       = RichTextUploadingField(null=True, blank=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -124,7 +124,7 @@ class LoksewaPastQuestion(models.Model):
     year                          = models.PositiveIntegerField(null=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
+    content                       = RichTextUploadingField(null=True,blank=True)
     types                         = models.CharField(max_length=60, blank=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
@@ -149,7 +149,7 @@ class LoksewaNotes(models.Model):
     is_shown                      = models.BooleanField(default=True)
     pdf_url                       = models.URLField(max_length=200)
     is_pdf                        = models.BooleanField(default=True)
-    content                       = RichTextUploadingField()
+    content                       = RichTextUploadingField(null=True,blank=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -166,14 +166,14 @@ class LoksewaNotes(models.Model):
 
 
 university_choices        = (
-                                 ('AFU', 'Agriculture and Forestry University'),
-                                 ('TU', 'Tribhuvan University'),
-                                 ('PU', 'Purwanchal University'),
+                                ('AFU', 'Agriculture and Forestry University'),
+                                ('TU', 'Tribhuvan University'),
+                                ('PU', 'Purwanchal University'),
                                 )
 faculty_choices           = (
-                                 ('B.V.Sc and A.H', 'B.V.Sc and A.H / B.Sc Fisheries'),
-                                 ('B.Sc Agriculture', 'B.Sc Agriculture'),
-                                 ('B.Sc Forestry', 'B.Sc Forestry'),
+                                ('B.V.Sc and A.H', 'B.V.Sc and A.H / B.Sc Fisheries'),
+                                ('B.Sc Agriculture', 'B.Sc Agriculture'),
+                                ('B.Sc Forestry', 'B.Sc Forestry'),
                                 )
 
 

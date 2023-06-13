@@ -95,8 +95,8 @@ class NewsLetter(models.Model):
     """
     Represents a news letter subscription entry
     """
-    email                = models.EmailField(max_length=254)
-    subscribe            = models.BooleanField(default=False)
+    email                    = models.EmailField(max_length=254)
+    subscribe                = models.BooleanField(default=False)
 
     def __str__(self):
         """

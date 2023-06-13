@@ -20,8 +20,8 @@ Entrance - General Knowledge
             </div>
             <div class="error-404-underline que-coll-line"></div>
             <div class="que-coll-left-container">
-                {% if gk_data_list %}
-                {% for data in gk_data_list %}
+                {% if gk_page_obj %}
+                {% for data in gk_page_obj %}
                 <div class="que-coll-left-item graduate-left-item">
                     <div class="que-coll-left-item-content graduate-item-content">
                         <div class="que-coll-item-left graduate-item-span">
@@ -50,6 +50,37 @@ Entrance - General Knowledge
                 {% else %}
                 <h1>No Data Found!</h1>
                 {% endif %}
+            </div>
+            <div class="buttons">
+                {% if gk_page_obj.has_previous %}
+                <a href="?page={{ gk_page_obj.previous_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                </a>
+                {% endif %}
+
+                
+                {% if gk_page_obj.has_next %}
+                <a href="?page={{ gk_page_obj.next_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </a>
+                {% endif %}
+                <span>Page : {{ gk_page_obj.number }} of {{ gk_page_obj.paginator.num_pages }}</span>
             </div>
         </div>
         <div class="que-coll-top-right">

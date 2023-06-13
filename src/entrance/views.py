@@ -9,7 +9,7 @@ from .models import (SyllabusInfo,
                     ModelQuestion)
 
 from personal.views import LevelAndMaterialDetails
-
+from django.core.paginator import Paginator
 # Create your views here.
 
 #region GK View
@@ -43,11 +43,25 @@ class GkView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
+        # Pagination settings
+        items_per_page                        = 8
+
+        #Create Paginator object
+        paginator                             = Paginator(gk_object, items_per_page)
+
+        # Get the current page number from the request's GET parameters
+        page_number                           = request.GET.get('page')
+
+        # Get the page objec for the requested page number
+        gk_page_obj                           = paginator.get_page(page_number)
+
         # Prepare the context data for rendering the template
         context = {
             'gk_data_list'                    : gk_object,
 
             'level_material_detail_list'      : level_material_detail_list,
+
+            'gk_page_obj'                     : gk_page_obj,
         }
 
         # Render the template with the provided context
@@ -113,13 +127,13 @@ class PastQuestionView(View):
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
 
-             # Retrieve the 'id' parameter from the GET request
+            # Retrieve the 'id' parameter from the GET request
             id = request.GET['id']    
 
             # Retrieve the PastQuestion object with the given 'id'
             past_question_object  = PastQuestion.objects.get(id = id)
 
-             # Create a list to hold the PastQuestion data
+            # Create a list to hold the PastQuestion data
             past_question_collection_list = []
 
             # Create a dictionary with the relevant PastQuestion data
@@ -134,7 +148,7 @@ class PastQuestionView(View):
 
             # Return a JSON response containing the past_question_collection_list
             return JsonResponse({'data' : past_question_collection_list})
-          
+        
         # Set the template name for rendering
         template_name                = 'past_question.html'
 
@@ -183,10 +197,10 @@ class ModelQuestionView(View):
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
 
-             # Retrieve the 'id' parameter from the GET request
+            # Retrieve the 'id' parameter from the GET request
             id = request.GET['id']
 
-             # Retrieve the ModelQuestion object with the given 'id'
+            # Retrieve the ModelQuestion object with the given 'id'
             model_question_object  = ModelQuestion.objects.get(id = id)
 
             # Create a list to hold the ModelQuestion data
@@ -201,7 +215,7 @@ class ModelQuestionView(View):
                 'model_code'   : model_question_object.model_code,
                 }
             
-             # Append the ModelQuestion data dictionary to the collection list
+            # Append the ModelQuestion data dictionary to the collection list
             model_question_collection_list.append(model_question_data)
 
             # Return a JSON response containing the model_question_collection_list
