@@ -1,32 +1,61 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from .models import SemYear, Level, MaterialContent, MaterialType, Subject, SubContent
+
+from .models import (SemYear,
+                    Level,
+                    MaterialContent,
+                    MaterialType,
+                    Subject,
+                    SubContent)
+
 from personal.views import LevelAndMaterialDetails
 from django.db.models import Q
 
 # Create your views here.
+#region get sem year list
 def get_sem_year_list(request,id):
-
+    """
+    : param request: The HTTP request object.
+    : param id: The ID of the level.
+    """
+    # Create a list of dictionaries containing the semester year data
     sem_year_list = SemYear.objects.filter(level_id=id)
 
+    # Return a JSON response with the semester year data
     return JsonResponse({'data': [{'id': sem_year.id, 'sem_year_num': sem_year.sem_year_num} for sem_year in sem_year_list]})
+#endregion
 
 
+#region get material type list
 def get_material_type_list(request,id):
-
+    """
+    : param request: The HTTP request object.
+    : param id: The ID of the level.
+    """
+    # Create a list of dictionaries containing the material type data
     material_type_list = MaterialType.objects.filter(level_id=id)
 
+    # Return a JSON response with material type data
     return JsonResponse({'data': [{'id': material_type.id, 'material_name': material_type.material_name} for material_type in material_type_list]})
+#endregion
 
 
+#region get subject list
 def get_subject_list(request,id):
-
+    """
+    : param request: The HTTP request object.
+    : param id: The ID of the level.
+    """
+    # Create a list of dictionaries containing the subject data
     subject_list = Subject.objects.filter(level_id=id)
 
+    # Return a JSON response with subject data
     return JsonResponse({'data': [{'id': subject.id, 'subject_name': subject.subject_name} for subject in subject_list]})
+#endregion
 
 
+#region Graduate View
 class GraduateView(View):
     """
     View class for handling HTTP GET requests related to graduate level materials.
@@ -80,8 +109,10 @@ class GraduateView(View):
 
         # Render the 'graduate.html' template with the provided context
         return render(request, template_name, context)
+#endregion
 
 
+#region Graduate Content View
 class GraduateContentView(View):
     """
     View class for handling HTTP GET requests related to graduate content details.
@@ -121,16 +152,18 @@ class GraduateContentView(View):
 
         # Render the 'graduate_content_view.html' template with provided context
         return render(request, template_name, context)
+#endregion
 
 
+#region Graduate Sub Content View
 class GraduateSubContentView(View):
     """
     View class for handling HTTP GET requests related to graduate sub-content.
-    It retrieves the necessary data for rendering the 'graduate_chapter_content_view.html' template.
+    It retrieves the necessary data for rendering the 'graduate_sub_content_view.html' template.
     """
     def get(self, request, id, *args, **kwargs):
         """
-        Handle HTTP GET request and render the 'graduate_chapter_content_view.html' template
+        Handle HTTP GET request and render the 'graduate_sub_content_view.html' template
         :param request: the HTTP request object
         :param id: the ID of the sub-content
         :param args: additional positional arguments
@@ -164,13 +197,21 @@ class GraduateSubContentView(View):
             return JsonResponse({'data' : sub_content_object_list})
         
         # Set the template name for rendering
-        template_name                                  = 'graduate_chapter_content_view.html'
+        template_name                                  = 'graduate_sub_content_view.html'
 
         # Retrieve the sub-content object based on the provided ID
         sub_content_object                             = SubContent.objects.filter(material_content__id=id).first()
-        
+
         # Retrieve all sub-content objects where is_shown is True and material_content matches the provided ID
         sub_content_object_list                        = SubContent.objects.filter(is_shown=True, material_content__id=id)
+
+        # selected_sub_content_level_name                = sub_content_object.material_content.material_type.level.level_name
+        # selected_sub_content_material_name             = sub_content_object.material_content.material_type.material_name
+        # selected_sub_content_subject_name              = sub_content_object.material_content.subject.subject_name
+
+        # print(sub_content_object.material_content.material_type.level.level_name)
+        # print(sub_content_object.material_content.material_type.material_name)
+        # print(selected_sub_content_subject_name)
 
         # Create an instance of LevelAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
@@ -183,8 +224,15 @@ class GraduateSubContentView(View):
 
             'sub_content_object'                       : sub_content_object,
 
+            # 'selected_sub_content_level_name'          : selected_sub_content_level_name,
+
+            # 'selected_sub_content_material_name'       : selected_sub_content_material_name,
+
+            # 'selected_sub_content_subject_name '       : selected_sub_content_subject_name,
+
+            
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context
         return render(request, template_name, context)
-    
+#endregion

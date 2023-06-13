@@ -3,10 +3,10 @@ from django.shortcuts import render
 from django.views import View
 
 from .models import (SyllabusInfo, 
-                     CollegeInfo, 
-                     GK, 
-                     PastQuestion, 
-                     ModelQuestion)
+                    CollegeInfo, 
+                    GK, 
+                    PastQuestion, 
+                    ModelQuestion)
 
 from personal.views import LevelAndMaterialDetails
 
@@ -30,20 +30,24 @@ class GkView(View):
 
         # Set the template name for rendering
         template_name     = 'gk.html'
+
         # Retrieve GK objects that are marked as shown
         gk_object         = GK.objects.filter(is_shown=True)
+
         # Check if GK objects exist
         if gk_object.exists():
             gk_object   = gk_object
         else:
             gk_object   = None  
 
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'gk_data_list'                    : gk_object,
-            'level_material_detail_list'      : level_material_detail_list
+
+            'level_material_detail_list'      : level_material_detail_list,
         }
 
         # Render the template with the provided context
@@ -69,9 +73,11 @@ class GkContentView(View):
 
         # Set the template name for rendering
         template_name                   = 'gk_content_view.html'
+
         # Retrieve the GK details object with the given 'id'
         gk_details_object               = GK.objects.get(id = id)
 
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list      = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
@@ -106,36 +112,47 @@ class PastQuestionView(View):
         
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
              # Retrieve the 'id' parameter from the GET request
             id = request.GET['id']    
+
             # Retrieve the PastQuestion object with the given 'id'
             past_question_object  = PastQuestion.objects.get(id = id)
+
              # Create a list to hold the PastQuestion data
             past_question_collection_list = []
+
             # Create a dictionary with the relevant PastQuestion data
             past_question_data = {
                 'year'    : past_question_object.year, 
                 'url'     : past_question_object.pdf_url, 
                 'types'   : past_question_object.types
                 }
+            
             # Append the PastQuestion data dictionary to the collection list
             past_question_collection_list.append(past_question_data)
+
             # Return a JSON response containing the past_question_collection_list
             return JsonResponse({'data' : past_question_collection_list})
           
         # Set the template name for rendering
         template_name                = 'past_question.html'
+
         # Retrieve the first PastQuestion object where is_shown is True
         past_question_object         = PastQuestion.objects.filter(is_shown=True).first()
+
         # Retrieve all PastQuestion objects where is_shown is True
         past_question_object_list    = PastQuestion.objects.filter(is_shown=True)
 
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'past_question'                   : past_question_object,
+
             'past_question_object_list'       : past_question_object_list,
+
             'level_material_detail_list'      : level_material_detail_list,
         }
 
@@ -165,36 +182,49 @@ class ModelQuestionView(View):
         """
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
              # Retrieve the 'id' parameter from the GET request
             id = request.GET['id']
+
              # Retrieve the ModelQuestion object with the given 'id'
             model_question_object  = ModelQuestion.objects.get(id = id)
+
             # Create a list to hold the ModelQuestion data
             model_question_collection_list = []
+
             # Create a dictionary with the relevant ModelQuestion data
             model_question_data = {
                 'name'         : model_question_object.name, 
+
                 'url'          : model_question_object.pdf_url, 
-                'model_code'   : model_question_object.model_code
+
+                'model_code'   : model_question_object.model_code,
                 }
+            
              # Append the ModelQuestion data dictionary to the collection list
             model_question_collection_list.append(model_question_data)
+
             # Return a JSON response containing the model_question_collection_list
             return JsonResponse({'data' : model_question_collection_list})
 
         # Set the template name for rendering
         template_name                 = 'model_question.html'
+
         # Retrieve the first ModelQuestion object where is_shown is True
         model_question_object         = ModelQuestion.objects.filter(is_shown=True).first()
+
         # Retrieve all ModelQuestion objects where is_shown is True
         model_question_object_list    = ModelQuestion.objects.filter(is_shown=True)
 
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list    = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
             'model_question'                  : model_question_object,
+
             'model_question_object_list'      : model_question_object_list,
+
             'level_material_detail_list'      : level_material_detail_list,
         }
 
@@ -223,38 +253,50 @@ class SyllabusInfoView(View):
 
         # Set the template name
         template_name                  = 'entrance_prep_syllabus.html'
+
         # Retrieve all syllabus information objects that are marked as shown
         syllabus_info_object_list      = SyllabusInfo.objects.filter(is_shown=True)
         
         # Create an empty dictionary to group the syllabus information
         group          = {}
+
         # Create an empty list to store the syllabus data
         syllabus_data  = []
 
         # Check if any syllaus information exists
         if syllabus_info_object_list.exists():
+
             # iterate through each syllabus information object
             for data in syllabus_info_object_list:
+
                 # Check if the university choice exists as a key in the group dictionary
                 if data.university_choices not in group:
+
                     # Create an empty dictionary for the university choice
                     group[data.university_choices] = {}
+
                     # Check if the faculty choice exists as a key in the group dictionary under the university choice
                 if data.faculty_choices not in group[data.university_choices]:
+
                     # Create an empty list for the faculty choice
                     group[data.university_choices][data.faculty_choices] = []
+
                 # Create a list with the syllabus data
                 syllabus_data = [data.subject, data.no_of_question, data.marks]
+
                 # append the syllabus data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(syllabus_data)
 
-
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
         context = {
             'syllabus_data'                 : syllabus_data,
+
             'syllabus_info_object_list'     : syllabus_info_object_list,
+            
             'group'                         : group,
+
             'level_material_detail_list'    : level_material_detail_list
         }
 
@@ -283,38 +325,51 @@ class CollegeInfoView(View):
 
         # Set the template name
         template_name                   = 'entrance_college_info.html'
+
         # Retrieve all college information objects that arer marked as shown
         college_info_object_list        = CollegeInfo.objects.filter(is_shown=True)
 
         # Create an empty dictionary to group the college information
         group           = {}
+
         # Create an empty list to store the college data
         college_data    = []
         
         # Check if any college information exists
         if college_info_object_list.exists():
+
             # Iterate through each college information object
             for data in college_info_object_list:
+
                 # Check if the university choice exists as a key in the group dictionary
                 if data.university_choices not in group:
+
                     # Create an empty dictionary for the university choice
                     group[data.university_choices] = {}
+
                 # Check if the faculty choice exists as a key in the group dictionary under the university choice
                 if data.faculty_choices not in group[data.university_choices]:
+
                     # Create an empty list for the faculty choice
                     group[data.university_choices][data.faculty_choices] = []
+
                 # Create a list with the college data
                 college_data = [data.quota_name, data.no_of_student]
+
                 # append the college data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(college_data)
 
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                    : college_data,
+
             'college_info_object_list'        : college_info_object_list,
+            
             'group'                           : group,
+
             'level_material_detail_list'      : level_material_detail_list
         }
 

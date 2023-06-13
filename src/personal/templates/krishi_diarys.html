@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
 
+{% load pagination_tags %}
+
 {% block pageheading %}
 Krishi Diarys
 {% endblock pageheading %}
@@ -20,8 +22,8 @@ Krishi Diarys
             </div>
             <div class="error-404-underline que-coll-line"></div>
             <div class="que-coll-left-container">
-                {% if krishi_diarys_details_list %}
-                {% for krishi_data in krishi_diarys_details_list %}
+                {% if page_obj %}
+                {% for krishi_data in page_obj %}
                 <div class="que-coll-left-item graduate-left-item">
                     <div class="que-coll-left-item-content graduate-item-content">
                         <div class="que-coll-item-left graduate-item-span">
@@ -52,16 +54,35 @@ Krishi Diarys
                 {% endif %}
             </div>
             <div class="buttons">
-                <a href="#">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">
                     <div class="button">
                         <i class="fa-solid fa-angle-left"></i>
                     </div>
                 </a>
-                <a href="#">
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                </a>
+                {% endif %}
+
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">
                     <div class="button">
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </a>
+                {% endif %}
+                <span>Page : {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
             </div>
         </div>
         <div class="que-coll-top-right">

@@ -99,7 +99,7 @@ class MaterialContentAdmin(admin.ModelAdmin):
     form             = MaterialContentForm
 
     list_display     = ['has_sub_content','formatted_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
-    list_filter      = ['is_shown']
+    list_filter      = ['is_shown','has_sub_content']
 
     fieldsets = [
         (None, {'fields':['has_sub_content','content','pdf_URL','is_pdf','is_shown','level','material_type','subject']}),

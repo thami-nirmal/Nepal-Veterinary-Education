@@ -156,7 +156,7 @@ class SubContent(models.Model):
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)
-    material_content              = models.ForeignKey(MaterialContent, related_name='chapter_materialcontent', on_delete=models.CASCADE, null=True)
+    material_content              = models.ForeignKey(MaterialContent, related_name='subcontent_materialcontent', on_delete=models.CASCADE, null=True)
     seo_title                     = models.CharField(max_length=50, blank=True)
     seo_keyword                   = models.CharField(max_length=200, blank=True)
     seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -169,7 +169,7 @@ class SubContent(models.Model):
         return str(self.material_content)
 
     class Meta:
-        verbose_name_plural = 'Chapter'
+        verbose_name_plural = 'Sub Content'
 
     def save(self, *args, **kwargs):
         if not self.slug:

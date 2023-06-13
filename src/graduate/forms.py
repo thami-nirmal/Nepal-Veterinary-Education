@@ -8,10 +8,12 @@ class SubjectForm(forms.ModelForm):
         fields = ['subject_name', 'is_shown','level', 'sem_year']
     def __init__(self, *args, **kwargs):
         super(SubjectForm, self).__init__(*args, **kwargs)
+
         try:
             self.initial['level'] = kwargs['instance'].level.id
         except:
             pass
+
         level_list = [('', '----Select Level---')] + [(i.id, i.level_name) for i in Level.objects.all()]
 
         self.fields['level'].widget = forms.Select(
@@ -22,6 +24,9 @@ class SubjectForm(forms.ModelForm):
             },
             choices=level_list,
         )
+
+        # Set the initial value of sem_year field to None
+        self.fields['sem_year'].initial = None
 
 class MaterialContentForm(forms.ModelForm):
     level = forms.ModelChoiceField(queryset=Level.objects.all(), empty_label='----Select Level---')
