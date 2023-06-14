@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys, UsefulLinks
+from .models import KrishiDiarys, UsefulLinks, Experts
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -117,11 +117,11 @@ class UsefulLinksView(View):
 class NewsNoticeView(View):
     """
     View class for handling HTTP GET requests related to the news notice page.
-    It retrieves the necessary data for rendering the 'news_notice_syllabus.html' template.
+    It retrieves the necessary data for rendering the 'news_notice.html' template.
     """
     def get(self, request, *args, **kwargs):
         """
-        Handle HTTP GET request and render the 'news_notice_syllabus.html' template.
+        Handle HTTP GET request and render the 'news_notice.html' template.
         
         :param request: The HTTP request object.
         :param args: Additional positional arguments.
@@ -130,7 +130,7 @@ class NewsNoticeView(View):
         """
 
         # Specify the template to be rendered
-        template_name                                  = 'news_notice_syllabus.html'
+        template_name                                  = 'news_notice.html'
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                     = LevelAndMaterialDetails()
@@ -230,3 +230,40 @@ class KrishiDiarysContentView(View):
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
 #endregion
+
+
+
+class ExpertsView(View):
+    """
+    
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        
+        """
+        # Set the template
+        template_name                           = 'experts.html'
+
+        experts_object_list                           = Experts.objects.filter(is_shown=True).order_by('-id')
+
+        items_per_page                                = 6
+
+        paginator                                     = Paginator(experts_object_list, items_per_page)
+
+        page_number                                   = request.GET.get('page')
+
+        experts_page_obj                              = paginator.get_page(page_number)
+        # print(experts_page_obj)
+
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
+        level_material_detail_list                     = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to be passed to the template
+        context = {
+            'level_material_detail_list'               : level_material_detail_list,
+
+            'experts_page_obj'                         : experts_page_obj,
+        }
+
+        # Render the template with the specified context and return the rendered response
+        return render(request, template_name, context)

@@ -5,17 +5,19 @@ class NewsAndNotice(models.Model):
     """
     Represents News and Notice with specific attributes.
     """
-    name                          = models.CharField(max_length=50,blank=True)
-    title                         = models.CharField(max_length=50, blank=True)
-    short_description             = models.CharField(max_length=300, blank=True)
-    image                         = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
-    url                           = models.URLField(max_length=200)
-    is_shown                      = models.BooleanField(default=True)
-    is_news                       = models.BooleanField(default=True)
-    seo_title                     = models.CharField(max_length=50, blank=True)
-    seo_keyword                   = models.CharField(max_length=200, blank=True)
-    seo_image                     = models.ImageField(upload_to='seo_images/',blank=True, null=True)
-    seo_description               = models.TextField(blank=True)
+    name                                           = models.CharField(max_length=50,blank=True)
+    title                                          = models.CharField(max_length=50, blank=True)
+    author                                         = models.CharField(max_length=100, blank=True)
+    date                                           = models.DateField(auto_now=True)
+    short_description                              = models.CharField(max_length=300, blank=True)
+    image                                          = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
+    url                                            = models.URLField(max_length=200)
+    is_shown                                       = models.BooleanField(default=True)
+    is_news                                        = models.BooleanField(default=True)
+    seo_title                                      = models.CharField(max_length=50, blank=True)
+    seo_keyword                                    = models.CharField(max_length=200, blank=True)
+    seo_image                                      = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                                = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -31,14 +33,14 @@ class Experts(models.Model):
     """
     Represents Experts with specific attributes
     """
-    name                    = models.CharField(max_length=50, blank=True)
-    designation             = models.CharField(max_length=50, blank=True)
-    organization            = models.CharField(max_length=50, blank=True)
-    image                   = models.ImageField(upload_to='expert_images/', blank=True, null=True)
-    facebook_url            = models.URLField(max_length=200, null=True)
-    linkedin_url            = models.URLField(max_length=200, null=True)
-    website                 = models.URLField(max_length=200, null=True)
-    is_shown                = models.BooleanField(default=True)
+    name                                            = models.CharField(max_length=50, blank=True)
+    designation                                     = models.CharField(max_length=50, blank=True)
+    organization                                    = models.CharField(max_length=50, blank=True)
+    image                                           = models.ImageField(upload_to='expert_images/', blank=True, null=True)
+    facebook_url                                    = models.URLField(max_length=200, null=True)
+    linkedin_url                                    = models.URLField(max_length=200, null=True)
+    website                                         = models.URLField(max_length=200, null=True)
+    is_shown                                        = models.BooleanField(default=True)
 
     
     def __str__(self):
