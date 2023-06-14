@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys, UsefulLinks, Experts
+from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -263,6 +263,32 @@ class ExpertsView(View):
             'level_material_detail_list'               : level_material_detail_list,
 
             'experts_page_obj'                         : experts_page_obj,
+        }
+
+        # Render the template with the specified context and return the rendered response
+        return render(request, template_name, context)
+    
+
+class DrugIndexView(View):
+    """
+    
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        
+        """
+        template_name               = 'drug_index.html'
+
+        drug_index_obj_list         = DrugIndex.objects.filter(is_shown=True)
+
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
+        level_material_detail_list                     = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to be passed to the template
+        context = {
+            'level_material_detail_list'                  : level_material_detail_list,
+
+            'drug_index_obj_list'                         : drug_index_obj_list,
         }
 
         # Render the template with the specified context and return the rendered response

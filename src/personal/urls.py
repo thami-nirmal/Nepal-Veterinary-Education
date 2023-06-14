@@ -7,6 +7,7 @@ from personal.views import (
     KrishiDiarysView,
     KrishiDiarysContentView,
     ExpertsView,
+    DrugIndexView,
     )
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
 
     path('experts/',ExpertsView.as_view(), name = 'experts'),
 
+    path('drug-index/',DrugIndexView.as_view(), name = 'drug_index'),
 ]

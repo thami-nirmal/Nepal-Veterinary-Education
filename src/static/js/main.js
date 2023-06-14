@@ -5,6 +5,9 @@ document.getElementById("date-top").innerHTML = date.toDateString();
 const date1 = new Date()
 document.getElementById("date-content").innerHTML = date1.toDateString();
 
+const date2 = new Date()
+document.getElementById("date-drug-index").innerHTML = date2.toDateString();
+
 //hamburger in responsive header
 function myFunction() {
     var x = document.getElementById("myLinks");
