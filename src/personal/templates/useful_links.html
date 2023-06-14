@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
 
+{% load pagination_tags %}
+
 {% load static %}
 
 {% block pageheading %}
@@ -22,104 +24,52 @@ Useful Links
             </div>
             <div class="error-404-underline que-coll-line"></div>
             <div class="que-coll-left-container">
+                {% for useful_links_data in useful_links_page_obj %}
                 <div class="que-coll-left-item">
                     <div class="que-coll-left-item-content">
                         <div class="que-coll-item-left">
-                            <span
-                                >Agriculture And Forestry
-                                University</span
-                            >
+                            <span>{{useful_links_data.name}}</span>
                         </div>
                         <div class="que-coll-view-more">
-                            <a href="#">
+                            <a href="{{useful_links_data.url}}" target="_blank">
                                 <p>Visit Now</p>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="que-coll-left-item">
-                    <div class="que-coll-left-item-content">
-                        <div class="que-coll-item-left">
-                            <span
-                                >Nepal Agricultural Research
-                                Council</span
-                            >
-                        </div>
-                        <div class="que-coll-view-more">
-                            <a href="#">
-                                <p>Visit Now</p>
-                            </a>
-                        </div>
+                {% endfor %}
+            </div>
+            <div class="buttons">
+                {% if useful_links_page_obj.has_previous %}
+                <a href="?page={{ useful_links_page_obj.previous_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
                     </div>
-                </div>
-                <div class="que-coll-left-item">
-                    <div class="que-coll-left-item-content">
-                        <div class="que-coll-item-left">
-                            <span
-                                >University Grants Commission
-                                (Nepal)</span
-                            >
-                        </div>
-                        <div class="que-coll-view-more">
-                            <a href="#">
-                                <p>Visit Now</p>
-                            </a>
-                        </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
                     </div>
-                </div>
-                <div class="que-coll-left-item">
-                    <div class="que-coll-left-item-content">
-                        <div class="que-coll-item-left">
-                            <span
-                                >Department Of Livestock Services
-                                (Nepal)</span
-                            >
-                        </div>
-                        <div class="que-coll-view-more">
-                            <a href="#">
-                                <p>Visit Now</p>
-                            </a>
-                        </div>
+                </a>
+                {% endif %}
+
+
+                {% if useful_links_page_obj.has_next %}
+                <a href="?page={{ useful_links_page_obj.next_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
                     </div>
-                </div>
-                <div class="que-coll-left-item">
-                    <div class="que-coll-left-item-content">
-                        <div class="que-coll-item-left">
-                            <span
-                                >Nepal Veterinary Association</span
-                            >
-                        </div>
-                        <div class="que-coll-view-more">
-                            <a href="#">
-                                <p>Visit Now</p>
-                            </a>
-                        </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
                     </div>
-                </div>
-                <div class="que-coll-left-item">
-                    <div class="que-coll-left-item-content">
-                        <div class="que-coll-item-left">
-                            <span>Nepal Medical Association</span>
-                        </div>
-                        <div class="que-coll-view-more">
-                            <a href="#">
-                                <p>Visit Now</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="buttons model-que-buttons">
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                    </a>
-                </div>
+                </a>
+                {% endif %}
+                <span>Page : {{ useful_links_page_obj.number }} of
+                    {{ useful_links_page_obj.paginator.num_pages }}</span>
             </div>
         </div>
         <div class="que-coll-top-right">

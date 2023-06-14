@@ -44,7 +44,7 @@ class GkView(View):
         level_material_detail_list            = LevelAndMaterialDetails()
 
         # Pagination settings
-        items_per_page                        = 8
+        items_per_page                        = 6
 
         #Create Paginator object
         paginator                             = Paginator(gk_object, items_per_page)
@@ -86,13 +86,13 @@ class GkContentView(View):
         """
 
         # Set the template name for rendering
-        template_name                   = 'gk_content_view.html'
+        template_name                         = 'gk_content_view.html'
 
         # Retrieve the GK details object with the given 'id'
-        gk_details_object               = GK.objects.get(id = id)
+        gk_details_object                     = GK.objects.get(id = id)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list      = LevelAndMaterialDetails()
+        level_material_detail_list            = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -138,9 +138,9 @@ class PastQuestionView(View):
 
             # Create a dictionary with the relevant PastQuestion data
             past_question_data = {
-                'year'    : past_question_object.year, 
-                'url'     : past_question_object.pdf_url, 
-                'types'   : past_question_object.types
+                'year'          : past_question_object.year, 
+                'url'           : past_question_object.pdf_url, 
+                'types'         : past_question_object.types
                 }
             
             # Append the PastQuestion data dictionary to the collection list

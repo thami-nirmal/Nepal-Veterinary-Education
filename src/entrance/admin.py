@@ -80,7 +80,7 @@ admin.site.register(SyllabusInfo, SyllabusInfoAdmin)
 class CollegeInfoAdmin(admin.ModelAdmin):
     list_display        = ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']
     list_filter         = ['is_shown', 'university_choices','faculty_choices']
-    search_fields       = ['department']
+    search_fields       = ['quota_name']
 
     fieldsets = [
         (None, {'fields': ['university_choices','faculty_choices','quota_name','no_of_student','is_shown']}),

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys
+from .models import KrishiDiarys, UsefulLinks
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -83,12 +83,29 @@ class UsefulLinksView(View):
         # Specify the template to be rendered
         template_name                                  = 'useful_links.html'
 
+        # Retrieve a list of useful links objects where is_shown is True
+        useful_links_data_list                         = UsefulLinks.objects.filter(is_shown=True).order_by('-id')
+
+        # Pagination settings
+        iterms_per_page                                = 8
+
+        # Create Paginator object
+        paginator                                      = Paginator(useful_links_data_list, iterms_per_page)
+
+        # Get the current page number from the request's GET parameters
+        page_number                                    = request.GET.get('page')
+
+        # Get the page object for the request page number
+        useful_links_page_obj                          = paginator.get_page(page_number)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                     = LevelAndMaterialDetails()
 
         # Create a context dictionary to store the data to be passed to the template
         context = {
-            'level_material_detail_list'               : level_material_detail_list, 
+            'level_material_detail_list'               : level_material_detail_list,
+
+            'useful_links_page_obj'                    : useful_links_page_obj 
         }
 
         # Render the template with the specified context and return the rendered response
@@ -154,7 +171,7 @@ class KrishiDiarysView(View):
         level_material_detail_list                        = LevelAndMaterialDetails()
 
         # Pagination settings
-        items_per_page                                    = 8
+        items_per_page                                    = 6
 
         # Create Paginator object
         paginator = Paginator(krishi_diarys_details_list, items_per_page)

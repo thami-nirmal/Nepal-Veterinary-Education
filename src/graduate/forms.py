@@ -26,7 +26,7 @@ class SubjectForm(forms.ModelForm):
         )
 
         # Set the initial value of sem_year field to None
-        self.fields['sem_year'].initial = None
+        self.fields['sem_year'].widget.choices = [('', '----Select Semester/Year---')]
 
 class MaterialContentForm(forms.ModelForm):
     level = forms.ModelChoiceField(queryset=Level.objects.all(), empty_label='----Select Level---')
@@ -50,3 +50,7 @@ class MaterialContentForm(forms.ModelForm):
             },
             choices=level_list,
         )
+
+        # Set the initial value of sem_year field to None
+        self.fields['material_type'].widget.choices = [('', '----Select Material Type---')]
+        self.fields['subject'].widget.choices = [('', '----Select Subject---')]

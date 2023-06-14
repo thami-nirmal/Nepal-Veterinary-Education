@@ -10,9 +10,9 @@ from .models import (SemYear,
                     SubContent)
 
 from personal.views import LevelAndMaterialDetails
-from django.db.models import Q
 
 # Create your views here.
+
 #region get sem year list
 def get_sem_year_list(request,id):
     """
@@ -205,13 +205,11 @@ class GraduateSubContentView(View):
         # Retrieve all sub-content objects where is_shown is True and material_content matches the provided ID
         sub_content_object_list                        = SubContent.objects.filter(is_shown=True, material_content__id=id)
 
-        # selected_sub_content_level_name                = sub_content_object.material_content.material_type.level.level_name
-        # selected_sub_content_material_name             = sub_content_object.material_content.material_type.material_name
-        # selected_sub_content_subject_name              = sub_content_object.material_content.subject.subject_name
+        # Retrieve the name of selected level, material, and subject
+        selected_sub_content_level_name                = sub_content_object.material_content.material_type.level.level_name
+        selected_sub_content_material_name             = sub_content_object.material_content.material_type.material_name
+        selected_sub_content_subject_name              = sub_content_object.material_content.subject.subject_name
 
-        # print(sub_content_object.material_content.material_type.level.level_name)
-        # print(sub_content_object.material_content.material_type.material_name)
-        # print(selected_sub_content_subject_name)
 
         # Create an instance of LevelAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
@@ -224,13 +222,11 @@ class GraduateSubContentView(View):
 
             'sub_content_object'                       : sub_content_object,
 
-            # 'selected_sub_content_level_name'          : selected_sub_content_level_name,
+            'selected_sub_content_level_name'          : selected_sub_content_level_name,
 
-            # 'selected_sub_content_material_name'       : selected_sub_content_material_name,
+            'selected_sub_content_material_name'       : selected_sub_content_material_name,
 
-            # 'selected_sub_content_subject_name '       : selected_sub_content_subject_name,
-
-            
+            'selected_sub_content_subject_name'        : selected_sub_content_subject_name
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context

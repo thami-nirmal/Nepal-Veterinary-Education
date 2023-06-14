@@ -70,7 +70,7 @@ class KrishiDiarys(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Krishi Diary'
+        verbose_name_plural = 'Krishi Diarys'
 
 
 class Ads(models.Model):
@@ -133,7 +133,7 @@ class UsefulLinks(models.Model):
     Represents a useful links with specific attributes
     """
     name                          = models.CharField(max_length=50, blank=True)
-    url                           = models.URLField(max_length=254)
+    url                           = models.URLField(max_length=200)
     is_shown                      = models.BooleanField(default=True)
 
     def __str__(self):

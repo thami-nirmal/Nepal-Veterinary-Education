@@ -1,5 +1,12 @@
 from django.contrib import admin
-from personal.models import NewsAndNotice, Experts, KrishiDiarys, Ads, NewsLetter, CustomerFeedback, UsefulLinks, DrugIndex
+from personal.models import (NewsAndNotice, 
+                            Experts,
+                            KrishiDiarys,
+                            Ads,
+                            NewsLetter,
+                            CustomerFeedback,
+                            UsefulLinks,
+                            DrugIndex)
 
 # Register your models here.
 class NewsAndNoticeAdmin(admin.ModelAdmin):
