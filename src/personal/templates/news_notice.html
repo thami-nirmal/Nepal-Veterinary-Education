@@ -1,10 +1,10 @@
 {% extends 'base.html'%}
+
 {% load static %}
 
 {% block pageheading %}
 All Kinds of News/ Notices
 {% endblock pageheading %}
-
 
 {% block content %}
 <div class="container">
@@ -20,192 +20,74 @@ All Kinds of News/ Notices
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
+
             <div class="que-coll-left-container-notice">
                 <div class="recent-head">
                     <span>Recent Post</span>
                 </div>
                 <div class="blogs-container-news">
+                    {% for news_data in news_object_list %}
                     <div class="blog-item">
                         <div class="recent-item-img">
-                            <img src="{% static '/images/wishkey.png' %}" alt="Image-here" />
+                            {% if news_data.image %}
+                            <img src="{{ news_data.image.url }}" alt="Image-here" />
+                            % else %
+                            <p>No image available</p>
+                            {% endif %}
                         </div>
                         <div class="item-text flex-column">
                             <div class="category">
                                 <a class="tech" href="#">
-                                    Technology
+                                    {{news_data.name}}
                                 </a>
                             </div>
                             <div class="item-detail-top">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world</span
-                                >
+                                <span>{{news_data.title}}</span>
                             </div>
                             <div class="item-detail-bottom">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with
-                                    specs.</span
-                                >
+                                <span>{{news_data.short_description}}</span>
                             </div>
                             <div class="item-text-footer">
-                                <span>by Prakash Pandey</span>
-                                <span>November 5, 2022</span>
+                                <span>{{news_data.author}}</span>
+                                <span>{{news_data.date}}</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="blog-item">
-                        <div class="recent-item-img">
-                            <img src="{% static '/images/wishkey.png' %}" alt="Image-here" />
-                        </div>
-                        <div class="item-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    Technology
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world</span
-                                >
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with
-                                    specs.</span
-                                >
-                            </div>
-                            <div class="item-text-footer">
-                                <span>by Prakash Pandey</span>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="blog-item">
-                        <div class="recent-item-img">
-                            <img src="{% static '/images/wishkey.png' %}" alt="Image-here" />
-                        </div>
-                        <div class="item-text flex-column">
-                            <div class="category">
-                                <a class="popular" href="#">
-                                    popular
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world</span
-                                >
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span
-                                    >Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with
-                                    specs.</span
-                                >
-                            </div>
-                            <div class="item-text-footer">
-                                <span>by Prakash Pandey</span>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="main-left responsive-margin">
+                {% for notice_data in notice_object_list%}
                 <div class="recent-item">
                     <div class="big-cont-img">
-                        <img src="{% static '/images/OIP.jfif' %}" alt="Image-here" />
+                        {% if notice_data.image %}
+                        <img src="{{ notice_data.image.url }}" alt="Image-here" />
+                        % else %
+                        <p>No image available</p>
+                        {% endif %}
                     </div>
                     <div class="big-cont-text flex-column">
                         <div class="category">
                             <a class="tech" href="#">
-                                Technology
+                                {{notice_data.name}}
                             </a>
                         </div>
                         <div class="item-detail-top">
-                            <span
-                                >Car specs database with all car
-                                brands in the worldThe table below
-                                illustrates how each container’s
-                                max-width compares to the original
-                                .container and .container-fluid
-                                across each breakpoint.</span
-                            >
+                            <span>{{notice_data.title}}</span>
                         </div>
                         <div class="item-detail-bottom">
-                            <span
-                                >Car specs database with all car
-                                brands in the world. Find out
-                                complete car database with specs.The
-                                table below illustrates how each
-                                container’s max-width compares to
-                                the original .container and
-                                .container-fluid across each
-                                breakpoint.</span
-                            >
+                            <span>{{notice_data.short_description}}</span>
                         </div>
                         <div class="read-more">
-                            <a href="#">
+                            <a href="{{notice_data.url}}">
                                 <p>Read More</p>
-                                <i
-                                    class="fa-solid fa-angle-right"
-                                ></i>
+                                <i class="fa-solid fa-angle-right"></i>
                             </a>
                             <span>November 5, 2022</span>
                         </div>
                     </div>
                 </div>
-                <div class="recent-item">
-                    <div class="big-cont-img">
-                        <img src="{% static '/images/OIP.jfif' %}" alt="Image-here" />
-                    </div>
-                    <div class="big-cont-text flex-column">
-                        <div class="category">
-                            <a class="tech" href="#">
-                                Technology
-                            </a>
-                        </div>
-                        <div class="item-detail-top">
-                            <span
-                                >Car specs database with all car
-                                brands in the worldThe table below
-                                illustrates how each container’s
-                                max-width compares to the original
-                                .container and .container-fluid
-                                across each breakpoint.</span
-                            >
-                        </div>
-                        <div class="item-detail-bottom">
-                            <span
-                                >Car specs database with all car
-                                brands in the world. Find out
-                                complete car database with specs.The
-                                table below illustrates how each
-                                container’s max-width compares to
-                                the original .container and
-                                .container-fluid across each
-                                breakpoint.</span
-                            >
-                        </div>
-                        <div class="read-more">
-                            <a href="#">
-                                <p>Read More</p>
-                                <i
-                                    class="fa-solid fa-angle-right"
-                                ></i>
-                            </a>
-                            <span>November 5, 2022</span>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
                 <div class="buttons">
                     <a href="#">
                         <div class="button">
@@ -230,7 +112,4 @@ All Kinds of News/ Notices
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
-{% endblock content %}
-
-
-
+    {% endblock content %}

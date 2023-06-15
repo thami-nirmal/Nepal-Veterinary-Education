@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex
+from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex, NewsAndNotice
 from django.core.paginator import Paginator
 
+import facebook
 # Create your views here.
+
 
 # region Level and Material Details Function
 # This function retrieves the level and material details for displaying in a navigation bar.
@@ -132,12 +134,20 @@ class NewsNoticeView(View):
         # Specify the template to be rendered
         template_name                                  = 'news_notice.html'
 
+        news_object_list                        = NewsAndNotice.objects.filter(is_shown=True, is_news=True)
+
+        notice_object_list                        = NewsAndNotice.objects.filter(is_shown=True, is_news=False)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                     = LevelAndMaterialDetails()
 
         # Create a context dictionary to store the data to be passed to the template
         context = {
-            'level_material_detail_list'               : level_material_detail_list, 
+            'level_material_detail_list'               : level_material_detail_list,
+
+            'news_object_list'                  : news_object_list, 
+
+            'notice_object_list'    :notice_object_list,
         }
 
         # Render the template with the specified context and return the rendered response
@@ -232,26 +242,37 @@ class KrishiDiarysContentView(View):
 #endregion
 
 
-
+#region Experts View
 class ExpertsView(View):
     """
-    
+    View class for handling HTTP GET requests related to the experts page.
+    It retrieves the necessary data for rendering the 'experts.html' template.
     """
     def get(self, request, *args, **kwargs):
         """
+        Handle HTTP GET request and render the 'experts.html' template.
         
+        :param request: The HTTP request object.
+        :param args: Additional positional arguments.
+        :param kwargs: Additional keyword arguments.
+        :return: The rendered HTTP response.
         """
         # Set the template
-        template_name                           = 'experts.html'
+        template_name                                 = 'experts.html'
 
+        # Retrieve a list of Experts objects where is_shown is True and order them by descending ID
         experts_object_list                           = Experts.objects.filter(is_shown=True).order_by('-id')
 
+        # Pagination settings
         items_per_page                                = 6
 
+        # Create Paginator object
         paginator                                     = Paginator(experts_object_list, items_per_page)
 
+        # Get the current page number fom the request's GET parameters
         page_number                                   = request.GET.get('page')
 
+        # Get the page object for the requested page number
         experts_page_obj                              = paginator.get_page(page_number)
         # print(experts_page_obj)
 
@@ -263,26 +284,39 @@ class ExpertsView(View):
             'level_material_detail_list'               : level_material_detail_list,
 
             'experts_page_obj'                         : experts_page_obj,
+
+            'experts_object_list'                      : experts_object_list,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-    
+#endregion
 
+
+#region Drug Index View
 class DrugIndexView(View):
     """
-    
+    View class for handling HTTP GET requests related to the drug index page.
+    It retrieves the necessary data for rendering the 'drug_index.html' template.
     """
     def get(self, request, *args, **kwargs):
         """
+        Handle HTTP GET request and render the 'drug_index.html' template.
         
+        :param request: The HTTP request object.
+        :param args: Additional positional arguments.
+        :param kwargs: Additional keyword arguments.
+        :return: The rendered HTTP response.
         """
-        template_name               = 'drug_index.html'
 
-        drug_index_obj_list         = DrugIndex.objects.filter(is_shown=True)
+        # Set the template name
+        template_name                                     = 'drug_index.html'
+
+        # Reterieve the list of drug index objects where is_shown is True
+        drug_index_obj_list                               = DrugIndex.objects.filter(is_shown=True)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list                     = LevelAndMaterialDetails()
+        level_material_detail_list                        = LevelAndMaterialDetails()
 
         # Create a context dictionary to store the data to be passed to the template
         context = {
@@ -293,3 +327,4 @@ class DrugIndexView(View):
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
+#endregion

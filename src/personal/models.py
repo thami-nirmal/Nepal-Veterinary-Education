@@ -8,7 +8,7 @@ class NewsAndNotice(models.Model):
     name                                           = models.CharField(max_length=50,blank=True)
     title                                          = models.CharField(max_length=50, blank=True)
     author                                         = models.CharField(max_length=100, blank=True)
-    date                                           = models.DateField(auto_now=True)
+    date                                           = models.DateField(auto_now_add=True)
     short_description                              = models.CharField(max_length=300, blank=True)
     image                                          = models.ImageField(upload_to='news_notice_images/', blank=True, null=True)
     url                                            = models.URLField(max_length=200)

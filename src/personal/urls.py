@@ -10,6 +10,7 @@ from personal.views import (
     DrugIndexView,
     )
 
+
 urlpatterns = [
     path('',HomeView.as_view(), name='index'),
 
@@ -24,4 +25,5 @@ urlpatterns = [
     path('experts/',ExpertsView.as_view(), name = 'experts'),
 
     path('drug-index/',DrugIndexView.as_view(), name = 'drug_index'),
+
 ]

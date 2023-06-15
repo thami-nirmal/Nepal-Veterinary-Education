@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
+
 {% load static %}
+
 {% load pagination_tags %}
 
 {% block pageheading %}
@@ -32,7 +34,8 @@ Meet the People behind Nepal Veterinary Education
                     <a href="{{experts_data.linkedin_url}}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
                 <div class="bottom-list-social-icons item-border-right">
-                    <a href="{{experts_data.facebook_url}}" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="{{experts_data.facebook_url}}" target="_blank"><i
+                            class="fa-brands fa-square-facebook"></i></a>
                 </div>
                 <div class="bottom-list-social-icons">
                     <a href="{{experts_data.website}}" target="_blank"><i class="fa-brands fa-dribbble"></i></a>
@@ -41,6 +44,7 @@ Meet the People behind Nepal Veterinary Education
         </div>
         {% endfor %}
     </div>
+
 
     <div class="buttons team-buttons">
         {% if experts_page_obj.has_previous %}
@@ -73,4 +77,5 @@ Meet the People behind Nepal Veterinary Education
         {% endif %}
         <span>Page : {{ experts_page_obj.number }} of {{ experts_page_obj.paginator.num_pages }}</span>
     </div>
+
     {% endblock content %}
