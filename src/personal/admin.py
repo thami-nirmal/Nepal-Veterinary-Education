@@ -10,7 +10,7 @@ from personal.models import (NewsAndNotice,
 
 # Register your models here.
 class NewsAndNoticeAdmin(admin.ModelAdmin):
-    list_display        = ['name','title','author','short_description','image','url','is_shown','is_news']
+    list_display        = ['name','title','author','date','short_description','image','url','is_shown','is_news']
     list_filter         = ['is_shown', 'is_news']
     search_fields       = ['name','title']
 

@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% load static %}
+
 {% block pageheading %}
 Drug Index
 {% endblock pageheading %}
@@ -7,158 +7,88 @@ Drug Index
 
 {% block content %}
 <div class="container">
-    <div class="post-display-container">
-        <div class="post-display-left">
-            <div class="post-display-left1">
-                <span id="date-drug-index"></span>
-                <div class="post-display-left-line"></div>
-                <span>SEMESTER</span>
+    <div class="que-coll-top">
+        <div class="que-coll-top-left">
+            <div class="sub-nav-top">
+                <a href="#">
+                    <span>Home</span>
+                </a>
+                <i class="fa-sharp fa-solid fa-angle-right"></i>
+                <a href="#">
+                    <span>Useful Linkssss</span>
+                </a>
             </div>
-            <div class="post-display-left-text">
-                <span>Posted by</span>
-                <h4>Nepal Veterinary Education</h4>
+            <div class="error-404-underline que-coll-line"></div>
+            <div class="que-coll-left-container">
+                {% if drug_index_page_obj %}
+                {% for drug_index_data in drug_index_page_obj %}
+                <div class="que-coll-left-item graduate-left-item">
+                    <div class="que-coll-left-item-content graduate-item-content">
+                        <div class="que-coll-item-left graduate-item-span">
+                            <span>{{drug_index_data}}</span>
+                        </div>
+                        <a href="{% url 'drug_index_content_view' id=drug_index_data.id %}">
+                            <div class="graduate-download">
+                                <svg fill="#4176FF" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                    viewBox="-2.6 -2.6 48.53 48.53" xml:space="preserve" stroke="#4176FF"
+                                    stroke-width="0.0004332900000000001">
+                                    <g>
+                                        <path
+                                            d="M18.689,30.359c1.645,1.639,4.305,1.639,5.951,0l14.082-14.014c0.91-0.906,1.186-2.287,0.695-3.474 s-1.646-1.976-2.932-1.976h-5.879V3.196C30.606,1.445,29.17,0,27.419,0H15.908C14.156,0,12.7,1.444,12.7,3.196v7.698H6.842 c-1.284,0-2.441,0.79-2.931,1.976c-0.49,1.187-0.216,2.561,0.694,3.466L18.689,30.359z">
+                                        </path>
+                                        <path
+                                            d="M42.657,37.547c0-1.75-1.419-3.171-3.172-3.171H3.842c-1.751,0-3.171,1.419-3.171,3.171v2.611 c0,1.751,1.42,3.171,3.171,3.171h35.645c1.751,0,3.171-1.42,3.171-3.171L42.657,37.547L42.657,37.547z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h1>No Data Found!</h1>
+                {% endif %}
             </div>
-            <div class="post-display-left-text">
-                <span>Posted by</span>
-                <h4>Nepal Veterinary Education</h4>
+            <div class="buttons">
+                {% if drug_index_page_obj.has_previous %}
+                <a href="?page={{ drug_index_page_obj.previous_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                </a>
+                {% endif %}
+
+                
+                {% if drug_index_page_obj.has_next %}
+                <a href="?page={{ drug_index_page_obj.next_page_number }}">
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </a>
+                {% else %}
+                <a disabled>
+                    <div class="button">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </a>
+                {% endif %}
+                <span>Page : {{ drug_index_page_obj.number }} of {{ drug_index_page_obj.paginator.num_pages }}</span>
             </div>
         </div>
-        <div class="post-display-right">
-            <div class="post-display-right-top">
-                <span>Compellingly enhance seamless resources through competitive
-                    content. Continually actualize 24/365 alignments for
-                    resource-leveling platforms. Energistically enhance high
-                    standards in models and professional expertise. Intrinsicly
-                    iterate extensible metrics for prospective opportunities.
-                    Continually develop leading-edge experiences through quality
-                    e-services.</span>
-            </div>
-            {% for drug_index_data in drug_index_obj_list%}
-            <div class="post-display-details">
-                <div class="post-display-item">
-                    <div class="post-display-item-left">
-                        <span>Trade Name</span>
-                    </div>
-                    <div class="post-display-item-right">
-                        <span>{{drug_index_data.trade_name}}</span>
-                    </div>
-                </div>
-                <div class="post-display-item">
-                    <div class="post-display-item-left">
-                        <span>Composition</span>
-                    </div>
-                    <div class="post-display-item-right">
-                        <span>{{drug_index_data.composition}}</span>
-                    </div>
-                </div>
-                <div class="post-display-item">
-                    <div class="post-display-item-left">
-                        <span>Indication/ Contraindication</span>
-                    </div>
-                    <div class="post-display-item-right">
-                        <span>{{drug_index_data.indication_contraindication}}</span>
-                    </div>
-                </div>
-                <div class="post-display-item">
-                    <div class="post-display-item-left">
-                        <span>Dosage</span>
-                    </div>
-                    <div class="post-display-item-right">
-                        <span>{{drug_index_data.dosage}}</span>
-                    </div>
-                </div>
-                <div class="post-display-item">
-                    <div class="post-display-item-left">
-                        <span>Remarks</span>
-                    </div>
-                    <div class="post-display-item-right">
-                        <span>{{drug_index_data.remarks}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="post-display-image-part">
-                <div class="post-display-image">
-                    {% if drug_index_data.image %}
-                    <img src="{{ drug_index_data.image.url }}" alt="Image-Here" />
-                    % else %
-                    <p>No image available</p>
-                    {% endif %}
-                </div>
-                <div class="post-display-imagedetail">
-                    <span>Image caption or credit</span>
-                </div>
-            </div>
-            {% endfor %}
-            <div class="post-display-text">
-                <div class="post-display-text-head">
-                    <h2>
-                        “ Monotonectally seize superior mindshare rather than
-                        efficient technology. ”
-                    </h2>
-                </div>
-                <div class="post-display-text-p">
-                    <p>
-                        Compellingly enhance seamless resources through competitive
-                        content. Continually actualize 24/365 alignments for
-                        resource-leveling platforms. Energistically enhance high
-                        standards in models and professional expertise. Intrinsicly
-                        iterate extensible metrics for prospective opportunities.
-                        Continually develop leading-edge experiences through quality
-                        e-services.
-                    </p>
-                </div>
-            </div>
-            <div class="post-display-category">
-                <span>ADVENTURE</span>
-                <span>PHOTO</span>
-                <span>DESIGN</span>
-            </div>
-            <div class="post-display-author-line"></div>
-            <div class="post-display-author">
-                <div class="post-display-author-profile">
-                    <a href="#">
-                        <img src="{% static '/images/women.jpg' %}" alt="Image-here" />
-                        <div class="post-display-author-name flex-column">
-                            <h4>By Jennifer Lawrence</h4>
-                            <p>Thinker & Designer</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="post-display-author-solial-icons">
-                    <div class="post-display-social-icons">
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    </div>
-                    <div class="post-display-social-icons">
-                        <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                    </div>
-                    <div class="post-display-social-icons">
-                        <a href="#"><i class="fa-brands fa-dribbble"></i></a>
-                    </div>
-                    <div class="post-display-social-icons">
-                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="featured-post-top flex-column post-display-gray-post">
-                <div class="featured-post-top-upper">
-                    <div class="title-spaced-letter">
-                        <span>VETERNARY</span>
-                    </div>
-                </div>
-                <div class="featured-post-top-lower">
-                    <h2>
-                        Vacancy annoucement for ED of Nepal Agriculture Research
-                        Council
-                    </h2>
-                    <p>
-                        The Government of Nepal, Ministry of Agriculture and Livestock
-                        Development (Recommendation Committee for Executive Director
-                        of NARC) invites applications
-                    </p>
-                </div>
-            </div>
+        <div class="que-coll-top-right">
+            {% include 'snippet_code/popular_post.html' %}
         </div>
     </div>
-</div>
+    <div class="error-404-underline que-coll-line"></div>
 
-    {% endblock content %}
+    {% include 'snippet_code/other_related_post.html' %}
+</div>
+{% endblock content %}

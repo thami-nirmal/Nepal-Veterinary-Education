@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'pagination',
-
-
 ]
 
 MIDDLEWARE = [

@@ -21,47 +21,12 @@ All Kinds of News/ Notices
             </div>
             <div class="error-404-underline que-coll-line"></div>
 
-            <div class="que-coll-left-container-notice">
-                <div class="recent-head">
-                    <span>Recent Post</span>
-                </div>
-                <div class="blogs-container-news">
-                    {% for news_data in news_object_list %}
-                    <div class="blog-item">
-                        <div class="recent-item-img">
-                            {% if news_data.image %}
-                            <img src="{{ news_data.image.url }}" alt="Image-here" />
-                            % else %
-                            <p>No image available</p>
-                            {% endif %}
-                        </div>
-                        <div class="item-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    {{news_data.name}}
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <span>{{news_data.title}}</span>
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span>{{news_data.short_description}}</span>
-                            </div>
-                            <div class="item-text-footer">
-                                <span>{{news_data.author}}</span>
-                                <span>{{news_data.date}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
             <div class="main-left responsive-margin">
-                {% for notice_data in notice_object_list%}
+                {% for news_notice_data in news_notice_page_obj%}
                 <div class="recent-item">
                     <div class="big-cont-img">
-                        {% if notice_data.image %}
-                        <img src="{{ notice_data.image.url }}" alt="Image-here" />
+                        {% if news_notice_data.image %}
+                        <img src="{{ news_notice_data.image.url }}" alt="Image-here" />
                         % else %
                         <p>No image available</p>
                         {% endif %}
@@ -69,36 +34,54 @@ All Kinds of News/ Notices
                     <div class="big-cont-text flex-column">
                         <div class="category">
                             <a class="tech" href="#">
-                                {{notice_data.name}}
+                                {{news_notice_data.name}}
                             </a>
                         </div>
                         <div class="item-detail-top">
-                            <span>{{notice_data.title}}</span>
+                            <span>{{news_notice_data.title}}</span>
                         </div>
                         <div class="item-detail-bottom">
-                            <span>{{notice_data.short_description}}</span>
+                            <span>{{news_notice_data.short_description}}</span>
                         </div>
                         <div class="read-more">
-                            <a href="{{notice_data.url}}">
+                            <a href="{{news_notice_data.url}}">
                                 <p>Read More</p>
                                 <i class="fa-solid fa-angle-right"></i>
                             </a>
-                            <span>November 5, 2022</span>
+                            <span>{{news_notice_data.date}}</span>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
                 <div class="buttons">
-                    <a href="#">
+                    {% if news_notice_page_obj.has_previous %}
+                    <a href="?page={{ news_notice_page_obj.previous_page_number }}">
                         <div class="button">
                             <i class="fa-solid fa-angle-left"></i>
                         </div>
                     </a>
-                    <a href="#">
+                    {% else %}
+                    <a disabled>
+                        <div class="button">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                    
+                    {% if news_notice_page_obj.has_next %}
+                    <a href="?page={{ news_notice_page_obj.next_page_number }}">
                         <div class="button">
                             <i class="fa-solid fa-angle-right"></i>
                         </div>
                     </a>
+                    {% else %}
+                    <a disabled>
+                        <div class="button">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                    <span>Page : {{ news_notice_page_obj.number }} of {{ news_notice_page_obj.paginator.num_pages }}</span>
                 </div>
             </div>
         </div>
