@@ -113,7 +113,7 @@ class UsefulLinksView(View):
 #endregion
 
 
-#region News Notice View
+#region News and Notice View
 class NewsNoticeView(View):
     """
     View class for handling HTTP GET requests related to the news notice page.
