@@ -8,7 +8,8 @@ from personal.views import (
     KrishiDiarysContentView,
     ExpertsView,
     DrugIndexView,
-    DrugIndexContentView
+    DrugIndexContentView,
+    TestView
     )
 
 
@@ -27,5 +28,7 @@ urlpatterns = [
 
     path('drug-index/',DrugIndexView.as_view(), name = 'drug_index'),
 
-    path('drug-index-content-view/<int:id>', DrugIndexContentView.as_view(), name='drug_index_content_view')
+    path('drug-index-content-view/<int:id>', DrugIndexContentView.as_view(), name='drug_index_content_view'),
+
+    path('test/', TestView.as_view(), name = 'test'),
 ]

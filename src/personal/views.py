@@ -387,4 +387,3 @@ class DrugIndexContentView(View):
 #endregion    
 
 
-
