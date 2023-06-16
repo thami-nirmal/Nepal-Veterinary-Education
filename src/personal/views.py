@@ -187,7 +187,7 @@ class KrishiDiarysView(View):
         level_material_detail_list                        = LevelAndMaterialDetails()
 
         # Pagination settings
-        items_per_page                                    = 6
+        items_per_page                                    = 4
 
         # Create Paginator object
         paginator = Paginator(krishi_diarys_details_list, items_per_page)
