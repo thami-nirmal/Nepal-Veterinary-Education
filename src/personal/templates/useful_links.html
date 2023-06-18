@@ -24,6 +24,7 @@ Useful Links
             </div>
             <div class="error-404-underline que-coll-line"></div>
             <div class="que-coll-left-container">
+                {% if useful_links_page_obj %}
                 {% for useful_links_data in useful_links_page_obj %}
                 <div class="que-coll-left-item">
                     <div class="que-coll-left-item-content">
@@ -38,7 +39,12 @@ Useful Links
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                <h1>No Data Found!</h1>
+                {% endif %}
             </div>
+
+            {% if useful_links_page_obj and useful_links_data_list|length > items_per_page %}
             <div class="buttons">
                 {% if useful_links_page_obj.has_previous %}
                 <a href="?page={{ useful_links_page_obj.previous_page_number }}">
@@ -71,6 +77,7 @@ Useful Links
                 <span>Page : {{ useful_links_page_obj.number }} of
                     {{ useful_links_page_obj.paginator.num_pages }}</span>
             </div>
+            {% endif %}
         </div>
         <div class="que-coll-top-right">
             {% include 'snippet_code/popular_post.html' %}

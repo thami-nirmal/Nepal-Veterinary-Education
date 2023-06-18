@@ -22,7 +22,8 @@ All Kinds of News/ Notices
             <div class="error-404-underline que-coll-line"></div>
 
             <div class="main-left responsive-margin">
-                {% for news_notice_data in news_notice_page_obj%}
+                {% if news_notice_page_obj %}
+                {% for news_notice_data in news_notice_page_obj %}
                 <div class="recent-item">
                     <div class="big-cont-img">
                         {% if news_notice_data.image %}
@@ -53,6 +54,11 @@ All Kinds of News/ Notices
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                <h1>No Data Found!</h1>
+                {% endif %}
+
+                {% if news_notice_page_obj and news_notice_object_list|length > news_notice_items_per_page %}
                 <div class="buttons">
                     {% if news_notice_page_obj.has_previous %}
                     <a href="?page={{ news_notice_page_obj.previous_page_number }}">
@@ -83,6 +89,7 @@ All Kinds of News/ Notices
                     {% endif %}
                     <span>Page : {{ news_notice_page_obj.number }} of {{ news_notice_page_obj.paginator.num_pages }}</span>
                 </div>
+                {% endif %}
             </div>
         </div>
         <div class="que-coll-top-right">

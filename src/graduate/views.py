@@ -13,7 +13,7 @@ from personal.views import LevelAndMaterialDetails
 
 # Create your views here.
 
-#region get sem year list
+#region admin panel dropdown function
 def get_sem_year_list(request,id):
     """
     : param request: The HTTP request object.
@@ -24,10 +24,8 @@ def get_sem_year_list(request,id):
 
     # Return a JSON response with the semester year data
     return JsonResponse({'data': [{'id': sem_year.id, 'sem_year_num': sem_year.sem_year_num} for sem_year in sem_year_list]})
-#endregion
 
 
-#region get material type list
 def get_material_type_list(request,id):
     """
     : param request: The HTTP request object.
@@ -38,10 +36,8 @@ def get_material_type_list(request,id):
 
     # Return a JSON response with material type data
     return JsonResponse({'data': [{'id': material_type.id, 'material_name': material_type.material_name} for material_type in material_type_list]})
-#endregion
 
 
-#region get subject list
 def get_subject_list(request,id):
     """
     : param request: The HTTP request object.
@@ -55,7 +51,6 @@ def get_subject_list(request,id):
 #endregion
 
 
-#region Graduate View
 class GraduateView(View):
     """
     View class for handling HTTP GET requests related to graduate level materials.
@@ -109,10 +104,8 @@ class GraduateView(View):
 
         # Render the 'graduate.html' template with the provided context
         return render(request, template_name, context)
-#endregion
 
 
-#region Graduate Content View
 class GraduateContentView(View):
     """
     View class for handling HTTP GET requests related to graduate content details.
@@ -152,10 +145,8 @@ class GraduateContentView(View):
 
         # Render the 'graduate_content_view.html' template with provided context
         return render(request, template_name, context)
-#endregion
 
 
-#region Graduate Sub Content View
 class GraduateSubContentView(View):
     """
     View class for handling HTTP GET requests related to graduate sub-content.
@@ -231,4 +222,3 @@ class GraduateSubContentView(View):
 
         # Render the 'graduate_chapter_content_view.html' template with provided context
         return render(request, template_name, context)
-#endregion

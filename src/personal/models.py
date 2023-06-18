@@ -28,6 +28,7 @@ class NewsAndNotice(models.Model):
     class Meta:
         verbose_name_plural = 'News and Notice'
 
+
 class Experts(models.Model):
     """
     Represents Experts with specific attributes
@@ -108,7 +109,7 @@ class NewsLetter(models.Model):
     class Meta:
         verbose_name_plural = 'News Letter'
 
-    
+
 class CustomerFeedback(models.Model):
     """
     Represents a customer feedback entry
@@ -128,7 +129,7 @@ class CustomerFeedback(models.Model):
     class Meta:
         verbose_name_plural  = 'Customer Feedback'
 
-    
+
 class UsefulLinks(models.Model):
     """
     Represents a useful links with specific attributes

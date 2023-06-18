@@ -27,7 +27,6 @@ def LevelAndMaterialDetails():
 # endregion
 
 
-#region Home View
 class HomeView(View):
     """
     View class for handling HTTP GET requests related to the home page.
@@ -61,10 +60,8 @@ class HomeView(View):
 
         # Render the template with specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
-#region Useful Links View
 class UsefulLinksView(View):
     """
     View class for handling HTTP GET requests related to the useful links page.
@@ -87,10 +84,10 @@ class UsefulLinksView(View):
         useful_links_data_list                         = UsefulLinks.objects.filter(is_shown=True).order_by('-id')
 
         # Pagination settings
-        iterms_per_page                                = 8
+        items_per_page                                = 8
 
         # Create Paginator object
-        paginator                                      = Paginator(useful_links_data_list, iterms_per_page)
+        paginator                                      = Paginator(useful_links_data_list, items_per_page)
 
         # Get the current page number from the request's GET parameters
         page_number                                    = request.GET.get('page')
@@ -105,15 +102,17 @@ class UsefulLinksView(View):
         context = {
             'level_material_detail_list'               : level_material_detail_list,
 
-            'useful_links_page_obj'                    : useful_links_page_obj 
+            'useful_links_page_obj'                    : useful_links_page_obj,
+
+            'items_per_page'                           : items_per_page,
+
+            'useful_links_data_list'                   : useful_links_data_list,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
-#region News and Notice View
 class NewsNoticeView(View):
     """
     View class for handling HTTP GET requests related to the news notice page.
@@ -154,11 +153,14 @@ class NewsNoticeView(View):
             'level_material_detail_list'               : level_material_detail_list,
 
             'news_notice_page_obj'                     : news_notice_page_obj,
+
+            'news_notice_object_list'                  : news_notice_object_list,
+
+            'news_notice_items_per_page'               : news_notice_items_per_page,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
 #region Krishi Diarys View
@@ -203,14 +205,16 @@ class KrishiDiarysView(View):
             'level_material_detail_list'                  : level_material_detail_list,
 
             'page_obj'                                    : page_obj,
+
+            'krishi_diarys_details_list'                  : krishi_diarys_details_list,
+
+            'items_per_page'                              : items_per_page,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
-#region Krishi Diarys Content View
 class KrishiDiarysContentView(View):
     """
     View class for handling HTTP GET requests related to the krishi diarys content page.
@@ -248,7 +252,6 @@ class KrishiDiarysContentView(View):
 #endregion
 
 
-#region Experts View
 class ExpertsView(View):
     """
     View class for handling HTTP GET requests related to the experts page.
@@ -292,11 +295,12 @@ class ExpertsView(View):
             'experts_page_obj'                         : experts_page_obj,
 
             'experts_object_list'                      : experts_object_list,
+
+            'items_per_page'                           : items_per_page,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
 #region Drug Index View
@@ -341,14 +345,16 @@ class DrugIndexView(View):
             'level_material_detail_list'                    : level_material_detail_list,
 
             'drug_index_page_obj'                           : drug_index_page_obj,
+
+            'drug_index_obj_list'                           : drug_index_obj_list,
+
+            'items_per_page'                                : items_per_page,
         }
 
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
-#endregion
 
 
-# region Drug Index Content View
 class DrugIndexContentView(View):
     """
     View class for handling HTTP GET requests related to the drug index content page.
@@ -384,6 +390,5 @@ class DrugIndexContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-#endregion    
-
+#endregion
 

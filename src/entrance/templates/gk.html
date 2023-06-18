@@ -19,15 +19,16 @@ Entrance - General Knowledge
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
+            
             <div class="que-coll-left-container">
                 {% if gk_page_obj %}
-                {% for data in gk_page_obj %}
+                {% for gk_data in gk_page_obj %}
                 <div class="que-coll-left-item graduate-left-item">
                     <div class="que-coll-left-item-content graduate-item-content">
                         <div class="que-coll-item-left graduate-item-span">
-                            <span>{{data}}</span>
+                            <span>{{gk_data}}</span>
                         </div>
-                        <a href="{% url 'gk_content' id=data.id %}">
+                        <a href="{% url 'gk_content' id=gk_data.id %}">
                             <div class="graduate-download">
                                 <svg fill="#4176FF" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
@@ -51,6 +52,8 @@ Entrance - General Knowledge
                 <h1>No Data Found!</h1>
                 {% endif %}
             </div>
+            
+            {% if gk_page_obj and gk_object_list|length > items_per_page %}
             <div class="buttons">
                 {% if gk_page_obj.has_previous %}
                 <a href="?page={{ gk_page_obj.previous_page_number }}">
@@ -65,7 +68,6 @@ Entrance - General Knowledge
                     </div>
                 </a>
                 {% endif %}
-
                 
                 {% if gk_page_obj.has_next %}
                 <a href="?page={{ gk_page_obj.next_page_number }}">
@@ -82,6 +84,7 @@ Entrance - General Knowledge
                 {% endif %}
                 <span>Page : {{ gk_page_obj.number }} of {{ gk_page_obj.paginator.num_pages }}</span>
             </div>
+            {% endif %}
         </div>
         <div class="que-coll-top-right">
             {% include 'snippet_code/popular_post.html' %}

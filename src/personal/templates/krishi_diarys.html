@@ -53,6 +53,8 @@ Krishi Diarys
                 <h1>No Data Found!</h1>
                 {% endif %}
             </div>
+
+            {% if page_obj and krishi_diarys_details_list|length > items_per_page %}
             <div class="buttons">
                 {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}">
@@ -67,7 +69,6 @@ Krishi Diarys
                     </div>
                 </a>
                 {% endif %}
-
                 
                 {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">
@@ -84,6 +85,7 @@ Krishi Diarys
                 {% endif %}
                 <span>Page : {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
             </div>
+            {% endif %}
         </div>
         <div class="que-coll-top-right">
             {% include 'snippet_code/popular_post.html' %}

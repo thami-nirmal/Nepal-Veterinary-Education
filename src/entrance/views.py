@@ -32,44 +32,38 @@ class GkView(View):
         template_name     = 'gk.html'
 
         # Retrieve GK objects that are marked as shown
-        gk_object         = GK.objects.filter(is_shown=True)
-
-        # Check if GK objects exist
-        if gk_object.exists():
-            gk_object   = gk_object
-        else:
-            gk_object   = None  
-
-        # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list            = LevelAndMaterialDetails()
+        gk_object_list         = GK.objects.filter(is_shown=True).order_by('-id')
 
         # Pagination settings
-        items_per_page                        = 6
+        items_per_page = 4
 
-        #Create Paginator object
-        paginator                             = Paginator(gk_object, items_per_page)
+        # Create Paginator object
+        paginator = Paginator(gk_object_list, items_per_page)
 
-        # Get the current page number from the request's GET parameters
-        page_number                           = request.GET.get('page')
+        # Get the current page number from the request's GET paramerters
+        page_number = request.GET.get('page')
 
-        # Get the page objec for the requested page number
-        gk_page_obj                           = paginator.get_page(page_number)
+        # Get the page gk page object  for the requested page number
+        gk_page_obj = paginator.get_page(page_number)
 
-        # Prepare the context data for rendering the template
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
+        level_material_detail_list   = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to be passed to the template
         context = {
-            'gk_data_list'                    : gk_object,
 
-            'level_material_detail_list'      : level_material_detail_list,
+        'level_material_detail_list'      : level_material_detail_list,
 
-            'gk_page_obj'                     : gk_page_obj,
-        }
+        'gk_page_obj'                     : gk_page_obj,
 
-        # Render the template with the provided context
+        'items_per_page'                  : items_per_page,
+
+        'gk_object_list'                  : gk_object_list,
+    }
+
         return render(request, template_name, context)
 
-#endregion
 
-#region GK Content View
 class GkContentView(View):
     """
     View class for handling HTTP GET requests related to GK content.
@@ -97,15 +91,15 @@ class GkContentView(View):
         # Prepare the context data for rendering the template
         context = {
             'gk_details'                      : gk_details_object,
+            
             'level_material_detail_list'      : level_material_detail_list
         }
 
         # Render the template with the provided context
         return render(request, template_name, context)
-
 #endregion
 
-#region Past Question View
+
 class PastQuestionView(View):
     """
     View class for handling HTTP GET requests related to past questions.
@@ -173,9 +167,7 @@ class PastQuestionView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
-#endregion
 
-#region Model Question View
 class ModelQuestionView(View):
     """
     View class for handling HTTP GET requests related to model questions.
@@ -245,9 +237,7 @@ class ModelQuestionView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
     
-#endregion
 
-#region Syllabus Info View
 class SyllabusInfoView(View):
     """
     A Django view that retrieves syllabus information from the database and renders it to a template.
@@ -317,9 +307,7 @@ class SyllabusInfoView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
-#endregion
 
-#region College Info View
 class CollegeInfoView(View):
     """
     A Django view that retrieves college information from the database and renders it to a template.
@@ -390,4 +378,3 @@ class CollegeInfoView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 
-#endregion
