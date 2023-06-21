@@ -100,12 +100,7 @@
                     <span>Join into our Newsletter list. Just today.</span>
                     <p>For fresh posts and contents every week</p>
                 </div>
-                <!-- <div class="above-footer-bottom" id="sform">
-                    {% csrf_token %}
-                    <input type="email" id="email" name="email" placeholder="Your work email address" />
-                    <button onclick="newsletterSubmit()">Subscribe Now</button>
-                </div> -->
-                <form class="above-footer-bottom" id="sform">
+                <form class="above-footer-bottom" id="base_home_form">
                     {% csrf_token %}
                     <input type="email" id="email" name="email" placeholder="Your work email address" />
                     <button type="submit">Subscribe Now</button>
@@ -241,30 +236,8 @@
     <script src="{% static '/js/main.js' %}"></script>
     <script>
 
-        // function newsletterSubmit(){
-        //     var email = $('#email').val();
-        //     var csrftoken = $('[name=csrfmiddlewaretoken]').val();
-        //     $.ajax({
-        //             type: 'POST',
-        //             url: '/news-letter/',
-        //             headers: {
-        //                 'X-CSRFToken': csrftoken
-        //             },
-        //             data: {
-        //                 email: email
-        //             },
-        //             success: function (response) {
-        //                 console.log(response)
-        //                 $('#email').val(''); 
-        //             },
-        //             error: function (error) {
-        //                 console.log(error)
-        //             }
-        //         });
-        // }
-
         $(document).ready(function () {
-            $('#sform').submit(function (event) {
+            $('#base_home_form').submit(function (event) {
                 event.preventDefault();
                 var email = $('#email').val();
                 var csrftoken = $('[name=csrfmiddlewaretoken]').val();

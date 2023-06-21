@@ -125,12 +125,16 @@
                     <span>Join into our Newsletter list. Just today.</span>
                     <p>For fresh posts and contents every week</p>
                 </div>
-                <form class="above-footer-bottom" method="post" action="{% url 'news_letter' %}">
+                <!-- <form class="above-footer-bottom" id="base_form">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Your work email address" />
-                    <input type="hidden" name="url_name" value="{{ request.get_full_path }}" />
                     <button type="submit">Subscribe Now</button>
-                </form>
+                </form> -->
+                <div class="above-footer-bottom" id="base_form">
+                    {% csrf_token %}
+                    <input type="email" id="email" name="email" placeholder="Your work email address" />
+                    <button onclick="newsletterSubmit()">Subscribe Now</button>
+                </div>
             </div>
         </div>
     </section>
@@ -257,6 +261,28 @@
         </div>
     </footer>
     <script src="{% static '/js/main.js' %}"></script>
-    
+    <script>
+        function newsletterSubmit(){
+        var email = $('#email').val();
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+                type: 'POST',
+                url: '/news-letter/',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: {
+                    email: email
+                },
+                success: function (response) {
+                    console.log(response)
+                    $('#email').val(''); 
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+    }
+    </script>
 </body>
 </html>
