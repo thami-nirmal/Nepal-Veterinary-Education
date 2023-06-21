@@ -9,12 +9,12 @@ class PostCategory(models.Model):
     """
     Represents category of the post with specific attributes
     """
-    name                     = models.CharField(max_length=50, blank=True)
-    colour                   = models.CharField(max_length=25, blank=True)
-    seo_title                = models.CharField(max_length=50, blank=True)
-    seo_keyword              = models.CharField(max_length=200, blank=True)
-    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
-    seo_description          = models.TextField(blank=True)
+    name                                    = models.CharField(max_length=50, blank=True)
+    colour                                  = models.CharField(max_length=25, blank=True)
+    seo_title                               = models.CharField(max_length=50, blank=True)
+    seo_keyword                             = models.CharField(max_length=200, blank=True)
+    seo_image                               = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                         = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -30,21 +30,21 @@ class Post(models.Model):
     """
     Represents a Post with specific attributes
     """
-    uuid                     = models.UUIDField(primary_key = True,default = uuid.uuid4, editable = False)
-    user                     = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
-    slug                     = models.SlugField(max_length = 50, unique=True, editable=False)
-    title                    = models.CharField(max_length = 50,blank = True)
-    feature_image            = models.ImageField(upload_to='profile_images/', blank = True, null = True)
-    is_published             = models.BooleanField(default = False)
-    created_at               = models.DateField(auto_now_add = True)
-    updated_at               = models.DateField(auto_now = True)
-    short_description        = models.CharField(max_length=300, blank=True)
-    post_category            = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
-    description              = RichTextUploadingField()
-    seo_title                = models.CharField(max_length=50, blank=True)
-    seo_keyword              = models.CharField(max_length=200, blank=True)
-    seo_image                = models.ImageField(upload_to='seo_images/',blank=True, null=True)
-    seo_description          = models.TextField(blank=True)
+    uuid                                    = models.UUIDField(primary_key = True,default = uuid.uuid4, editable = False)
+    user                                    = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
+    slug                                    = models.SlugField(max_length = 50, unique=True, editable=False)
+    title                                   = models.CharField(max_length = 50,blank = True)
+    feature_image                           = models.ImageField(upload_to='profile_images/', blank = True, null = True)
+    is_published                            = models.BooleanField(default = False)
+    created_at                              = models.DateField(auto_now_add = True)
+    updated_at                              = models.DateField(auto_now = True)
+    short_description                       = models.CharField(max_length=300, blank=True)
+    post_category                           = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
+    description                             = RichTextUploadingField()
+    seo_title                               = models.CharField(max_length=50, blank=True)
+    seo_keyword                             = models.CharField(max_length=200, blank=True)
+    seo_image                               = models.ImageField(upload_to='seo_images/',blank=True, null=True)
+    seo_description                         = models.TextField(blank=True)
 
     def __str__(self):
         """
@@ -68,9 +68,9 @@ class PostComments(models.Model):
     """
     Represents comment on a Post with specific attributes
     """
-    user                  = models.ForeignKey(User, related_name='postComment_user' ,on_delete=models.CASCADE)
-    post                  = models.ForeignKey(Post, related_name='postComment_post',on_delete=models.CASCADE)
-    comment               = models.CharField(max_length=300, blank=True)
+    user                                    = models.ForeignKey(User, related_name='postComment_user' ,on_delete=models.CASCADE)
+    post                                    = models.ForeignKey(Post, related_name='postComment_post',on_delete=models.CASCADE)
+    comment                                 = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         """
@@ -86,8 +86,8 @@ class PostViews(models.Model):
     """
     Represents views of a post with specific attributes
     """
-    post                 = models.ForeignKey(Post, related_name='postViews_post',on_delete=models.CASCADE)
-    views                = models.PositiveIntegerField(null=True)
+    post                                    = models.ForeignKey(Post, related_name='postViews_post',on_delete=models.CASCADE)
+    views                                   = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         """
@@ -103,9 +103,9 @@ class PostLikes(models.Model):
     """
     Represents likes on a post with specific attributes
     """
-    user                 = models.ForeignKey(User, related_name='postLikes_user',on_delete=models.CASCADE)
-    post                 = models.ForeignKey(Post, related_name='postLikes_post',on_delete=models.CASCADE)
-    is_liked             = models.BooleanField(default=False)
+    user                                    = models.ForeignKey(User, related_name='postLikes_user',on_delete=models.CASCADE)
+    post                                    = models.ForeignKey(Post, related_name='postLikes_post',on_delete=models.CASCADE)
+    is_liked                                = models.BooleanField(default=False)
 
     def __str__(self):
         """
@@ -121,8 +121,8 @@ class UserViews(models.Model):
     """
     Represents views of user on a post with specific attributes
     """
-    user                = models.ForeignKey(User,related_name='userViews_user', on_delete=models.CASCADE)
-    post                = models.ForeignKey(Post,related_name='userViews_post', on_delete=models.CASCADE)
+    user                                    = models.ForeignKey(User,related_name='userViews_user', on_delete=models.CASCADE)
+    post                                    = models.ForeignKey(Post,related_name='userViews_post', on_delete=models.CASCADE)
 
     def __str__(self):
         """
@@ -138,8 +138,8 @@ class PostTags(models.Model):
     """
     Represents tags associated with post with specific attributes
     """
-    post               = models.ForeignKey(Post,related_name='postTags_post', on_delete=models.CASCADE)
-    tags               = models.CharField(max_length=200, blank=True)
+    post                                    = models.ForeignKey(Post,related_name='postTags_post', on_delete=models.CASCADE)
+    tags                                    = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         """
@@ -155,8 +155,8 @@ class FeaturePost(models.Model):
     """
     Represents a feature post with specific attributes
     """
-    position            = models.CharField(max_length=30, blank=True)
-    post                = models.OneToOneField(Post, related_name='featurePost_post',on_delete=models.CASCADE)
+    position                                = models.CharField(max_length=30, blank=True)
+    post                                    = models.OneToOneField(Post, related_name='featurePost_post',on_delete=models.CASCADE)
 
     def __str__(self):
         """
@@ -167,6 +167,5 @@ class FeaturePost(models.Model):
     class Meta:
         verbose_name_plural = 'Feature Post'
 
-    
-    
+
 

@@ -401,6 +401,7 @@ class DrugIndexContentView(View):
         return render(request, template_name, context)
 #endregion
 
+
 class NewsLetterView(View):
     """
     View class for handling newsletter subscription.
@@ -452,6 +453,7 @@ class NewsLetterView(View):
         # # Get the current page URL name dynamically
         # return redirect(url_name)
 
+
 class CustomerFeedbackView(View):
     """
     View class for handling HTTP GET requests related to the customer feedback page.
@@ -481,21 +483,27 @@ class CustomerFeedbackView(View):
         :param kwargs: Additional keyword arguments.
         :return: Default response.
         """
-
-        """
-        Retrieve the value of the form's POST data
-        """
-        if request.method == 'POST':
-            first_name  = request.POST.get('firstname')
-            last_name   = request.POST.get('lastname')
-            email       = request.POST.get('Email')
-            message     = request.POST.get('message')
+        
+        # Retrieve the value of the customer feedback form's POST data
+        if request.method         == 'POST':
+            first_name             = request.POST.get('firstname')
+            last_name              = request.POST.get('lastname')
+            email                  = request.POST.get('Email')
+            message                = request.POST.get('message')
 
             # Create a new CustomerFeedback object with the retrieved values and assign it to the variable customer_feedback
-            customer_feedback = CustomerFeedback(first_name=first_name, last_name=last_name, email=email, message=message)
+            # customer_feedback  = CustomerFeedback(first_name=first_name, last_name=last_name, email=email, message=message)
 
-            # Save the customer feedback object to the database
-            customer_feedback.save()
+            # # Save the customer feedback object to the database
+            # customer_feedback.save()
+
+            # Create a new CustomerFeedback object and save it to the database
+            CustomerFeedback.objects.create(
+                first_name           = first_name,
+                last_name            = last_name,
+                email                = email,
+                message              = message
+            )
 
             # Redirect the user to the 'customer_feedback' page after successfully submitting the feedback.
             return redirect('customer_feedback')

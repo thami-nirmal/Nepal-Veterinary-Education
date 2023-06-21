@@ -201,7 +201,6 @@ class GraduateSubContentView(View):
         selected_sub_content_material_name             = sub_content_object.material_content.material_type.material_name
         selected_sub_content_subject_name              = sub_content_object.material_content.subject.subject_name
 
-
         # Create an instance of LevelAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
 
