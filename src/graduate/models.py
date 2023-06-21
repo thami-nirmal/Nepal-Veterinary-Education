@@ -116,8 +116,8 @@ class Subject(models.Model):
     def save(self, *args, **kwargs): 
         if not self.slug:
             semyear_slug     = slugify(self.sem_year)
-            subject_name  = slugify(self.subject_name)
-            self.slug     = f"{semyear_slug}-{subject_name}"
+            subject_name     = slugify(self.subject_name)
+            self.slug        = f"{semyear_slug}-{subject_name}"
         super(Subject, self).save(*args, **kwargs)
 
 class MaterialContent(models.Model):
@@ -138,7 +138,7 @@ class MaterialContent(models.Model):
 
     def __str__(self):
         """
-        :return: the material content representation of the material
+        :return: the material type with subject representation of MaterialContent
         """
         return str(self.material_type) + " - " + str(self.subject)
     

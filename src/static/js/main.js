@@ -1,12 +1,18 @@
 //Date
-const date = new Date();
-document.getElementById("date-top").innerHTML = date.toDateString();
+try {
+    const date = new Date();
+    document.getElementById("date-top").innerHTML = date.toDateString();
+} catch (error) {
+    
+}
 
-const date1 = new Date()
-document.getElementById("date-content").innerHTML = date1.toDateString();
-
-const date2 = new Date()
-document.getElementById("date-drug-index").innerHTML = date2.toDateString();
+try {
+    const date1 = new Date()
+    document.getElementById("date-content").innerHTML = date1.toDateString();
+    
+} catch (error) {
+    
+}
 
 //hamburger in responsive header
 function myFunction() {

@@ -27,6 +27,11 @@
 
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+
     <title>Home</title>
 </head>
 
@@ -95,10 +100,16 @@
                     <span>Join into our Newsletter list. Just today.</span>
                     <p>For fresh posts and contents every week</p>
                 </div>
-                <div class="above-footer-bottom">
-                    <input type="email" placeholder="Your work email address" />
+                <!-- <div class="above-footer-bottom" id="sform">
+                    {% csrf_token %}
+                    <input type="email" id="email" name="email" placeholder="Your work email address" />
+                    <button onclick="newsletterSubmit()">Subscribe Now</button>
+                </div> -->
+                <form class="above-footer-bottom" id="sform">
+                    {% csrf_token %}
+                    <input type="email" id="email" name="email" placeholder="Your work email address" />
                     <button type="submit">Subscribe Now</button>
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -224,6 +235,59 @@
             </div>
         </div>
     </footer>
+    <script>
+
+    </script>
     <script src="{% static '/js/main.js' %}"></script>
+    <script>
+
+        // function newsletterSubmit(){
+        //     var email = $('#email').val();
+        //     var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        //     $.ajax({
+        //             type: 'POST',
+        //             url: '/news-letter/',
+        //             headers: {
+        //                 'X-CSRFToken': csrftoken
+        //             },
+        //             data: {
+        //                 email: email
+        //             },
+        //             success: function (response) {
+        //                 console.log(response)
+        //                 $('#email').val(''); 
+        //             },
+        //             error: function (error) {
+        //                 console.log(error)
+        //             }
+        //         });
+        // }
+
+        $(document).ready(function () {
+            $('#sform').submit(function (event) {
+                event.preventDefault();
+                var email = $('#email').val();
+                var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/news-letter/',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    data: {
+                        email: email
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $('#email').val('');
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+
+            });
+        });
+    </script>
 </body>
 </html>

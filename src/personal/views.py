@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex, NewsAndNotice
+from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex, NewsAndNotice, NewsLetter
 from django.core.paginator import Paginator
-
+from django.contrib import messages
+from django.urls import resolve
+from django.http import JsonResponse
 # Create your views here.
 
 # region Level and Material Details Function
@@ -391,4 +393,46 @@ class DrugIndexContentView(View):
         # Render the template with the provided context
         return render(request, template_name, context)
 #endregion
+
+class NewsLetterView(View):
+
+    def post(self, request, *args, **kwargs):
+        """
+        """
+        # Check if the request was made via AJAX
+        if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
+            email        = request.POST['email']
+
+            if email:
+                # If the email does not exist in the NewsLetter model
+                if not NewsLetter.objects.filter(email=email).exists():
+                    # Create a new NewsLetter object with the email and subscribe status
+                    newsletter = NewsLetter(email=email, subscribe=True)
+                    # Save the newsletter object to the database
+                    newsletter.save()
+                # Display a success message to the user
+                messages.success(request,'Successfully subscribed')
+                
+                return JsonResponse({'status': 'success'})
+        return True
+
+
+        # Retrieve the value of the 'email' field from the form's POST data
+        # email = request.POST.get('email')
+        # # Get the current page URL dynamically
+        # url_name  = request.POST.get('url_name')
+        # print(url_name)
+        # # Check if the 'email' value is not empty
+        # if email:
+        #     # If the email does not exist in the NewsLetter model
+        #     if not NewsLetter.objects.filter(email=email).exists():
+        #         # Create a new NewsLetter object with the email and subscribe status
+        #         newsletter = NewsLetter(email=email, subscribe=True)
+        #         # Save the newsletter object to the database
+        #         newsletter.save()
+        #     # Display a success message to the user
+        #     messages.success(request,'Successfully subscribed')
+
+        # # Get the current page URL name dynamically
+        # return redirect(url_name)
 

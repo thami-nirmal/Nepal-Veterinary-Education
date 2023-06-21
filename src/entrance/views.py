@@ -133,35 +133,38 @@ class PastQuestionView(View):
             # Create a dictionary with the relevant PastQuestion data
             past_question_data = {
                 'year'          : past_question_object.year, 
+
                 'url'           : past_question_object.pdf_url, 
-                'types'         : past_question_object.types
+
+                'types'         : past_question_object.types,
+
                 }
             
             # Append the PastQuestion data dictionary to the collection list
-            past_question_collection_list.append(past_question_data)
+            past_question_collection_list.append(past_question_data) 
 
             # Return a JSON response containing the past_question_collection_list
             return JsonResponse({'data' : past_question_collection_list})
         
         # Set the template name for rendering
-        template_name                = 'past_question.html'
+        template_name                            = 'past_question.html'
 
         # Retrieve the first PastQuestion object where is_shown is True
-        past_question_object         = PastQuestion.objects.filter(is_shown=True).first()
+        past_question_object                     = PastQuestion.objects.filter(is_shown=True).first()
 
         # Retrieve all PastQuestion objects where is_shown is True
-        past_question_object_list    = PastQuestion.objects.filter(is_shown=True)
+        past_question_object_list                = PastQuestion.objects.filter(is_shown=True)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list   = LevelAndMaterialDetails()
+        level_material_detail_list               = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
-            'past_question'                   : past_question_object,
+            'past_question'                      : past_question_object,
 
-            'past_question_object_list'       : past_question_object_list,
+            'past_question_object_list'          : past_question_object_list,
 
-            'level_material_detail_list'      : level_material_detail_list,
+            'level_material_detail_list'         : level_material_detail_list,
         }
 
         # Render the template with the provided context
