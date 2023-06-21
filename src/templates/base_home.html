@@ -183,7 +183,7 @@
                             </div>
                             <div class="footer-top-2nd-items-list">
                                 <div class="footer-item">
-                                    <a href="#"> <span>Press</span></a>
+                                    <a href="{% url 'customer_feedback' %}"> <span>Contact Us</span></a>
                                 </div>
                                 <div class="footer-item">
                                     <a href="#"> <span>Press</span></a>
@@ -230,12 +230,8 @@
             </div>
         </div>
     </footer>
-    <script>
-
-    </script>
     <script src="{% static '/js/main.js' %}"></script>
     <script>
-
         $(document).ready(function () {
             $('#base_home_form').submit(function (event) {
                 event.preventDefault();
@@ -258,7 +254,6 @@
                         console.log(error)
                     }
                 });
-
             });
         });
     </script>

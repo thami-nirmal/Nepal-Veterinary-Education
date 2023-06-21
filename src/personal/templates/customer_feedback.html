@@ -1,0 +1,156 @@
+{% extends 'base.html'%}
+
+{% block pageheading %}
+Contact Us
+{% endblock pageheading %}
+
+
+{% block content %}
+<div class="container">
+    <div class="nve-contact-us-form-container">
+        <div class="nve-contact-us-form-left">
+            <div class="nve-contact-us-form-left-top">
+                <hr />
+                <span>ABOUT</span>
+            </div>
+            <div class="nve-contact-us-form-left-bottom">
+                <span>Who are we Exactly?</span>
+                <p>Send us a Message</p>
+            </div>
+        </div>
+
+        <form method="post" action="{% url 'customer_feedback' %}">
+            <div class="nve-contact-us-form-right">
+                {% csrf_token %}
+                <div class="nve-contact-us-form-right-text">
+                    <span>Feeling like you want to say something to us or
+                        you want to recommend and feedback us. Then send
+                        us a message.</span>
+                </div>
+                <div class="nve-contact-us-form-right-input-fields">
+                    <div class="nve-contact-us-form-right-name-field">
+                        <div class="nve-contact-us-form-right-first-name-field">
+                            <input type="text" id="fname" name="firstname" placeholder="First Name" />
+                        </div>
+                        <div class="nve-contact-us-form-right-last-name-field">
+                            <input type="text" id="lname" name="lastname" placeholder="Last Name" />
+                        </div>
+                    </div>
+                    <div class="nve-contact-us-form-right-email-field">
+                        <input type="email" id="email" name="Email" placeholder="Email" />
+                    </div>
+                    <div class="nve-contact-us-form-right-message-field">
+                        <textarea id="message" name="message" rows="4" cols="50" placeholder="Message"></textarea>
+                    </div>
+                </div>
+                <div class="nve-contact-us-form-right-button">
+                    <input type="submit" value="SEND NOW" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="nve-f-asked-que-container">
+        <div class="nve-f-asked-que-head">
+            <span>Frequently Asked Questions</span>
+        </div>
+        <div class="nve-f-asked-que-item tabcontent" id="one">
+            <div class="nve-f-asked-que-question-con tablinks" onclick="openanswer('one')">
+                <span><span>What is an Angular 8?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+            <div class="nve-f-asked-answer-con tabcontent">
+                <p>
+                    Answer1) Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application.
+                </p>
+            </div>
+        </div>
+        <div class="nve-f-asked-que-item tabcontent" id="two">
+            <div class="nve-f-asked-que-question-con tablinks" onclick="openanswer('two')">
+                <span><span>What is an Angular 8?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+            <div class="nve-f-asked-answer-con tabcontent">
+                <p>
+                    Answer2)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application.
+                </p>
+            </div>
+        </div>
+        <div class="nve-f-asked-que-item tabcontent" id="three">
+            <div class="nve-f-asked-que-question-con tablinks" onclick="openanswer('three')">
+                <span><span>What is an Angular 8?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+            <div class="nve-f-asked-answer-con tabcontent">
+                <p>
+                    Answer3)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer3)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer3)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer3)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application.
+                </p>
+            </div>
+        </div>
+        <div class="nve-f-asked-que-item tabcontent" id="four">
+            <div class="nve-f-asked-que-question-con tablinks" onclick="openanswer('four')">
+                <span><span>What is an Angular 8?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+            </div>
+            <div class="nve-f-asked-answer-con tabcontent">
+                <p>
+                    Answer4)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer4)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer4)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application. Answer4)Angular 8 is a client-side TypeScript
+                    based, front-end web framework by Google.
+                    Angular 8 is a great, reusable UI (User
+                    Interface) library for the developers which help
+                    in building attractive, steady, and utilitarian
+                    web pages and web application.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

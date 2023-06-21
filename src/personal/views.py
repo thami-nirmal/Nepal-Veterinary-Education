@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from graduate.models import Level, MaterialType
-from .models import KrishiDiarys, UsefulLinks, Experts, DrugIndex, NewsAndNotice, NewsLetter
+from .models import (KrishiDiarys,
+                    UsefulLinks,
+                    Experts,
+                    DrugIndex,
+                    NewsAndNotice,
+                    NewsLetter,
+                    CustomerFeedback)
+
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.urls import resolve
@@ -395,12 +402,20 @@ class DrugIndexContentView(View):
 #endregion
 
 class NewsLetterView(View):
-
+    """
+    View class for handling newsletter subscription.
+    """
     def post(self, request, *args, **kwargs):
         """
+        Process the newsletter subscription request when the form is submitted.
+        :param request: The HTTP request object.
+        :param args: Additional positional arguments.
+        :param kwargs: Additional keyword arguments.
+        :return: default response.
         """
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
+            # Get the email from the request
             email        = request.POST['email']
 
             if email:
@@ -412,12 +427,13 @@ class NewsLetterView(View):
                     newsletter.save()
                 # Display a success message to the user
                 messages.success(request,'Successfully subscribed')
-                
+                # Return a success response
                 return JsonResponse({'status': 'success'})
+        # Return a default response
         return True
 
 
-        # Retrieve the value of the 'email' field from the form's POST data
+        # # Retrieve the value of the 'email' field from the form's POST data
         # email = request.POST.get('email')
         # # Get the current page URL dynamically
         # url_name  = request.POST.get('url_name')
@@ -436,3 +452,50 @@ class NewsLetterView(View):
         # # Get the current page URL name dynamically
         # return redirect(url_name)
 
+class CustomerFeedbackView(View):
+    """
+    View class for handling HTTP GET requests related to the customer feedback page.
+    It rendering the 'customer_feedback.html' template.
+    """
+    def get(self, request, *args, **kwargs):
+
+        # Set the template
+        template_name  = 'customer_feedback.html'
+
+        # Call the LevelAndMaterialDetails function to retrieve level and material data
+        level_material_detail_list                     = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to be passed to the template
+        context = {
+            'level_material_detail_list'               : level_material_detail_list,
+        }
+
+        # Render the template with the specified context and return the rendered response
+        return render(request, template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle the POST request to submit customer feedback.
+        :param request: The HTTP request object.
+        :param args: Additional positional arguments.
+        :param kwargs: Additional keyword arguments.
+        :return: Default response.
+        """
+
+        """
+        Retrieve the value of the form's POST data
+        """
+        if request.method == 'POST':
+            first_name  = request.POST.get('firstname')
+            last_name   = request.POST.get('lastname')
+            email       = request.POST.get('Email')
+            message     = request.POST.get('message')
+
+            # Create a new CustomerFeedback object with the retrieved values and assign it to the variable customer_feedback
+            customer_feedback = CustomerFeedback(first_name=first_name, last_name=last_name, email=email, message=message)
+
+            # Save the customer feedback object to the database
+            customer_feedback.save()
+
+            # Redirect the user to the 'customer_feedback' page after successfully submitting the feedback.
+            return redirect('customer_feedback')

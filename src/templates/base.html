@@ -125,9 +125,10 @@
                     <span>Join into our Newsletter list. Just today.</span>
                     <p>For fresh posts and contents every week</p>
                 </div>
-                <!-- <form class="above-footer-bottom" id="base_form">
+                <!-- <form class="above-footer-bottom" method="post" action="{% url 'news_letter' %}">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Your work email address" />
+                    <input type="hidden" name="url_name" value="{{ request.get_full_path }}" />
                     <button type="submit">Subscribe Now</button>
                 </form> -->
                 <div class="above-footer-bottom" id="base_form">
@@ -213,7 +214,7 @@
                             </div>
                             <div class="footer-top-2nd-items-list">
                                 <div class="footer-item">
-                                    <a href="#"> <span>Press</span></a>
+                                    <a href="{% url 'customer_feedback' %}"> <span>Contact Us</span></a>
                                 </div>
                                 <div class="footer-item">
                                     <a href="#"> <span>Press</span></a>
