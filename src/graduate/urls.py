@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GraduateView, GraduateContentView, GraduateSubContentView
+from .views import GraduateView, GraduateContentView, GraduateSubContentView, SearchView
 from graduate.views import get_sem_year_list, get_material_type_list,get_subject_list
 
 urlpatterns = [
@@ -14,4 +14,6 @@ urlpatterns = [
     path('graduate-content-view/<int:id>',GraduateContentView.as_view(), name='graduate_content_view'),
 
     path('graduate-sub-content-view/<int:id>',GraduateSubContentView.as_view(), name='graduate_sub_content_view'),
+
+    path('search-view/',SearchView.as_view(), name='search_view'),
 ]

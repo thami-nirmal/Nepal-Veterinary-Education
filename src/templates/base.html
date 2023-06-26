@@ -26,6 +26,8 @@
     <!-- custom css -->
 
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style1.css' %}">
+    
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -283,7 +285,108 @@
                     console.log(error)
                 }
             });
-    }
+        }
+
+        $(document).ready(function () {
+            const searchInput = $(".input-search");
+            const searchWindow = $(".search-window");
+
+            // Handle input events on the search input field
+            searchInput.on("input", function () {
+                const searchTerm = $(this).val().trim();
+                console.log(searchTerm)
+                if (searchTerm.length > 0) {
+                    // Simulate search results
+                    console.log(searchTerm)
+                    $.ajax({
+                        type: 'GET',
+                        url: '/graduate/search-view/',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        data: {
+                            searchTerm: searchTerm
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            const searchResults = response.results;
+                            console.log("7777777777777777777")
+                            console.log(searchResults)
+                            // Generate HTML for search window items with highlighted text
+                            const searchWindowItems = searchResults.map(result => {
+                                // Format the search item as desired
+                                const { id, has_sub_content, subject, material_type, level, sem_year } = result;
+                                console.log("=======================")
+                                console.log(result)
+                                const highlightedSubject = highlightMatchedLetters(subject, searchTerm);
+                                const highlightedMaterialType = highlightMatchedLetters(material_type, searchTerm);
+                                const highlightedLevel = highlightMatchedLetters(level, searchTerm);
+                                const highlightedSemYear = highlightMatchedLetters(sem_year.toString(), searchTerm);
+                                const formattedItem = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
+                                // const formattedItem = `${subject} - ${material_type} - ${level} - ${sem_year}`
+                                let anchorTag;
+                                if (has_sub_content) {
+                                    anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                } else {
+                                    anchorTag = `<a href="/graduate/graduate-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                }
+                                return `<div class="search-window-item">${anchorTag}</div>`;
+                            }).join("");
+
+                            // Update the search window with the generated search items and show it
+                            searchWindow.html(searchWindowItems);
+                            searchWindow.css("display", "block");
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            // Log any errors that occur during the AJAX request
+                        }
+                    });
+                } else {
+                    // Clear the search window and hide it if the search term is empty
+                    searchWindow.html("");
+                    searchWindow.css("display", "none");
+                }
+            });
+
+            // Handle click events on the search window items
+            searchWindow.on("click", ".search-window-item", function (event) {
+                // Get the selected value
+                const selectedValue = $(this).text();
+
+                // Set the selected value as the search input value
+                searchInput.val(selectedValue);
+
+                // Set focus back to the search input
+                searchInput.focus();
+            });
+
+            // Hide the search window when clicking outside the search bar or search window
+            $(document).on("click", function (event) {
+                const target = $(event.target);
+                if (!target.closest(".navbar-search").length) {
+                    searchWindow.css("display", "none");
+                }
+            });
+
+            // Hide the search window when resizing the window
+            $(window).on("resize", function () {
+                searchWindow.css("display", "none");
+            });
+
+            // Function to highlight matched letters in a string
+            function highlightMatchedLetters(text, searchTerms) {
+                const terms = searchTerms.split(" ").map(term => term.trim());
+                let highlightedText = text;
+                terms.forEach(searchTerm => {
+                    const regex = new RegExp(`(${searchTerm})(?![^<]*>|[^<>]*<\/)`, "gi");
+                    highlightedText = highlightedText.replace(regex, '<span class="highlight">$1</span>');
+                });
+                return highlightedText;
+            }
+        });
+
     </script>
 </body>
 </html>
