@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <link rel="stylesheet" href="{% static '/css/style1.css' %}">
-    
+
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -127,6 +127,7 @@
                     <span>Join into our Newsletter list. Just today.</span>
                     <p>For fresh posts and contents every week</p>
                 </div>
+                <!-- This method is used for post the form with reloading page for all url  -->
                 <!-- <form class="above-footer-bottom" method="post" action="{% url 'news_letter' %}">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="Your work email address" />
@@ -191,7 +192,7 @@
                             </div>
                             <div class="footer-top-2nd-items-list">
                                 <div class="footer-item">
-                                    <a href="#">
+                                    <a href="{% url 'post' %}">
                                         <span>Blogs</span>
                                     </a>
                                 </div>
@@ -265,10 +266,10 @@
     </footer>
     <script src="{% static '/js/main.js' %}"></script>
     <script>
-        function newsletterSubmit(){
-        var email = $('#email').val();
-        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
-        $.ajax({
+        function newsletterSubmit() {
+            var email = $('#email').val();
+            var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+            $.ajax({
                 type: 'POST',
                 url: '/news-letter/',
                 headers: {
@@ -279,7 +280,7 @@
                 },
                 success: function (response) {
                     console.log(response)
-                    $('#email').val(''); 
+                    $('#email').val('');
                 },
                 error: function (error) {
                     console.log(error)
@@ -293,11 +294,11 @@
 
             // Handle input events on the search input field
             searchInput.on("input", function () {
+
                 const searchTerm = $(this).val().trim();
-                console.log(searchTerm)
+
                 if (searchTerm.length > 0) {
                     // Simulate search results
-                    console.log(searchTerm)
                     $.ajax({
                         type: 'GET',
                         url: '/graduate/search-view/',
@@ -308,22 +309,18 @@
                             searchTerm: searchTerm
                         },
                         success: function (response) {
-                            console.log(response);
                             const searchResults = response.results;
-                            console.log("7777777777777777777")
-                            console.log(searchResults)
+
                             // Generate HTML for search window items with highlighted text
                             const searchWindowItems = searchResults.map(result => {
                                 // Format the search item as desired
                                 const { id, has_sub_content, subject, material_type, level, sem_year } = result;
-                                console.log("=======================")
-                                console.log(result)
                                 const highlightedSubject = highlightMatchedLetters(subject, searchTerm);
                                 const highlightedMaterialType = highlightMatchedLetters(material_type, searchTerm);
                                 const highlightedLevel = highlightMatchedLetters(level, searchTerm);
                                 const highlightedSemYear = highlightMatchedLetters(sem_year.toString(), searchTerm);
                                 const formattedItem = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
-                                // const formattedItem = `${subject} - ${material_type} - ${level} - ${sem_year}`
+
                                 let anchorTag;
                                 if (has_sub_content) {
                                     anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
@@ -336,11 +333,10 @@
                             // Update the search window with the generated search items and show it
                             searchWindow.html(searchWindowItems);
                             searchWindow.css("display", "block");
-
                         },
                         error: function (error) {
-                            console.log(error);
                             // Log any errors that occur during the AJAX request
+                            console.log(error);
                         }
                     });
                 } else {
@@ -386,6 +382,8 @@
                 return highlightedText;
             }
         });
+
+        
 
     </script>
 </body>

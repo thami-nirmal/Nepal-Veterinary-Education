@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+{% block pageheading %}
+Post Detail Page
+{% endblock pageheading %}
+
+
+{% block content %}
+<div class="container">
+    <div class="que-coll-top">
+        <div class="que-coll-left-container">
+            {% if post_content_object %}
+            <div class="post-display-details">
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Post Category</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.post_category}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Title</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.title}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Posted by</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.user.first_name}}</span>
+                    </div>
+                </div>
+                <div class="post-display-image">
+                    {% if post_content_object.feature_image %}
+                    <img src="{{ post_content_object.feature_image.url }}" alt="Image-Here" />
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Short Description</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.short_description}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Description</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.description}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Created at</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.created_at}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
+                        <span>Updated at</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span>{{post_content_object.updated_at}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="error-404-underline que-coll-line"></div>
+            <br>
+            {% endif %}
+
+            <div class="post-display-item-left">
+                <h2>Leave a Reply</h2>
+                <br>
+                <form id="comment_form">
+                    {% csrf_token %}
+                    <input type="text" name="name" id="name" placeholder="Name"><br><br>
+                    <input type="email" name="email" id="email" placeholder="Email"><br><br>
+                    <textarea name="comment" placeholder="Type your comment" id="comment" ></textarea><br><br>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+            <br>
+            <div class="error-404-underline que-coll-line"></div>
+            <br>
+            <div>
+                <div class="post-display-item">
+                    <div>
+                        <h4>User Name: </h4>
+                        <h6>Updated at: </h6>
+                    </div>
+                    <br><br>
+                    <div>
+                        <h4>Comment: </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+
+{% endblock content %}
+

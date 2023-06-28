@@ -38,6 +38,7 @@ function layer() {
     var ham_icon = document.getElementById("ham1");
     ham_icon.classList.remove("ham-active");
 }
+
 //responsive dropdown
 // function myFunction_dropdown(i) {
 //     var x = document.getElementsByClassName("responsive-drop");

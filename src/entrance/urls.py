@@ -17,5 +17,5 @@ urlpatterns = [
 
     path('past-question/', PastQuestionView.as_view(), name='past_question'),
     
-    path('model-question', ModelQuestionView.as_view(), name='model_question'),
+    path('model-question/', ModelQuestionView.as_view(), name='model_question'),
 ]

@@ -40,7 +40,7 @@ class Post(models.Model):
     updated_at                              = models.DateField(auto_now = True)
     short_description                       = models.CharField(max_length=300, blank=True)
     post_category                           = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
-    description                             = RichTextUploadingField()
+    description                             = RichTextUploadingField(blank=True, null=True)
     seo_title                               = models.CharField(max_length=50, blank=True)
     seo_keyword                             = models.CharField(max_length=200, blank=True)
     seo_image                               = models.ImageField(upload_to='seo_images/',blank=True, null=True)
@@ -50,7 +50,7 @@ class Post(models.Model):
         """
         :return: user associated with post 
         """
-        return str(self.user)
+        return str(self.title)
 
     class Meta:
         db_table  = 'Post'
