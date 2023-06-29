@@ -13,6 +13,8 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.urls import resolve
 from django.http import JsonResponse
+from graduate.models import MaterialContent
+from django.db.models import Q
 # Create your views here.
 
 # region Level and Material Details Function
@@ -507,3 +509,58 @@ class CustomerFeedbackView(View):
 
             # Redirect the user to the 'customer_feedback' page after successfully submitting the feedback.
             return redirect('customer_feedback')
+        
+
+
+class SearchView(View):
+    """
+    View class for handling search requests
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests for searching.
+        """
+        
+        # Check if the request was made via AJAX
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
+            # Get the search term from the request parameters
+            search_term = request.GET.get('searchTerm')
+
+            # Split the search term into a list of individual search terms
+            search_terms_list = search_term.split(' ') if search_term else []
+
+            # Build a dynamic query using Q objects
+            query = Q()
+            for search_term in search_terms_list:
+                query |= (
+                    Q(subject__subject_name__icontains=search_term) |
+                    Q(material_type__material_name__icontains=search_term) |
+                    Q(subject__level__level_name__icontains=search_term) |
+                    Q(subject__sem_year__sem_year_num__icontains=search_term)
+                )
+                
+            # Query MaterialContent objects that match the search terms
+            search_results = MaterialContent.objects.filter(query)
+
+            # Generate a list of dictionaries with relevant information from search_results
+            results_list = []
+            for result in search_results:
+                search_item = {
+                    'id'                            : result.id,
+                    'has_sub_content'               : result.has_sub_content,
+                    'subject'                       : result.subject.subject_name,
+                    'material_type'                 : result.material_type.material_name,
+                    'level'                         : result.subject.level.level_name,
+                    'sem_year'                      : result.subject.sem_year.sem_year_num,
+                }
+                results_list.append(search_item)
+
+            # Sort the results_list based on the number of matched search terms with each object's value
+            results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)
+
+            # Return the sorted results as a JSON response
+            return JsonResponse({'results': results_list})
+
+        # Return an error message for invalid requests
+        return JsonResponse({'message': 'Invalid request'})

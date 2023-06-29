@@ -11,6 +11,7 @@ from personal.views import (
     DrugIndexContentView,
     NewsLetterView,
     CustomerFeedbackView,
+    SearchView
     )
 
 
@@ -34,4 +35,6 @@ urlpatterns = [
     path('news-letter/', NewsLetterView.as_view(), name='news_letter'),
 
     path('customer-feedback/',CustomerFeedbackView.as_view(),name='customer_feedback'),
+
+    path('search-view/',SearchView.as_view(), name='search_view'),
 ]

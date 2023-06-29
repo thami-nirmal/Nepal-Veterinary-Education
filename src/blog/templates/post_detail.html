@@ -81,15 +81,19 @@ Post Detail Page
             {% endif %}
 
             <div class="post-display-item-left">
+                {% if post_content_object %}
                 <h2>Leave a Reply</h2>
                 <br>
                 <form id="comment_form">
                     {% csrf_token %}
                     <input type="text" name="name" id="name" placeholder="Name"><br><br>
                     <input type="email" name="email" id="email" placeholder="Email"><br><br>
-                    <textarea name="comment" placeholder="Type your comment" id="comment" ></textarea><br><br>
+                    <textarea name="comment" placeholder="Type your comment" id="comment"></textarea><br><br>
+                    <!-- Add a hidden input field for the post_content_object UUID -->
+                    <input type="hidden" id="uuid" name="post_content_object_uuid" value="{{ post_content_object.uuid }}"><br><br>
                     <button type="submit">Post Comment</button>
                 </form>
+                {% endif %}
             </div>
             <br>
             <div class="error-404-underline que-coll-line"></div>
@@ -112,4 +116,3 @@ Post Detail Page
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
 
 {% endblock content %}
-

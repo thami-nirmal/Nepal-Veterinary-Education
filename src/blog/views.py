@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import View
 from django.contrib import messages
 from django.http import JsonResponse
@@ -55,6 +55,26 @@ class PostContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+    
+
+class PostCommentView(View):
+    def post(self, request, *args, **kwargs):
+        print("Hello Worlds")
+        if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
+            print("Hello Universe")
+            # Get the form input value from the request
+            email = request.POST['email']
+            name = request.POST['name']
+            comment = request.POST['comment']
+            id = request.POST['id']
+            print(name, email, comment, id)
+
+            post_comment = PostComments(comment=comment)
+            post_comment.save()
+            print(post_comment)
+            
+            return JsonResponse({'status': 'success'})
+        return True
 
 
 
