@@ -511,7 +511,6 @@ class CustomerFeedbackView(View):
             return redirect('customer_feedback')
         
 
-
 class SearchView(View):
     """
     View class for handling search requests

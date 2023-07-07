@@ -70,13 +70,14 @@ class PostComments(models.Model):
     """
     user                                    = models.ForeignKey(User, related_name='postComment_user' ,on_delete=models.CASCADE)
     post                                    = models.ForeignKey(Post, related_name='postComment_post',on_delete=models.CASCADE)
+    date                                    = models.DateField(auto_now=True)
     comment                                 = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         """
         :return: user associated with post comment
         """
-        return str(self.user)
+        return self.comment
 
     class Meta:
         verbose_name_plural = 'Post Comments'

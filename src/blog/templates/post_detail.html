@@ -75,9 +75,9 @@ Post Detail Page
                         <span>{{post_content_object.updated_at}}</span>
                     </div>
                 </div>
+                <button type="submit">Like</button>
             </div>
             <div class="error-404-underline que-coll-line"></div>
-            <br>
             {% endif %}
 
             <div class="post-display-item-left">
@@ -86,30 +86,35 @@ Post Detail Page
                 <br>
                 <form id="comment_form">
                     {% csrf_token %}
-                    <input type="text" name="name" id="name" placeholder="Name"><br><br>
-                    <input type="email" name="email" id="email" placeholder="Email"><br><br>
-                    <textarea name="comment" placeholder="Type your comment" id="comment"></textarea><br><br>
+                    <textarea name="comment" placeholder="Type your comment" id="comment"
+                        style="width: 300px; height: 150px;" required></textarea>
                     <!-- Add a hidden input field for the post_content_object UUID -->
-                    <input type="hidden" id="uuid" name="post_content_object_uuid" value="{{ post_content_object.uuid }}"><br><br>
+                    <input type="hidden" id="uuid" name="post_content_object_uuid"
+                        value="{{ post_content_object.uuid }}"><br><br>
                     <button type="submit">Post Comment</button>
                 </form>
                 {% endif %}
             </div>
             <br>
             <div class="error-404-underline que-coll-line"></div>
-            <br>
-            <div>
-                <div class="post-display-item">
-                    <div>
-                        <h4>User Name: </h4>
-                        <h6>Updated at: </h6>
-                    </div>
-                    <br><br>
-                    <div>
-                        <h4>Comment: </h4>
-                    </div>
+            <div id="comment_section">
+                {% for post_comment_data in posted_comment_object_list %}
+                <div>
+                    <h4>{{post_comment_data.user}}</h4>
+                    <h6>{{post_comment_data.date}}</h6>
+                    <h5>{{post_comment_data.comment}}</h5>
+                    {% if post_comment_data.user == request.user %}
+                    <button>Edit</button>
+                    <button>Delete</button>
+                    {% endif %}
                 </div>
+                {% endfor %}
             </div>
+            {% if post_content_object %}
+            {% if posted_comment_list|length > 4 %}
+            <button id="load_more_comments" post_id="{{post_content_object.uuid}}">Load more comments</button>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

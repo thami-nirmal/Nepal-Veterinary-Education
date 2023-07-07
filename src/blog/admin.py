@@ -26,7 +26,7 @@ admin.site.register(Post, PostAdmin)
 
 
 class PostCommentsAdmin(admin.ModelAdmin):
-    list_display = ['user','post','comment']
+    list_display = ['user','post','comment','date']
 
 admin.site.register(PostComments, PostCommentsAdmin)
 

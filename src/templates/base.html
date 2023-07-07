@@ -266,6 +266,7 @@
     </footer>
     <script src="{% static '/js/main.js' %}"></script>
     <script>
+        //this is for newsletter form
         function newsletterSubmit() {
             var email = $('#email').val();
             var csrftoken = $('[name=csrfmiddlewaretoken]').val();
@@ -288,6 +289,7 @@
             });
         }
 
+        // this is for search view or search box
         $(document).ready(function () {
             const searchInput = $(".input-search");
             const searchWindow = $(".search-window");
@@ -337,13 +339,7 @@
                             } else {
                                 //Display "No data found" message
                                 searchWindow.html("No data found");
-                                searchWindow.css({
-                                    "display": "block",
-                                    "text-align": "center",
-                                    "padding-top": "10px",
-                                    "padding-bottom": "10px",
-                                    "font-weight": "bold",
-                                }); 
+                                searchWindow.css("display", "block");
                             }
                         },
                         error: function (error) {
@@ -385,16 +381,47 @@
             }
         });
 
+        //this is for comment post
+        $(document).ready(function () {
+            function prependComment(commentData, logged_in_user) {
+                var comment = commentData[0];
+                // console.log("--------------", comment, comment.user, comment.posted_comment_list.length)
+                var commentHtml = '<div class="comment">' +
+                    '<h4>' + comment.user + '</h4>' +
+                    '<h6>' + comment.date + '</h6>' +
+                    '<h5>' + comment.comment + '</h5>';
 
-        $(document).ready(function(){
-            $('#comment_form').submit(function(event){
+                if (comment.user === logged_in_user) {
+                    commentHtml += '<button>Edit</button>' + ' ' +
+                        '<button>Delete</button>';
+                }
+
+                commentHtml += '</div>';
+
+                
+
+                if (comment.posted_comment_list.length >= 5) {
+                    console.log("Condition True")
+                    // console.log("Before removal:", $('#comment_section').html());
+                    console.log($('#comment_section').children().length)
+                    $('#comment_section').children().last().remove();
+                    // $('#comment_section').children(':last-child').remove();
+                    // console.log("After removal:", $('#comment_section').html());
+                    $('#comment_section').prepend(commentHtml);
+                } else {
+
+                    $('#comment_section').prepend(commentHtml);
+                    console.log($('#comment_section').children().length)
+                    console.log("condition False");
+                }
+            }
+
+            $('#comment_form').submit(function (event) {
                 event.preventDefault();
-                var name = $('#name').val();
-                var email = $('#email').val();
                 var comment = $('#comment').val();
                 var id = $('#uuid').val();
                 var csrftoken = $('[name=csrfmiddlewaretoken]').val();
-                console.log(name, email, comment, id);
+                // console.log(comment, id);
                 $.ajax({
                     type: 'POST',
                     url: '/blog/post-comment/',
@@ -402,21 +429,38 @@
                         'X-CSRFToken': csrftoken
                     },
                     data: {
-                        name: name,
-                        email: email,
                         comment: comment,
                         id: id
                     },
                     success: function (response) {
-                        console.log(response)
+                        var commentData = response;
+                        var logged_in_user = commentData[0].logged_in_user;
+
+                        $('#comment_form')[0].reset();
+
+                        prependComment(commentData, logged_in_user); // Call the prependComment function here
+
+                        console.log("Successfully posted");
                     },
                     error: function (error) {
-                        console.log(error)
+                        console.log(error);
                     }
                 });
             });
         });
 
+        $(document).ready(function () {
+            // Add an event listener to the comment textarea
+            $('#comment').keydown(function (event) {
+                // Check if the Enter key was pressed (key code 13)
+                if (event.keyCode === 13) {
+                    // Prevent the default behavior of the Enter key
+                    event.preventDefault();
+                    // Programmatically click the submit button
+                    $('#comment_form').submit();
+                }
+            });
+        });
 
     </script>
 </body>
