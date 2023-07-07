@@ -110,11 +110,13 @@ Post Detail Page
                 </div>
                 {% endfor %}
             </div>
-            {% if post_content_object %}
-            {% if posted_comment_list|length > 4 %}
-            <button id="load_more_comments" post_id="{{post_content_object.uuid}}">Load more comments</button>
-            {% endif %}
-            {% endif %}
+            <div id="load_comment">
+                {% if post_content_object %}
+                {% if posted_comment_list|length > 4 %}
+                <button id="load_more_comments" post_id="{{post_content_object.uuid}}">Load more comments</button>
+                {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

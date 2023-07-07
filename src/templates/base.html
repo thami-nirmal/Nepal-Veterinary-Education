@@ -398,22 +398,22 @@
 
                 commentHtml += '</div>';
 
-                
 
                 if (comment.posted_comment_list.length >= 5) {
-                    console.log("Condition True")
-                    // console.log("Before removal:", $('#comment_section').html());
-                    console.log($('#comment_section').children().length)
-                    $('#comment_section').children().last().remove();
-                    // $('#comment_section').children(':last-child').remove();
-                    // console.log("After removal:", $('#comment_section').html());
-                    $('#comment_section').prepend(commentHtml);
-                } else {
 
+
+                    $('#comment_section').children().last().remove();
                     $('#comment_section').prepend(commentHtml);
-                    console.log($('#comment_section').children().length)
-                    console.log("condition False");
+
+                    var loadMoreBtnHtml = '<button id="load_more_comments">Load More Comments</button>';
+                    if ($('#load_more_comments').length === 0) {
+                        $('#load_comment').append(loadMoreBtnHtml);
+                    }
+
+                } else {
+                    $('#comment_section').prepend(commentHtml);
                 }
+
             }
 
             $('#comment_form').submit(function (event) {
