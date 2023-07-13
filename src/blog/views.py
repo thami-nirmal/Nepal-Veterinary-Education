@@ -96,7 +96,7 @@ class PostCommentView(View):
         :param request: the HTTP request object
         :param args: additional positional argument
         :param kwargs: additional keyword arguments
-        :return: True
+        :return: True if the request is not an AJAX request
         """
 
         # Check if the request is an AJAX request
@@ -163,22 +163,38 @@ class PostCommentView(View):
     
 
 class LoadMoreCommentView(View):
+    """
+    A view class for handling the load more comments feature
+    """
     def get(self, request, *args, **kwargs):
-        print("Entered_+_+_+_+")
+        """
+        Handle HTTP GET request for loading more comments
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: True if the request is not an AJAX request
+        """
+
+        # Check if the request is an AJAX request
         if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
 
+            # Get the logged-in user from the request object
             logged_in_user = request.user
 
+            # Get the post Id from the GET parameters or access the post_id from ajax
             post_id = request.GET['post_id']
 
-            count = int(request.GET.get('count'))  # Get the current count of comments
+            # Get the current count of comments from the GET parameters and convert it to an integer
+            count = int(request.GET.get('count'))  
 
             # Calculate the desired range of comments
             start = count
             end = count + 4
 
+            # Retrieve the desired range of comments based on the post id and order them by id in descending order
             desired_comment_list = PostComments.objects.filter(post__uuid=post_id).order_by('-id')[start:end]
             
+            # Serialize the comments into a list of dictionaries
             serialized_comments = []
 
             for comment in desired_comment_list:
@@ -189,10 +205,121 @@ class LoadMoreCommentView(View):
                     'logged_in_user': str(logged_in_user),
                 })
             
+            # Return a JSON response containing to seralized comments and the updated count
             return JsonResponse({'comments':serialized_comments, 'count':count + len(desired_comment_list)}) # Include the updated count in the response
         
+        # Return True if the request is not an AJAX request
+        return True
+
+
+class CommentEditView(View):
+    """
+    A view class for handling the editing of comments
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET request for editing a comments
+        :param request: the HTTP request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: True if the request is not an AJAX request
+        """
+
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            
+            # Get the post Id from the GET parameters
+            post_id = request.GET['post_id']
+
+            # Get the comment Id from the GET parameters
+            comment_id = request.GET['commentId']
+
+            # Retrieve the desired comment based on the post id and comment id
+            desired_comment = PostComments.objects.get(post__uuid=post_id, id=comment_id)
+
+            # Create a dictionary with the desired comment
+            edit_comment = {
+                'desired_comment' : desired_comment.comment
+            }
+            
+            # Return a JsonResponse with the desired comment to edit
+            return JsonResponse({'comments':[edit_comment]})
+        
+        # Return True if the request is not an AJAX request
         return True
     
+
+class CommentUpdateView(View):
+    """
+    A view class for handling the updating of comments
+    """
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the HTTP POST request for updating a comment.
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: JsonResponse with a success message if the comment is updated, otherwise True
+        """
+
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
+            
+            # Get the updated comment from the POST parameters
+            update_comment = request.POST['update_comment']
+
+            # Get the comment ID from the POST parameters
+            commentId = request.POST['commentId']
+
+            # Retrieve the comment from the database using the comment_id
+            comment_obj = PostComments.objects.get(id=commentId)
+
+            # Update the comment data
+            comment_obj.comment = update_comment
+
+            # Save the updated comment
+            comment_obj.save()
+
+            # Return a JsonResponse with a success message
+            return JsonResponse({'Successfully Updated'})
+        
+        # Return True if the request is not an AJAX request
+        return True
+    
+class CommentDeleteView(View):
+    """
+    A view class for handling the deletion of comments.
+    """
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the HTTP POST request for deleting a comment.
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: JsonResponse with a success message if the comment is deleted, otherwise True
+        """
+
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            
+            # Get the post ID from the POST parameters
+            post_id = request.POST.get('post_id')
+
+            # Get the comment ID from the POST parameters
+            comment_id = request.POST.get('commentId')
+
+            # Retrieve the comment from the database using the post ID and comment ID
+            delete_comment = PostComments.objects.get(post__uuid=post_id, id=comment_id)
+            
+            # Delete the comment
+            delete_comment.delete()
+
+            # Return a JsonResponse with a success message
+            return JsonResponse({'message': 'Comment deleted successfully'})
+        
+        # Return True if the request is not an AJAX request
+        return True
+
 
 
 

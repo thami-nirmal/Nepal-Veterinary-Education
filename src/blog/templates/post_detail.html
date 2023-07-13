@@ -80,7 +80,7 @@ Post Detail Page
             <div class="error-404-underline que-coll-line"></div>
             {% endif %}
 
-            <div class="post-display-item-left">
+            <div id="forms" class="post-display-item-left">
                 {% if post_content_object %}
                 <h2>Leave a Reply</h2>
                 <br>
@@ -300,6 +300,130 @@ Post Detail Page
 
                 count = response.count;  // Update the count for the next request
 
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // Comment Edit Button
+    function editCommentBtn(commentId) {
+        var post_id = $('#uuid').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/blog/edit-comment/',
+            data: {
+                post_id: post_id,
+                commentId: commentId
+            },
+            success: function (response) {
+
+                var get_comment = response.comments[0].desired_comment
+
+
+                $('#comment_form').hide();
+
+                // Create the form element
+                var form = document.createElement("form");
+                form.setAttribute("id", "comment_update_form");
+
+                // Create a CSRF token input field
+                var csrfInput = document.createElement("input");
+                csrfInput.setAttribute("type", "hidden");
+                csrfInput.setAttribute("name", "csrfmiddlewaretoken");
+                csrfInput.setAttribute("value", "{{ csrf_token }}");
+                form.appendChild(csrfInput);
+
+                // Create the textarea for the comment
+                var textarea = document.createElement("textarea");
+                textarea.setAttribute("name", "comment");
+                textarea.setAttribute("placeholder", "Type your comment");
+                textarea.setAttribute("id", "update_comment");
+                textarea.setAttribute("style", "width: 300px; height: 150px;");
+                textarea.setAttribute("required", "required");
+                form.appendChild(textarea);
+
+                // Create a hidden input field for the post_content_object UUID
+                var uuidInput = document.createElement("input");
+                uuidInput.setAttribute("type", "hidden");
+                uuidInput.setAttribute("id", "post_uuid");
+                uuidInput.setAttribute("name", "post_content_object_uuid");
+                uuidInput.setAttribute("value", "{{ post_content_object.uuid }}");
+                form.appendChild(uuidInput);
+
+                // Add a line break
+                var lineBreak = document.createElement("br");
+                form.appendChild(lineBreak);
+
+                // Create the submit button
+                var updateBtn = document.createElement("button");
+                updateBtn.setAttribute("type", "submit");
+                updateBtn.setAttribute("onclick", "updateCommentBtn('" + commentId + "')")
+                updateBtn.textContent = "Update Comment";
+                form.appendChild(updateBtn);
+
+                // to add the update comment form at once time
+                if ($('#comment_update_form').length === 0) {
+                    $('#forms').append(form);
+                }
+
+                $('textarea').val(get_comment);
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // Comment Update Button
+    function updateCommentBtn(commentId) {
+        var post_id = $('#uuid').val();
+        var update_comment = $('#update_comment').val();
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/blog/update-comment/',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                update_comment: update_comment,
+                post_id: post_id,
+                commentId: commentId
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // Comment Edit Button
+    function deleteCommentBtn(commentId) {
+        var post_id = $('#uuid').val();
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/blog/delete-comment/',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                post_id: post_id,
+                commentId: commentId
+            },
+            success: function (response) { 
+                console.log(response);
+                if (response.message === 'Comment deleted successfully') {
+                    location.reload();
+                }
             },
             error: function (error) {
                 console.log(error);
