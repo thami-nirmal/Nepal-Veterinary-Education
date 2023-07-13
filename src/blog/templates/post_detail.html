@@ -104,8 +104,8 @@ Post Detail Page
                     <h6>{{post_comment_data.date}}</h6>
                     <h5>{{post_comment_data.comment}}</h5>
                     {% if post_comment_data.user == request.user %}
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button id="editCommentBtn" onclick="editCommentBtn('{{ post_comment_data.id }}')">Edit</button>
+                    <button onclick="deleteCommentBtn('{{ post_comment_data.id }}')">Delete</button>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -113,7 +113,7 @@ Post Detail Page
             <div id="load_comment">
                 {% if post_content_object %}
                 {% if posted_comment_list|length > 4 %}
-                <button id="load_more_comments" post_id="{{post_content_object.uuid}}">Load more comments</button>
+                <button onclick="loadMoreComment()">Load more comments</button>
                 {% endif %}
                 {% endif %}
             </div>
@@ -122,4 +122,189 @@ Post Detail Page
 </div>
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
 
+<script>
+    //this is for comment post
+    $(document).ready(function () {
+        function prependComment(commentData, logged_in_user) {
+
+            var comment = commentData[0];
+
+            var div = document.createElement("div");
+            div.className = "comment";
+
+            var h4User = document.createElement("h4");
+            h4User.textContent = comment.user;
+
+            var h6Date = document.createElement("h6");
+            h6Date.textContent = comment.date;
+
+            var h5Comment = document.createElement("h5");
+            h5Comment.textContent = comment.comment;
+
+            div.appendChild(h4User);
+            div.appendChild(h6Date);
+            div.appendChild(h5Comment);
+
+            if (comment.user === logged_in_user) {
+
+                var editButton = document.createElement("button");
+
+                editButton.id = "editCommentbtn";
+
+                editButton.textContent = "Edit";
+
+                editButton.setAttribute("onclick", "editCommentBtn('" + comment.id + "')");
+
+                var deleteButton = document.createElement("button");
+
+                deleteButton.textContent = "Delete";
+
+                deleteButton.setAttribute("onclick", "deleteCommentBtn('" + comment.id + "')");
+
+                div.appendChild(editButton);
+
+                div.appendChild(deleteButton);
+
+            }
+
+            if (comment.posted_comment_list.length >= 5) {
+
+                $('#comment_section').children().last().remove();
+
+                $('#comment_section').prepend(div);
+
+                var loadMoreButton = document.createElement("button");
+
+                loadMoreButton.id = "load_more_comments";
+
+                loadMoreButton.textContent = "Load More Comments";
+
+                loadMoreButton.onclick = loadMoreComment;
+
+                if ($('#load_more_comments').length === 0) {
+
+                    $('#load_comment').append(loadMoreButton);
+                }
+
+            } else {
+
+                $('#comment_section').prepend(div);
+
+            }
+
+        }
+
+        $('#comment_form').submit(function (event) {
+            event.preventDefault();
+            var comment = $('#comment').val();
+            var post_id = $('#uuid').val();
+            var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+            $.ajax({
+                type: 'POST',
+                url: '/blog/post-comment/',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: {
+                    comment: comment,
+                    post_id: post_id
+                },
+                success: function (response) {
+                    var commentData = response;
+                    var logged_in_user = commentData[0].logged_in_user;
+                    $('#comment_form')[0].reset();
+                    console.log("form reset")
+
+                    prependComment(commentData, logged_in_user); // Call the prependComment function here
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+
+    // to submit form by Enter key pressed
+    $(document).ready(function () {
+        // Add an event listener to the comment textarea
+        $('#comment').keydown(function (event) {
+            // Check if the Enter key was pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key
+                event.preventDefault();
+                // Programmatically click the submit button
+                $('#comment_form').submit();
+            }
+        });
+    });
+
+    // For Loadmorecomments
+    var count = 4;  // Initial count of comments
+    function loadMoreComment() {
+        var post_id = $('#uuid').val();
+        $.ajax({
+            type: 'GET',
+            url: '/blog/load-more-comment/',
+            data: {
+                post_id: post_id,
+                count: count    // Pass the current count of comments
+            },
+            success: function (response) {
+                var commentData = response.comments;
+
+                // to remove the loadmorebutton, when all comments already shown
+                if (commentData.length <= 3) {
+                    $('#load_comment').remove();
+                }
+
+                var div = '';
+
+                var logged_in_user = commentData[0].logged_in_user;
+
+                for (var i = 0; i < commentData.length; i++) {
+
+                    var comment = commentData[i];
+
+                    var div = document.createElement("div");
+                    div.className = "addedComment";
+
+                    var h4User = document.createElement("h4");
+                    h4User.textContent = comment.user;
+
+                    var h6Date = document.createElement("h6");
+                    h6Date.textContent = comment.date;
+
+                    var h5Comment = document.createElement("h5");
+                    h5Comment.textContent = comment.comment;
+
+                    div.appendChild(h4User);
+                    div.appendChild(h6Date);
+                    div.appendChild(h5Comment);
+
+                    if (comment.user === logged_in_user) {
+                        var editButton = document.createElement("button");
+                        editButton.id = "editCommentbtn";
+                        editButton.textContent = "Edit";
+                        editButton.setAttribute("onclick", "editCommentBtn('" + comment.id + "')");
+
+                        var deleteButton = document.createElement("button");
+                        deleteButton.textContent = "Delete";
+                        deleteButton.setAttribute("onclick", "deleteCommentBtn('" + comment.id + "')");
+
+                        div.appendChild(editButton);
+                        div.appendChild(deleteButton);
+
+                    }
+                    $('#comment_section').append(div);
+                }
+
+                count = response.count;  // Update the count for the next request
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
 {% endblock content %}
