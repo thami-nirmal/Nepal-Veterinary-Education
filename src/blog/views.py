@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from .models import Post, PostComments
+from .models import Post, PostComments, PostLikes
 from personal.views import LevelAndMaterialDetails
 # Create your views here.
 
@@ -68,6 +68,19 @@ class PostContentView(View):
         # Retrieve the latest 4 comments for the post
         posted_comment_object_list              = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
 
+        # Try to retrieve the user's post like object with is_liked=True
+        try:
+            # Retrieve the user's post like object for the given post (identified by slug)
+            # with is_liked=True, indicating that the user has liked the post
+            user_post_like_obj = PostLikes.objects.get(post__uuid=slug, user=request.user, is_liked=True)
+        except PostLikes.DoesNotExist:
+            # If the user's post like object does not exist or the user has not liked the post,
+            # set user_post_like_obj to None
+            user_post_like_obj = None
+
+        # Check if the user has any post like
+        user_post_like                        = PostLikes.objects.filter(post=slug,user=request.user).exists()
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
@@ -79,7 +92,11 @@ class PostContentView(View):
 
             'posted_comment_object_list'               : posted_comment_object_list,
 
-            'posted_comment_list'                      : posted_comment_list
+            'posted_comment_list'                      : posted_comment_list,
+
+            'user_post_like'                           : user_post_like,
+
+            'user_post_like_obj'                        : user_post_like_obj
         }
 
         # Render the template with the provided context
@@ -136,7 +153,7 @@ class PostCommentView(View):
                 
                 # Create a dictionary to store the formatted comment data
                 comments_data = {
-
+                    'id'   : posted_comment.id,
                     'user': posted_comment.user.username,
                     'date': formatted_date,
                     'comment': posted_comment.comment,
@@ -147,7 +164,7 @@ class PostCommentView(View):
 
             # Prepare the comment data to be returned as JSON response
             comment_data = {
-
+                'id':post_comment.id,
                 'user': post_comment.user.username,
                 'date': formatted_date,
                 'comment': post_comment.comment,
@@ -318,6 +335,82 @@ class CommentDeleteView(View):
             return JsonResponse({'message': 'Comment deleted successfully'})
         
         # Return True if the request is not an AJAX request
+        return True
+    
+
+class likeBtnView(View):
+    """
+    A view class for handling the like button functionality
+    """
+    def post(self, request, *args, **kwargs):
+        """
+        Handle HTTP POST request for liking a post
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: JSON response
+        """
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
+            # Get the 'post_id' from the POST request data
+            post_id = request.POST['post_id']
+
+            # Get the currently logged-in user
+            logged_in_user = request.user
+
+            # Retrieve the Post object associated with the 'post_id'
+            get_post_object = Post.objects.get(uuid = post_id)
+
+            # Create a new PostLikes object representing the like action
+            post_like = PostLikes(user=logged_in_user, post=get_post_object, is_liked=True)
+            
+            # Save the Postlikes object to the database
+            post_like.save()
+
+            # Prepare the saved_post_like data for the JSON response
+            saved_post_like = {
+                'post_like_id' : post_like.id,
+                'post_like_user' : post_like.user.username,
+            }
+
+            # Return a JSON response with the saved_post_like data
+            return JsonResponse({'saved_post_like': [saved_post_like]})
+        
+        # Return True if the request is not an XMLHttpRequest
+        return True
+
+
+class dislikeBtnView(View):
+    """
+    A view class for handling the dislike button functionality
+    """
+    def post(self, request, *args, **kwargs):
+        """
+        Handle HTTP POST request for disliking a post
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: JSON response
+        """
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
+            # Get the 'post_id' and 'post_like_id' from the POST request data
+            post_id = request.POST['post_id']
+            post_like_id = request.POST['post_like_id']
+            
+            # Get the currently logged-in-user
+            logged_in_user = request.user
+
+            # Retrieve the specific PostLikes object to be deleted
+            post_like = PostLikes.objects.get(post__uuid=post_id, id=post_like_id, user=logged_in_user)
+
+            # Delete the PostLikes object from the database
+            post_like.delete()
+
+            # Return a JSON response indicating the successful deletion
+            return JsonResponse({'message': 'Delete Successfully'})
+            
+        # Return True if the request is not an XMLHttpRequest
         return True
 
 
