@@ -78,7 +78,8 @@ Post Detail Page
                 <div id="likeBtns">
                     {% if user_post_like %}
                     {% if user_post_like_obj %}
-                    <button id="dislikeBtn" type="submit" onclick="dislikeBtn('{{ user_post_like_obj.id }}')">Dislike</button>
+                    <button id="dislikeBtn" type="submit"
+                        onclick="dislikeBtn('{{ user_post_like_obj.id }}')">Dislike</button>
                     {% endif %}
                     {% else %}
                     <button id="likeBtn" type="submit" onclick="likeBtn()">Like</button>
@@ -318,7 +319,6 @@ Post Detail Page
     // Comment Edit Button
     function editCommentBtn(commentId) {
         var post_id = $('#uuid').val();
-        alert("edit clicked")
         $.ajax({
             type: 'GET',
             url: '/blog/edit-comment/',
@@ -379,6 +379,15 @@ Post Detail Page
 
                 $('textarea').val(get_comment);
 
+                // Listen for keydown event on the textarea
+                $('textarea').on('keydown', function (event) {
+                    // Check if the pressed key is the enter key (key code 13)
+                    if (event.keyCode === 13) {
+                        // Trigger the click event of the update button
+                        $(updateBtn).trigger('click');
+                    }
+                });
+
             },
             error: function (error) {
                 console.log(error);
@@ -412,6 +421,7 @@ Post Detail Page
         });
     }
 
+
     // Comment Edit Button
     function deleteCommentBtn(commentId) {
         var post_id = $('#uuid').val();
@@ -427,7 +437,7 @@ Post Detail Page
                 post_id: post_id,
                 commentId: commentId
             },
-            success: function (response) { 
+            success: function (response) {
                 console.log(response);
                 if (response.message === 'Comment deleted successfully') {
                     location.reload();
@@ -440,7 +450,7 @@ Post Detail Page
     }
 
     // Post like Button
-    function likeBtn(){
+    function likeBtn() {
         var post_id = $('#uuid').val();
         var csrftoken = $('[name=csrfmiddlewaretoken]').val();
 
@@ -450,16 +460,16 @@ Post Detail Page
             headers: {
                 'X-CSRFToken': csrftoken
             },
-            data:{
-                post_id:post_id
+            data: {
+                post_id: post_id
             },
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
                 var get_post_like_id = response.saved_post_like[0].post_like_id
                 var get_post_like_user = response.saved_post_like[0].post_like_user
-                
+
                 $('#likeBtn').remove();
-                
+
                 var dislikeBtn = document.createElement("button");
                 dislikeBtn.textContent = "Dislike";
                 dislikeBtn.id = "dislikeBtn";
@@ -468,39 +478,38 @@ Post Detail Page
 
 
             },
-            error: function(error){
+            error: function (error) {
                 console.log(error);
             }
         });
     }
 
     //Post dislike Button
-    function dislikeBtn(post_like_id){
+    function dislikeBtn(post_like_id) {
         var post_id = $('#uuid').val();
-        
-        alert(post_like_id)
+
         var csrftoken = $('[name=csrfmiddlewaretoken]').val();
         $.ajax({
-            type:'POST',
-            url:'/blog/dislike-btn/',
+            type: 'POST',
+            url: '/blog/dislike-btn/',
             headers: {
                 'X-CSRFToken': csrftoken
             },
-            data:{
-                post_id:post_id,
-                post_like_id:post_like_id
+            data: {
+                post_id: post_id,
+                post_like_id: post_like_id
             },
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 $('#dislikeBtn').remove();
-                
+
                 var likeBtn = document.createElement("button");
                 likeBtn.textContent = "Like";
                 likeBtn.id = "likeBtn";
                 likeBtn.setAttribute("onclick", "likeBtn()");
                 $('#likeBtns').append(likeBtn);
             },
-            error: function(error){
+            error: function (error) {
                 console.log(error);
             }
 
