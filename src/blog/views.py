@@ -81,6 +81,7 @@ class PostContentView(View):
         # Check if the user has any post like
         user_post_like                        = PostLikes.objects.filter(post=slug,user=request.user).exists()
 
+        # Retrieve the post liked count of post
         post_like_count                       = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
@@ -367,6 +368,7 @@ class likeBtnView(View):
             # Save the Postlikes object to the database
             post_like.save()
 
+            # Retrieve the post liked count of post
             post_like_count        = PostLikes.objects.filter(post=get_post_object, is_liked=True).count()
 
             # Prepare the saved_post_like data for the JSON response
@@ -410,8 +412,10 @@ class dislikeBtnView(View):
             # Delete the PostLikes object from the database
             post_like.delete()
 
+            # Retrieve the post liked count of post
             post_like_count                       = PostLikes.objects.filter(post=post_id, is_liked=True).count()
 
+            # Prepare the delete_post_like data for the JSON response
             delete_post_like = {
                 'post_like_count'              : post_like_count
             }
