@@ -81,6 +81,8 @@ class PostContentView(View):
         # Check if the user has any post like
         user_post_like                        = PostLikes.objects.filter(post=slug,user=request.user).exists()
 
+        post_like_count                       = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
@@ -96,7 +98,9 @@ class PostContentView(View):
 
             'user_post_like'                           : user_post_like,
 
-            'user_post_like_obj'                        : user_post_like_obj
+            'user_post_like_obj'                        : user_post_like_obj,
+
+            'post_like_count'                           : post_like_count
         }
 
         # Render the template with the provided context
@@ -177,7 +181,6 @@ class PostCommentView(View):
         
         # Return True if the request is not an AJAX request
         return True
-    
 
 class LoadMoreCommentView(View):
     """
@@ -228,7 +231,6 @@ class LoadMoreCommentView(View):
         # Return True if the request is not an AJAX request
         return True
 
-
 class CommentEditView(View):
     """
     A view class for handling the editing of comments
@@ -265,7 +267,6 @@ class CommentEditView(View):
         # Return True if the request is not an AJAX request
         return True
     
-
 class CommentUpdateView(View):
     """
     A view class for handling the updating of comments
@@ -337,7 +338,6 @@ class CommentDeleteView(View):
         # Return True if the request is not an AJAX request
         return True
     
-
 class likeBtnView(View):
     """
     A view class for handling the like button functionality
@@ -367,10 +367,13 @@ class likeBtnView(View):
             # Save the Postlikes object to the database
             post_like.save()
 
+            post_like_count        = PostLikes.objects.filter(post=get_post_object, is_liked=True).count()
+
             # Prepare the saved_post_like data for the JSON response
             saved_post_like = {
                 'post_like_id' : post_like.id,
                 'post_like_user' : post_like.user.username,
+                'post_like_count' : post_like_count
             }
 
             # Return a JSON response with the saved_post_like data
@@ -407,8 +410,14 @@ class dislikeBtnView(View):
             # Delete the PostLikes object from the database
             post_like.delete()
 
+            post_like_count                       = PostLikes.objects.filter(post=post_id, is_liked=True).count()
+
+            delete_post_like = {
+                'post_like_count'              : post_like_count
+            }
+
             # Return a JSON response indicating the successful deletion
-            return JsonResponse({'message': 'Delete Successfully'})
+            return JsonResponse({'data': [delete_post_like]})
             
         # Return True if the request is not an XMLHttpRequest
         return True

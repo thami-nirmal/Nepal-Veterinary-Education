@@ -13,6 +13,14 @@ Post Detail Page
             <div class="post-display-details">
                 <div class="post-display-item">
                     <div class="post-display-item-left">
+                        <span>Post Likes</span>
+                    </div>
+                    <div class="post-display-item-right">
+                        <span id="like_count">{{post_like_count}}</span>
+                    </div>
+                </div>
+                <div class="post-display-item">
+                    <div class="post-display-item-left">
                         <span>Post Category</span>
                     </div>
                     <div class="post-display-item-right">
@@ -420,7 +428,6 @@ Post Detail Page
         });
     }
 
-
     // Comment Edit Button
     function deleteCommentBtn(commentId) {
         var post_id = $('#uuid').val();
@@ -466,6 +473,9 @@ Post Detail Page
                 console.log(response);
                 var get_post_like_id = response.saved_post_like[0].post_like_id
                 var get_post_like_user = response.saved_post_like[0].post_like_user
+                var get_post_like_count = response.saved_post_like[0].post_like_count
+
+                $('#like_count').text(get_post_like_count);
 
                 $('#likeBtn').remove();
 
@@ -500,6 +510,10 @@ Post Detail Page
             },
             success: function (response) {
                 console.log(response);
+                var get_post_like_count = response.data[0].post_like_count
+
+                $('#like_count').text(get_post_like_count);
+                
                 $('#dislikeBtn').remove();
 
                 var likeBtn = document.createElement("button");
