@@ -34,7 +34,8 @@ Post Page
                                         <a class="tech" href="#"> {{post_object_data.post_category}} </a>
                                     </div>
                                     <div class="item-detail-top">
-                                        <a href="{% url 'post_content_view' slug=post_object_data.uuid %}">
+                                        <a href="{% url 'post_content_view' slug=post_object_data.uuid %}" class="post_obj"
+                                            post_id="{{post_object_data.uuid}}">
                                             <span>{{post_object_data.title}}</span></a>
                                     </div>
                                     <div class="item-detail-bottom">
@@ -55,6 +56,29 @@ Post Page
         </div>
     </div>
 </div>
-{% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+<script>
+    $(document).ready(function () {
+        $('.post_obj').click(function () {
+            var post_id = $(this).attr('post_id')
+            var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+            $.ajax({
+                type: 'POST',
+                url: '/blog/post-views/',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: {
+                    post_id: post_id,
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock content %}

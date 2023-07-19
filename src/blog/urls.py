@@ -8,7 +8,8 @@ from .views import (PostView,
                     CommentUpdateView, 
                     CommentDeleteView, 
                     likeBtnView, 
-                    dislikeBtnView)
+                    dislikeBtnView,
+                    PostViewsView)
 
 urlpatterns = [
     path('post/', PostView.as_view(), name='post'),
@@ -28,4 +29,6 @@ urlpatterns = [
     path('like-btn/', likeBtnView.as_view(), name='like_btn'),
 
     path('dislike-btn/', dislikeBtnView.as_view(), name='dislike_btn'),
+
+    path('post-views/', PostViewsView.as_view(), name='post_views')
 ]

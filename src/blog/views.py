@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from .models import Post, PostComments, PostLikes
+from .models import Post, PostComments, PostLikes, PostViews
 from personal.views import LevelAndMaterialDetails
 # Create your views here.
 
@@ -38,7 +38,6 @@ class PostView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-
 
 class PostContentView(View):
     """
@@ -106,7 +105,6 @@ class PostContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-
 
 class PostCommentView(View):
     """
@@ -384,7 +382,6 @@ class likeBtnView(View):
         # Return True if the request is not an XMLHttpRequest
         return True
 
-
 class dislikeBtnView(View):
     """
     A view class for handling the dislike button functionality
@@ -426,7 +423,50 @@ class dislikeBtnView(View):
         # Return True if the request is not an XMLHttpRequest
         return True
 
+class PostViewsView(View):
+    """
+    A view class to handle post requests for tracking and incrementing post views.
+    """
+    def post(self,request,*args,**kwargs):
+        """
+        Handles the post request to track and increment post views.
 
+        Parameters:
+        - request: The HTTP request object
+        - args: Additional positional arguments.
+        - kwargs: Additional keyword arguments.
+
+        Returns:
+        - If the request is an AJAX request, returns a JSON response indicating the success message.
+        - If the request is not an AJAX request, returns a boolean value of True
+        """
+
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            
+            # Retrieve the 'post_id' value from the AJAX request's POST data
+            post_id = request.POST.get('post_id')
+
+            # Get the Post object based on the 'post_id'
+            get_post_object = Post.objects.get(uuid=post_id)
+
+            # Retrieve the PostViews object related to the Post object, if it exists
+            post_views = PostViews.objects.filter(post=get_post_object).first()
+
+            # If no PostViews object exists
+            if not post_views:
+                # Create a new PostViews object with initial views set to 1
+                post_views = PostViews.objects.create(post=get_post_object, views=1)
+            else:
+                # If a PostViews object exists increment the views count and save the changes
+                post_views.views += 1
+                post_views.save()
+                
+            # Return a JSON response indicating the success message
+            return JsonResponse({'message': 'Post successfully received views'})
+        
+        # If the request is not an AJAX request, return a boolean value of True
+        return True
 
 
 
