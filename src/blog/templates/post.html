@@ -20,7 +20,7 @@ Post Page
                     <div class="blogs-container">
                         {% if post_object_list %}
                         {% for post_object_data in post_object_list %}
-                        <div class="blog-item">
+                        <div class="blog-item" post_color="{{post_object_data.post_category.colour}}">
                             <div class="recent-item-img">
                                 {% if post_object_data.feature_image %}
                                 <img src="{{ post_object_data.feature_image.url }}" alt="Image-Here" />
@@ -29,23 +29,23 @@ Post Page
                                 {% endif %}
                             </div>
 
-                                <div class="item-text flex-column">
-                                    <div class="category">
-                                        <a class="tech" href="#"> {{post_object_data.post_category}} </a>
-                                    </div>
-                                    <div class="item-detail-top">
-                                        <a href="{% url 'post_content_view' slug=post_object_data.uuid %}" class="post_obj"
-                                            post_id="{{post_object_data.uuid}}">
-                                            <span>{{post_object_data.title}}</span></a>
-                                    </div>
-                                    <div class="item-detail-bottom">
-                                        <span>{{post_object_data.short_description}}</span>
-                                    </div>
-                                    <div class="item-text-footer">
-                                        <span>by {{post_object_data.user.first_name}}</span>
-                                        <span>{{post_object_data.updated_at}}</span>
-                                    </div>
+                            <div class="item-text flex-column">
+                                <div class="category">
+                                    <a class="tech" href="#"> {{post_object_data.post_category}} </a>
                                 </div>
+                                <div class="item-detail-top">
+                                    <a href="{% url 'post_content_view' slug=post_object_data.uuid %}" class="post_obj"
+                                        post_id="{{post_object_data.uuid}}">
+                                        <span>{{post_object_data.title}}</span></a>
+                                </div>
+                                <div class="item-detail-bottom">
+                                    <span>{{post_object_data.short_description}}</span>
+                                </div>
+                                <div class="item-text-footer">
+                                    <span>by {{post_object_data.user.first_name}}</span>
+                                    <span>{{post_object_data.updated_at}}</span>
+                                </div>
+                            </div>
                         </div>
                         {% endfor %}
                         {% endif %}
@@ -58,6 +58,7 @@ Post Page
 </div>
 <script>
     $(document).ready(function () {
+        // this is for post views
         $('.post_obj').click(function () {
             var post_id = $(this).attr('post_id')
             var csrftoken = $('[name=csrfmiddlewaretoken]').val();
@@ -77,6 +78,19 @@ Post Page
                     console.log(error);
                 }
             });
+        });
+
+        // this is for post colour
+        $('.blog-item').each(function () {
+
+            // Get the 'post-category' data attribute
+            var postObjectData = $(this).attr('post_color');
+
+            // Set the background color using the data from the 'post-category'
+            $(this).css({
+                'background-color': postObjectData,
+            });
+            $('span').css("color", "white");
         });
     });
 </script>
