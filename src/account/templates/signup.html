@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="signupForm" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3>SignUp Here</h3>
+        
+        <label for="first_name">First Name : </label>
+        <input type="text" placeholder="First Name" name="first_name" id="first_name"><br><br>
+
+        <label for="last_name">Last Name : </label>
+        <input type="text" placeholder="Last Name" name="last_name" id="last_name">
+        <br><br>
+
+        <label for="email">Email : </label>
+        <input type="email" placeholder="Email" name="email" id="email">
+        {% if messages %}
+        {% for messaage in messages %}
+        <span class="error" id ="email_error" style="color: red;">{{messaage}}</span>
+        {% endfor %}
+        {% endif %}
+        <br><br>
+
+        <label for="password1">Password : </label>
+        <input type="password" placeholder="Password" id="password1" name="password1"><br><br>
+
+        <label for="password2">Confirm Password : </label>
+        <input type="password" placeholder="Confirm Password" id="password2" name="password2"><br><br>
+
+        <label for="profile_image">Profile Image:</label>
+        <input type="file" id="profile_image" name="profile_images" accept="image/*"><br><br>
+
+        <button type="submit">Signup</button><br><br>
+
+        <a href="{% url 'login' %}">I already have an account</a>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#signupForm").submit(function (event) {
+                event.preventDefault();
+
+                // Clear any previous error messages
+                $(".error").remove();
+
+                // Get form values
+                var firstName = $("#first_name").val();
+                var lastName = $("#last_name").val();
+                var email = $("#email").val();
+                var password1 = $("#password1").val();
+                var password2 = $("#password2").val();
+
+                var hasErrors = false;
+
+                // Validate first and last name
+                if (!firstName) {
+                    hasErrors = true;
+                    $("#first_name").after('<span class="error">First Name is required</span>');
+                }
+
+                if (!lastName) {
+                    hasErrors = true;
+                    $("#last_name").after('<span class="error">Last Name is required</span>');
+                }
+
+                // Validate email
+                if (!email) {
+                    hasErrors = true;
+                    $("#email").after('<span class="error">Email is required</span>');
+                }
+
+                // Regular expressions for password validation
+                var hasUppercase = /[A-Z]/;
+                var hasLowercase = /[a-z]/;
+                var hasNumeric = /\d/;
+                var hasSpecialChar = /[^A-Za-z0-9]/;
+
+                // Validate password
+                if (!password1) {
+                    hasErrors = true;
+                    $("#password1").after('<span class="error">Password is required</span>');
+                } else {
+                    if (password1.length < 8) {
+                        hasErrors = true;
+                        $("#password1").after('<span class="error">Password must be at least 8 characters long</span>');
+                    }
+
+                    if (!hasUppercase.test(password1)) {
+                        hasErrors = true;
+                        $("#password1").after('<span class="error">Password must contain at least one uppercase letter</span>');
+                    }
+
+                    if (!hasLowercase.test(password1)) {
+                        hasErrors = true;
+                        $("#password1").after('<span class="error">Password must contain at least one lowercase letter</span>');
+                    }
+
+                    if (!hasNumeric.test(password1)) {
+                        hasErrors = true;
+                        $("#password1").after('<span class="error">Password must contain at least one numeric value</span>');
+                    }
+
+                    if (!hasSpecialChar.test(password1)) {
+                        hasErrors = true;
+                        $("#password1").after('<span class="error">Password must contain at least one special character</span>');
+                    }
+                }
+
+                // Validate confirm password
+                if (!password2) {
+                    hasErrors = true;
+                    $("#password2").after('<span class="error">Confirm Password is required</span>');
+                } else if (password1 !== password2) {
+                    hasErrors = true;
+                    $("#password2").after('<span class="error">Passwords do not match</span>');
+                }
+
+                $('.error').css("color", "red");
+
+                // If there are no errors, submit the form
+                if (!hasErrors) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

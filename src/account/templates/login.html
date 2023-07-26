@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background">
+        <form method="post">
+            <h3>Login Here</h3>
+            {% csrf_token %}
+            {% if messages %}
+            {% for messaage in messages %}
+            <span class="error" id="login_error" style="color: red;">{{messaage}}</span>
+            {% endfor %}
+            {% endif %}
+            
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username" id="username" name="username"><br><br>
+
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password" name="pass"><br><br>
+
+            <button type="submit">Log In</button><br><br>
+            <a href="{% url 'signup' %}">Create a account</a><br>
+            <a href="">Login with Google</a><br>
+            <a href="">Login with Facebook</a><br>
+            <a href="">Login with linkedIn</a><br>
+            <a href="">Forgot password</a><br>
+        </form>
+    </div>
+</body>
+</html>
