@@ -46,7 +46,7 @@
 <section class="card-section">
     <div class="container">
         <div class="nve-card-container">
-            <div class="card-box flex-column">
+            <div class="card-box">
                 <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M11.9999 13.3333H2.66659C2.31296 13.3333 1.97382 13.1929 1.72378 12.9428C1.47373 12.6928 1.33325 12.3536 1.33325 12V2.66666C1.33325 2.31304 1.47373 1.9739 1.72378 1.72385C1.97382 1.4738 2.31296 1.33333 2.66659 1.33333H11.9999C12.3535 1.33333 12.6927 1.4738 12.9427 1.72385C13.1928 1.9739 13.3333 2.31304 13.3333 2.66666V12C13.3333 12.3536 13.1928 12.6928 12.9427 12.9428C12.6927 13.1929 12.3535 13.3333 11.9999 13.3333Z" />
@@ -250,18 +250,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="buttons">
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                    </a>
-                </div>
             </div>
             <div class="krishi-diary">
                 <div class="nve-krishi-diary-head">
@@ -450,154 +438,38 @@
                     <h2>Recent News</h2>
                 </div>
                 <div class="recent-item-container">
+                    {% for news_notice_data in news_notice_object_list %}
                     <div class="recent-item">
                         <div class="big-cont-img">
-                            <img src="{% static '/images/OIP.jfif' %}" alt="" />
+                            {% if news_notice_data.image %}
+                            <img src="{{ news_notice_data.image.url }}" alt="" />
+                            {% else %}
+                            <p>No Image avilable</p>
+                            {% endif %}
                         </div>
                         <div class="big-cont-text flex-column">
                             <div class="category">
                                 <a class="tech" href="#">
-                                    Technology
+                                    {{news_notice_data.name}}
                                 </a>
                             </div>
                             <div class="item-detail-top">
                                 <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
+                                    <span>{{news_notice_data.title}}</span></a>
                             </div>
                             <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
+                                <span>{{news_notice_data.short_description}}</span>
                             </div>
                             <div class="read-more">
                                 <a href="#">
                                     <p>Read More</p>
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
-                                <span>November 5, 2022</span>
+                                <span>{{news_notice_data.date}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="recent-item">
-                        <div class="big-cont-img">
-                            <img src="{% static '/images/OIP.jfif' %}" alt="" />
-                        </div>
-                        <div class="big-cont-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    Technology
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#">
-                                    <p>Read More</p>
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </a>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="recent-item">
-                        <div class="big-cont-img">
-                            <img src="{% static '/images/nature.jpg' %}" alt="" />
-                        </div>
-                        <div class="big-cont-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    Technology
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#">
-                                    <p>Read More</p>
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </a>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="recent-item">
-                        <div class="big-cont-img">
-                            <img src="{% static '/images/nature.jpg' %}" alt="" />
-                        </div>
-                        <div class="big-cont-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    Technology
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#">
-                                    <p>Read More</p>
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </a>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="button">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
             <div class="recent-news-main-left">

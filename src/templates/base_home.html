@@ -48,7 +48,6 @@
                 <div class="top-right-login">
                     {% if user.is_authenticated %}
                     <span> <a href="#">{{request.user.first_name}}</a></span>
-                    <span> <a href="#"> {{request.user.last_name}}</a></span>
                     <div class="slash">|</div>
                     <a href="{% url 'user_logout' %}">Logout</a>
                     {% else %}

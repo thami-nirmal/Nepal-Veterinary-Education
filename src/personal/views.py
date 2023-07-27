@@ -59,6 +59,9 @@ class HomeView(View):
         # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 5 objects
         krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:5]
 
+        # Retrieve a list of News and Notice objects
+        news_notice_object_list                         = NewsAndNotice.objects.filter(is_shown=True).order_by('-id')[:4]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
 
@@ -67,6 +70,8 @@ class HomeView(View):
             'level_material_detail_list'                : level_material_detail_list,
 
             'krishi_diary_details'                      : krishi_diary_details,
+
+            'news_notice_object_list'                   : news_notice_object_list
         }
 
         # Render the template with specified context and return the rendered response
@@ -509,7 +514,7 @@ class CustomerFeedbackView(View):
 
             # Redirect the user to the 'customer_feedback' page after successfully submitting the feedback.
             return redirect('customer_feedback')
-        
+
 
 class SearchView(View):
     """

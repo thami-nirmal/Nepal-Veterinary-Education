@@ -40,7 +40,8 @@
                     {% for material_data in level_material_detail_list.material_object_list %}
                     {% if level_data == material_data.level %}
                     <li>
-                        <a href="{% url 'graduate_detail' level_data.level_name|slugify material_data.slug|slugify %}">{{material_data.slug}}</a>
+                        <a
+                            href="{% url 'graduate_detail' level_data.level_name|slugify material_data.slug|slugify %}">{{material_data}}</a>
                     </li>
                     {% endif %}
                     {% endfor %}
@@ -73,9 +74,14 @@
             </div>
         </li>
         <li class="list-responsive">
-            <a href="#"><span>logout </span>
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
+            {% if user.is_authenticated %}
+            <span>
+                <a href="#">{{request.user.first_name}}</a>
+            </span>
+            {% endif %}
+            <span><a href="{% url 'user_logout' %}"><span>logout</span>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a></span>
         </li>
     </ul>
 </div>
@@ -96,7 +102,7 @@
                             <span> Entrance Preparation</span>
                             <span class="drop-icon-main">
                                 <i class="fa-solid fa-angle-right"></i>
-                            </span>  
+                            </span>
                         </button>
                         <div class="dropdown-content">
                             <ul>
@@ -133,7 +139,8 @@
                                 {% for material_data in level_material_detail_list.material_object_list %}
                                 {% if level_data == material_data.level %}
                                 <li>
-                                    <a href="{% url 'graduate_detail' level_data.level_name|slugify material_data.slug|slugify %}">{{material_data.material_name}}</a> 
+                                    <a
+                                        href="{% url 'graduate_detail' level_data.level_name|slugify material_data.slug|slugify %}">{{material_data.material_name}}</a>
                                 </li>
                                 {% endif %}
                                 {% endfor %}
@@ -166,6 +173,11 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="navbar-home">
+                        <a href="{% url 'post' %}" class="dropdown active">Blogs</a>
                     </div>
                 </li>
             </ul>
