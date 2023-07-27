@@ -36,7 +36,7 @@ class Post(models.Model):
     title                                   = models.CharField(max_length = 50,blank = True)
     feature_image                           = models.ImageField(upload_to='profile_images/', blank = True, null = True)
     is_published                            = models.BooleanField(default = False)
-    created_at                              = models.DateField(auto_now_add = True)
+    created_at                              = models.DateTimeField(auto_now_add = True)
     updated_at                              = models.DateField(auto_now = True)
     short_description                       = models.CharField(max_length=300, blank=True)
     post_category                           = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
