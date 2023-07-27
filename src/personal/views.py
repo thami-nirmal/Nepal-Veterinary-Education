@@ -8,6 +8,7 @@ from .models import (KrishiDiarys,
                     NewsAndNotice,
                     NewsLetter,
                     CustomerFeedback)
+from blog.models import Post
 
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -59,9 +60,11 @@ class HomeView(View):
         # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 5 objects
         krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:5]
 
-        # Retrieve a list of News and Notice objects
+        # Retrieve a list of News and Notice objects where is_shown is True and order them by descending Id, taking the latest 4 objects list
         news_notice_object_list                         = NewsAndNotice.objects.filter(is_shown=True).order_by('-id')[:4]
 
+        blog_post_object_list                           = Post.objects.filter(is_published=True).order_by('-uuid')[:2]
+        print("---------------",blog_post_object_list,"-----------------")
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
 
@@ -71,7 +74,9 @@ class HomeView(View):
 
             'krishi_diary_details'                      : krishi_diary_details,
 
-            'news_notice_object_list'                   : news_notice_object_list
+            'news_notice_object_list'                   : news_notice_object_list,
+
+            'blog_post_object_list'                     : blog_post_object_list
         }
 
         # Render the template with specified context and return the rendered response

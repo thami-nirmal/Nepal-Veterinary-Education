@@ -75,13 +75,9 @@
         </li>
         <li class="list-responsive">
             {% if user.is_authenticated %}
-            <span>
-                <a href="#">{{request.user.first_name}}</a>
-            </span>
+            <span><a href="#">{{request.user.first_name}}</a></span>
             {% endif %}
-            <span><a href="{% url 'user_logout' %}"><span>logout</span>
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </a></span>
+            <span><a href="{% url 'user_logout' %}"><span>logout</span><i class="fa-solid fa-right-from-bracket"></i></a></span>
         </li>
     </ul>
 </div>

@@ -107,54 +107,34 @@
             <h2>Recent Post</h2>
         </div>
         <div class="blogs-container">
+            {% for blog_post_data in blog_post_object_list %}
             <div class="blog-item">
                 <div class="recent-item-img">
-                    <img src="{% static '/images/Dahlias.jpg' %}" alt="Image-here" />
+                    {% if blog_post_data.feature_image %}
+                    <img src="{{ blog_post_data.feature_image.url }}" alt="Image-here" />
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
                 </div>
                 <div class="item-text flex-column">
                     <div class="category">
-                        <a class="tech" href="#"> Technology </a>
+                        <a class="tech" href="#"> {{blog_post_data.post_category}} </a>
                     </div>
                     <div class="item-detail-top">
-                        <a href="#">
-                            <span>Car specs database with all car brands
-                                in the world</span></a>
+                        <a href="{% url 'post_content_view' slug=blog_post_data.uuid %}" class="post_obj"
+                        post_id="{{blog_post_data.uuid}}">
+                        <span>{{blog_post_data.title}}</span></a>
                     </div>
                     <div class="item-detail-bottom">
-                        <span>Car specs database with all car brands in
-                            the world. Find out complete car database
-                            with specs.</span>
+                        <span>{{blog_post_data.short_description}}.</span>
                     </div>
                     <div class="item-text-footer">
-                        <span>by Prakash Pandey</span>
-                        <span>November 5, 2022</span>
+                        <span>{{blog_post_data.user.first_name}}</span>
+                        <span>{{blog_post_data.updated_at}}</span>
                     </div>
                 </div>
             </div>
-            <div class="blog-item">
-                <div class="recent-item-img">
-                    <img src="{% static '/images/OIP.jfif' %}" alt="Image-here" />
-                </div>
-                <div class="item-text flex-column">
-                    <div class="category">
-                        <a class="tech" href="#"> popular </a>
-                    </div>
-                    <div class="item-detail-top">
-                        <a href="#">
-                            <span>Car specs database with all car brands
-                                in the world</span></a>
-                    </div>
-                    <div class="item-detail-bottom">
-                        <span>Car specs database with all car brands in
-                            the world. Find out complete car database
-                            with specs.</span>
-                    </div>
-                    <div class="item-text-footer">
-                        <span>by Prakash Pandey</span>
-                        <span>November 5, 2022</span>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             <div class="posts-categories">
                 <div class="category-top flex-column">
                     <span>CATEGORIES</span>
@@ -449,19 +429,19 @@
                         </div>
                         <div class="big-cont-text flex-column">
                             <div class="category">
-                                <a class="tech" href="#">
+                                <a class="tech" href="{{news_notice_data.url}}">
                                     {{news_notice_data.name}}
                                 </a>
                             </div>
                             <div class="item-detail-top">
-                                <a href="#">
+                                <a href="{{news_notice_data.url}}">
                                     <span>{{news_notice_data.title}}</span></a>
                             </div>
                             <div class="item-detail-bottom">
                                 <span>{{news_notice_data.short_description}}</span>
                             </div>
                             <div class="read-more">
-                                <a href="#">
+                                <a href="{{news_notice_data.url}}">
                                     <p>Read More</p>
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
