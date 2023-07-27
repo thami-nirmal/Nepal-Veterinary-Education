@@ -23,7 +23,6 @@ class PostView(View):
 
         # Retrieve published posts
         post_object_list     = Post.objects.filter(is_published=True).order_by('-created_at')
-        print("[[[[[[[[[[[[]]]]]]]]]]]]",post_object_list)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()

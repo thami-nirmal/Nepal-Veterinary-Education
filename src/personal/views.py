@@ -65,10 +65,10 @@ class HomeView(View):
 
         # retrieve a list of blog post objects where is_published is True and order them by descending created_at, taking the latest 2 objects list
         blog_post_object_list1                          = Post.objects.filter(is_published=True).order_by('-created_at')[:2]
-        print("----------------------",blog_post_object_list1,"+++++++++++++===")
+
         # retrieve a list of blog post objects where is_published is True and order them by descending created_at, taking the second latest 2 objects list
         blog_post_object_list2                          = Post.objects.filter(is_published=True).order_by('-created_at')[2:4]
-        # print("----------------------",blog_post_object_list2,"+++++++++++++===")
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
 
