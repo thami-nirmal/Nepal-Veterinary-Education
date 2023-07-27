@@ -74,6 +74,9 @@
             </div>
         </li>
         <li class="list-responsive">
+            <a href="{% url 'post' %}" class="dropdown active">Blogs</a>
+        </li>
+        <li class="list-responsive">
             {% if user.is_authenticated %}
             <span><a href="#">{{request.user.first_name}}</a></span>
             {% endif %}
