@@ -63,8 +63,13 @@ class HomeView(View):
         # Retrieve a list of News and Notice objects where is_shown is True and order them by descending Id, taking the latest 4 objects list
         news_notice_object_list                         = NewsAndNotice.objects.filter(is_shown=True).order_by('-id')[:4]
 
-        blog_post_object_list                           = Post.objects.filter(is_published=True).order_by('-uuid')[:2]
-        print("---------------",blog_post_object_list,"-----------------")
+        # retrieve a list of blog post objects where is_published is True and order them by descending uuid, taking the latest 2 objects list
+        blog_post_object_list1                           = Post.objects.filter(is_published=True).order_by('-uuid')[:2]
+        
+        #
+        blog_post_object_list2                           = Post.objects.filter(is_published=True).order_by('-uuid')[2:4]
+
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
 
@@ -76,7 +81,9 @@ class HomeView(View):
 
             'news_notice_object_list'                   : news_notice_object_list,
 
-            'blog_post_object_list'                     : blog_post_object_list
+            'blog_post_object_list1'                    : blog_post_object_list1,
+
+            'blog_post_object_list2'                    : blog_post_object_list2
         }
 
         # Render the template with specified context and return the rendered response

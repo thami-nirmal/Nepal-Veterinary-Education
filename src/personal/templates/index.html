@@ -107,7 +107,7 @@
             <h2>Recent Post</h2>
         </div>
         <div class="blogs-container">
-            {% for blog_post_data in blog_post_object_list %}
+            {% for blog_post_data in blog_post_object_list1 %}
             <div class="blog-item">
                 <div class="recent-item-img">
                     {% if blog_post_data.feature_image %}
@@ -122,14 +122,14 @@
                     </div>
                     <div class="item-detail-top">
                         <a href="{% url 'post_content_view' slug=blog_post_data.uuid %}" class="post_obj"
-                        post_id="{{blog_post_data.uuid}}">
-                        <span>{{blog_post_data.title}}</span></a>
+                            post_id="{{blog_post_data.uuid}}">
+                            <span>{{blog_post_data.title}}</span></a>
                     </div>
                     <div class="item-detail-bottom">
-                        <span>{{blog_post_data.short_description}}.</span>
+                        <span>{{blog_post_data.short_description}}</span>
                     </div>
                     <div class="item-text-footer">
-                        <span>{{blog_post_data.user.first_name}}</span>
+                        <span>by {{blog_post_data.user.first_name}}</span>
                         <span>{{blog_post_data.updated_at}}</span>
                     </div>
                 </div>
@@ -161,74 +161,36 @@
         <div class="recent-bottom--main">
             <div class="main-left">
                 <div class="recent-item-container">
+                    {% for blog_post_data in blog_post_object_list2 %}
                     <div class="recent-item">
                         <div class="big-cont-img">
-                            <img src="{% static '/images/OIP.jfif' %}" alt="Image-here" />
+                            {% if blog_post_data.feature_image %}
+                            <img src="{{ blog_post_data.feature_image.url }}" alt="Image-here" />
+                            {% else %}
+                            <p>No image available</p>
+                            {% endif %}
                         </div>
                         <div class="big-cont-text flex-column">
                             <div class="category">
                                 <a class="tech" href="#">
-                                    Technology
+                                    {{blog_post_data.post_category}}
                                 </a>
                             </div>
                             <div class="item-detail-top">
-                                <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
+                                <a href="{% url 'post_content_view' slug=blog_post_data.uuid %}" class="post_obj"
+                                    post_id="{{blog_post_data.uuid}}">
+                                    <span>{{blog_post_data.title}}</span></a>
                             </div>
                             <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
+                                <span>{{blog_post_data.short_description}}</span>
                             </div>
-                            <div class="read-more">
-                                <a href="#">
-                                    <p>Read More</p>
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </a>
-                                <span>November 5, 2022</span>
+                            <div class="item-text-footer">
+                                <span>by {{blog_post_data.user.first_name}}</span>
+                                <span>{{blog_post_data.updated_at}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="recent-item">
-                        <div class="big-cont-img">
-                            <img src="{% static '/images/women.jpg' %}" alt="Image-here" />
-                        </div>
-                        <div class="big-cont-text flex-column">
-                            <div class="category">
-                                <a class="tech" href="#">
-                                    Technology
-                                </a>
-                            </div>
-                            <div class="item-detail-top">
-                                <a href="#">
-                                    <span>Car specs database with all car
-                                        brands in the world</span></a>
-                            </div>
-                            <div class="item-detail-bottom">
-                                <span>Car specs database with all car
-                                    brands in the world. Find out
-                                    complete car database with specs.The
-                                    table below illustrates how each
-                                    container’s max-width compares to
-                                    the original .container and
-                                    .container-fluid across each
-                                    breakpoint.</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#">
-                                    <p>Read More</p>
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </a>
-                                <span>November 5, 2022</span>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="krishi-diary">
