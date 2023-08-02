@@ -2,76 +2,82 @@
 
 {% block content %}
 
-    <section class="user_section">
-        <div class="user_container">
-            <div class="top_cont">
-                <h1>OTP Code</h1>
-                <p>Enter the OTP code inorder to verify the actual you </p>
-            </div>
-            <hr>
-            <form action="" method="post">
-                {% csrf_token %}
-                <p class="otp_p">We have sent you a 5 digit OTP code on your email address. <b><u>Change number?</u></b>
-                </p>
-
-                <div class="otp_field">
-                    <input type="number" name="otp_1" id="singleNumberInput"
-                        onkeyup="moveToNextField(event,'singleNumberInput','singleNumberInput2','singleNumberInput')">
-                    <input type="number" name="otp_2" id="singleNumberInput2"
-                        onkeyup="moveToNextField(event,'singleNumberInput2','singleNumberInput3','singleNumberInput')">
-                    <input type="number" name="otp_3" id="singleNumberInput3"
-                        onkeyup="moveToNextField(event,'singleNumberInput3','singleNumberInput4','singleNumberInput2')">
-                    <input type="number" name="otp_4" id="singleNumberInput4"
-                        onkeyup="moveToNextField(event,'singleNumberInput4','singleNumberInput5','singleNumberInput3')">
-                    <input type="number" name="otp_5" id="singleNumberInput5"
-                        onkeyup="moveToNextField(event,'singleNumberInput5','singleNumberInput5','singleNumberInput4')">
-                </div>
-                <button class="sign_btn">Create an Account</button>
-                <div class="remember_innerContainer">
-                    <p class="last_cont"></p> <span></span><a class="sign_links" href="registrationPage.html"><b
-                            style="font-weight: 400;">Resend an OTP</b></a>
-                </div>
-
-            </form>
+<section class="user_section">
+    <div class="user_container">
+        <div class="top_cont">
+            <h1>OTP Code</h1>
+            <p>Enter the OTP code inorder to verify the actual you </p>
         </div>
-    </section>
+        <hr>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% csrf_token %}
+            {% if messages %}
+            {% for messaage in messages %}
+            <span class="error" id="login_error" style="color: red;">{{messaage}}</span>
+            {% endfor %}
+            {% endif %}
+            <p class="otp_p">We have sent you a 5 digit OTP code on your email address. <b><u>Change number?</u></b>
+            </p>
 
-    <script>
+            <div class="otp_field">
+                <input type="number" name="otp_1" id="singleNumberInput"
+                    onkeyup="moveToNextField(event,'singleNumberInput','singleNumberInput2','singleNumberInput')">
+                <input type="number" name="otp_2" id="singleNumberInput2"
+                    onkeyup="moveToNextField(event,'singleNumberInput2','singleNumberInput3','singleNumberInput')">
+                <input type="number" name="otp_3" id="singleNumberInput3"
+                    onkeyup="moveToNextField(event,'singleNumberInput3','singleNumberInput4','singleNumberInput2')">
+                <input type="number" name="otp_4" id="singleNumberInput4"
+                    onkeyup="moveToNextField(event,'singleNumberInput4','singleNumberInput5','singleNumberInput3')">
+                <input type="number" name="otp_5" id="singleNumberInput5"
+                    onkeyup="moveToNextField(event,'singleNumberInput5','singleNumberInput5','singleNumberInput4')">
+            </div>
+            <button class="sign_btn">Create an Account</button>
+            <div class="remember_innerContainer">
+                <p class="last_cont"></p> <span></span><a class="sign_links" href="registrationPage.html"><b
+                        style="font-weight: 400;">Resend an OTP</b></a>
+            </div>
 
-        function moveToNextField(event, currentFieldId, nextFieldId, previousFieldId) {
-            //     const input = event.target;
-            //     const inputValue = input.value;
-            //     const currentField = document.getElementById(currentFieldId)
-            //    const singleNumberValue = inputValue.slice(0, 1);
-            //    event.target.value = singleNumberValue
+        </form>
+    </div>
+</section>
+
+<script>
+
+    function moveToNextField(event, currentFieldId, nextFieldId, previousFieldId) {
+        //     const input = event.target;
+        //     const inputValue = input.value;
+        //     const currentField = document.getElementById(currentFieldId)
+        //    const singleNumberValue = inputValue.slice(0, 1);
+        //    event.target.value = singleNumberValue
 
 
-            let inputValue = event.target.value.trim();
+        let inputValue = event.target.value.trim();
 
-            if (inputValue.length > 1) {
-                inputValue = inputValue.charAt(1);
-            }
-            if (!isNaN(inputValue)) {
-                event.target.value = inputValue;
-            }
-            if (inputValue.length === 1 && /^\d$/.test(inputValue)) {
+        if (inputValue.length > 1) {
+            inputValue = inputValue.charAt(1);
+        }
+        if (!isNaN(inputValue)) {
+            event.target.value = inputValue;
+        }
+        if (inputValue.length === 1 && /^\d$/.test(inputValue)) {
 
-                const nextInput = document.getElementById(nextFieldId);
-                nextInput.focus();
-            }
-
-
-            if (inputValue === '' || event.key === 'Backspace' || event.key === 'Delete') {
-                const previousInput = document.getElementById(previousFieldId);
-                previousInput.focus();
-            }
+            const nextInput = document.getElementById(nextFieldId);
+            nextInput.focus();
         }
 
 
+        if (inputValue === '' || event.key === 'Backspace' || event.key === 'Delete') {
+            const previousInput = document.getElementById(previousFieldId);
+            previousInput.focus();
+        }
+    }
 
 
 
 
-    </script>
+
+
+</script>
 
 {% endblock content %}
