@@ -10,20 +10,20 @@
             </div>
             <hr>
             <form action="" method="post">
-
+                {% csrf_token %}
                 <p class="otp_p">We have sent you a 5 digit OTP code on your email address. <b><u>Change number?</u></b>
                 </p>
 
                 <div class="otp_field">
-                    <input type="number" id="singleNumberInput"
+                    <input type="number" name="otp_1" id="singleNumberInput"
                         onkeyup="moveToNextField(event,'singleNumberInput','singleNumberInput2','singleNumberInput')">
-                    <input type="number" id="singleNumberInput2"
+                    <input type="number" name="otp_2" id="singleNumberInput2"
                         onkeyup="moveToNextField(event,'singleNumberInput2','singleNumberInput3','singleNumberInput')">
-                    <input type="number" id="singleNumberInput3"
+                    <input type="number" name="otp_3" id="singleNumberInput3"
                         onkeyup="moveToNextField(event,'singleNumberInput3','singleNumberInput4','singleNumberInput2')">
-                    <input type="number" id="singleNumberInput4"
+                    <input type="number" name="otp_4" id="singleNumberInput4"
                         onkeyup="moveToNextField(event,'singleNumberInput4','singleNumberInput5','singleNumberInput3')">
-                    <input type="number" id="singleNumberInput5"
+                    <input type="number" name="otp_5" id="singleNumberInput5"
                         onkeyup="moveToNextField(event,'singleNumberInput5','singleNumberInput5','singleNumberInput4')">
                 </div>
                 <button class="sign_btn">Create an Account</button>

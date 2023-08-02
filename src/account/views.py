@@ -329,3 +329,77 @@ class OTPVerificationView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the POST request for verifying the OTP token entered by the user
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments, which should include the 'otp_token' from the URL
+        :return: the rendered HTTP response or redirects to another view
+        """
+
+        # Get the 'otp_token' from the keyword arguments
+        get_otp_token                            = kwargs['otp_token']
+
+        # Set the template for rendering
+        template_name = 'otp_page.html'
+
+        # Check if the request method is POST
+        if request.method == "POST":
+
+            # Get the individual OTP digits from the form fields
+            otp_1 = request.POST.get('otp_1')
+            otp_2 = request.POST.get('otp_2')
+            otp_3 = request.POST.get('otp_3')
+            otp_4 = request.POST.get('otp_4')
+            otp_5 = request.POST.get('otp_5')
+
+            # Concatenate the OTP digits to get the complete OTP
+            otp_token = otp_1 + otp_2 + otp_3 + otp_4 + otp_5
+
+            # Check if the entered OTP matches the original OTP from the URL
+            if otp_token != get_otp_token:
+
+                # If OTP does not match, show an error message and re-render the OTP verification page with context data
+                messages.error(request, 'OTP do not match.Please try again')
+
+                # Call the LevelAndMaterialDetails function to retrieve level and material data
+                level_material_detail_list   = LevelAndMaterialDetails()
+
+                #Create a context dictionary to store the data to be passed to the template
+                context = {
+                    'level_material_detail_list':level_material_detail_list
+                }
+
+                # Re-render the template with provided context
+                return render(request, template_name, context)
+            else:
+                # If OTP matches, redirect to the 'renew_password' URL
+                return redirect('renew_password')
+        # If OTP matches, redirect to the 'renew_password' URL
+        return render(request, template_name)
+
+class RenewPasswordView(View):
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'renew_password.html'
+        :param request: the HTTp request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+        " Set the template for rendering"
+        template_name = 'renew_password.html'
+
+        # Call the LevelAndMaterialDetails function to retrieve level an material data
+        level_material_detail_list = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to the passed to the template
+        context = {
+            'level_material_detail_list'      : level_material_detail_list,
+        }
+
+        # Render to the template with provided context
+        return render(request, template_name, context)
