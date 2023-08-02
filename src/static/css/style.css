@@ -2746,3 +2746,529 @@ body::-webkit-scrollbar-track {
 }
 
 /* end content */
+
+/* --------------------css for login page starts ----------------------- */
+
+
+.user_section {
+    background-color: #F8FAFC;
+    display: grid;
+    place-items: center;
+    padding: 2rem 1rem;
+
+}
+
+.user_container {
+    width: 40.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #DFE3EC;
+    padding-bottom: 50px;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+
+
+}
+
+.top_cont {
+    display: flex;
+    padding: 2rem 0rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #E6E6E6;
+    width: 100%;
+    text-align: center;
+}
+
+.top_cont h1 {
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 540;
+    line-height: normal;
+    letter-spacing: -0.0rem;
+    color: #232E52;
+}
+
+.top_cont p {
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: -0.025rem;
+    color: rgb(165, 165, 165);
+    width: 100%;
+}
+
+.user_section form {
+    width: 30rem;
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.input_container {
+    width: 100%;
+    height: auto;
+
+}
+
+.input_container label {
+    color: rgb(165, 165, 165);
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    letter-spacing: -0.025rem;
+}
+
+.input_box {
+    width: 30rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.input_box i {
+    position: absolute;
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.input_box i.left {
+    left: 10px;
+}
+
+.input_box i.right {
+    right: 10px;
+}
+
+.input_box input {
+    width: 30rem;
+    display: flex;
+    padding: 1.125rem 2rem;
+    border-radius: 0.375rem;
+    border: 1px solid #E6E6E6;
+    background: #F7F8F9;
+    box-shadow: 0px 0.7749999761581421px 1.5499999523162842px 0px rgba(16, 24, 40, 0.05);
+}
+
+.remember_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+
+}
+
+.remember_container input {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    -webkit-appearance: none;
+    border: 1.5px solid #a6a6a6;
+    border-radius: 2px;
+    opacity: 0.4;
+}
+
+.remember_innerContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+}
+
+.remember_container label {
+    font-size: 0.8rem;
+}
+
+label::before {
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    width: 18px;
+    border-radius: 2px;
+
+}
+
+
+
+input[type="checkbox"]:checked+label::before {
+    background-color: #007bff;
+    content: "\2713";
+    color: #fff;
+    text-align: center;
+}
+
+
+
+.remember_container a {
+    -webkit-appearance: none;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #4176FF;
+    font-weight: 900px;
+    transition: color 0.3s ease;
+}
+
+.remember_container label {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #888888;
+}
+
+.remember_container b {
+    color: black;
+    font-weight: 500;
+}
+
+.remember_container a:hover {
+    color: blue;
+}
+
+.sign_btn {
+    border: none;
+    height: 65px;
+    width: 30rem;
+    background-color: #4176FF;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.spanContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: #888888;
+}
+
+.span_line {
+    height: 1px;
+    width: 11.5rem;
+    background-color: #c2c2c2;
+}
+
+.go_fa_links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+
+
+
+}
+
+.social_links {
+    height: 65px;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E9EFFF;
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+.last_cont {
+    font-size: 0.95rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: -0.025rem;
+    word-spacing: 0.1rem;
+    color: #888888;
+    letter-spacing: -0.2px;
+}
+
+.remember_innerContainer a {
+    -webkit-appearance: none;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #4176FF;
+    font-weight: 900px;
+    transition: color 0.3s ease;
+    line-height: 1.5rem;
+    margin-left: 5px;
+
+}
+
+.sign_links:hover {
+    color: blue;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .user_section {
+        width: 100%;
+        display: grid;
+        place-items: center;
+    }
+
+    .user_container {
+        max-width: 40rem;
+        width: 100%;
+
+    }
+}
+
+@media screen and (max-width: 526px) {
+
+    .user_section form {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .user_container {
+
+        min-width: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .input_box {
+        width: 95%;
+    }
+
+    .remember_container {
+
+        width: 95%;
+
+    }
+
+    .sign_btn {
+        width: 95%;
+
+    }
+
+    .go_fa_links {
+        width: 95%;
+
+    }
+
+
+}
+
+
+/*------------------------------------------ login CSS ends here -------------------------------------*/
+
+/*----------------------------------- registration CSS starts here -----------------------------------*/
+
+.file-input {
+    display: inline-block;
+    text-align: left;
+    background: #fff;
+    padding: 16px;
+    width: 30rem;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+}
+
+.file-input>[type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.file-input>.button {
+    display: inline-block;
+    cursor: pointer;
+    background: #eee;
+    padding-top: 0.7rem;
+    border-radius: 2px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    width: 7rem;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+    color: #888888;
+}
+
+.file-input:hover>.button {
+    background: dodgerblue;
+    color: white;
+}
+
+.file-input>.label {
+    color: #333;
+    white-space: nowrap;
+    opacity: .3;
+    align-self: center;
+}
+
+.file-input.-chosen>.label {
+    opacity: 1;
+}
+
+@media screen and (max-width: 526px) {
+    .file-input {
+        width: 100%;
+    }
+}
+
+.p_tag {
+    font-size: 14px;
+    color: #888888;
+    font-weight: 400;
+}
+
+
+@media screen and (max-width: 526px) {
+    .top_cont p {
+        width: 100%;
+        font-size: 0.7rem;
+    }
+
+}
+
+/*------------------------------------------ registration CSS ends here -------------------------------------*/
+
+
+/*----------------------------------- OTP CSS starts here -----------------------------------*/
+
+
+.otp_p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 0 5rem 0 5rem;
+    text-align: center;
+    word-spacing: 0.08rem;
+
+}
+
+.otp_p b u {
+    font-weight: 500;
+}
+
+.otp_field {
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 0.5fr);
+    grid-column-gap: 2px;
+    width: 20rem;
+
+}
+
+.otp_field input {
+    justify-self: center;
+    align-self: center;
+    height: 50px;
+    width: 3rem;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+}
+
+.otp_field input::-webkit-inner-spin-button,
+.otp_field input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media screen and (max-width: 526px) {
+    .otp_field {
+        width: 70%;
+    }
+
+    .otp_field input {
+        width: 65%;
+        max-height: 45px;
+        margin: 0 2px 0 2px;
+
+    }
+}
+
+
+
+/*------------------------------------------ OTP CSS ends here -------------------------------------*/
+/*----------------------------------- reset password CSS starts here -----------------------------------*/
+
+.otp_p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 0 5rem 0 5rem;
+    text-align: center;
+    word-spacing: 0.08rem;
+
+}
+
+.otp_p b u {
+    font-weight: 500;
+}
+
+.otp_field {
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 0.5fr);
+    grid-column-gap: 2px;
+    width: 20rem;
+
+}
+
+.otp_field input {
+    justify-self: center;
+    align-self: center;
+    height: 50px;
+    width: 3rem;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+}
+
+.otp_field input::-webkit-inner-spin-button,
+.otp_field input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media screen and (max-width: 526px){
+    .otp_field{
+        width: 70%;
+    }
+    .otp_field input{
+        width: 65%;
+        max-height: 45px;
+        margin: 0 2px 0 2px;
+
+    }
+}

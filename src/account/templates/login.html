@@ -1,34 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="background">
-        <form method="post">
-            <h3>Login Here</h3>
+{% extends 'base_home.html' %}
+
+{% block content %}
+<section class="user_section">
+    <div class="user_container">
+        <div class="top_cont">
+            <h1>Login into your Account</h1>
+            <p>Enter your email and password</p>
+        </div>
+        <hr>
+        <form action="" method="post">
             {% csrf_token %}
             {% if messages %}
             {% for messaage in messages %}
             <span class="error" id="login_error" style="color: red;">{{messaage}}</span>
             {% endfor %}
             {% endif %}
-            
-            <label for="username">Username</label>
-            <input type="text" placeholder="Enter Username" id="username" name="username"><br><br>
+            <div class="input_container">
+                <label for="email">
+                    Email Address
+                </label>
+                <div class="input_box">
+                    <i class="fa-regular fa-envelope left"></i>
+                    <input type="email" name="email" id="email" placeholder="Enter your email"
+                        onkeyup="validateEmail()"/>
+                    <i class="fa-regular fa-circle-xmark right" id="img_container"></i>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="password">
+                    Password
+                </label>
+                <div class="input_box">
+                    <i class="left">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 20" fill="none">
+                            <path
+                                d="M14.25 8.25H3.75C2.92157 8.25 2.25 8.92157 2.25 9.75V15C2.25 15.8284 2.92157 16.5 3.75 16.5H14.25C15.0784 16.5 15.75 15.8284 15.75 15V9.75C15.75 8.92157 15.0784 8.25 14.25 8.25Z"
+                                stroke="#232E52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M5.25 8.25V5.25C5.25 4.25544 5.64509 3.30161 6.34835 2.59835C7.05161 1.89509 8.00544 1.5 9 1.5C9.99456 1.5 10.9484 1.89509 11.6517 2.59835C12.3549 3.30161 12.75 4.25544 12.75 5.25V8.25"
+                                stroke="#232E52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </i>
+                    <input type="password" name="password" id="password" placeholder="Enter your password"/>
+                    <i class="fa fa-eye-slash right" onclick="toggleIconHandler()" id="showPassword" ></i>
+                </div>
+            </div>
+            <div class="remember_container">
+                <div class="remember_innerContainer">
 
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password" name="pass"><br><br>
+                    <input type="checkbox" id='customCheckbox' onclick="toggleCheckbox()"></input>
+                    <label for="customCheckbox">Remember Me</label>
+                </div>
+                <b><a href="{% url 'reset_password' %}">Forgot Password?</a></b>
+            </div>
+            <button class="sign_btn">Sign In</button>
 
-            <button type="submit">Log In</button><br><br>
-            <a href="{% url 'signup' %}">Create a account</a><br>
-            <a href="">Login with Google</a><br>
-            <a href="">Login with Facebook</a><br>
-            <a href="">Login with linkedIn</a><br>
-            <a href="">Forgot password</a><br>
+            <div class="spanContainer">
+                <span class="span_line"> </span>
+                <p>Or sign In with </p><span class="span_line"></span>
+            </div>
+
+            <div class="go_fa_links">
+                <a class="social_links" href="#"><svg width="25" height="25" style="margin-right: 0.8rem;"
+                        viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M23.7753 10.4809L13.8258 10.4805C13.3864 10.4805 13.0303 10.8193 13.0303 11.2375V14.2624C13.0303 14.6804 13.3864 15.0194 13.8257 15.0194H19.4287C18.8152 16.5347 17.67 17.8037 16.209 18.61L18.5982 22.546C22.4306 20.4366 24.6964 16.7355 24.6964 12.5924C24.6964 12.0025 24.6507 11.5808 24.5593 11.1059C24.4898 10.7452 24.1607 10.4809 23.7753 10.4809Z"
+                            fill="#167EE6" />
+                        <path
+                            d="M12.4994 19.5649C9.75736 19.5649 7.36363 18.1391 6.078 16.0293L1.94238 18.2979C4.04697 21.7692 7.98955 24.1068 12.4994 24.1068C14.7117 24.1068 16.7992 23.5399 18.5975 22.552V22.5466L16.2084 18.6106C15.1156 19.2138 13.851 19.5649 12.4994 19.5649Z"
+                            fill="#12B347" />
+                        <path
+                            d="M18.5992 22.5527V22.5473L16.2101 18.6113C15.1172 19.2145 13.8527 19.5656 12.501 19.5656V24.1075C14.7133 24.1075 16.801 23.5406 18.5992 22.5527Z"
+                            fill="#0F993E" />
+                        <path
+                            d="M5.07621 12.4993C5.07621 11.2131 5.44506 10.0097 6.07875 8.96973L1.94312 6.70117C0.899333 8.4072 0.303711 10.3885 0.303711 12.4993C0.303711 14.6102 0.899333 16.5915 1.94312 18.2975L6.07875 16.029C5.44506 14.989 5.07621 13.7856 5.07621 12.4993Z"
+                            fill="#FFD500" />
+                        <path
+                            d="M12.4994 5.43451C14.2874 5.43451 15.9298 6.03917 17.2127 7.04495C17.5292 7.29306 17.9892 7.27515 18.2791 6.99925L20.5311 4.85601C20.86 4.54298 20.8366 4.03059 20.4852 3.7405C18.3358 1.96592 15.5393 0.892578 12.4994 0.892578C7.98955 0.892578 4.04697 3.23019 1.94238 6.70155L6.078 8.97011C7.36363 6.86028 9.75736 5.43451 12.4994 5.43451Z"
+                            fill="#FF4B26" />
+                        <path
+                            d="M17.2143 7.04495C17.5308 7.29306 17.9908 7.27515 18.2807 6.99925L20.5327 4.85601C20.8616 4.54298 20.8382 4.03059 20.4868 3.7405C18.3375 1.96588 15.5409 0.892578 12.501 0.892578V5.43451C14.289 5.43451 15.9314 6.03917 17.2143 7.04495Z"
+                            fill="#D93F21" />
+                    </svg>Google</a>
+                <a class="social_links" href="#"><i class="fa-brands fa-facebook fa-xl"
+                        style="margin-right: 0.8rem; color:#4176FF" ,></i>Facebook</a>
+            </div>
+
+            <div class="remember_innerContainer">
+                <p class="last_cont">Don't have an account yet?</p> <span></span><a class="sign_links"
+                    href="{% url 'signup' %}"><b> Sign
+                        Up</b></a>
+            </div>
         </form>
     </div>
-</body>
-</html>
+</section>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const showPassword = document.getElementById('showPassword');
+
+    function toggleIconHandler() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            showPassword.classList.remove("fa-eye-slash")
+            showPassword.classList.add("fa-eye")
+        } else {
+            passwordInput.type = 'password';
+            showPassword.classList.remove("fa-eye");
+            showPassword.classList.add("fa-eye-slash");
+
+        }
+    };
+
+
+    //mailvalidation 
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const email = emailInput.value;
+
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        const isValidEmail = emailRegex.test(email);
+
+        if (isValidEmail) {
+            img_container.classList.remove('fa-circle-xmark')
+            img_container.classList.add('fa-circle-check')
+
+
+        } else {
+            img_container.classList.remove('fa-circle-check')
+            img_container.classList.add('fa-circle-xmark')
+        }
+
+        emailInput.style.borderColor = isValidEmail ? 'green' : 'red';
+    }
+
+
+    //checkbox 
+    // const checkBox = document.getElementById('checkBox');
+
+    // checkBox.addEventListener('change', function () {
+    //     if (this.checked) {
+    //         // Checkbox is checked
+    //         this.classList.add('remember_innerContainer');
+    //     } else {
+    //         // Checkbox is unchecked
+    //         this.classList.remove('remember_innerContainer');
+    //     }
+    // });
+    // function toggleCheckbox() {
+    //     const checkbox = document.getElementById('customCheckbox');
+    //     checkbox.checked = !checkbox.checked;
+    // }
+
+</script>
+{% endblock content %}

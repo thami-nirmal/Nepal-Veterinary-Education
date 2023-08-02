@@ -157,7 +157,7 @@ class PostCommentView(View):
                 # Create a dictionary to store the formatted comment data
                 comments_data = {
                     'id'   : posted_comment.id,
-                    'user': posted_comment.user.username,
+                    'user': posted_comment.user.first_name,
                     'date': formatted_date,
                     'comment': posted_comment.comment,
                     'logged_in_user': str(logged_in_user),
@@ -168,7 +168,7 @@ class PostCommentView(View):
             # Prepare the comment data to be returned as JSON response
             comment_data = {
                 'id':post_comment.id,
-                'user': post_comment.user.username,
+                'user': post_comment.user.first_name,
                 'date': formatted_date,
                 'comment': post_comment.comment,
                 'logged_in_user': str(logged_in_user),
