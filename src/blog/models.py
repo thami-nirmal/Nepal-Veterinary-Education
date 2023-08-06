@@ -124,6 +124,7 @@ class UserViews(models.Model):
     """
     user                                    = models.ForeignKey(User,related_name='userViews_user', on_delete=models.CASCADE)
     post                                    = models.ForeignKey(Post,related_name='userViews_post', on_delete=models.CASCADE)
+    count                                   = models.SmallIntegerField(null=True)
 
     def __str__(self):
         """

@@ -33,10 +33,13 @@
                     onkeyup="moveToNextField(event,'singleNumberInput5','singleNumberInput5','singleNumberInput4')">
             </div>
             <button class="sign_btn">Create an Account</button>
-            
+        </form>
+        <form method="post" action="{% url 'reset_password' %}">
+            {% csrf_token %}
             <div class="remember_innerContainer">
-                <p class="last_cont"></p> <span></span><a class="sign_links" href="{% url 'resend_otp' %}"><b
-                        style="font-weight: 400;">Resend an OTP</b></a>
+                <input type="hidden" value="{{email}}" name="email">
+                <p class="last_cont"></p> <span></span><button type="submit" class="sign_links"><b
+                        style="font-weight: 400;">Resend an OTP</b></button>
             </div>
         </form>
     </div>

@@ -330,12 +330,16 @@ class OTPVerificationView(View):
         " Set the template for rendering"
         template_name = 'otp_page.html'
 
+        email                        = kwargs['email']
+        print(email,"___________+++++++++++")
+
         # Call the LevelAndMaterialDetails function to retrieve level an material data
         level_material_detail_list = LevelAndMaterialDetails()
 
         # Create a context dictionary to store the data to the passed to the template
         context = {
             'level_material_detail_list'      : level_material_detail_list,
+            'email' :email
         }
 
         # Render the template with the provided context
@@ -395,24 +399,6 @@ class OTPVerificationView(View):
         # If OTP matches, redirect to the 'renew_password' URL
         return render(request, template_name)
 
-def resend_otp(request):
-
-    # Generate a random 5-digit number for OTP token
-    otp_token = str(random.randint(10000, 99999))
-    print("______________++++++++++", otp_token)
-
-
-    if send_otp_email(email, otp_token):
-        profile = Profile.objects.get(email=email)
-        if  profile.verified_email_otp:
-            profile.verified_email_otp = otp_token
-            profile.save()
-            print("Successfully ")
-
-            # Redirect to the OTP verification page with the OTP token as a URL parameter
-            return redirect('otp_verification', email=email)
-
-    return True
 
 class RenewPasswordView(View):
     """

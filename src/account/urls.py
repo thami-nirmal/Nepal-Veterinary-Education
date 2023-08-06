@@ -4,8 +4,7 @@ from .views import (SignupView,
                     UserLogout, 
                     ResetPasswordView, 
                     OTPVerificationView, 
-                    RenewPasswordView,
-                    resend_otp
+                    RenewPasswordView
                     )
 
 urlpatterns = [
@@ -21,6 +20,5 @@ urlpatterns = [
 
     path('renew-password/<str:email>/',RenewPasswordView.as_view(), name='renew_password'),
 
-    path('resend-otp/',resend_otp, name='resend_otp')
 
 ]

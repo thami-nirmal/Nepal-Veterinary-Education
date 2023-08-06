@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'pagination',
+
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
+
+# ---------------------Sign with Google start
+
+#-------------------end---------------------
 
 
 # Default primary key field type
