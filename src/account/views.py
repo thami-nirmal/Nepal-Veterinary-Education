@@ -286,8 +286,16 @@ class ResetPasswordView(View):
             if User.objects.filter(email=email).exists():
                 # Call the function to send the OTP token to the user's email
                 if send_otp_email(email, otp_token):
+
+                    # Retrieve the user's profile using the provided email
+                    profile = Profile.objects.get(email=email)
+
+                    # Update and save the user's profile with the generated OTP token
+                    profile.verified_email_otp = otp_token
+                    profile.save()
+
                     # Redirect to the OTP verification page with the OTP token as a URL parameter
-                    return redirect('otp_verification', otp_token=otp_token, email=email) 
+                    return redirect('otp_verification', email=email)
                 else:
                     # If OTP email sending fails, print an error message
                     print("Failed to send OTP email")
@@ -308,6 +316,9 @@ class ResetPasswordView(View):
 
 
 class OTPVerificationView(View):
+    """
+    A class-based view to handle user OTP verfication 
+    """
     def get(self, request, *args, **kwargs):
         """
         Handle HTTP GET request and render the 'otp_page.html'
@@ -340,9 +351,11 @@ class OTPVerificationView(View):
         """
 
         # Get the 'otp_token' and 'email' from the keyword arguments
-        get_otp_token                = kwargs['otp_token']
         email                        = kwargs['email']
 
+        selected_profile_object      = Profile.objects.get(email=email)
+        get_otp_token                = selected_profile_object.verified_email_otp
+        
         # Set the template for rendering
         template_name                = 'otp_page.html'
 
@@ -382,9 +395,29 @@ class OTPVerificationView(View):
         # If OTP matches, redirect to the 'renew_password' URL
         return render(request, template_name)
 
+def resend_otp(request):
+
+    # Generate a random 5-digit number for OTP token
+    otp_token = str(random.randint(10000, 99999))
+    print("______________++++++++++", otp_token)
+
+
+    if send_otp_email(email, otp_token):
+        profile = Profile.objects.get(email=email)
+        if  profile.verified_email_otp:
+            profile.verified_email_otp = otp_token
+            profile.save()
+            print("Successfully ")
+
+            # Redirect to the OTP verification page with the OTP token as a URL parameter
+            return redirect('otp_verification', email=email)
+
+    return True
 
 class RenewPasswordView(View):
-
+    """
+    A class-based view to handle user renew password
+    """
     def get(self, request, *args, **kwargs):
         """
         Handle HTTP GET request and render the 'renew_password.html'
@@ -441,8 +474,17 @@ class RenewPasswordView(View):
             user.set_password(get_password)
             user.save()
 
-            # Redirect to the 'verify_email' view passthe 'email' in the URL parameters
-            return redirect('verify_email', email=get_email)
+            # To enter into the system after successfully signup
+            # Authenticate the user using the provided username and password.
+            user = authenticate(request, username=get_email, password=get_password)
+
+            # Check if the user is authenticated (i.e., if the credentials are valid).
+            if user is not None:
+                # If the user is authenticated, log the user in, and create a session.
+                login(request, user)
+                # Redirect the user to the 'index' page (replace 'index' with the appropriate URL name).
+                return redirect('index')
+            
         else:
             # If the request method is not POST
 
@@ -460,35 +502,6 @@ class RenewPasswordView(View):
             # Re-render the template with provided context
             return render(request, template_name, context)
 
-            
-class VerifyEmailView(View):
-    def get(self, request, *args, **kwargs):
-        """
-        Handle HTTP GET request and render the 'verify_email.html'
-        :param request: the HTTp request object
-        :param args: additional positional argument
-        :param kwargs: additional keyword arguments
-        :return: the rendered http response
-        """
-        " Set the template for rendering"
-        template_name        = 'verify_email.html'
 
-        # Get the 'verified_email' from the keyword arguments 
-        verified_email       = kwargs['email']
-        
 
-        # Call the LevelAndMaterialDetails function to retrieve level an material data
-        level_material_detail_list = LevelAndMaterialDetails()
 
-        # Create a context dictionary to store the data to the passed to the template
-        context = {
-            'level_material_detail_list'        : level_material_detail_list,
-
-            'verified_email' :verified_email
-        }
-
-        # Render to the template with provided context
-        return render(request, template_name, context)
-
-        
-        

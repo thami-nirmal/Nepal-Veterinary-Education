@@ -5,7 +5,7 @@ from .views import (SignupView,
                     ResetPasswordView, 
                     OTPVerificationView, 
                     RenewPasswordView,
-                    VerifyEmailView,
+                    resend_otp
                     )
 
 urlpatterns = [
@@ -17,10 +17,10 @@ urlpatterns = [
 
     path('reset-password/',ResetPasswordView.as_view(), name="reset_password"),
 
-    path('otp-verification/<str:otp_token>/<str:email>/', OTPVerificationView.as_view(), name='otp_verification'),
+    path('otp-verification/<str:email>/', OTPVerificationView.as_view(), name='otp_verification'),
 
     path('renew-password/<str:email>/',RenewPasswordView.as_view(), name='renew_password'),
 
-    path('verify-email/<str:email>/', VerifyEmailView.as_view(), name="verify_email"),
+    path('resend-otp/',resend_otp, name='resend_otp')
 
 ]

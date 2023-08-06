@@ -15,6 +15,7 @@ class Profile(models.Model):
     last_name            = models.CharField(max_length=50, blank=True)
     email                = models.EmailField(max_length=254, null=True)
     profile_image        = models.ImageField(upload_to = 'profile_images/', blank=True, null=True)
+    verified_email_otp   = models.CharField(max_length=5, blank=True, null=True)
     created_at           = models.DateField(auto_now_add=True)
     updated_at           = models.DateField(auto_now=True)
 
