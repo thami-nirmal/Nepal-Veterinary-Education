@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from .models import Post, PostComments, PostLikes, PostViews
+from .models import Post, PostComments, PostLikes, PostViews, UserViews
+
 from personal.views import LevelAndMaterialDetails
 # Create your views here.
 
@@ -56,16 +57,16 @@ class PostContentView(View):
         slug = kwargs['slug']
 
         # Set the template name for rendering
-        template_name                         = 'post_detail.html'
+        template_name                            = 'post_detail.html'
 
         # Retrieve the post content object
-        post_content_object                   = Post.objects.get(uuid = slug)
+        post_content_object                      = Post.objects.get(uuid = slug)
 
         # Retrieve comments for the post
-        posted_comment_list                   = PostComments.objects.filter(post__uuid=slug)
+        posted_comment_list                      = PostComments.objects.filter(post__uuid=slug)
 
         # Retrieve the latest 4 comments for the post
-        posted_comment_object_list              = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
+        posted_comment_object_list               = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
 
         # Try to retrieve the user's post like object with is_liked=True
         try:
@@ -78,13 +79,13 @@ class PostContentView(View):
             user_post_like_obj = None
 
         # Check if the user has any post like
-        user_post_like                        = PostLikes.objects.filter(post=slug,user=request.user).exists()
+        user_post_like                          = PostLikes.objects.filter(post=slug,user=request.user).exists()
 
         # Retrieve the post liked count of post
-        post_like_count                       = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
+        post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list            = LevelAndMaterialDetails()
+        level_material_detail_list              = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -98,9 +99,9 @@ class PostContentView(View):
 
             'user_post_like'                           : user_post_like,
 
-            'user_post_like_obj'                        : user_post_like_obj,
+            'user_post_like_obj'                       : user_post_like_obj,
 
-            'post_like_count'                           : post_like_count
+            'post_like_count'                          : post_like_count
         }
 
         # Render the template with the provided context
@@ -468,6 +469,55 @@ class PostViewsView(View):
         # If the request is not an AJAX request, return a boolean value of True
         return True
 
+class UserViewsView(View):
+    """
+    A view class to handle post requests for tracking and incrementing user views.
+    """
+    def post(self,request,*args,**kwargs):
+        """
+        Handles the post request to track and increment user views
 
+        Parameters:
+        - request: The HTTP request object
+        - args: Additional positional arguments.
+        - kwargs: Additional keyword arguments.
 
+        Returns:
+        - If the request is an AJAX request, returns a JSON response indicating the success message.
+        - If the request is not an AJAX request, returns a boolean value of True
+        """
+        
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+
+            # Retrieve the 'post_id' value from the AJAX request's POST data
+            post_id = request.POST.get('post_id')
+
+            # Get the Post object based on the 'post_id'
+            post_object = Post.objects.get(uuid=post_id)
+
+            # Get the currently logged-in user
+            logged_in_user = request.user
+            
+            # Query the UserViews model to see if a record exists for the post
+            user_views = UserViews.objects.filter(post=post_object).first()
+
+            # If there's a logged-in user
+            if logged_in_user:
+                # If no UserViews record exists for the post, create a new one
+                if not user_views:
+                    user_views = UserViews.objects.create(user=logged_in_user,post=post_object, count=1)
+                else:
+                    # If a UserViews record exists, increment the 'count' field and save
+                    user_views.count += 1
+                    user_views.save()
+            else:
+                # Return a JSON response indicating that the user must be logged in
+                return JsonResponse({'message': 'You must be logged in to perform this action.'}, status=401)
+            
+            # Return a JSON response indicating success
+            return JsonResponse({'message':'Post successfully received user views'})
+
+        # If the request is not AJAX, return True
+        return True
 

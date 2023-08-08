@@ -78,6 +78,28 @@ Post Page
             });
         });
 
+        // this is for user views
+        $('.post_obj').click(function () {
+            var post_id = $(this).attr('post_id')
+            var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+            $.ajax({
+                type: 'POST',
+                url: '/blog/user-views/',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                data: {
+                    post_id: post_id,
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
         // this is for post colour
         $('.blog-item').each(function () {
 

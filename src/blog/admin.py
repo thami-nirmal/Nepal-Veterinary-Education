@@ -44,7 +44,7 @@ admin.site.register(PostLikes, PostLikesAdmin)
 
 
 class UserViewsAdmin(admin.ModelAdmin):
-    list_display = ['user','post']
+    list_display = ['user','post','count']
 
 admin.site.register(UserViews, UserViewsAdmin)
 

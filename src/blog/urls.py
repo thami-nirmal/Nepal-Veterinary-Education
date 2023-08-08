@@ -9,7 +9,8 @@ from .views import (PostView,
                     CommentDeleteView, 
                     likeBtnView, 
                     dislikeBtnView,
-                    PostViewsView)
+                    PostViewsView,
+                    UserViewsView)
 
 urlpatterns = [
     path('post/', PostView.as_view(), name='post'),
@@ -30,5 +31,7 @@ urlpatterns = [
 
     path('dislike-btn/', dislikeBtnView.as_view(), name='dislike_btn'),
 
-    path('post-views/', PostViewsView.as_view(), name='post_views')
+    path('post-views/', PostViewsView.as_view(), name='post_views'),
+
+    path('user-views/', UserViewsView.as_view(), name='user_views'),
 ]

@@ -64,6 +64,7 @@ class Post(models.Model):
             self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
+
 class PostComments(models.Model):
     """
     Represents comment on a Post with specific attributes
