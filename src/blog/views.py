@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
@@ -65,21 +65,31 @@ class PostContentView(View):
         # Retrieve comments for the post
         posted_comment_list                      = PostComments.objects.filter(post__uuid=slug)
 
-        # Retrieve the latest 4 comments for the post
+        # Retrieve the latest 4 comments for the load more comments
         posted_comment_object_list               = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
 
-        # Try to retrieve the user's post like object with is_liked=True
-        try:
-            # Retrieve the user's post like object for the given post (identified by slug)
-            # with is_liked=True, indicating that the user has liked the post
-            user_post_like_obj = PostLikes.objects.get(post__uuid=slug, user=request.user, is_liked=True)
-        except PostLikes.DoesNotExist:
-            # If the user's post like object does not exist or the user has not liked the post,
-            # set user_post_like_obj to None
-            user_post_like_obj = None
+        # Logged in user
+        user = request.user
 
-        # Check if the user has any post like
-        user_post_like                          = PostLikes.objects.filter(post=slug,user=request.user).exists()
+        if user.is_authenticated:
+            # Try to retrieve the user's post like object with is_liked=True
+            try:
+                # Retrieve the user's post like object for the given post (identified by slug)
+                # with is_liked=True, indicating that the user has liked the post
+                user_post_like_obj = PostLikes.objects.get(post__uuid=slug, user=user, is_liked=True)
+            except PostLikes.DoesNotExist:
+                # If the user's post like object does not exist or the user has not liked the post,
+                # set user_post_like_obj to None
+                user_post_like_obj = None
+
+            # Check if the user has any post like
+            user_post_like                          = PostLikes.objects.filter(post=slug,user=user).exists()
+
+            context = {
+                'user_post_like'                           : user_post_like,
+
+                'user_post_like_obj'                       : user_post_like_obj,
+            }
 
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
@@ -96,10 +106,6 @@ class PostContentView(View):
             'posted_comment_object_list'               : posted_comment_object_list,
 
             'posted_comment_list'                      : posted_comment_list,
-
-            'user_post_like'                           : user_post_like,
-
-            'user_post_like_obj'                       : user_post_like_obj,
 
             'post_like_count'                          : post_like_count
         }
@@ -124,7 +130,15 @@ class PostCommentView(View):
         if request.headers.get('X-Requested-With')  == 'XMLHttpRequest':
             
             # Get the logged-in user
-            logged_in_user = request.user 
+            logged_in_user = request.user
+
+            if not logged_in_user.is_authenticated:
+
+                comment_data = {
+                    'login' : False
+                }
+
+                return JsonResponse([comment_data],safe=False)
 
             # Get the comment from the request's POST data
             comment = request.POST['comment']
@@ -168,8 +182,10 @@ class PostCommentView(View):
 
             # Prepare the comment data to be returned as JSON response
             comment_data = {
+                'login': True,
                 'id':post_comment.id,
                 'user': post_comment.user.first_name,
+                'username':post_comment.user.username,
                 'date': formatted_date,
                 'comment': post_comment.comment,
                 'logged_in_user': str(logged_in_user),
@@ -357,13 +373,21 @@ class likeBtnView(View):
 
             # Get the currently logged-in user
             logged_in_user = request.user
+            if not logged_in_user.is_authenticated:
+
+                saved_post_like = {
+                    'login':False
+                }
+                
+                # Return a JSON response with the saved_post_like data
+                return JsonResponse({'saved_post_like': [saved_post_like]})
 
             # Retrieve the Post object associated with the 'post_id'
             get_post_object = Post.objects.get(uuid = post_id)
 
             # Create a new PostLikes object representing the like action
             post_like = PostLikes(user=logged_in_user, post=get_post_object, is_liked=True)
-            
+
             # Save the Postlikes object to the database
             post_like.save()
 
@@ -372,6 +396,7 @@ class likeBtnView(View):
 
             # Prepare the saved_post_like data for the JSON response
             saved_post_like = {
+                'login':True,
                 'post_like_id' : post_like.id,
                 'post_like_user' : post_like.user.username,
                 'post_like_count' : post_like_count
@@ -379,7 +404,7 @@ class likeBtnView(View):
 
             # Return a JSON response with the saved_post_like data
             return JsonResponse({'saved_post_like': [saved_post_like]})
-        
+
         # Return True if the request is not an XMLHttpRequest
         return True
 

@@ -96,7 +96,7 @@ Post Detail Page
             </div>
             <div class="error-404-underline que-coll-line"></div>
             {% endif %}
-
+            
             <div id="forms" class="post-display-item-left">
                 {% if post_content_object %}
                 <h2>Leave a Reply</h2>
@@ -145,7 +145,7 @@ Post Detail Page
         function prependComment(commentData, logged_in_user) {
 
             var comment = commentData[0];
-
+            
             var div = document.createElement("div");
             div.className = "comment";
 
@@ -162,7 +162,11 @@ Post Detail Page
             div.appendChild(h6Date);
             div.appendChild(h5Comment);
 
-            if (comment.user === logged_in_user) {
+            console.log(comment.user,"COMMENT USERNAME")
+            console.log(logged_in_user, "LOGGED IN USER")
+
+            if (comment.username === logged_in_user) {
+                console.log("Adding button here, ______________")
 
                 var editButton = document.createElement("button");
 
@@ -228,11 +232,18 @@ Post Detail Page
                 },
                 success: function (response) {
                     var commentData = response;
-                    var logged_in_user = commentData[0].logged_in_user;
-                    $('#comment_form')[0].reset();
-                    console.log("form reset")
+                    
+                    var login_user_with_post_comment = commentData[0].login
 
-                    prependComment(commentData, logged_in_user); // Call the prependComment function here
+                    if (login_user_with_post_comment === true){
+                        var logged_in_user = commentData[0].logged_in_user;
+                        $('#comment_form')[0].reset();
+
+                        prependComment(commentData, logged_in_user); // Call the prependComment function here
+                    }
+                    else{
+                        window.location.href = "{% url 'login' %}";
+                    }
                 },
                 error: function (error) {
                     console.log(error);
@@ -337,7 +348,6 @@ Post Detail Page
             success: function (response) {
 
                 var get_comment = response.comments[0].desired_comment
-
 
                 $('#comment_form').hide();
 
@@ -469,21 +479,29 @@ Post Detail Page
                 post_id: post_id
             },
             success: function (response) {
+
                 console.log(response);
-                var get_post_like_id = response.saved_post_like[0].post_like_id
-                var get_post_like_user = response.saved_post_like[0].post_like_user
-                var get_post_like_count = response.saved_post_like[0].post_like_count
+                var login_user_with_post_like = response.saved_post_like[0].login
 
-                $('#like_count').text(get_post_like_count);
+                if (login_user_with_post_like === true){
+                    console.log("___________A____", user_with_post_like)
+                    var get_post_like_id = response.saved_post_like[0].post_like_id
+                    var get_post_like_user = response.saved_post_like[0].post_like_user
+                    var get_post_like_count = response.saved_post_like[0].post_like_count
 
-                $('#likeBtn').remove();
+                    $('#like_count').text(get_post_like_count);
 
-                var dislikeBtn = document.createElement("button");
-                dislikeBtn.textContent = "Dislike";
-                dislikeBtn.id = "dislikeBtn";
-                dislikeBtn.setAttribute("onclick", "dislikeBtn(('" + get_post_like_id + "'))");
-                $('#likeBtns').append(dislikeBtn);
+                    $('#likeBtn').remove();
 
+                    var dislikeBtn = document.createElement("button");
+                    dislikeBtn.textContent = "Dislike";
+                    dislikeBtn.id = "dislikeBtn";
+                    dislikeBtn.setAttribute("onclick", "dislikeBtn(('" + get_post_like_id + "'))");
+                    $('#likeBtns').append(dislikeBtn);
+                }
+                else{
+                    window.location.href = "{% url 'login' %}";
+                }
 
             },
             error: function (error) {
