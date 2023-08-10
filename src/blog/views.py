@@ -235,7 +235,8 @@ class LoadMoreCommentView(View):
 
             for comment in desired_comment_list:
                 serialized_comments.append({
-                    'user':comment.user.username,
+                    'user':comment.user.first_name,
+                    'username':comment.user.username,
                     'date':comment.date,
                     'comment':comment.comment,
                     'logged_in_user': str(logged_in_user),

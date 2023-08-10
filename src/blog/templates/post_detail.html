@@ -130,7 +130,7 @@ Post Detail Page
             <div id="load_comment">
                 {% if post_content_object %}
                 {% if posted_comment_list|length > 4 %}
-                <button onclick="loadMoreComment()">Load more comments</button>
+                <button id="load_more_comments" onclick="loadMoreComment()">Load more comments</button>
                 {% endif %}
                 {% endif %}
             </div>
@@ -162,8 +162,6 @@ Post Detail Page
             div.appendChild(h6Date);
             div.appendChild(h5Comment);
 
-            console.log(comment.user,"COMMENT USERNAME")
-            console.log(logged_in_user, "LOGGED IN USER")
 
             if (comment.username === logged_in_user) {
                 console.log("Adding button here, ______________")
@@ -201,6 +199,8 @@ Post Detail Page
                 loadMoreButton.textContent = "Load More Comments";
 
                 loadMoreButton.onclick = loadMoreComment;
+
+                console.log($('#load_more_comments').length, "LOAD MORE COMMENTS BUTTON")
 
                 if ($('#load_more_comments').length === 0) {
 
@@ -309,7 +309,7 @@ Post Detail Page
                     div.appendChild(h6Date);
                     div.appendChild(h5Comment);
 
-                    if (comment.user === logged_in_user) {
+                    if (comment.username === logged_in_user) {
                         var editButton = document.createElement("button");
                         editButton.id = "editCommentbtn";
                         editButton.textContent = "Edit";
