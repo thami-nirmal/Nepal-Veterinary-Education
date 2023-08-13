@@ -301,13 +301,13 @@
             const searchWindow = $(".search-window");
 
             // Handle input events on the search input field
-            searchInput.on("input", function () {
+            searchInput.on("input", async function () {
 
                 const searchTerm = $(this).val().trim();
 
                 if (searchTerm.length > 0) {
-                    // Simulate search results
-                    $.ajax({
+                    // Simulate graduate search results
+                    const response1 = await $.ajax({
                         type: 'GET',
                         url: '/search-view/',
                         headers: {
@@ -318,41 +318,74 @@
                         },
                         success: function (response) {
                             const searchResults = response.results;
+                            console.log("First", searchResults)
 
-                            if (searchResults.length > 0) {
+                            // Check if both search results are empty
+                            if (searchResults.length === 0) {
+                                searchWindow.html('<div class="search-window-item">No data found</div>');
+                                searchWindow.css("display", "block");
+                            }
+                            else{
                                 // Generate HTML for search window items with highlighted text
                                 const searchWindowItems = searchResults.map(result => {
-                                    // Format the search item as desired
-                                    const { id, has_sub_content, subject, material_type, level, sem_year } = result;
-                                    const highlightedSubject = highlightMatchedLetters(subject, searchTerm);
-                                    const highlightedMaterialType = highlightMatchedLetters(material_type, searchTerm);
-                                    const highlightedLevel = highlightMatchedLetters(level, searchTerm);
-                                    const highlightedSemYear = highlightMatchedLetters(sem_year.toString(), searchTerm);
-                                    const formattedItem = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
+                                    if (result.loksewanotes) {
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-Notes (Loksewa)`;
 
-                                    let anchorTag;
-                                    if (has_sub_content) {
-                                        anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                    } else {
-                                        anchorTag = `<a href="/graduate/graduate-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        const anchorTag = `<a href="/post-graduate/loksewa-notes-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
                                     }
-                                    return `<div class="search-window-item">${anchorTag}</div>`;
+                                    else if (result.loksewapastquestion){
+                                        const { id, year } = result;
+                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem = `${highlightedYear}-Past Question (Loksewa)`;
+
+                                        const anchorTag = `<a href="/post-graduate/loksewa-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.loksewamodelquestion){
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-Model Question (Loksewa)`;
+
+                                        const anchorTag = `<a href="/post-graduate/loksewa-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else {
+                                        // Format the search item as desired
+                                        const { id, has_sub_content, subject, material_type, level, sem_year } = result;
+                                        const highlightedSubject = highlightMatchedLetters(subject, searchTerm);
+                                        const highlightedMaterialType = highlightMatchedLetters(material_type, searchTerm);
+                                        const highlightedLevel = highlightMatchedLetters(level, searchTerm);
+                                        const highlightedSemYear = highlightMatchedLetters(sem_year.toString(), searchTerm);
+                                        const formattedItem = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
+
+                                        let anchorTag;
+                                        if (has_sub_content) {
+                                            anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        } else {
+                                            anchorTag = `<a href="/graduate/graduate-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        }
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+
                                 }).join("");
 
                                 // Update the search window with the generated search items and show it
                                 searchWindow.html(searchWindowItems);
                                 searchWindow.css("display", "block");
-                            } else {
-                                //Display "No data found" message
-                                searchWindow.html("No data found");
-                                searchWindow.css("display", "block");
                             }
+
                         },
                         error: function (error) {
                             // Log any errors that occur during the AJAX request
                             console.log(error);
                         }
                     });
+
                 } else {
                     // Clear the search window and hide it if the search term is empty
                     searchWindow.html("");

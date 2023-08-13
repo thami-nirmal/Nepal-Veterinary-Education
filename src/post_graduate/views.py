@@ -190,7 +190,7 @@ class LoksewaPastQuestionContentView(View):
 
         # Render the template with the provided context
         return render(request, template_name, context)
-    
+
 
 class LoksewaModelQuestionContentView(View):
     def get(self, request, id, *args, **kwargs):

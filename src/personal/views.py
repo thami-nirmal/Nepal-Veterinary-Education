@@ -14,7 +14,10 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.urls import resolve
 from django.http import JsonResponse
+
 from graduate.models import MaterialContent
+from post_graduate.models import LoksewaNotes, LoksewaPastQuestion, LoksewaModelQuestion
+
 from django.db.models import Q
 # Create your views here.
 
@@ -527,6 +530,118 @@ class CustomerFeedbackView(View):
             return redirect('customer_feedback')
 
 
+def MaterialContentSearch(material_content_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in material_content_search_data:
+        query |= (
+            Q(subject__subject_name__icontains=search_term) |
+            Q(material_type__material_name__icontains=search_term) |
+            Q(subject__level__level_name__icontains=search_term) |
+            Q(subject__sem_year__sem_year_num__icontains=search_term)
+        )
+
+    # Query MaterialContent objects that match the search terms
+    search_results = MaterialContent.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_item = {
+            'id'                            : result.id,
+            'has_sub_content'               : result.has_sub_content,
+            'subject'                       : result.subject.subject_name,
+            'material_type'                 : result.material_type.material_name,
+            'level'                         : result.subject.level.level_name,
+            'sem_year'                      : result.subject.sem_year.sem_year_num,
+        }
+        results_list.append(search_item)
+
+    # Return the list of search results
+    return results_list
+
+
+def LoksewaNotesSearch(loksewa_notes_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in loksewa_notes_search_data:
+        query |= (
+        Q(name__icontains=search_term)
+        )
+
+    # Query MaterialContent objects that match the search terms
+    search_results = LoksewaNotes.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_item = {
+            'id'                            : result.id,
+            'name'                          : result.name,
+            'loksewanotes'                  : 'loksewanotes',    # Flag indicating it's a Loksewa notes result
+        }
+        results_list.append(search_item)
+
+    # Return the list of search results
+    return results_list
+
+
+def LoksewaPastQuestionSearch(loksewa_past_question_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in loksewa_past_question_search_data:
+        query |= (
+            Q(year__icontains=search_term)
+        )
+    
+    # Query LoksewaPastQuestion objects that match the search terms
+    search_results = LoksewaPastQuestion.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_item = {
+            'id' : result.id,
+            'year' : result.year,
+            'loksewapastquestion': 'loksewapastquestion' # Flag indicating it's a Loksewa past question result
+        }
+        results_list.append(search_item)
+
+    # Return the list of search results
+    return results_list
+
+
+def LoksewaModelQuestionSearch(loksewa_model_question_search_data):
+    # Build a dynamic query using Q objects 
+    query = Q()
+    for search_term in loksewa_model_question_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query LoksewaModelQuestion objects that match the search terms
+    search_results = LoksewaModelQuestion.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id':result.id,
+            'name': result.name,
+            'loksewamodelquestion' : 'loksewamodelquestion'    # Flag indicating it's a Loksewa model question result
+        }
+        results_list.append(search_term)
+
+    # Return the list of search results
+    return results_list
+
+
 class SearchView(View):
     """
     View class for handling search requests
@@ -545,32 +660,15 @@ class SearchView(View):
             # Split the search term into a list of individual search terms
             search_terms_list = search_term.split(' ') if search_term else []
 
-            # Build a dynamic query using Q objects
-            query = Q()
-            for search_term in search_terms_list:
-                query |= (
-                    Q(subject__subject_name__icontains=search_term) |
-                    Q(material_type__material_name__icontains=search_term) |
-                    Q(subject__level__level_name__icontains=search_term) |
-                    Q(subject__sem_year__sem_year_num__icontains=search_term)
-                )
-                
-            # Query MaterialContent objects that match the search terms
-            search_results = MaterialContent.objects.filter(query)
-
-            # Generate a list of dictionaries with relevant information from search_results
-            results_list = []
-            for result in search_results:
-                search_item = {
-                    'id'                            : result.id,
-                    'has_sub_content'               : result.has_sub_content,
-                    'subject'                       : result.subject.subject_name,
-                    'material_type'                 : result.material_type.material_name,
-                    'level'                         : result.subject.level.level_name,
-                    'sem_year'                      : result.subject.sem_year.sem_year_num,
-                }
-                results_list.append(search_item)
-
+            # Call the search functions and capture the returned results
+            material_content_results = MaterialContentSearch(search_terms_list)
+            loksewa_notes_results = LoksewaNotesSearch(search_terms_list)
+            loksewa_past_question_results = LoksewaPastQuestionSearch(search_terms_list)
+            loksewa_model_question_results = LoksewaModelQuestionSearch(search_terms_list)
+            
+            # Combine the results from both functions
+            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results
+            
             # Sort the results_list based on the number of matched search terms with each object's value
             results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)
 
@@ -579,3 +677,5 @@ class SearchView(View):
 
         # Return an error message for invalid requests
         return JsonResponse({'message': 'Invalid request'})
+
+
