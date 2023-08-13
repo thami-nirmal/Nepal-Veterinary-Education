@@ -16,7 +16,13 @@ from django.urls import resolve
 from django.http import JsonResponse
 
 from graduate.models import MaterialContent
-from post_graduate.models import LoksewaNotes, LoksewaPastQuestion, LoksewaModelQuestion
+from post_graduate.models import (LoksewaNotes, 
+                                LoksewaPastQuestion,
+                                LoksewaModelQuestion,
+                                CouncilAct,
+                                CouncilRegulation,
+                                CouncilPastQuestion,
+                                CouncilModelQuestion)
 
 from django.db.models import Q
 # Create your views here.
@@ -580,7 +586,7 @@ def LoksewaNotesSearch(loksewa_notes_search_data):
         search_item = {
             'id'                            : result.id,
             'name'                          : result.name,
-            'loksewanotes'                  : 'loksewanotes',    # Flag indicating it's a Loksewa notes result
+            'loksewa_notes'                  : 'loksewa_notes',    # Flag indicating it's a Loksewa notes result
         }
         results_list.append(search_item)
 
@@ -607,7 +613,7 @@ def LoksewaPastQuestionSearch(loksewa_past_question_search_data):
         search_item = {
             'id' : result.id,
             'year' : result.year,
-            'loksewapastquestion': 'loksewapastquestion' # Flag indicating it's a Loksewa past question result
+            'loksewa_past_question': 'loksewa_past_question' # Flag indicating it's a Loksewa past question result
         }
         results_list.append(search_item)
 
@@ -634,10 +640,118 @@ def LoksewaModelQuestionSearch(loksewa_model_question_search_data):
         search_term = {
             'id':result.id,
             'name': result.name,
-            'loksewamodelquestion' : 'loksewamodelquestion'    # Flag indicating it's a Loksewa model question result
+            'loksewa_model_question' : 'loksewa_model_question'    # Flag indicating it's a Loksewa model question result
         }
         results_list.append(search_term)
 
+    # Return the list of search results
+    return results_list
+
+
+def CouncilActSearch(council_act_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in council_act_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = CouncilAct.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'name':result.name,
+            'council_act':'council_act'   # Flag indicating it's a council act result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
+def CouncilRegulationSearch(council_regulation_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in council_regulation_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = CouncilRegulation.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'name':result.name,
+            'council_regulation':'council_regulation'   # Flag indicating it's a council regulation result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
+def CouncilPastQuestionSearch(council_past_question_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in council_past_question_search_data:
+        query |= (
+            Q(year__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = CouncilPastQuestion.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'year':result.year,
+            'council_past_question':'council_past_question'   # Flag indicating it's a council past question result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
+def CouncilModelQuestionSearch(council_model_question_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in council_model_question_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = CouncilModelQuestion.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'name':result.name,
+            'council_model_question':'council_model_question'   # Flag indicating it's a council model question result
+        }
+        results_list.append(search_term)
+    
     # Return the list of search results
     return results_list
 
@@ -661,13 +775,19 @@ class SearchView(View):
             search_terms_list = search_term.split(' ') if search_term else []
 
             # Call the search functions and capture the returned results
-            material_content_results = MaterialContentSearch(search_terms_list)
-            loksewa_notes_results = LoksewaNotesSearch(search_terms_list)
-            loksewa_past_question_results = LoksewaPastQuestionSearch(search_terms_list)
-            loksewa_model_question_results = LoksewaModelQuestionSearch(search_terms_list)
+            material_content_results             = MaterialContentSearch(search_terms_list)
+            loksewa_notes_results                = LoksewaNotesSearch(search_terms_list)
+            loksewa_past_question_results        = LoksewaPastQuestionSearch(search_terms_list)
+            loksewa_model_question_results       = LoksewaModelQuestionSearch(search_terms_list)
             
+            council_act_results                  = CouncilActSearch(search_terms_list)
+            council_regulation_results           = CouncilRegulationSearch(search_terms_list)
+            council_past_question_results        = CouncilPastQuestionSearch(search_terms_list)
+            council_model_question_results       = CouncilModelQuestionSearch(search_terms_list)
+
+
             # Combine the results from both functions
-            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results
+            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results
             
             # Sort the results_list based on the number of matched search terms with each object's value
             results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)

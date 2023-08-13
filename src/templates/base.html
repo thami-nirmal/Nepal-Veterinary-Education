@@ -328,7 +328,7 @@
                             else{
                                 // Generate HTML for search window items with highlighted text
                                 const searchWindowItems = searchResults.map(result => {
-                                    if (result.loksewanotes) {
+                                    if (result.loksewa_notes) {
                                         // Format the search item as desired
                                         const { id, name } = result;
                                         const highlightedName = highlightMatchedLetters(name, searchTerm);
@@ -337,7 +337,7 @@
                                         const anchorTag = `<a href="/post-graduate/loksewa-notes-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<div class="search-window-item">${anchorTag}</div>`;
                                     }
-                                    else if (result.loksewapastquestion){
+                                    else if (result.loksewa_past_question){
                                         const { id, year } = result;
                                         const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
                                         const formattedItem = `${highlightedYear}-Past Question (Loksewa)`;
@@ -345,13 +345,49 @@
                                         const anchorTag = `<a href="/post-graduate/loksewa-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<div class="search-window-item">${anchorTag}</div>`;
                                     }
-                                    else if(result.loksewamodelquestion){
+                                    else if(result.loksewa_model_question){
                                         // Format the search item as desired
                                         const { id, name } = result;
                                         const highlightedName = highlightMatchedLetters(name, searchTerm);
                                         const formattedItem = `${highlightedName}-Model Question (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.council_act){
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-Council Act (Council)`;
+
+                                        const anchorTag = `<a href="/post-graduate/council-act-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.council_regulation){
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-Council Regulation (Council)`;
+
+                                        const anchorTag = `<a href="/post-graduate/council-regulation-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.council_past_question){
+                                        // Format the search item as desired
+                                        const { id, year } = result;
+                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem = `${highlightedYear}-Council Past Question (Council)`;
+
+                                        const anchorTag = `<a href="/post-graduate/council-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.council_model_question){
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-Council Model Question (Council)`;
+
+                                        const anchorTag = `<a href="/post-graduate/council-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<div class="search-window-item">${anchorTag}</div>`;
                                     }
                                     else {

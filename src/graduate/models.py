@@ -120,6 +120,7 @@ class Subject(models.Model):
             self.slug        = f"{semyear_slug}-{subject_name}"
         super(Subject, self).save(*args, **kwargs)
 
+
 class MaterialContent(models.Model):
     """
     Represents a material content with a specific attributes
