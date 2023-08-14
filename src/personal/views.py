@@ -23,6 +23,8 @@ from post_graduate.models import (LoksewaNotes,
                                 CouncilRegulation,
                                 CouncilPastQuestion,
                                 CouncilModelQuestion)
+from entrance.models import GK
+from blog.models import Post
 
 from django.db.models import Q
 # Create your views here.
@@ -756,6 +758,59 @@ def CouncilModelQuestionSearch(council_model_question_search_data):
     return results_list
 
 
+def GKSearch(gk_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in gk_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = GK.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'name':result.name,
+            'general_knowledge':'general_knowledge'   # Flag indicating it's a general knowledge result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
+def BlogPostSearch(blog_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in blog_search_data:
+        query |= (
+            Q(title__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = Post.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.uuid,
+            'title':result.title,
+            'blog_post':'blog_post'   # Flag indicating it's a blog post result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
 class SearchView(View):
     """
     View class for handling search requests
@@ -776,6 +831,7 @@ class SearchView(View):
 
             # Call the search functions and capture the returned results
             material_content_results             = MaterialContentSearch(search_terms_list)
+
             loksewa_notes_results                = LoksewaNotesSearch(search_terms_list)
             loksewa_past_question_results        = LoksewaPastQuestionSearch(search_terms_list)
             loksewa_model_question_results       = LoksewaModelQuestionSearch(search_terms_list)
@@ -785,9 +841,12 @@ class SearchView(View):
             council_past_question_results        = CouncilPastQuestionSearch(search_terms_list)
             council_model_question_results       = CouncilModelQuestionSearch(search_terms_list)
 
+            general_knowledge_results            = GKSearch(search_terms_list)
+
+            blog_post_results                    = BlogPostSearch(search_terms_list)
 
             # Combine the results from both functions
-            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results
+            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results + general_knowledge_results + blog_post_results
             
             # Sort the results_list based on the number of matched search terms with each object's value
             results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)

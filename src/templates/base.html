@@ -325,7 +325,7 @@
                                 searchWindow.html('<div class="search-window-item">No data found</div>');
                                 searchWindow.css("display", "block");
                             }
-                            else{
+                            else{                               
                                 // Generate HTML for search window items with highlighted text
                                 const searchWindowItems = searchResults.map(result => {
                                     if (result.loksewa_notes) {
@@ -388,6 +388,24 @@
                                         const formattedItem = `${highlightedName}-Council Model Question (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.general_knowledge){
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}-General Knowledge (Entrance Preparation)`;
+
+                                        const anchorTag = `<a href="/entrance/gk-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                    }
+                                    else if(result.blog_post){
+                                        // Format the search item as desired
+                                        const { id, title } = result;
+                                        const highlightedTitle = highlightMatchedLetters(title, searchTerm);
+                                        const formattedItem = `${highlightedTitle}- (Blog)`;
+
+                                        const anchorTag = `<a href="/blog/post-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<div class="search-window-item">${anchorTag}</div>`;
                                     }
                                     else {

@@ -50,7 +50,7 @@ class GK(models.Model):
     
     class Meta:
         verbose_name_plural = 'GK'
-        
+
 
 class ModelQuestion(models.Model):
     """
