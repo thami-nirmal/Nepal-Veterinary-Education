@@ -243,6 +243,7 @@ class LoadMoreCommentView(View):
 
             for comment in desired_comment_list:
                 serialized_comments.append({
+                    'id':comment.id,
                     'user_first_name':comment.user.first_name,
                     'user_last_name':comment.user.last_name,
                     'username':comment.user.username,
