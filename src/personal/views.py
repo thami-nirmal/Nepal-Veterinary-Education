@@ -23,7 +23,8 @@ from post_graduate.models import (LoksewaNotes,
                                 CouncilRegulation,
                                 CouncilPastQuestion,
                                 CouncilModelQuestion)
-from entrance.models import GK
+
+from entrance.models import GK, PastQuestion
 from blog.models import Post
 
 from django.db.models import Q
@@ -538,6 +539,7 @@ class CustomerFeedbackView(View):
             return redirect('customer_feedback')
 
 
+# region Search View
 def MaterialContentSearch(material_content_search_data):
     # Build a dynamic query using Q objects
     query = Q()
@@ -811,6 +813,33 @@ def BlogPostSearch(blog_search_data):
     # Return the list of search results
     return results_list
 
+def EntrancePastQuestion(entrance_past_question_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in entrance_past_question_search_data:
+        query |= (
+            Q(year__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = PastQuestion.objects.filter(query)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'year':result.year,
+            'entrance_past_question':'entrance_past_question'   # Flag indicating it's a entrance past question result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
 class SearchView(View):
     """
     View class for handling search requests
@@ -829,7 +858,7 @@ class SearchView(View):
             # Split the search term into a list of individual search terms
             search_terms_list = search_term.split(' ') if search_term else []
 
-            # Call the search functions and capture the returned results
+            # Call the search functions and capture the returned results from the specific models
             material_content_results             = MaterialContentSearch(search_terms_list)
 
             loksewa_notes_results                = LoksewaNotesSearch(search_terms_list)
@@ -842,11 +871,12 @@ class SearchView(View):
             council_model_question_results       = CouncilModelQuestionSearch(search_terms_list)
 
             general_knowledge_results            = GKSearch(search_terms_list)
+            entrance_past_question_results       = EntrancePastQuestion(search_terms_list)
 
             blog_post_results                    = BlogPostSearch(search_terms_list)
 
             # Combine the results from both functions
-            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results + general_knowledge_results + blog_post_results
+            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results + general_knowledge_results + entrance_past_question_results + blog_post_results
             
             # Sort the results_list based on the number of matched search terms with each object's value
             results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)
@@ -857,4 +887,4 @@ class SearchView(View):
         # Return an error message for invalid requests
         return JsonResponse({'message': 'Invalid request'})
 
-
+#endregion

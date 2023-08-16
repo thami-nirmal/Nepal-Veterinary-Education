@@ -61,13 +61,13 @@ Entrance - Past Question
         $(document).on('click', '[id^="past_question_id"]', function (e) {
             var past_question_object_id = $(this).attr('past_question_object_data');   // Retrieve the value of the 'past_question_object_data' attribute for the clicked element
             $.ajax({
-                type: 'GET',
-                url: '',
-                "X-Requested-With": "XMLHttpRequest",
-                data: {
-                    id: past_question_object_id       // Pass the 'past_question_object_id' as a parameter in the AJAX request
+                type: 'GET',                        
+                url: '',                                            
+                "X-Requested-With": "XMLHttpRequest",                                   
+                data: {                                                                         
+                    id: past_question_object_id       // Pass the 'past_question_object_id' as a parameter in the AJAX request 
                 },
-                success: function (response) {
+                success: function (response) {                      
                     console.log(response.data[0])
                     year = response.data[0].year       // Get the 'year' value from the response
                     url = response.data[0].url         // Get the 'url' value from the response

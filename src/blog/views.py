@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
-
+from account.models import Profile
 from personal.views import LevelAndMaterialDetails
 # Create your views here.
 
@@ -94,6 +94,10 @@ class PostContentView(View):
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
 
+        # Retrieve the user profile
+        get_user_profile = Profile.objects.get(user=user)
+        
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list              = LevelAndMaterialDetails()
 
@@ -107,7 +111,9 @@ class PostContentView(View):
 
             'posted_comment_list'                      : posted_comment_list,
 
-            'post_like_count'                          : post_like_count
+            'post_like_count'                          : post_like_count,
+
+            'get_user_profile'                         : get_user_profile
         }
 
         # Render the template with the provided context
@@ -172,7 +178,8 @@ class PostCommentView(View):
                 # Create a dictionary to store the formatted comment data
                 comments_data = {
                     'id'   : posted_comment.id,
-                    'user': posted_comment.user.first_name,
+                    'user_first_name': posted_comment.user.first_name,
+                    'user_last_name': posted_comment.user.last_name,
                     'date': formatted_date,
                     'comment': posted_comment.comment,
                     'logged_in_user': str(logged_in_user),
@@ -184,7 +191,8 @@ class PostCommentView(View):
             comment_data = {
                 'login': True,
                 'id':post_comment.id,
-                'user': post_comment.user.first_name,
+                'user_first_name': post_comment.user.first_name,
+                'user_last_name': post_comment.user.last_name,
                 'username':post_comment.user.username,
                 'date': formatted_date,
                 'comment': post_comment.comment,
@@ -235,7 +243,8 @@ class LoadMoreCommentView(View):
 
             for comment in desired_comment_list:
                 serialized_comments.append({
-                    'user':comment.user.first_name,
+                    'user_first_name':comment.user.first_name,
+                    'user_last_name':comment.user.last_name,
                     'username':comment.user.username,
                     'date':comment.date,
                     'comment':comment.comment,

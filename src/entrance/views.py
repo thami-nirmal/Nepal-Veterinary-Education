@@ -91,7 +91,7 @@ class GkContentView(View):
         # Prepare the context data for rendering the template
         context = {
             'gk_details'                      : gk_details_object,
-            
+
             'level_material_detail_list'      : level_material_detail_list
         }
 
@@ -136,9 +136,9 @@ class PastQuestionView(View):
 
                 'url'           : past_question_object.pdf_url, 
 
-                'types'         : past_question_object.types,
+                'types'         : past_question_object.types,   
 
-                }
+                }   
             
             # Append the PastQuestion data dictionary to the collection list
             past_question_collection_list.append(past_question_data) 
