@@ -23,12 +23,21 @@ Entrance - Past Question
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
+
+            <div class="top-bar-view">
+                <a class="year-tags"  >YEAR:1990</a>
+                <a class="year-tags"  >YEAR:1990</a>
+                <a class="year-tags active"  >YEAR:1990</a>
+                <a class="year-tags"  >YEAR:1990</a>
+                <a class="year-tags"  >YEAR:1990</a>
+                <a class="year-tags"  >YEAR:1990</a>
+            </div>
             {% if past_question_object_list %}
-            {% for item in past_question_object_list %}
+            <!-- {% for item in past_question_object_list %}
             <a id="past_question_id{{item.id}}"
                 style="margin: 2px; padding: 2px; border: 1px solid #232e52; border-radius: 10px; cursor: pointer; background-color: #232e52; color: white; "
                 past_question_object_data="{{item.id}}">YEAR:{{item.year}}</a>
-            {% endfor %}
+            {% endfor %} -->
             <h6 id='past_question_details'>Selected question paper: {{past_question.year}}({{past_question.types}})</h6>
             <div class="que-coll-left-container">
                 {% if past_question.is_pdf %}
