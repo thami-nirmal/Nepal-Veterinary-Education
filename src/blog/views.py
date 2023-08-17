@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
-from account.models import Profile
 from personal.views import LevelAndMaterialDetails
 # Create your views here.
 
@@ -67,7 +66,7 @@ class PostContentView(View):
 
         # Retrieve the latest 4 comments for the load more comments
         posted_comment_object_list               = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
-
+        
         # Logged in user
         user = request.user
 
@@ -94,10 +93,6 @@ class PostContentView(View):
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
 
-        # Retrieve the user profile
-        get_user_profile = Profile.objects.get(user=user)
-        
-
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list              = LevelAndMaterialDetails()
 
@@ -113,7 +108,6 @@ class PostContentView(View):
 
             'post_like_count'                          : post_like_count,
 
-            'get_user_profile'                         : get_user_profile
         }
 
         # Render the template with the provided context
@@ -187,6 +181,9 @@ class PostCommentView(View):
                 # Append the comment data dictionary to the posted_comment_list
                 posted_comment_list.append(comments_data)
 
+            user_profile_image = posted_comment.user.profile.profile_image.url
+            print("USER PROFILE IMAGE", user_profile_image)
+
             # Prepare the comment data to be returned as JSON response
             comment_data = {
                 'login': True,
@@ -197,7 +194,8 @@ class PostCommentView(View):
                 'date': formatted_date,
                 'comment': post_comment.comment,
                 'logged_in_user': str(logged_in_user),
-                'posted_comment_list': posted_comment_list
+                'posted_comment_list': posted_comment_list,
+                'user_profile_image' : user_profile_image
             }
             
             # Return the comment data as JSON response
@@ -250,6 +248,7 @@ class LoadMoreCommentView(View):
                     'date':comment.date,
                     'comment':comment.comment,
                     'logged_in_user': str(logged_in_user),
+                    'user_profile_image': comment.user.profile.profile_image.url
                 })
             
             # Return a JSON response containing to seralized comments and the updated count

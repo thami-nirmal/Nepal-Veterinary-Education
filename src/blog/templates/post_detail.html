@@ -84,7 +84,7 @@ Post Detail Page
                                 <path d="M2 6.66602H14" stroke="#232E52" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                        </span>{{post_content_object.created_at}}</div>
+                        </span>{{post_content_object.created_at|date:"M d, Y" }}</div>
                     <div class="inner_container1"><span><svg width="24" height="24" viewBox="0 0 22 18"
                                 style="margin-right: 0.6rem;" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -222,12 +222,9 @@ Post Detail Page
                 {% for post_comment_data in posted_comment_object_list %}
                 <div class="subinner_innercontainer6">
                     <div class="inner1_container6">
-                        {% if get_user_profile.profile_image %}
-                        <img src="{{ get_user_profile.profile_image.url }}">
-                        {% else %}
-                        <p>No image available</p>
-                        {% endif %}
 
+                        <img src="{{ post_comment_data.user.profile.profile_image.url }}">
+                        
                         <div class="inner1_innercontainer6">
                             <h3>{{post_comment_data.user.first_name}} {{post_comment_data.user.last_name}}</h3>
                             <p class="p_tag">{{post_comment_data.date}}</p>
@@ -299,7 +296,7 @@ Post Detail Page
             inner1_container6.className = "inner1_container6";
 
             var image = document.createElement("img");
-            image.src = "{{ get_user_profile.profile_image.url }}";
+            image.src = comment.user_profile_image;
 
             var inner1_innercontainer6 = document.createElement("div");
             inner1_innercontainer6.className = "inner1_innercontainer6";
@@ -348,19 +345,16 @@ Post Detail Page
             if (comment.username === logged_in_user) {
                 console.log("Adding button here, ______________")
 
-
                 var editButton = document.createElement("a");
                 editButton.id = "editCommentbtn";
                 editButton.className = "p_tag";
                 editButton.textContent = "Edit";
                 editButton.setAttribute("onclick", "editCommentBtn('" + comment.id + "')");
 
-
                 var deleteButton = document.createElement("a");
                 deleteButton.className = "p_tag";
                 deleteButton.textContent = "Delete";
                 deleteButton.setAttribute("onclick", "deleteCommentBtn('" + comment.id + "')");
-
 
                 innerEditDelete.appendChild(editButton);
                 innerEditDelete.appendChild(deleteButton);
@@ -615,7 +609,7 @@ Post Detail Page
                     inner1_container6.className = "inner1_container6";
 
                     var image = document.createElement("img");
-                    image.src = "{{ get_user_profile.profile_image.url }}";
+                    image.src = comment.user_profile_image;
 
                     var inner1_innercontainer6 = document.createElement("div");
                     inner1_innercontainer6.className = "inner1_innercontainer6";
@@ -662,8 +656,6 @@ Post Detail Page
 
 
                     if (comment.username === logged_in_user) {
-                        console.log("Adding button here, ______________")
-
 
                         var editButton = document.createElement("a");
                         editButton.id = "editCommentbtn";
@@ -671,12 +663,10 @@ Post Detail Page
                         editButton.textContent = "Edit";
                         editButton.setAttribute("onclick", "editCommentBtn('" + comment.id + "')");
 
-
                         var deleteButton = document.createElement("a");
                         deleteButton.className = "p_tag";
                         deleteButton.textContent = "Delete";
                         deleteButton.setAttribute("onclick", "deleteCommentBtn('" + comment.id + "')");
-
 
                         innerEditDelete.appendChild(editButton);
                         innerEditDelete.appendChild(deleteButton);
