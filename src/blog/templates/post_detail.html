@@ -133,13 +133,27 @@ Post Detail Page
             <div style="height: 1px;width:100%; background: #DBE3EB;margin: 20px 0 10px 0;"></div>
             <div class="subinner_container4">
                 <div class="subinner_innercontainer4">
-                    <div class="heart_btn">
+                    <div id="likeBtns">
+                    {% if user_post_like %}
+                    {% if user_post_like_obj %}
+                    <div id="dislikeBtn" onclick="dislikeBtn('{{ user_post_like_obj.id }}')" class="heart_btn">
+                        <div class="content heart-active">
+                            <span class="heart heart-active"></span>
+                            <span class="like">Like</span>
+                            <span class="num">{{post_like_count}}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div id="likeBtn" onclick="likeBtn()" class="heart_btn">
                         <div class="content">
                             <span class="heart"></span>
                             <span class="like">Like</span>
-                            <span class="num">13</span>
+                            <span class="num">{{post_like_count}} </span>
                         </div>
                     </div>
+                    {% endif %}
+                </div>
                     <div class="subinner2_innercontainer4">
                         <div class="share">
                             <p>Share</p>
@@ -327,7 +341,6 @@ Post Detail Page
             var innerEditDelete = document.createElement("div");
             innerEditDelete.className = "innerEditDelete";
 
-
             subinner_innercontainer6.appendChild(inner1_container6);
             inner1_container6.appendChild(image);
             inner1_container6.appendChild(inner1_innercontainer6);
@@ -361,7 +374,6 @@ Post Detail Page
                 console.log("We came here")
 
             }
-
 
             if (comment.posted_comment_list.length >= 5) {
 
@@ -685,6 +697,132 @@ Post Detail Page
         });
     }
 
+    // Post like Button
+    function likeBtn() {
+        var post_id = $('#uuid').val();
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        console.log(post_id, "This is post id")
+        $.ajax({
+            type: 'POST',
+            url: '/blog/like-btn/',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                post_id: post_id
+            },
+            success: function (response) {
+
+                console.log(response);
+                var login_user_with_post_like = response.saved_post_like[0].login
+
+                if (login_user_with_post_like === true){
+                    var get_post_like_id = response.saved_post_like[0].post_like_id
+                    var get_post_like_user = response.saved_post_like[0].post_like_user
+                    var get_post_like_count = response.saved_post_like[0].post_like_count
+
+                    $('#like_count').text(get_post_like_count);
+
+                    $('#likeBtn').remove();
+
+                    var subinner_innercontainer4 = document.createElement("div");
+                    subinner_innercontainer4.className = "subinner_innercontainer4";
+
+                    var dislikeBtn = document.createElement("div");
+                    dislikeBtn.setAttribute("id", "dislikeBtn");
+                    dislikeBtn.setAttribute("class", "heart_btn");
+                    dislikeBtn.setAttribute("onclick", "dislikeBtn(('" + get_post_like_id + "'))");
+                    
+                    var content = document.createElement("div");
+                    content.setAttribute("class","content heart-active");
+                    
+                    var heart = document.createElement("span")
+                    heart.setAttribute("class","heart heart-active");
+                    
+                    var like = document.createElement("span")
+                    like.setAttribute("class","like");
+                    like.textContent = "Like";
+
+                    var num = document.createElement("span");
+                    num.setAttribute("class","num");
+                    num.textContent = get_post_like_count;
+                    
+                    dislikeBtn.appendChild(content);
+                    content.appendChild(heart);
+                    content.appendChild(like);
+                    content.appendChild(num);
+                    
+                    $('#likeBtns').append(dislikeBtn);
+
+                }
+                else{
+                    window.location.href = "{% url 'login' %}";
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    //Post dislike Button
+    function dislikeBtn(post_like_id) {
+        var post_id = $('#uuid').val();
+
+        var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        $.ajax({
+            type: 'POST',
+            url: '/blog/dislike-btn/',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                post_id: post_id,
+                post_like_id: post_like_id
+            },
+            success: function (response) {
+                console.log(response);
+                var get_post_like_count = response.data[0].post_like_count
+
+                $('#like_count').text(get_post_like_count);
+                
+                $('#dislikeBtn').remove();
+
+                var subinner_innercontainer4 = document.createElement("div");
+                subinner_innercontainer4.className = "subinner_innercontainer4";
+
+                var likeBtn = document.createElement("div");
+                likeBtn.setAttribute("id", "likeBtn");
+                likeBtn.setAttribute("class", "heart_btn");
+                likeBtn.setAttribute("onclick", "likeBtn()");
+                    
+                var content = document.createElement("div");
+                content.setAttribute("class","content");
+                    
+                var heart = document.createElement("span")
+                heart.setAttribute("class","heart");
+                    
+                var like = document.createElement("span")
+                like.setAttribute("class","like");
+                like.textContent = "Like";
+
+                var num = document.createElement("span");
+                num.setAttribute("class","num");
+                num.textContent = get_post_like_count;
+                    
+                likeBtn.appendChild(content);
+                content.appendChild(heart);
+                content.appendChild(like);
+                content.appendChild(num);
+                
+                $('#likeBtns').append(likeBtn);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        });
+    }
 </script>
 
 {% endblock content %}

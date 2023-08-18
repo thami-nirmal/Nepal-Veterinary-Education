@@ -69,6 +69,8 @@ class PostContentView(View):
         
         # Logged in user
         user = request.user
+        user_post_like = False
+        user_post_like_obj = None
 
         if user.is_authenticated:
             # Try to retrieve the user's post like object with is_liked=True
@@ -76,19 +78,15 @@ class PostContentView(View):
                 # Retrieve the user's post like object for the given post (identified by slug)
                 # with is_liked=True, indicating that the user has liked the post
                 user_post_like_obj = PostLikes.objects.get(post__uuid=slug, user=user, is_liked=True)
+
             except PostLikes.DoesNotExist:
                 # If the user's post like object does not exist or the user has not liked the post,
                 # set user_post_like_obj to None
                 user_post_like_obj = None
 
             # Check if the user has any post like
-            user_post_like                          = PostLikes.objects.filter(post=slug,user=user).exists()
-
-            context = {
-                'user_post_like'                           : user_post_like,
-
-                'user_post_like_obj'                       : user_post_like_obj,
-            }
+            if PostLikes.objects.filter(post=slug,user=user).exists():
+                user_post_like =True
 
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
@@ -98,6 +96,10 @@ class PostContentView(View):
 
         # Prepare the context data for rendering the template
         context = {
+            'user_post_like'                           : user_post_like,
+
+            'user_post_like_obj'                       : user_post_like_obj,
+
             'post_content_object'                      : post_content_object,
             
             'level_material_detail_list'               : level_material_detail_list,
@@ -396,10 +398,12 @@ class likeBtnView(View):
             get_post_object = Post.objects.get(uuid = post_id)
 
             # Create a new PostLikes object representing the like action
-            post_like = PostLikes(user=logged_in_user, post=get_post_object, is_liked=True)
+            if not PostLikes.objects.filter(user=logged_in_user,post=get_post_object).exists():
+                post_like = PostLikes(user=logged_in_user, post=get_post_object, is_liked=True)
 
-            # Save the Postlikes object to the database
-            post_like.save()
+                # Save the Postlikes object to the database
+                post_like.save()
+                
 
             # Retrieve the post liked count of post
             post_like_count        = PostLikes.objects.filter(post=get_post_object, is_liked=True).count()
