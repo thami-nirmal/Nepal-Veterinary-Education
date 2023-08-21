@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'pagination',
+    'django_social_share'
 
 ]
 
@@ -62,7 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'nepalvetedu.urls'
-  
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -136,9 +137,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
-# ---------------------Sign with Google start
-
-#-------------------end---------------------
 
 
 # Default primary key field type

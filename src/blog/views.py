@@ -3,6 +3,7 @@ from django.views import View
 from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
 from personal.views import LevelAndMaterialDetails
+
 # Create your views here.
 
 class PostView(View):
@@ -69,6 +70,7 @@ class PostContentView(View):
         
         # Logged in user
         user = request.user
+
         user_post_like = False
         user_post_like_obj = None
 
