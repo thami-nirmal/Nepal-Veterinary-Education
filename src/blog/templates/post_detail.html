@@ -4,24 +4,24 @@
 {% block meta %}
     <!-- Meta description and keywords for SEO -->
     {% if post_content_object %}
-    <meta name="description" content="{{post_content_object.seo_description}}">
-    <meta name="keywords" content="{{ post_content_object.seo_keyword}}">
-    <meta name="author" content="{{post_content_object.user.first_name}}">
-    <meta name="robots" content="index, follow">
-    <!-- <link rel="canonical" href="https://aarawantech.com"> -->
+        <meta name="description" content="{{post_content_object.seo_description}}">
+        <meta name="keywords" content="{{ post_content_object.seo_keyword}}">
+        <meta name="author" content="{{post_content_object.user.first_name}}">
+        <meta name="robots" content="index, follow">
+        <!-- <link rel="canonical" href="https://aarawantech.com"> -->
 
-    <!-- Open Graph protocol for social media previews -->
-    <meta property="og:title" content="{{post_content_object.title}}">
-    <meta property="og:description" content="{{post_content_object.short_description}}">
-    <meta property="og:url" content="{{request.build_absolute_uri}}">
-    <meta property="og:image" content="{{post_content_object.feature_image.url}}">
+        <!-- Open Graph protocol for social media previews -->
+        <meta property="og:title" content="{{ post_content_object.title }}">
+        <meta property="og:description" content="{{ post_content_object.short_description }}">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:image" content="{{ post_content_object.feature_image.url }}">
 
-    <!-- twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="{{request.build_absolute_uri}}">
-    <meta property="twitter:title" content="{{post_content_object.title}}">
-    <meta property="twitter:image" content="{{post_content_object.feature_image.url}}">
-    <meta property="twitter:description" content="{{post_content_object.short_description}}">
+        <!-- twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+        <meta property="twitter:title" content="{{ post_content_object.title }}">
+        <meta property="twitter:image" content="https://ccba-2400-1a00-b040-f430-d585-c59b-c38d-6eb3.ngrok-free.app{{ post_content_object.feature_image.url }}">
+        <meta property="twitter:description" content="{{ post_content_object.short_description }}">
 
     {% endif %}
 {% endblock %}
@@ -37,9 +37,6 @@ Post Detail Page
             <h3>12.3k</h3>
             <p class="p_tag"> Shares</p>
             <div style="height: 1px;width:100%; background: #DBE3EB;margin: 20px 0 10px 0;"></div>
-            <!-- {% post_to_facebook object_or_url "Post to Facebook!" %} -->
-            <!-- {% post_to_twitter "New Song: {{object.title}}. Check it out!" object_or_url "Post to Twitter" %} -->
-            <!-- {% send_email object.title "New Song: {{object.title}}. Check it out!" object_or_url "Share via email" %} -->
 
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"> <svg width="57" height="57" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="28.4017" cy="28.4017" r="28.4017" fill="#EEF2F9" />
@@ -66,6 +63,7 @@ Post Detail Page
                         fill="white" />
                 </svg>
             </a>
+            
             <a href="mailto:?subject=Check%20out%20this%20blog%20post&body=I%20thought%20you%20might%20be%20interested%20in%20this%20blog%20post:%20{{ request.build_absolute_uri }}" target="_blank"><svg width="57" height="57" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="28.4017" cy="28.4154" r="28.4017" fill="#EEF2F9" />
                     <rect x="12.6221" y="12.6367" width="31.5575" height="31.5575" rx="15.7787" fill="white" />
@@ -85,12 +83,12 @@ Post Detail Page
                         fill="#C5221F" />
                 </svg>
             </a>
+            
         </div>
     </div>
     <div class="innermain">
         <div class="container2">
             {% if post_content_object %}
-            
             <div class="inner2_container2">
                 <div
                     style="width:7rem;background-color: #4176FF;color: white;border-radius: 6px;text-align:center;padding:7px;">
@@ -130,9 +128,7 @@ Post Detail Page
                 </div>
             </div>
             <div class="subinner_container2">
-                <!-- <p class="p_des">
-                    {{post_content_object.description}}
-                </p> -->
+                
                 <img src="/images/picture.png" alt="">
                 
                 <p class="p_des">Travel facilitates connections with people from different backgrounds and

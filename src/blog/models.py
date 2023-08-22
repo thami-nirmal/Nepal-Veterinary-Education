@@ -34,7 +34,7 @@ class Post(models.Model):
     user                                    = models.ForeignKey(User, related_name = 'post_user',on_delete = models.CASCADE)
     slug                                    = models.SlugField(max_length = 50, unique=True, editable=False)
     title                                   = models.CharField(max_length = 150,blank = True)
-    feature_image                           = models.ImageField(upload_to='profile_images/', blank = True, null = True)
+    feature_image                           = models.ImageField(upload_to='feature_images/', blank = True, null = True)
     is_published                            = models.BooleanField(default = False)
     created_at                              = models.DateTimeField(auto_now_add = True)
     updated_at                              = models.DateField(auto_now = True)
