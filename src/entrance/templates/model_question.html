@@ -24,11 +24,12 @@ Entrance - Model Question
             </div>
             <div class="error-404-underline que-coll-line"></div>
             {% if model_question_object_list %}
-            {% for item in model_question_object_list %}
-            <a id="model_question_id{{item.id}}"
-                style="margin: 2px; padding: 2px; border: 1px solid #232e52; border-radius: 10px; cursor: pointer; background-color: #232e52; color: white; "
-                model_question_object_data="{{item.id}}">Name:{{item.name}}</a>
+            <div class="top-bar-view">
+                {% for item in model_question_object_list %}
+                <a id="model_question_id{{item.id}}" class="year-tags{% if forloop.first %} active{% endif %}" model_question_object_data="{{item.id}}">Name:{{item.name}}</a>
             {% endfor %}
+            </div>
+            
             <h6 id='model_question_details'>Selected question paper:
                 {{model_question.name}}({{model_question.model_code}})
             </h6>
@@ -41,7 +42,10 @@ Entrance - Model Question
                         width="100%" height="100%" responsive=true></iframe>
                 </div>
                 {% else %}
-                {{model_question.content|safe}}
+                <div id="modelQuestionContainer">
+                    {{model_question.content|safe}}
+                </div>
+                
                 {% endif %}
             </div>
             {% else %}
@@ -56,8 +60,9 @@ Entrance - Model Question
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
+{% if past_question.is_pdf %}
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
-
+{% endif %}
 <script>
     $(document).ready(function () {
         $(document).on('click', '[id^="model_question_id"]', function (e) {        
@@ -71,11 +76,18 @@ Entrance - Model Question
                 },
                 success: function (response) {
                     console.log(response.data[0])
-                    name = response.data[0].name              // Get the 'name' value from the response
-                    url = response.data[0].url                // Get the 'url' value from the response
-                    model_code = response.data[0].model_code  // Get the 'model code' value from the response
-                    $('#pdfFrame').attr('src', url)           // Set the 'src' attribute of the element with ID 'pdfFrame' to the 'url'
-                    $("#model_question_details").text('selected question paper:' + name + '(' + model_code + ')')   // Set the text content of the element with ID 'model question details' to the selected question paper details
+                    if (response.data[0].is_pdf == true){
+                        name = response.data[0].name              // Get the 'name' value from the response
+                        url = response.data[0].url                // Get the 'url' value from the response
+                        model_code = response.data[0].model_code  // Get the 'model code' value from the response
+                        $('#pdfFrame').attr('src', url)           // Set the 'src' attribute of the element with ID 'pdfFrame' to the 'url'
+                        $("#model_question_details").text('selected question paper:' + name + '(' + model_code + ')')   // Set the text content of the element with ID 'model question details' to the selected question paper details
+                    }
+                    else{
+                        content =response.data[0].content
+                        $('#modelQuestionContainer').html(content)
+                    }
+                    
                 },
                 error: function (error) {
                     console.log(error)          // Log any errors that occur during the AJAX request
@@ -83,6 +95,18 @@ Entrance - Model Question
             })
         });
     });
+
+    $(document).ready(function() {
+    // Add click event to year-tags links
+    $('.year-tags').click(function() {
+
+        // Remove active class from all links
+        $('.year-tags').removeClass('active');
+        
+        // Add active class to the clicked link
+        $(this).addClass('active');
+        });
+    }); 
 </script>
 
 {% endblock content %}

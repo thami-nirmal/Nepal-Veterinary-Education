@@ -41,6 +41,7 @@ class Post(models.Model):
     short_description                       = models.CharField(max_length=300, blank=True)
     post_category                           = models.ForeignKey(PostCategory, related_name='post_postCategory',on_delete=models.CASCADE,null=True)
     description                             = RichTextUploadingField(blank=True, null=True)
+    share_count                             = models.SmallIntegerField(null=True)
     seo_title                               = models.CharField(max_length=50, blank=True)
     seo_keyword                             = models.CharField(max_length=200, blank=True)
     seo_image                               = models.ImageField(upload_to='seo_images/',blank=True, null=True)

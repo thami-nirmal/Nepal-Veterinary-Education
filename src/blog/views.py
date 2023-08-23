@@ -92,6 +92,8 @@ class PostContentView(View):
 
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
+        
+        share_post_count                        = post_content_object.share_count
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list              = LevelAndMaterialDetails()
@@ -111,6 +113,8 @@ class PostContentView(View):
             'posted_comment_list'                      : posted_comment_list,
 
             'post_like_count'                          : post_like_count,
+
+            'share_post_count'                         : share_post_count
 
         }
 
@@ -387,6 +391,7 @@ class likeBtnView(View):
 
             # Get the currently logged-in user
             logged_in_user = request.user
+
             if not logged_in_user.is_authenticated:
 
                 saved_post_like = {
@@ -562,3 +567,48 @@ class UserViewsView(View):
         # If the request is not AJAX, return True
         return True
 
+
+class SharePostView(View):
+    """
+    This view handles AJAX POST requests to increment the share count of a post object.
+    """
+    def post(self, request, *args, **kwargs):
+        """
+        Handle the POST request to increment the share count of a post
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: JSON response
+        """
+        
+        # Check if the request is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            
+            # Get the post_id from the POST data
+            post_id = request.POST.get('post_id')
+            
+            # Retrieve the post object using the provided post_id
+            share_post_object = Post.objects.get(uuid=post_id)  
+            
+            # Increment the share count of the post object
+            if share_post_object.share_count is None:
+                share_post_object.share_count = 1
+            else:
+                share_post_object.share_count += 1
+
+            # Save the updated post object
+            share_post_object.save()
+
+            # Prepare data for the response
+            share_post_object_data_list = []
+            share_post_object_data = {
+                'post_share_count': share_post_object.share_count,
+            }
+
+            share_post_object_data_list.append(share_post_object_data)
+            
+            # Return a JSON response with the updated share count
+            return JsonResponse({'share_post_object_count': share_post_object_data_list})
+        
+        # If not an AJAX request, return True
+        return True

@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 # Register your models here.
 class PastQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['year','is_shown','pdf_url','is_pdf','formatted_content','types']
+    list_display            = ['year','is_shown','pdf_url','is_pdf','types']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['year']
 
@@ -44,7 +44,7 @@ admin.site.register(GK, GKAdmin)
 
 
 class ModelQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['name','model_code','is_shown','pdf_url','is_pdf','formatted_content']
+    list_display            = ['name','model_code','is_shown','pdf_url','is_pdf']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['name']
 

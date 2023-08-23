@@ -11,6 +11,7 @@ from .views import (PostView,
                     dislikeBtnView,
                     PostViewsView,
                     UserViewsView,
+                    SharePostView
                     )
 
 urlpatterns = [
@@ -35,5 +36,7 @@ urlpatterns = [
     path('post-views/', PostViewsView.as_view(), name='post_views'),
 
     path('user-views/', UserViewsView.as_view(), name='user_views'),
+
+    path('share-post/', SharePostView.as_view(), name='share_post'),
 
 ]

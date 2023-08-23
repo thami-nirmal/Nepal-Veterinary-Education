@@ -125,8 +125,7 @@ class PastQuestionView(View):
             id = request.GET['id']    
 
             # Retrieve the PastQuestion object with the given 'id'
-            past_question_object  = PastQuestion.objects.get(id = id)
-
+            past_question_object  = PastQuestion.objects.get(id = id, is_shown=True)
             # Create a list to hold the PastQuestion data
             past_question_collection_list = []
 
@@ -136,7 +135,11 @@ class PastQuestionView(View):
 
                 'url'           : past_question_object.pdf_url, 
 
-                'types'         : past_question_object.types,   
+                'content'       : past_question_object.content,
+
+                'types'         : past_question_object.types,
+
+                'is_pdf'        : past_question_object.is_pdf,
 
                 }   
             
@@ -208,6 +211,8 @@ class ModelQuestionView(View):
                 'url'          : model_question_object.pdf_url, 
 
                 'model_code'   : model_question_object.model_code,
+
+                'content'      : model_question_object.content,
                 }
             
             # Append the ModelQuestion data dictionary to the collection list
