@@ -36,7 +36,7 @@ class SubContentAdmin(admin.ModelAdmin):
     ordering              = ['-sub_content_name']
 
     fieldsets = [
-        (None, {'fields': ['sub_content_name','pdf_URL','is_pdf','is_shown','material_content']}),
+        (None, {'fields': ['sub_content_name','pdf_URL','is_pdf','is_shown','material_content','content']}),
         ('SEO Options', 
         {"classes": ["collapse"],
         'fields': ['seo_title', 'seo_keyword', 'seo_image', 'seo_description']}),
@@ -98,7 +98,7 @@ admin.site.register(Level,LevelAdmin)
 class MaterialContentAdmin(admin.ModelAdmin):
     form             = MaterialContentForm
 
-    list_display     = ['has_sub_content','formatted_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
+    list_display     = ['has_sub_content','pdf_URL','is_pdf','is_shown','get_level','material_type','subject']
     list_filter      = ['is_shown','has_sub_content']
 
     fieldsets = [

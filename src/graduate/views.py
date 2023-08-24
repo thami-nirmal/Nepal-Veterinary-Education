@@ -179,6 +179,10 @@ class GraduateSubContentView(View):
 
                 'url'                                  : sub_content_object.pdf_URL,
 
+                'is_pdf'                               : sub_content_object.is_pdf,
+
+                'content'                              : sub_content_object.content
+
                 }
             
             # Append the SubContent data dictionary to the collection list

@@ -153,7 +153,7 @@ class SubContent(models.Model):
     """
     sub_content_name              = models.CharField(max_length=80,blank=True)
     slug                          = models.SlugField(max_length=50, unique=True, editable=False, null=True)
-    content                       = RichTextUploadingField(null=True)
+    content                       = RichTextUploadingField(null=True, blank=True)
     pdf_URL                       = models.URLField(max_length=220,default='')
     is_pdf                        = models.BooleanField(default=True)
     is_shown                      = models.BooleanField(default=True)

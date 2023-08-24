@@ -41,5 +41,7 @@
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
+{% if graduate_details_object.is_pdf %}
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+{% endif %}
 {% endblock content %}
