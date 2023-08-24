@@ -43,7 +43,7 @@ admin.site.register(CouncilRegulation, CouncilRegulationAdmin)
 
 
 class CouncilModelQuestionAdmin(admin.ModelAdmin):
-    list_display            = ['name','is_shown','pdf_url','is_pdf','formatted_content']
+    list_display            = ['name','is_shown','pdf_url','is_pdf']
     list_filter             = ['is_shown', 'is_pdf']
     search_fields           = ['name']
 
@@ -63,7 +63,7 @@ admin.site.register(CouncilModelQuestion, CouncilModelQuestionAdmin)
 
 
 class CouncilPastQuestionAdmin(admin.ModelAdmin):
-    list_display             = ['is_shown','year','pdf_url','is_pdf','formatted_content','types']
+    list_display             = ['is_shown','year','pdf_url','is_pdf','types']
     list_filter              = ['is_shown','is_pdf']
     search_fields            = ['types']
     ordering                 = ['-year']

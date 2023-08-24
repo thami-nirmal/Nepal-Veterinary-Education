@@ -41,5 +41,8 @@ Post- Graduate Council Past Question
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
+{% if council_past_question_object.is_pdf %}
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+{% endif %}
+
 {% endblock content %}
