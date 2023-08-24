@@ -192,7 +192,7 @@ Post Detail Page
                             <i class="fa-solid fa-share" style="color: #a0a4ab;"></i>
                         </div>
                         <div class="hidden_content">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"> <svg width="57" height="57" viewBox="0 0 57 57" fill="none"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share_post"> <svg width="57" height="57" viewBox="0 0 57 57" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="28.4017" cy="28.4017" r="28.4017" fill="#EEF2F9" />
                                     <rect x="12.6221" y="12.623" width="31.5575" height="31.5575" rx="15.7787"
@@ -201,7 +201,7 @@ Post Detail Page
                                         d="M32.2608 29.4297L32.7105 26.5729H29.9407V24.716C29.9407 23.9349 30.3274 23.1716 31.5639 23.1716H32.8409V20.7388C32.0972 20.6202 31.3458 20.5561 30.5927 20.5469C28.3131 20.5469 26.8248 21.9172 26.8248 24.3946V26.5729H24.2979V29.4297H26.8248V36.3396H29.9407V29.4297H32.2608Z"
                                         fill="white" />
                                 </svg></a>
-                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank"> <svg width="57" height="57" viewBox="0 0 57 57" fill="none"
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank" class="share_post"> <svg width="57" height="57" viewBox="0 0 57 57" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="28.4017" cy="28.4056" r="28.4017" fill="#EEF2F9" />
                                     <rect x="12.6221" y="12.627" width="31.5575" height="31.5575" rx="15.7787"
@@ -210,7 +210,7 @@ Post Detail Page
                                         d="M36.2348 23.409C35.7137 23.6335 35.1659 23.7898 34.605 23.874C34.8672 23.829 35.2531 23.3565 35.4068 23.1653C35.6401 22.8768 35.818 22.5474 35.9313 22.194C35.9313 22.1677 35.9575 22.1302 35.9313 22.1115C35.9181 22.1043 35.9033 22.1005 35.8882 22.1005C35.8732 22.1005 35.8583 22.1043 35.8451 22.1115C35.236 22.4417 34.5877 22.6937 33.9156 22.8615C33.8921 22.8687 33.8672 22.8693 33.8434 22.8634C33.8197 22.8574 33.798 22.8451 33.7807 22.8278C33.7283 22.7654 33.672 22.7065 33.6121 22.6515C33.3379 22.4057 33.0269 22.2045 32.6904 22.0552C32.2361 21.8687 31.7454 21.7879 31.2554 21.819C30.7799 21.849 30.3156 21.9767 29.8915 22.194C29.4739 22.4231 29.1069 22.7343 28.8125 23.109C28.5028 23.4947 28.2792 23.9422 28.1568 24.4215C28.0558 24.8775 28.0444 25.3488 28.1231 25.8091C28.1231 25.8878 28.1231 25.8991 28.0556 25.8878C25.3842 25.4941 23.1923 24.5453 21.4014 22.509C21.3227 22.419 21.2815 22.419 21.2178 22.509C20.4385 23.694 20.8169 25.5691 21.7911 26.4953C21.9222 26.6191 22.0571 26.7391 22.1994 26.8516C21.7528 26.8199 21.3171 26.6987 20.9181 26.4953C20.8431 26.4466 20.8019 26.4728 20.7982 26.5628C20.7875 26.6876 20.7875 26.8131 20.7982 26.9379C20.8763 27.5358 21.1118 28.1023 21.4804 28.5794C21.8491 29.0564 22.3377 29.4269 22.8963 29.6529C23.0325 29.7113 23.1744 29.7553 23.3197 29.7842C22.9062 29.8656 22.4822 29.8783 22.0646 29.8217C21.9746 29.8029 21.9409 29.8517 21.9746 29.9379C22.5254 31.438 23.7206 31.8955 24.5974 32.1505C24.7173 32.1692 24.8372 32.1692 24.972 32.1992C24.972 32.1992 24.972 32.1992 24.9496 32.2217C24.691 32.6942 23.6457 33.013 23.1661 33.178C22.2907 33.4927 21.3574 33.613 20.431 33.5305C20.2849 33.508 20.2511 33.5118 20.2137 33.5305C20.1762 33.5493 20.2137 33.5905 20.2549 33.628C20.4422 33.7518 20.6296 33.8605 20.8244 33.9655C21.4044 34.2822 22.0176 34.5337 22.6528 34.7155C25.9425 35.6231 29.6443 34.9555 32.1134 32.4992C34.0542 30.5717 34.7361 27.9129 34.7361 25.2503C34.7361 25.1491 34.8597 25.0891 34.9309 25.0366C35.4219 24.6536 35.8548 24.2014 36.2161 23.694C36.2786 23.6184 36.3107 23.5221 36.306 23.424C36.306 23.3678 36.306 23.379 36.2348 23.409Z"
                                         fill="white" />
                                 </svg></a>
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"><svg width="57" height="57" viewBox="0 0 57 57" fill="none"
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank" class="share_post"><svg width="57" height="57" viewBox="0 0 57 57" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="28.4017" cy="28.4095" r="28.4017" fill="#EEF2F9" />
                                     <rect x="12.6221" y="12.6309" width="31.5575" height="31.5575" rx="15.7787"
@@ -220,7 +220,7 @@ Post Detail Page
                                         fill="white" />
                                 </svg>
                             </a>
-                            <a href="mailto:?subject=Check%20out%20this%20blog%20post&body=I%20thought%20you%20might%20be%20interested%20in%20this%20blog%20post:%20{{ request.build_absolute_uri }}" target="_blank"><svg width="57" height="57" viewBox="0 0 57 57" fill="none"
+                            <a href="mailto:?subject=Check%20out%20this%20blog%20post&body=I%20thought%20you%20might%20be%20interested%20in%20this%20blog%20post:%20{{ request.build_absolute_uri }}" target="_blank" class="share_post"><svg width="57" height="57" viewBox="0 0 57 57" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="28.4017" cy="28.4154" r="28.4017" fill="#EEF2F9" />
                                     <rect x="12.6221" y="12.6367" width="31.5575" height="31.5575" rx="15.7787"
@@ -752,8 +752,6 @@ Post Detail Page
                     var get_post_like_user = response.saved_post_like[0].post_like_user
                     var get_post_like_count = response.saved_post_like[0].post_like_count
 
-                    $('#like_count').text(get_post_like_count);
-
                     $('#likeBtn').remove();
 
                     var subinner_innercontainer4 = document.createElement("div");
@@ -775,8 +773,25 @@ Post Detail Page
                     like.textContent = "Like";
 
                     var num = document.createElement("span");
+                    num.setAttribute("id","likeCount")
                     num.setAttribute("class","num");
                     num.textContent = get_post_like_count;
+                    
+                    // Post Like count convert into K, M, B
+                    $(document).ready(function() {
+                    const likeCountElement = $("#likeCount");
+                    const likeCount = likeCountElement.text();
+        
+                    if(likeCount >= 1000000000){
+                        likeCountElement.text((likeCount / 1000000000).toFixed(1) + "B");
+                    }
+                    else if (likeCount >= 1000000) {
+                        likeCountElement.text((likeCount / 1000000).toFixed(1) + "M");
+                    }
+                    else if (likeCount >= 1000) {
+                        likeCountElement.text((likeCount / 1000).toFixed(1) + "k");
+                    }
+                    });
                     
                     dislikeBtn.appendChild(content);
                     content.appendChild(heart);
@@ -814,8 +829,6 @@ Post Detail Page
             success: function (response) {
                 console.log(response);
                 var get_post_like_count = response.data[0].post_like_count
-
-                $('#like_count').text(get_post_like_count);
                 
                 $('#dislikeBtn').remove();
 
@@ -838,9 +851,26 @@ Post Detail Page
                 like.textContent = "Like";
 
                 var num = document.createElement("span");
+                num.setAttribute("id","dislikeCount")
                 num.setAttribute("class","num");
                 num.textContent = get_post_like_count;
-                    
+
+                // Post Like count convert into K, M, B
+                $(document).ready(function() {
+                    const likeCountElement = $("#dislikeCount");
+                    const likeCount = likeCountElement.text();
+        
+                    if(likeCount >= 1000000000){
+                        likeCountElement.text((likeCount / 1000000000).toFixed(1) + "B");
+                    }
+                    else if (likeCount >= 1000000) {
+                        likeCountElement.text((likeCount / 1000000).toFixed(1) + "M");
+                    }
+                    else if (likeCount >= 1000) {
+                        likeCountElement.text((likeCount / 1000).toFixed(1) + "k");
+                    }
+                });
+                
                 likeBtn.appendChild(content);
                 content.appendChild(heart);
                 content.appendChild(like);
@@ -855,6 +885,7 @@ Post Detail Page
         });
     }
 
+    // Post Share count
     $(document).ready(function(){
         $('.share_post').click(function(){
             var post_id = $('#uuid').val();
@@ -871,13 +902,59 @@ Post Detail Page
                 success: function (response) {
                     var share_count_data = response.share_post_object_count[0].post_share_count
                     $('#share_count').text(share_count_data);
+
+                    // Shared post count convert into K, M, B when using ajax
+                    const shareCountElement = $("#share_count");
+                    const shareCount = shareCountElement.text();
+                    
+                    if(shareCount >= 1000000000){
+                        shareCountElement.text((shareCount / 1000000000).toFixed(1) + "B");
+                    }
+                    else if (shareCount >= 1000000) {
+                        shareCountElement.text((shareCount / 1000000).toFixed(1) + "M");
+                    }
+                    else if (shareCount >= 1000) {
+                        shareCountElement.text((shareCount / 1000).toFixed(1) + "k");
+                    }
                 },
                 error: function (error) {
                     console.log(error);
                 }
             });
         });
-    })
+    });
+
+    // Shared post count convert into K, M, B
+    $(document).ready(function() {
+        const shareCountElement = $("#share_count");
+        const shareCount = shareCountElement.text();
+        
+        if(shareCount >= 1000000000){
+            shareCountElement.text((shareCount / 1000000000).toFixed(1) + "B");
+        }
+        else if (shareCount >= 1000000) {
+            shareCountElement.text((shareCount / 1000000).toFixed(1) + "M");
+        }
+        else if (shareCount >= 1000) {
+            shareCountElement.text((shareCount / 1000).toFixed(1) + "k");
+        }
+    });
+
+    // Post Like count convert into K, M, B
+    $(document).ready(function() {
+        const likeCountElement = $(".num");
+        const likeCount = likeCountElement.text();
+        
+        if(likeCount >= 1000000000){
+            likeCountElement.text((likeCount / 1000000000).toFixed(1) + "B");
+        }
+        else if (likeCount >= 1000000) {
+            likeCountElement.text((likeCount / 1000000).toFixed(1) + "M");
+        }
+        else if (likeCount >= 1000) {
+            likeCountElement.text((likeCount / 1000).toFixed(1) + "k");
+        }
+    });
 </script>
 
 {% endblock content %}

@@ -93,6 +93,7 @@ class PostContentView(View):
         # Retrieve the post liked count of post
         post_like_count                         = PostLikes.objects.filter(post__uuid=slug, is_liked=True).count()
         
+        # Retrieve the number of shared post
         share_post_count                        = post_content_object.share_count
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
