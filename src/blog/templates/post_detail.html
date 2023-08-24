@@ -127,32 +127,12 @@ Post Detail Page
                 </div>
             </div>
             <div class="subinner_container2">
-                
-                <!-- <img src="" alt=""> -->
-                
-                <p class="p_des">Travel facilitates connections with people from different backgrounds and
-                    cultures.
-                    It offers opportunities to form friendships, engage in meaningful conversations, and
-                    build
-                    cross-cultural relationships. These connections provide a deeper appreciation for the
-                    diversity
-                    of human experiences and foster a sense of global community. Travel also allows us to
-                    reconnect
-                    with loved ones, strengthening familial bonds and creating shared memories that last a
-                    lifetime.
-                </p>
-                <h2>Cultural Immersion</h2>
-                <p class="p_des">Travel exposes us to diverse cultures, traditions, languages, and
-                    lifestyles.
-                    It
-                    allows us to interact with locals, learn about their customs, and gain a deeper
-                    understanding of
-                    their perspectives. By immersing ourselves in different cultures, we foster empathy,
-                    promote
-                    tolerance, and break down stereotypes. This cultural immersion broadens our horizons and
-                    nurtures a sense of global citizenship.</p>
+                {{ post_content_object.description|safe }}
+                <!-- <p class="p_des">
+                    
+                </p> -->
             </div>
-            <div class="subinner_container3">
+            <!-- <div class="subinner_container3">
                 <p><b>Adventure and Recreation: Travel is an invitation to embark on thrilling adventures
                         and
                         engage
@@ -161,7 +141,7 @@ Post Detail Page
                         waters, or exploring ancient ruins, travel presents us with exciting
                         opportunities.</b>
                 </p>
-            </div>
+            </div> -->
             <div style="height: 1px;width:100%; background: #DBE3EB;margin: 20px 0 10px 0;"></div>
             <div class="subinner_container4">
                 <div class="subinner_innercontainer4">
@@ -254,7 +234,7 @@ Post Detail Page
                     <div class="subinner_container5">
                         <input id="comment" type="text"
                             style="width:53rem;margin-top:'2rem'; height: 160px;padding-bottom: 6rem;"
-                            placeholder="Type Your Comments...">
+                            placeholder="Type Your Comments..." required>
                         <!-- Add a hidden input field for the post_content_object UUID -->
                         <input type="hidden" id="uuid" name="post_content_object_uuid"
                             value="{{ post_content_object.uuid }}">
