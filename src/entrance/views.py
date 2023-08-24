@@ -213,6 +213,8 @@ class ModelQuestionView(View):
                 'model_code'   : model_question_object.model_code,
 
                 'content'      : model_question_object.content,
+
+                'is_pdf'       : model_question_object.is_pdf
                 }
             
             # Append the ModelQuestion data dictionary to the collection list
