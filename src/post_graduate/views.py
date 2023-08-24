@@ -230,9 +230,10 @@ class LoksewaNotesContentView(View):
 
         # Set the template name for rendering
         template_name                 = 'loksewa_notes_content_view.html'
+
         loksewa_notes_object          = LoksewaNotes.objects.get(id = id)
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list    = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {

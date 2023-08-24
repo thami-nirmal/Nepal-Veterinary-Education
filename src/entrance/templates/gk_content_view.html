@@ -34,12 +34,14 @@ Entrance - General Knowledge
         </div>
         <div class="que-coll-top-right">
             {% include 'snippet_code/popular_post.html' %}
-
         </div>
     </div>
     <div class="error-404-underline que-coll-line"></div>
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
+{% if gk_details.is_pdf %}
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+{% endif %}
+
 {% endblock content %}

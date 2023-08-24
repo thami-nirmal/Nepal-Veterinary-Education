@@ -42,5 +42,7 @@ Post- Graduate Loksewa Notes
 
     {% include 'snippet_code/other_related_post.html' %}
 </div>
+{% if loksewa_notes_object.is_pdf %}
 {% include 'snippet_code/snippet_iframe_pdf_view_js.html' %}
+{% endif %}
 {% endblock content %}

@@ -24,7 +24,7 @@ admin.site.register(PastQuestion, PastQuestionAdmin)
 
 
 class GKAdmin(admin.ModelAdmin):
-    list_display          = ['name','is_shown','pdf_url','is_pdf','formatted_content']
+    list_display          = ['name','is_shown','pdf_url','is_pdf']
     list_filter           = ['is_shown']
     search_fields         = ['name']
 
