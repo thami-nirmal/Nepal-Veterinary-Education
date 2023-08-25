@@ -174,9 +174,3 @@ class DrugIndex(models.Model):
         verbose_name_plural  = 'Drug Index'
 
 
-
-
-    
-
-
-    
