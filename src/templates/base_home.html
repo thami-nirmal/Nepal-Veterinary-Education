@@ -406,7 +406,7 @@
 
                                 // Update the search window with the generated search items and show it
                                 searchWindow.html(searchWindowItems);
-                                searchWindow.css("display", "block");
+                                // searchWindow.css("display", "block");
                             }
 
                         },
@@ -419,7 +419,7 @@
                 } else {
                     // Clear the search window and hide it if the search term is empty
                     searchWindow.html("");
-                    searchWindow.css("display", "none");
+                    // searchWindow.css("display", "none");
                 }
             });
 
@@ -427,14 +427,14 @@
             $(document).on("click", function (event) {
                 const target = $(event.target);
                 if (!target.closest(".navbar-search").length) {
-                    searchWindow.css("display", "none");
+                    // searchWindow.css("display", "none");
                     searchInput.val("");
                 }
             });
 
             // Hide the search window when resizing the window
             $(window).on("resize", function () {
-                searchWindow.css("display", "none");
+                // searchWindow.css("display", "none");
                 searchInput.val("");
             });
 

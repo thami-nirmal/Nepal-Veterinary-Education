@@ -435,6 +435,13 @@ body::-webkit-scrollbar-track {
 
 
 }
+.input-search:not(:focus) ~ #searchResults {
+    display: none;
+}
+
+.input-search:focus ~ #searchResults {
+    display: block;
+}
 
 #searchResults li {
 
