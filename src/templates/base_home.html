@@ -23,10 +23,9 @@
         rel="stylesheet" />
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    
     <!-- custom css -->
-
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
-    <link rel="stylesheet" href="{% static '/css/style1.css' %}">
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -290,8 +289,7 @@
 
                             // Check if both search results are empty
                             if (searchResults.length === 0) {
-                                searchWindow.html('<div class="search-window-item">No data found</div>');
-                                searchWindow.css("display", "block");
+                                searchWindow.html('<li class="search-window-item">No data found</li>');
                             }
                             else {
                                 // Generate HTML for search window items with highlighted text
@@ -303,7 +301,7 @@
                                         const formattedItem = `${highlightedName}-Notes (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-notes-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.loksewa_past_question) {
                                         const { id, year } = result;
@@ -311,7 +309,7 @@
                                         const formattedItem = `${highlightedYear}-Past Question (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.loksewa_model_question) {
                                         // Format the search item as desired
@@ -320,7 +318,7 @@
                                         const formattedItem = `${highlightedName}-Model Question (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_act) {
                                         // Format the search item as desired
@@ -329,7 +327,7 @@
                                         const formattedItem = `${highlightedName}-Council Act (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-act-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_regulation) {
                                         // Format the search item as desired
@@ -338,7 +336,7 @@
                                         const formattedItem = `${highlightedName}-Council Regulation (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-regulation-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_past_question) {
                                         // Format the search item as desired
@@ -347,7 +345,7 @@
                                         const formattedItem = `${highlightedYear}-Council Past Question (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_model_question) {
                                         // Format the search item as desired
@@ -356,7 +354,7 @@
                                         const formattedItem = `${highlightedName}-Council Model Question (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.general_knowledge) {
                                         // Format the search item as desired
@@ -365,7 +363,7 @@
                                         const formattedItem = `${highlightedName}-General Knowledge (Entrance Preparation)`;
 
                                         const anchorTag = `<a href="/entrance/gk-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.blog_post) {
                                         // Format the search item as desired
@@ -374,7 +372,16 @@
                                         const formattedItem = `${highlightedTitle}- (Blog)`;
 
                                         const anchorTag = `<a href="/blog/post-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
+                                    }
+                                    else if (result.entrance_past_question) {
+                                        // Format the search item as desired
+                                        const { id, year } = result;
+                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem = `${highlightedYear}- Past Question (Entrance Preparation)`;
+
+                                        const anchorTag = `<a href="/entrance/past-question" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else {
                                         // Format the search item as desired
@@ -387,11 +394,12 @@
 
                                         let anchorTag;
                                         if (has_sub_content) {
+
                                             anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         } else {
                                             anchorTag = `<a href="/graduate/graduate-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         }
-                                        return `<div class="search-window-item">${anchorTag}</div>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
 
                                 }).join("");
@@ -441,6 +449,7 @@
                 return highlightedText;
             }
         });
+
     </script>
 </body>
 </html>

@@ -417,6 +417,58 @@ body::-webkit-scrollbar-track {
     transform: rotate(90deg);
 }
 
+/* ------------Search Box--------------- */
+#searchResults {
+    display: none;
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 1);
+    width: 84%;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in 1s ease forwards;
+
+
+}
+
+#searchResults li {
+
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0px 2px 0px 0px rgba(204, 204, 204, .2);
+    transform: translateY(0);
+
+}
+
+#searchResults li:hover {
+    background-color: #f2f2f2;
+}
+
+.highlight {
+    color: rgb(18, 42, 150);
+    font-weight: bold;
+}
+
+.search-window-item-link{
+    color: black;
+    text-decoration: none;
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+        /* At the end of the animation, set opacity to 1 */
+        transform: translateY(0);
+    }
+}
+
+/* ------------End--------------- */
+
 @media screen and (max-width: 1200px) {
     .btn-search {
         width: 38px;
@@ -3820,7 +3872,7 @@ input[type="checkbox"]:checked+label::before {
 
     }
 }
-
+/*------------------------------------------ reset password  CSS ends here -------------------------------------*/
 /*----------------------------------- postpage detail page CSS starts here -----------------------------------*/
 
 .main {
@@ -4323,123 +4375,119 @@ input[type="checkbox"]:checked+label::before {
     } */
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px){
     .container1 {
         display: none;
     }
-
     .container2 {
         margin-left: 0px;
     }
-
     .container2 h1 {
         font-size: 2.3rem;
         width: 100%;
+}
 
-    }
+.subinner_innercontainer1{
+    width: 100%;
+    font-size: 0.8rem;
+}
 
-    .subinner_innercontainer1 {
-        width: 100%;
-        font-size: 0.8rem;
-    }
+.p_des{
+    font-size: 0.9rem;
+}
 
-    .p_des {
-        font-size: 0.9rem;
-    }
+.subinner_innercontainer4{
+    width: 100%;
+    gap: 7px;
 
-    .subinner_innercontainer4 {
-        width: 100%;
-        gap: 7px;
+}
 
-    }
-
-    .content {
-        border: 2px solid #eae2e1;
-        padding: 1px 10px 1px 10px;
-        border-radius: 6px;
-        display: flex;
-        cursor: pointer;
-        position: relative;
+.content {
+    border: 2px solid #eae2e1;
+    padding: 1px 10px 1px 10px;
+    border-radius: 6px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
 
 
-    }
+}
 
-    .content .heart {
-        height: 50px;
-        width: 50px;
+.content .heart {
+    height: 50px;
+    width: 50px;
+    background-position: left;
+    background-size: 2700%;
+    position: absolute;
+    top: -15px;
+    left: -10px;
+}
+
+.content .like {
+    font-size: 0.8rem;
+}
+
+.num {
+    font-size: 0.8rem;
+
+
+}
+
+.heart.heart-active {
+    background-position: right;
+    animation: animate .8s steps(28) 1;
+}
+
+@keyframes animate {
+    0% {
         background-position: left;
-        background-size: 2700%;
-        position: absolute;
-        top: -15px;
-        left: -10px;
     }
 
-    .content .like {
-        font-size: 0.8rem;
-    }
-
-    .num {
-        font-size: 0.8rem;
-
-
-    }
-
-    .heart.heart-active {
+    100% {
         background-position: right;
-        animation: animate .8s steps(28) 1;
     }
 
-    @keyframes animate {
-        0% {
-            background-position: left;
-        }
+}
 
-        100% {
-            background-position: right;
-        }
+.content.heart-active {
+    border-color: #f9b9c4;
+    background-color: #fbd0d8;
+}
 
-    }
+.hidden_content a svg {
+    height: 25px;
+    width: 25px;
+}
 
-    .content.heart-active {
-        border-color: #f9b9c4;
-        background-color: #fbd0d8;
-    }
+.subinner2_innercontainer4 {
 
-    .hidden_content a svg {
-        height: 25px;
-        width: 25px;
-    }
+    width: 100%;
+}
 
-    .subinner2_innercontainer4 {
+.hidden_content {
+    width: 100%;
+    background-color: yellow;
+}
 
-        width: 100%;
-    }
+.share {
 
-    .hidden_content {
-        width: 100%;
-        background-color: yellow;
-    }
+    padding: 2px 15px 2px 15px;
 
-    .share {
+}
 
-        padding: 2px 15px 2px 15px;
-
-    }
-
-    .share p,
-    i {
+.share p, i {
 
         font-size: 0.7rem;
-    }
+}
 
-    .hidden_content a svg {
-        width: 100%;
+.hidden_content a svg {
+    width: 100%;
 
-    }
+}
 
-    .subinner_innercontainer8 {
-        margin-left: 0px;
-    }
+.subinner_innercontainer8 {
+    margin-left: 0px;
+}
 }
 
 
