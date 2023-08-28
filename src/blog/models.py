@@ -155,11 +155,22 @@ class PostTags(models.Model):
         verbose_name_plural = 'Post Tags'
 
 
+feature_post_position_choices = (
+                            ('1','featured-post-top'),
+                            ('2','featured-post-bottom-1st'),
+                            ('3','featured-post-bottom-2nd-top'),
+                            ('4','featured-post-bottom-2nd-lower'),
+                            ('5','featured-post-bottom-3rd-top'),
+                            ('6','featured-post-bottom-3rd-bottom-item-1'),
+                            ('7','featured-post-bottom-3rd-bottom-item-2'),
+                            ('8','featured-post-bottom-3rd-bottom-item-3'),
+)
+
 class FeaturePost(models.Model):
     """
     Represents a feature post with specific attributes
     """
-    position                                = models.CharField(max_length=30, blank=True)
+    position                                = models.CharField(max_length=100, choices=feature_post_position_choices, blank=True)
     post                                    = models.OneToOneField(Post, related_name='featurePost_post',on_delete=models.CASCADE)
 
     def __str__(self):

@@ -25,7 +25,7 @@ from post_graduate.models import (LoksewaNotes,
                                 CouncilModelQuestion)
 
 from entrance.models import GK, PastQuestion
-from blog.models import Post
+from blog.models import Post, FeaturePost
 
 from django.db.models import Q
 # Create your views here.
@@ -81,6 +81,11 @@ class HomeView(View):
         # retrieve a list of blog post objects where is_published is True and order them by descending created_at, taking the second latest 2 objects list
         blog_post_object_list2                          = Post.objects.filter(is_published=True).order_by('-created_at')[2:4]
 
+
+        feature_post_object_list                           = FeaturePost.objects.all()
+        print("Feature post--------------", feature_post_object_list)
+
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
 
@@ -94,7 +99,9 @@ class HomeView(View):
 
             'blog_post_object_list1'                    : blog_post_object_list1,
 
-            'blog_post_object_list2'                    : blog_post_object_list2
+            'blog_post_object_list2'                    : blog_post_object_list2,
+
+            'feature_post_object_list'                  : feature_post_object_list
         }
 
         # Render the template with specified context and return the rendered response
@@ -888,3 +895,4 @@ class SearchView(View):
         return JsonResponse({'message': 'Invalid request'})
 
 #endregion
+
