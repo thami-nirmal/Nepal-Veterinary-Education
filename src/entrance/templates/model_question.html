@@ -111,6 +111,66 @@ Entrance - Model Question
                         if(pdfContainer){
                             $('#pdfContainer').remove();
                             $('#modelQuestionContainer').append(pdfContainer);
+
+                                // The element you want to make fullscreen
+                            var elem = document.getElementById('pdfContainer');
+
+                            // The button that will trigger fullscreen mode
+                            var fsButton = document.getElementById('fullscreenButton');
+
+                            // The icon inside the fullscreen button
+                            var fsIcon = fsButton.querySelector('i');
+
+                            // A function to request fullscreen mode
+                            function requestFullscreen() {
+                                if (elem.requestFullscreen) {
+                                    elem.requestFullscreen();
+                                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                                    elem.mozRequestFullScreen();
+                                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                                    elem.webkitRequestFullscreen();
+                                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                                    elem.msRequestFullscreen();
+                                }
+                            }
+
+                            // A function to exit fullscreen mode
+                            function exitFullscreen() {
+                                if (document.exitFullscreen) {
+                                    document.exitFullscreen();
+                                } else if (document.mozCancelFullScreen) { /* Firefox */
+                                    document.mozCancelFullScreen();
+                                } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                                    document.webkitExitFullscreen();
+                                } else if (document.msExitFullscreen) { /* IE/Edge */
+                                    document.msExitFullscreen();
+                                }
+                            }
+
+                            // Listen for a click on the fullscreen button
+                            fsButton.addEventListener('click', function() {
+                                if (!document.fullscreenElement) {
+                                    requestFullscreen();
+                                    fsIcon.classList.remove('fa-expand');
+                                    fsIcon.classList.add('fa-compress');
+                                } else {
+                                    exitFullscreen();
+                                    fsIcon.classList.remove('fa-compress');
+                                    fsIcon.classList.add('fa-expand');
+                                }
+                            });
+
+                            // Listen for fullscreen changes
+                            document.addEventListener('fullscreenchange', function() {
+                                if (!document.fullscreenElement) {
+                                    fsIcon.classList.remove('fa-compress');
+                                    fsIcon.classList.add('fa-expand');
+                                } else {
+                                    fsIcon.classList.remove('fa-expand');
+                                    fsIcon.classList.add('fa-compress');
+                                }
+                            }
+                            );
                         }else{
                             $('#modelQuestionContainer').append(pdfContainer);
                         }

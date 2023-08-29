@@ -35,6 +35,10 @@
 </head>
 
 <body class="body-one">
+    <div id="loading-spinner">
+        <img src="{% static 'images/spinner2.gif' %}" alt="Loading...">
+        <p>Please Wait..</p>
+    </div>
     <header class="nve-header">
         <div class="nve-header-top">
             <a href="#">
@@ -237,6 +241,8 @@
     </footer>
     <script src="{% static '/js/main.js' %}"></script>
     <script>
+
+        // Newsletter Form
         $(document).ready(function () {
             $('#base_home_form').submit(function (event) {
                 event.preventDefault();
@@ -394,7 +400,6 @@
 
                                         let anchorTag;
                                         if (has_sub_content) {
-
                                             anchorTag = `<a href="/graduate/graduate-sub-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         } else {
                                             anchorTag = `<a href="/graduate/graduate-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
@@ -450,6 +455,19 @@
             }
         });
 
+
+        // Loading Spinner
+        $(document).ready(function() {
+            // Show the loading spinner when the page starts loading
+            $("#loading-spinner").show();
+
+            // Hide the loading spinner after a delay when the page finishes loading
+            $(window).on("load", function() {
+                setTimeout(function() {
+                    $("#loading-spinner").hide();
+                    }, 500); // Replace 2000 with the desired delay in milliseconds
+            });
+        });
     </script>
 </body>
 </html>

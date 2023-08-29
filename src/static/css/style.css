@@ -446,7 +446,7 @@ body::-webkit-scrollbar-track {
 #searchResults li {
 
     padding: 8px;
-    cursor: pointer;
+    /* cursor: pointer; */
     box-shadow: 0px 2px 0px 0px rgba(204, 204, 204, .2);
     transform: translateY(0);
 
@@ -4591,7 +4591,7 @@ input[type="checkbox"]:checked+label::before {
 
     }
 }
-/* New Year tags */
+/* New Year tags*/
 
 .top-bar-view {
     display: flex;
@@ -4642,3 +4642,33 @@ input[type="checkbox"]:checked+label::before {
     margin: 8px -2px;
     border-bottom: 1px solid white;
 }
+
+
+/* --------------------Loading Spinner-------------------- */
+#loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#loading-spinner img {
+    width: 100px; /* Adjust the size of the spinner image */
+    position: absolute;
+    top: 50%; /* Move the image 50% down from the top of the container */
+    left: 50%; /* Move the image 50% in from the left of the container */
+    transform: translate(-50%, -50%);
+}
+#loading-spinner p {
+    font-weight: 600;
+    position: absolute;
+    top: 55%; /* Move the image 50% down from the top of the container */
+    left: 50%; /* Move the image 50% in from the left of the container */
+    transform: translate(-50%, -50%);
+}
+/* --------------------End-------------------------- */
