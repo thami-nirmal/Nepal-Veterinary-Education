@@ -64,75 +64,157 @@
     $(document).ready(function () {
         $(document).on('click', '[id^="sub_content_object_id"]', function (e) {
             var sub_content_object_id = $(this).attr('sub_content_object_data');   // Retrieve the value of the 'past_question_object_data' attribute for the clicked element
-            $.ajax({
-                type: 'GET',
-                url: '',
-                "X-Requested-With": "XMLHttpRequest",
-                data: {
-                    id: sub_content_object_id        // Pass the 'past_question_object_id' as a parameter in the AJAX request
-                },
-                success: function (response) {
-                    console.log(response.data[0])
-                    
-                    if(response.data[0].is_pdf == true){
-                        url = response.data[0].url
-
-                        $('#subContentContainer').remove()
-
-                        var pdfContainer = document.createElement("div");
-                        pdfContainer.setAttribute("id","pdfContainer");
-                        pdfContainer.setAttribute("class","que-coll-top-left");
-                        pdfContainer.setAttribute("style","position: relative; height: 100vh;")
-
-                        var fullscreenButton = document.createElement("button");
-                        fullscreenButton.setAttribute("id","fullscreenButton");
-                        fullscreenButton.setAttribute("style","position: absolute; top: 0; right: 2px;");
-
-                        var i = document.createElement("i");
-                        i.className = "fa-solid fa-expand"
-
-                        var pdfFrame = document.createElement("iframe");
-                        pdfFrame.setAttribute("id","pdfFrame");
-                        pdfFrame.setAttribute("style","border: 2px solid #232e52 ");
-                        pdfFrame.src = url;
-                        pdfFrame.width = "100%";
-                        pdfFrame.height = "100%";
-                        pdfFrame.responsive = true;
-
+            
+            // Show loading spinner
+            $("#loading-spinner").show();
+            
+            setTimeout(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '',
+                    "X-Requested-With": "XMLHttpRequest",
+                    data: {
+                        id: sub_content_object_id        // Pass the 'past_question_object_id' as a parameter in the AJAX request
+                    },
+                    success: function (response) {
+                        console.log(response.data[0])
                         
-                        pdfContainer.appendChild(fullscreenButton);
-                        fullscreenButton.appendChild(i);
-                        pdfContainer.appendChild(pdfFrame);
+                        if(response.data[0].is_pdf == true){
+                            url = response.data[0].url
 
-                        if(pdfContainer){
-                            $('#pdfContainer').remove();
-                            $('#subContainer').append(pdfContainer);
-                        }else{
-                            $('#subContainer').append(pdfContainer);
+                            $('#subContentContainer').remove()
+
+                            var pdfContainer = document.createElement("div");
+                            pdfContainer.setAttribute("id","pdfContainer");
+                            pdfContainer.setAttribute("class","que-coll-top-left");
+                            pdfContainer.setAttribute("style","position: relative; height: 100vh;")
+
+                            var fullscreenButton = document.createElement("button");
+                            fullscreenButton.setAttribute("id","fullscreenButton");
+                            fullscreenButton.setAttribute("style","position: absolute; top: 0; right: 2px;");
+
+                            var i = document.createElement("i");
+                            i.className = "fa-solid fa-expand"
+
+                            var pdfFrame = document.createElement("iframe");
+                            pdfFrame.setAttribute("id","pdfFrame");
+                            pdfFrame.setAttribute("style","border: 2px solid #232e52 ");
+                            pdfFrame.src = url;
+                            pdfFrame.width = "100%";
+                            pdfFrame.height = "100%";
+                            pdfFrame.responsive = true;
+
+                            
+                            pdfContainer.appendChild(fullscreenButton);
+                            fullscreenButton.appendChild(i);
+                            pdfContainer.appendChild(pdfFrame);
+
+                            if(pdfContainer){
+                                $('#pdfContainer').remove();
+                                $('#subContainer').append(pdfContainer);
+
+                                // The element you want to make fullscreen
+                                var elem = document.getElementById('pdfContainer');
+
+                                // The button that will trigger fullscreen mode
+                                var fsButton = document.getElementById('fullscreenButton');
+
+                                // The icon inside the fullscreen button
+                                var fsIcon = fsButton.querySelector('i');
+
+                                // A function to request fullscreen mode
+                                function requestFullscreen() {
+                                    if (elem.requestFullscreen) {
+                                        elem.requestFullscreen();
+                                    } else if (elem.mozRequestFullScreen) { /* Firefox */
+                                        elem.mozRequestFullScreen();
+                                    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                                        elem.webkitRequestFullscreen();
+                                    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                                        elem.msRequestFullscreen();
+                                    }
+                                }
+
+                                // A function to exit fullscreen mode
+                                function exitFullscreen() {
+                                    if (document.exitFullscreen) {
+                                        document.exitFullscreen();
+                                    } else if (document.mozCancelFullScreen) { /* Firefox */
+                                        document.mozCancelFullScreen();
+                                    } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                                        document.webkitExitFullscreen();
+                                    } else if (document.msExitFullscreen) { /* IE/Edge */
+                                        document.msExitFullscreen();
+                                    }
+                                }
+
+                                // Listen for a click on the fullscreen button
+                                fsButton.addEventListener('click', function() {
+                                    if (!document.fullscreenElement) {
+                                        requestFullscreen();
+                                        fsIcon.classList.remove('fa-expand');
+                                        fsIcon.classList.add('fa-compress');
+                                    } else {
+                                        exitFullscreen();
+                                        fsIcon.classList.remove('fa-compress');
+                                        fsIcon.classList.add('fa-expand');
+                                    }
+                                });
+
+                                // Listen for fullscreen changes
+                                document.addEventListener('fullscreenchange', function() {
+                                    if (!document.fullscreenElement) {
+                                        fsIcon.classList.remove('fa-compress');
+                                        fsIcon.classList.add('fa-expand');
+                                    } else {
+                                        fsIcon.classList.remove('fa-expand');
+                                        fsIcon.classList.add('fa-compress');
+                                    }
+                                }
+                                );
+
+                                // pdfFrame onload and execute this function
+                                pdfFrame.onload = function () {
+                                // PDF frame has finished loading
+                                // Now, you can hide the loading spinner
+                                    $("#loading-spinner").hide();
+                                };
+
+                            }else{
+                                $('#subContainer').append(pdfContainer);
+                            }
+
                         }
+                        else{
+                            content = response.data[0].content
 
-                    }
-                    else{
-                        content = response.data[0].content
+                            $('#pdfContainer').remove()
 
-                        $('#pdfContainer').remove()
+                            var subContentContainer = document.createElement("div");
+                            subContentContainer.id = "subContentContainer"
+                            subContentContainer.innerHTML = content;
 
-                        var subContentContainer = document.createElement("div");
-                        subContentContainer.id = "subContentContainer"
-                        subContentContainer.innerHTML = content;
+                            if(subContentContainer){
+                                $('#subContentContainer').remove();
+                                $('#subContainer').append(subContentContainer);
+                            }else{
+                                $('#subContainer').append(subContentContainer)
+                            }
 
-                        if(subContentContainer){
-                            $('#subContentContainer').remove();
-                            $('#subContainer').append(subContentContainer);
-                        }else{
-                            $('#subContainer').append(subContentContainer)
+                            // Hide loading spinner
+                            $("#loading-spinner").hide();
                         }
+                    },
+                    error: function (error) {
+                        console.log(error)      // Log any errors that occur during the AJAX request
+
+                        // Hide loading spinner
+                        $("#loading-spinner").hide();
                     }
-                },
-                error: function (error) {
-                    console.log(error)      // Log any errors that occur during the AJAX request
-                }
-            })
+                });
+            }, 500);
+
+            
         });
     });
 
