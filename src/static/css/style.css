@@ -4721,11 +4721,11 @@ input[type="checkbox"]:checked+label::before {
     overflow: hidden;
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
     .second-ads-item {
         width: 960px;
     }
 
-}
+} */
 
 /* ----------end------------------- */
