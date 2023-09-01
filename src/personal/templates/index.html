@@ -135,6 +135,27 @@
                 </div>
             </div>
             {% endfor %}
+            
+            
+            {% if ads_object_list %}
+
+            <div class="first-ads-item">
+                <div class="first-ads-item-img">
+                    {% for ads_object_data in ads_object_list %}
+                    {% if ads_object_data.position == '1' %}
+
+                    {% if ads_object_data.image %}
+                    <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                    
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% else %}
             <div class="posts-categories">
                 <div class="category-top flex-column">
                     <span>CATEGORIES</span>
@@ -153,6 +174,8 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
+
         </div>
     </div>
 </section>
@@ -216,6 +239,23 @@
                         </div>
                     </div>
                     {% endfor %}
+
+                    <div class="second-ads-item">
+                        <div class="second-ads-item-img">
+                            {% for ads_object_data in ads_object_list %}
+                            {% if ads_object_data.position == '2' %}
+                            
+                            {% if ads_object_data.image %}
+                            <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                            {% else %}
+                            <p>No image available</p>
+                            {% endif %}
+                            
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
                 </div>
                 <div class="diary-item-view-more-bottom">
                     <a href="{% url 'krishi_diarys' %}">
@@ -484,4 +524,39 @@
         </div>
     </div>
 </section>
+
+<script>
+    // Get references to HTML elements
+    const images = document.querySelectorAll('.first-ads-item-img img');
+
+    let currentIndex = 0;
+
+    // Function to show the current image
+    function showImage(index) {
+        images.forEach(image => {
+            image.style.display = 'none';
+        });
+        images[index].style.display = 'block';
+    }
+
+    // Function to move to the next image
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    }
+
+    // Auto-start the slideshow
+    function startSlideshow() {
+        showImage(currentIndex); // Show the first image initially
+
+        setInterval(() => {
+            showNextImage();
+        }, 5000); // Change slide every 5 seconds
+    }
+
+    startSlideshow();
+
+</script>
+
+
 {% endblock content %}

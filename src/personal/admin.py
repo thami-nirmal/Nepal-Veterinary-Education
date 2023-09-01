@@ -48,7 +48,7 @@ admin.site.register(KrishiDiarys, KrishiDiarysAdmin)
 
 
 class AdsAdmin(admin.ModelAdmin):
-    list_display            = ['position','image','is_shown']
+    list_display            = ['position','image','link','is_shown']
     list_filter             = ['is_shown']
     search_fields           = ['position']
 

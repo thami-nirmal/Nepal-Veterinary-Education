@@ -7,7 +7,8 @@ from .models import (KrishiDiarys,
                     DrugIndex,
                     NewsAndNotice,
                     NewsLetter,
-                    CustomerFeedback)
+                    CustomerFeedback,
+                    Ads)
 from blog.models import Post
 
 from django.core.paginator import Paginator
@@ -70,7 +71,7 @@ class HomeView(View):
         template_name                                   = 'index.html'
 
         # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 5 objects
-        krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:5]
+        krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:4]
 
         # Retrieve a list of News and Notice objects where is_shown is True and order them by descending Id, taking the latest 4 objects list
         news_notice_object_list                         = NewsAndNotice.objects.filter(is_shown=True).order_by('-id')[:4]
@@ -81,10 +82,11 @@ class HomeView(View):
         # retrieve a list of blog post objects where is_published is True and order them by descending created_at, taking the second latest 2 objects list
         blog_post_object_list2                          = Post.objects.filter(is_published=True).order_by('-created_at')[2:4]
 
+        #
+        feature_post_object_list                        = FeaturePost.objects.all()
 
-        feature_post_object_list                           = FeaturePost.objects.all()
-        print("Feature post--------------", feature_post_object_list)
-
+        #
+        ads_object_list                                 = Ads.objects.filter(is_shown=True)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                      = LevelAndMaterialDetails()
@@ -101,7 +103,9 @@ class HomeView(View):
 
             'blog_post_object_list2'                    : blog_post_object_list2,
 
-            'feature_post_object_list'                  : feature_post_object_list
+            'feature_post_object_list'                  : feature_post_object_list,
+
+            'ads_object_list'                           : ads_object_list
         }
 
         # Render the template with specified context and return the rendered response

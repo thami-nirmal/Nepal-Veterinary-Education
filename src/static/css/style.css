@@ -4672,3 +4672,60 @@ input[type="checkbox"]:checked+label::before {
     transform: translate(-50%, -50%);
 }
 /* --------------------End-------------------------- */
+
+/* ----------------Ads-------------------- */
+
+.first-ads-item{
+    border-radius: 10px;
+    box-shadow: 0 40px 60px rgb(0 0 0 / 12%);
+    overflow: hidden;
+}
+
+.first-ads-item-img{
+    height: 543px;
+    overflow: hidden;
+    display: flex;
+}
+
+.first-ads-item-img img {
+    min-width: 100%;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 992px) {
+    .first-ads-item {
+        width: 720px;
+    }
+}
+
+
+.second-ads-item{
+    height: 100px;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    background: var(--krishi-diary-and-category-background);
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    overflow: hidden;
+}
+
+.second-ads-item-img{
+    border-radius: 5px;
+    height: 100px;
+    width: max-content;
+    overflow: hidden;
+    display: flex;
+}
+
+.second-ads-item-img img {
+    overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+    .second-ads-item {
+        width: 960px;
+    }
+
+}
+
+/* ----------end------------------- */

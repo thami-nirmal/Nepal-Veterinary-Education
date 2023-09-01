@@ -75,12 +75,24 @@ class KrishiDiarys(models.Model):
         verbose_name_plural = 'Krishi Diarys'
 
 
+ads_position_choices = (
+                        ('0','Zero'),
+                        ('1','First'),
+                        ('2','Second'),
+                        ('3','Third'),
+                        ('4','Fourth'),
+                        ('5','Five'),
+                        ('6','Six'),
+                        
+)
+
 class Ads(models.Model):
     """ 
     Represents Ads with specific attributes
     """
-    position                                           = models.CharField(max_length=30,blank=True)
+    position                                           = models.CharField(max_length=30, choices=ads_position_choices, blank=True)
     image                                              = models.ImageField(upload_to='ads/', blank=True, null=True)
+    link                                               = models.URLField(max_length=200, null=True)
     is_shown                                           = models.BooleanField(default=True)
     
     def __str__(self):
