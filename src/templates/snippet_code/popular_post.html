@@ -27,16 +27,22 @@
         </div>
     </div>
     <div class="error-404-underline que-coll-line"></div>
-    <div class="que-coll-popular-post-item">
-        <div class="que-coll-popular-post-item-left">
-            <h3>
-                Public Speaking Workshop and Seminar
-            </h3>
-            <p>AUGUST 13, 2021</p>
+    
+    <div class="sixth-ads-item ">
+        <div class="sixth-ads-item-img">
+            {% for ads_object_data in ads_object_list %}
+            {% if ads_object_data.position == '6' %}
+            
+            {% if ads_object_data.image %}
+            <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+            {% else %}
+            <p>No image available</p>
+            {% endif %}
+            
+            {% endif %}
+            {% endfor %}
         </div>
-        <div class="que-coll-popular-post-item-right">
-            <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    </div>
+    </div>     
+    
 </div>
     

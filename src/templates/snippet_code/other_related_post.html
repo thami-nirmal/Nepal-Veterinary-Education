@@ -1,5 +1,19 @@
 {% load static %}
-
+<div class="fifth-ads-item">
+    <div class="fifth-ads-item-img">
+        {% for ads_object_data in ads_object_list %}
+        {% if ads_object_data.position == '5' %}
+        
+        {% if ads_object_data.image %}
+        <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+        {% else %}
+        <p>No image available</p>
+        {% endif %}
+        
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>  
 <div class="que-coll-bottom">
     <div class="que-coll-bottom-head">
         <span>Other Related posts</span>

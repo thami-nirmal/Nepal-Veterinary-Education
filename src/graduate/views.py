@@ -9,6 +9,8 @@ from .models import (SemYear,
                     Subject,
                     SubContent)
 
+from personal.models import Ads
+
 from personal.views import LevelAndMaterialDetails
 
 # Create your views here.
@@ -89,6 +91,9 @@ class GraduateView(View):
         # Retrieve the semester
         sem_year_object_list                           = SemYear.objects.filter(is_shown=True, level=selected_level_object)
 
+        # Retrieve the ads list
+        ads_object_list                                = Ads.objects.filter(is_shown=True)
+
         #Prepare the context data for redering the template
         context = {
             'selected_level_object'                    : selected_level_object,
@@ -100,6 +105,8 @@ class GraduateView(View):
             'selected_material_content'                : selected_material_content,
 
             'sem_year_object_list'                     : sem_year_object_list,
+
+            'ads_object_list'                          : ads_object_list
         }
 
         # Render the 'graduate.html' template with the provided context
@@ -134,6 +141,9 @@ class GraduateContentView(View):
         # Create a instance of LeveAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
 
+        # Retrieve the ads list
+        ads_object_list                                = Ads.objects.filter(is_shown=True)
+
         # Prepare the context data for rendering the template
         context = {
             'graduate_details_object'                  : graduate_details_object,
@@ -141,6 +151,8 @@ class GraduateContentView(View):
             'level_material_detail_list'               : level_material_detail_list,
 
             'graduate_level_details_object'            : graduate_level_details_object,
+
+            'ads_object_list'                          : ads_object_list
         }
 
         # Render the 'graduate_content_view.html' template with provided context
@@ -208,6 +220,9 @@ class GraduateSubContentView(View):
         # Create an instance of LevelAndMaterialDetails to hold level and material details
         level_material_detail_list                     = LevelAndMaterialDetails()
 
+        # Retrieve the ads list
+        ads_object_list                                = Ads.objects.filter(is_shown=True)
+
         # Prepare the context data for rendering the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -220,7 +235,9 @@ class GraduateSubContentView(View):
 
             'selected_sub_content_material_name'       : selected_sub_content_material_name,
 
-            'selected_sub_content_subject_name'        : selected_sub_content_subject_name
+            'selected_sub_content_subject_name'        : selected_sub_content_subject_name,
+
+            'ads_object_list'                          : ads_object_list
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context

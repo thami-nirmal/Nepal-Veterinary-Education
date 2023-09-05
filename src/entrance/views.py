@@ -7,6 +7,7 @@ from .models import (SyllabusInfo,
                     GK, 
                     PastQuestion, 
                     ModelQuestion)
+from personal.models import Ads
 
 from personal.views import LevelAndMaterialDetails
 from django.core.paginator import Paginator
@@ -29,22 +30,25 @@ class GkView(View):
         """
 
         # Set the template name for rendering
-        template_name     = 'gk.html'
+        template_name             = 'gk.html'
 
         # Retrieve GK objects that are marked as shown
-        gk_object_list         = GK.objects.filter(is_shown=True).order_by('-id')
+        gk_object_list            = GK.objects.filter(is_shown=True).order_by('-id')
 
         # Pagination settings
-        items_per_page = 4
+        items_per_page            = 4
 
         # Create Paginator object
-        paginator = Paginator(gk_object_list, items_per_page)
+        paginator                 = Paginator(gk_object_list, items_per_page)
 
         # Get the current page number from the request's GET paramerters
-        page_number = request.GET.get('page')
+        page_number               = request.GET.get('page')
 
         # Get the page gk page object  for the requested page number
-        gk_page_obj = paginator.get_page(page_number)
+        gk_page_obj               = paginator.get_page(page_number)
+
+        # Retrieve the ads list
+        ads_object_list           = Ads.objects.filter(is_shown=True)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()
@@ -59,6 +63,8 @@ class GkView(View):
         'items_per_page'                  : items_per_page,
 
         'gk_object_list'                  : gk_object_list,
+
+        'ads_object_list'                 : ads_object_list
     }
 
         return render(request, template_name, context)
@@ -85,6 +91,9 @@ class GkContentView(View):
         # Retrieve the GK details object with the given 'id'
         gk_details_object                     = GK.objects.get(id = id)
 
+        # Retrieve the ads list
+        ads_object_list                       = Ads.objects.filter(is_shown=True)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
@@ -92,7 +101,9 @@ class GkContentView(View):
         context = {
             'gk_details'                      : gk_details_object,
 
-            'level_material_detail_list'      : level_material_detail_list
+            'level_material_detail_list'      : level_material_detail_list,
+
+            'ads_object_list'                 : ads_object_list
         }
 
         # Render the template with the provided context
@@ -158,6 +169,9 @@ class PastQuestionView(View):
         # Retrieve all PastQuestion objects where is_shown is True
         past_question_object_list                = PastQuestion.objects.filter(is_shown=True)
 
+        # Retrieve the ads list
+        ads_object_list                          = Ads.objects.filter(is_shown=True)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list               = LevelAndMaterialDetails()
 
@@ -168,6 +182,8 @@ class PastQuestionView(View):
             'past_question_object_list'          : past_question_object_list,
 
             'level_material_detail_list'         : level_material_detail_list,
+
+            'ads_object_list'                    : ads_object_list
         }
 
         # Render the template with the provided context
@@ -232,6 +248,9 @@ class ModelQuestionView(View):
         # Retrieve all ModelQuestion objects where is_shown is True
         model_question_object_list    = ModelQuestion.objects.filter(is_shown=True)
 
+        # Retrieve the ads list
+        ads_object_list               = Ads.objects.filter(is_shown=True)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list    = LevelAndMaterialDetails()
 
@@ -242,6 +261,8 @@ class ModelQuestionView(View):
             'model_question_object_list'      : model_question_object_list,
 
             'level_material_detail_list'      : level_material_detail_list,
+
+            'ads_object_list'                 : ads_object_list
         }
 
         # Render the template with the provided context
@@ -301,6 +322,9 @@ class SyllabusInfoView(View):
                 # append the syllabus data to the appropriate group in the dictionary
                 group[data.university_choices][data.faculty_choices].append(syllabus_data)
 
+        # Retrieve the ads list
+        ads_object_list                     = Ads.objects.filter(is_shown=True)
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
@@ -311,7 +335,9 @@ class SyllabusInfoView(View):
             
             'group'                         : group,
 
-            'level_material_detail_list'    : level_material_detail_list
+            'level_material_detail_list'    : level_material_detail_list,
+
+            'ads_object_list'               : ads_object_list
         }
 
         # Render the template with the provided context
@@ -374,6 +400,9 @@ class CollegeInfoView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
+        # Retrieve the ads list
+        ads_object_list                     = Ads.objects.filter(is_shown=True)
+
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                    : college_data,
@@ -382,7 +411,9 @@ class CollegeInfoView(View):
             
             'group'                           : group,
 
-            'level_material_detail_list'      : level_material_detail_list
+            'level_material_detail_list'      : level_material_detail_list,
+
+            'ads_object_list'                 : ads_object_list
         }
 
         # Render the template with the provided context

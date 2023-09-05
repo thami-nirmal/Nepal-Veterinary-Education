@@ -922,7 +922,7 @@ body::-webkit-scrollbar-track {
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 .above-footer-top {
@@ -2908,7 +2908,7 @@ body::-webkit-scrollbar-track {
     font-weight: 700;
     font-size: 36px;
     color: var(--error-404-text-color);
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 .que-coll-bottom-item-right {
@@ -4721,11 +4721,165 @@ input[type="checkbox"]:checked+label::before {
     overflow: hidden;
 }
 
-/* @media screen and (max-width: 1200px) {
-    .second-ads-item {
+
+@media screen and (max-width: 1200px) {
+    .krishi-diary {
+        display: grid;
+        grid-gap: 1.5rem;
+    }   
+}
+
+.third-ads-item{
+    height: 255px;
+    border-radius: 6px;
+    background-color: var(--krishi-diary-and-category-background);
+    overflow: hidden;
+    
+}
+
+.third-ads-item-img{
+    height: 255px;
+    width: max-content;
+    overflow: hidden;
+    display: flex;
+}
+
+.third-ads-item-img img {
+    overflow: hidden;
+}
+
+.fourth-ads-container{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fourth-ads-item{
+    background-color: rgba(240, 244, 255, 1);
+    min-height: 100px;
+    flex-direction: column;
+    display: flex;
+    width: 1140px;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 7px;
+    margin-left: 3px;
+}
+
+@media screen and (max-width: 1200px){
+    .fourth-ads-item{
         width: 960px;
     }
+}
 
-} */
+@media screen and (max-width: 992px){
+    .fourth-ads-item{
+        width: 720px;
+    }
+}
+
+.fifth-ads-item{
+    height: 100px;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    background: var(--krishi-diary-and-category-background);
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.fifth-ads-item-img{
+    border-radius: 5px;
+    height: 100px;
+    width: max-content;
+    overflow: hidden;
+    display: flex;
+}
+
+.fifth-ads-item-img img {
+    overflow: hidden;
+}
+
+
+.sixth-ads-item{
+    height: 120px;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    background: var(--krishi-diary-and-category-background);
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.sixth-ads-item-img{
+    border-radius: 5px;
+    height: 120px;
+    width: max-content;
+    overflow: hidden;
+    display: flex;
+}
+
+.sixth-ads-item-img img {
+    overflow: hidden;
+}
+
+
+/* Popup ads */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.popup-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #ffffff; /* Cross color */
+}
+
+.popup-button:focus {
+    outline: none;
+}
+
+.popup-button:hover {
+    color: #3908ce; /* Change color on hover */
+}
+
 
 /* ----------end------------------- */

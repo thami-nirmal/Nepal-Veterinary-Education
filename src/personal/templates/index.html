@@ -136,11 +136,9 @@
             </div>
             {% endfor %}
             
-            
             {% if ads_object_list %}
-
             <div class="first-ads-item">
-                <div class="first-ads-item-img">
+                <div class="first-ads-item-img ads-item">
                     {% for ads_object_data in ads_object_list %}
                     {% if ads_object_data.position == '1' %}
 
@@ -154,7 +152,6 @@
                     {% endfor %}
                 </div>
             </div>
-
             {% else %}
             <div class="posts-categories">
                 <div class="category-top flex-column">
@@ -239,24 +236,23 @@
                         </div>
                     </div>
                     {% endfor %}
-
-                    <div class="second-ads-item">
-                        <div class="second-ads-item-img">
-                            {% for ads_object_data in ads_object_list %}
-                            {% if ads_object_data.position == '2' %}
-                            
-                            {% if ads_object_data.image %}
-                            <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
-                            {% else %}
-                            <p>No image available</p>
-                            {% endif %}
-                            
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-
                 </div>
+                <div class="second-ads-item">
+                    <div class="second-ads-item-img ads-item">
+                        {% for ads_object_data in ads_object_list %}
+                        {% if ads_object_data.position == '2' %}
+                        
+                        {% if ads_object_data.image %}
+                        <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                        {% else %}
+                        <p>No image available</p>
+                        {% endif %}
+                        
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>    
+                
                 <div class="diary-item-view-more-bottom">
                     <a href="{% url 'krishi_diarys' %}">
                         <p>View More</p>
@@ -511,52 +507,26 @@
                             <span>Exam Results</span>
                         </a>
                     </div>
-                    <div class="category-item flex-column">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 15H4V5H20V15ZM14 18H10V17H14V18ZM22 18V3H2V18H0V20H24V18H22Z" />
-                        </svg>
-                        <a href="#">
-                            <span>Exam Results</span>
-                        </a>
+                    <div class="third-ads-item flex-column">
+                        <div class="third-ads-item-img ads-item">
+                            {% for ads_object_data in ads_object_list %}
+                            {% if ads_object_data.position == '3' %}
+
+                            {% if ads_object_data.image %}
+                            <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                            {% else %}
+                            <p>No image available</p>
+                            {% endif %}
+
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<script>
-    // Get references to HTML elements
-    const images = document.querySelectorAll('.first-ads-item-img img');
-
-    let currentIndex = 0;
-
-    // Function to show the current image
-    function showImage(index) {
-        images.forEach(image => {
-            image.style.display = 'none';
-        });
-        images[index].style.display = 'block';
-    }
-
-    // Function to move to the next image
-    function showNextImage() {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage(currentIndex);
-    }
-
-    // Auto-start the slideshow
-    function startSlideshow() {
-        showImage(currentIndex); // Show the first image initially
-
-        setInterval(() => {
-            showNextImage();
-        }, 5000); // Change slide every 5 seconds
-    }
-
-    startSlideshow();
-
-</script>
-
 
 {% endblock content %}

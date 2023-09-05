@@ -502,6 +502,44 @@
                     }, 500); // Replace 2000 with the desired delay in milliseconds
                 });
             });
+
+
+    // Ads images slide
+
+    function AdsSlideshow(selector) {
+        const images = document.querySelectorAll(selector + ' img');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            images.forEach(image => {
+                image.style.display = 'none';
+            });
+            images[index].style.display = 'block';
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function startSlideshow() {
+            showImage(currentIndex);
+            setInterval(() => {
+                showNextImage();
+            }, 5000);
+        }
+
+        return startSlideshow;
+    }
+
+    // Create two separate slideshows
+    const AdsSlideshow5 = AdsSlideshow('.fifth-ads-item-img');
+    const AdsSlideshow6 = AdsSlideshow('.sixth-ads-item-img');
+
+    // Start both slideshows
+    AdsSlideshow5();
+    AdsSlideshow6();
+
     </script>
 </body>
 </html>

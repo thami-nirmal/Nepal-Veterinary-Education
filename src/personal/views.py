@@ -82,10 +82,10 @@ class HomeView(View):
         # retrieve a list of blog post objects where is_published is True and order them by descending created_at, taking the second latest 2 objects list
         blog_post_object_list2                          = Post.objects.filter(is_published=True).order_by('-created_at')[2:4]
 
-        #
+        # Retrieve the all feature post list 
         feature_post_object_list                        = FeaturePost.objects.all()
 
-        #
+        # Retrieve the list of ads 
         ads_object_list                                 = Ads.objects.filter(is_shown=True)
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
@@ -148,6 +148,9 @@ class UsefulLinksView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                     = LevelAndMaterialDetails()
 
+        # Retrieve the ads list
+        ads_object_list                                = Ads.objects.filter(is_shown=True)
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -157,6 +160,8 @@ class UsefulLinksView(View):
             'items_per_page'                           : items_per_page,
 
             'useful_links_data_list'                   : useful_links_data_list,
+
+            'ads_object_list'                          : ads_object_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -198,6 +203,9 @@ class NewsNoticeView(View):
         # Get teh page object for the requested page number
         news_notice_page_obj                           = news_notice_paginator.get_page(news_notice_current_page_number)
 
+        # Retrieve the ads list
+        ads_object_list                                = Ads.objects.filter(is_shown=True)
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -207,6 +215,8 @@ class NewsNoticeView(View):
             'news_notice_object_list'                  : news_notice_object_list,
 
             'news_notice_items_per_page'               : news_notice_items_per_page,
+
+            'ads_object_list'                          : ads_object_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -250,6 +260,9 @@ class KrishiDiarysView(View):
         # Get the Page object for the requested page number
         page_obj                                          = paginator.get_page(page_number)
 
+        # Retrieve the ads list
+        ads_object_list                                   = Ads.objects.filter(is_shown=True)
+
         # Create a context dictionary to store the data to be passed to the template
         context   = {
             'level_material_detail_list'                  : level_material_detail_list,
@@ -259,6 +272,8 @@ class KrishiDiarysView(View):
             'krishi_diarys_details_list'                  : krishi_diarys_details_list,
 
             'items_per_page'                              : items_per_page,
+
+            'ads_object_list'                             : ads_object_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -289,12 +304,17 @@ class KrishiDiarysContentView(View):
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                        = LevelAndMaterialDetails()
+
+        # Retrieve the ads list
+        ads_object_list                                   = Ads.objects.filter(is_shown=True)
         
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'                  : level_material_detail_list,
 
             'krishi_diarys_object'                        : krishi_diarys_object,
+
+            'ads_object_list'                             : ads_object_list
         }
         
         # Render the template with the specified context and return the rendered response
@@ -390,6 +410,9 @@ class DrugIndexView(View):
         # Get the Page object for the requested page number
         drug_index_page_obj                                 = paginator.get_page(page_number)
 
+        # Retrieve the ads list
+        ads_object_list                                     = Ads.objects.filter(is_shown=True)
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'                    : level_material_detail_list,
@@ -399,6 +422,8 @@ class DrugIndexView(View):
             'drug_index_obj_list'                           : drug_index_obj_list,
 
             'items_per_page'                                : items_per_page,
+
+            'ads_object_list'                               : ads_object_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -430,12 +455,16 @@ class DrugIndexContentView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list                              = LevelAndMaterialDetails()
 
+        # Retrieve the ads list
+        ads_object_list                                         = Ads.objects.filter(is_shown=True)
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'drug_index_object'                                 : drug_index_object,
 
             'level_material_detail_list'                        : level_material_detail_list,
 
+            'ads_object_list'                                   : ads_object_list
         }
 
         # Render the template with the provided context
@@ -473,26 +502,6 @@ class NewsLetterView(View):
                 return JsonResponse({'status': 'success'})
         # Return a default response
         return True
-
-
-        # # Retrieve the value of the 'email' field from the form's POST data
-        # email = request.POST.get('email')
-        # # Get the current page URL dynamically
-        # url_name  = request.POST.get('url_name')
-        # print(url_name)
-        # # Check if the 'email' value is not empty
-        # if email:
-        #     # If the email does not exist in the NewsLetter model
-        #     if not NewsLetter.objects.filter(email=email).exists():
-        #         # Create a new NewsLetter object with the email and subscribe status
-        #         newsletter = NewsLetter(email=email, subscribe=True)
-        #         # Save the newsletter object to the database
-        #         newsletter.save()
-        #     # Display a success message to the user
-        #     messages.success(request,'Successfully subscribed')
-
-        # # Get the current page URL name dynamically
-        # return redirect(url_name)
 
 
 class CustomerFeedbackView(View):

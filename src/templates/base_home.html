@@ -35,9 +35,31 @@
 </head>
 
 <body class="body-one">
+    <!-- Loading Spinner -->
     <div id="loading-spinner">
         <img src="{% static 'images/spinner2.gif' %}" alt="Loading...">
         <p>Please Wait..</p>
+    </div>
+    <!-- Popup ads -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="zero-ads-item">
+                <div class="zero-ads-item-img">
+                    {% for ads_object_data in ads_object_list %}
+                    {% if ads_object_data.position == '0' %}
+                    
+                    {% if ads_object_data.image %}
+                    <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                    
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>  
+            <button id="close-button" class="popup-button">x</button>
+        </div>
     </div>
     <header class="nve-header">
         <div class="nve-header-top">
@@ -102,6 +124,25 @@
     </header>
     {% block content %}
     {% endblock content %}
+    
+    <div class="fourth-ads-container">
+        <div class="fourth-ads-item">
+            <div class="fourth-ads-item-img">
+                {% for ads_object_data in ads_object_list %}
+                {% if ads_object_data.position == '4' %}
+                
+                {% if ads_object_data.image %}
+                <a href="{{ads_object_data.link}}" target="_blank"><img src="{{ ads_object_data.image.url }}" alt="Image-here" /></a>
+                {% else %}
+                <p>No image available</p>
+                {% endif %}
+                
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div> 
+    </div>
+
     <section class="news-lette">
         <div class="nve-above-footer-container flex-column">
             <div class="container">
@@ -468,6 +509,76 @@
                     }, 500); // Replace 2000 with the desired delay in milliseconds
             });
         });
+
+
+        //------Popup ads using session to show at once when web open-----
+        // Check if the popup has already been shown during this session
+        const hasPopupBeenShown = sessionStorage.getItem('popupShown');
+
+        // If the popup has not been shown during this session, display it
+        if (!hasPopupBeenShown) {
+            document.addEventListener('DOMContentLoaded', function () {
+                const popup = document.getElementById('popup');
+                const cancelButton = document.getElementById('close-button');
+
+                // Show the popup
+                popup.style.display = 'block';
+
+                // Set a flag in sessionStorage to indicate that the popup has been shown
+                sessionStorage.setItem('popupShown', 'true');
+
+                // Close the popup after 5 seconds
+                setTimeout(function () {
+                        popup.style.display = 'none';
+                    }, 5000);    
+
+                // Add a click event listener to the cancel button
+                cancelButton.addEventListener('click', function () {
+                    popup.style.display = 'none';
+                });
+            });
+        }        
+
+        //----------- Ads images slide-------------
+
+        function AdsSlideshow(selector) {
+            const images = document.querySelectorAll(selector + ' img');
+            let currentIndex = 0;
+
+            function showImage(index) {
+                images.forEach(image => {
+                    image.style.display = 'none';
+                });
+                images[index].style.display = 'block';
+            }
+
+            function showNextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+
+            function startSlideshow() {
+                showImage(currentIndex);
+                setInterval(() => {
+                    showNextImage();
+                }, 5000);
+            }
+
+            return startSlideshow;
+        }
+
+        // Create two separate slideshows
+        const AdsSlideshow1 = AdsSlideshow('.first-ads-item-img');
+        const AdsSlideshow2 = AdsSlideshow('.second-ads-item-img');
+        const AdsSlideshow3 = AdsSlideshow('.third-ads-item-img');
+        const AdsSlideshow4 = AdsSlideshow('.fourth-ads-item-img');
+
+        // Start both slideshows
+        AdsSlideshow1();
+        AdsSlideshow2();
+        AdsSlideshow3();
+        AdsSlideshow4();
+
     </script>
 </body>
 </html>
