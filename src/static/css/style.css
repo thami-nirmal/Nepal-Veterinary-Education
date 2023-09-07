@@ -4683,14 +4683,9 @@ input[type="checkbox"]:checked+label::before {
 
 .first-ads-item-img{
     height: 543px;
-    overflow: hidden;
     display: flex;
 }
 
-.first-ads-item-img img {
-    min-width: 100%;
-    overflow: hidden;
-}
 
 @media screen and (max-width: 992px) {
     .first-ads-item {
@@ -4726,7 +4721,8 @@ input[type="checkbox"]:checked+label::before {
     .krishi-diary {
         display: grid;
         grid-gap: 1.5rem;
-    }   
+    }
+
 }
 
 .third-ads-item{
@@ -4764,9 +4760,9 @@ input[type="checkbox"]:checked+label::before {
     display: flex;
     width: 1140px;
     justify-content: center;
-    padding: 2rem;
     border-radius: 7px;
     margin-left: 3px;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1200px){
@@ -4781,8 +4777,9 @@ input[type="checkbox"]:checked+label::before {
     }
 }
 
+
 .fifth-ads-item{
-    height: 100px;
+    height: 150px;
     margin-bottom: 1.5rem;
     border-radius: 5px;
     background: var(--krishi-diary-and-category-background);
@@ -4794,7 +4791,7 @@ input[type="checkbox"]:checked+label::before {
 
 .fifth-ads-item-img{
     border-radius: 5px;
-    height: 100px;
+    height: 150px;
     width: max-content;
     overflow: hidden;
     display: flex;
@@ -4806,7 +4803,7 @@ input[type="checkbox"]:checked+label::before {
 
 
 .sixth-ads-item{
-    height: 120px;
+    height: 140px;
     margin-bottom: 1.5rem;
     border-radius: 5px;
     background: var(--krishi-diary-and-category-background);
@@ -4818,7 +4815,7 @@ input[type="checkbox"]:checked+label::before {
 
 .sixth-ads-item-img{
     border-radius: 5px;
-    height: 120px;
+    height: 140px;
     width: max-content;
     overflow: hidden;
     display: flex;
@@ -4829,7 +4826,7 @@ input[type="checkbox"]:checked+label::before {
 }
 
 
-/* Popup ads */
+/*---------- Popup ads ------------------- */
 .popup {
     display: none;
     position: fixed;

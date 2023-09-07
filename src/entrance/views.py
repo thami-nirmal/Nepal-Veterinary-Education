@@ -137,6 +137,7 @@ class PastQuestionView(View):
 
             # Retrieve the PastQuestion object with the given 'id'
             past_question_object  = PastQuestion.objects.get(id = id, is_shown=True)
+            
             # Create a list to hold the PastQuestion data
             past_question_collection_list = []
 
@@ -310,7 +311,7 @@ class SyllabusInfoView(View):
                     # Create an empty dictionary for the university choice
                     group[data.university_choices] = {}
 
-                    # Check if the faculty choice exists as a key in the group dictionary under the university choice
+                # Check if the faculty choice exists as a key in the group dictionary under the university choice
                 if data.faculty_choices not in group[data.university_choices]:
 
                     # Create an empty list for the faculty choice

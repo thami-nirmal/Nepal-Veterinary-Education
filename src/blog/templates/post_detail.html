@@ -2,8 +2,8 @@
 {% load static %}
 {% load social_share %}
 {% block meta %}
-    <!-- Meta description and keywords for SEO -->
     {% if post_content_object %}
+        <!-- Meta description and keywords for SEO -->
         <meta name="description" content="{{post_content_object.seo_description}}">
         <meta name="keywords" content="{{ post_content_object.seo_keyword}}">
         <meta name="author" content="{{post_content_object.user.first_name}}">
@@ -14,7 +14,7 @@
         <meta property="og:description" content="{{ post_content_object.short_description }}">
         <meta property="og:url" content="{{ request.build_absolute_uri }}">
         <meta property="og:image" content="{{ post_content_object.feature_image.url }}">
-
+        
         <!-- twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ request.build_absolute_uri }}">

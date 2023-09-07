@@ -43,7 +43,7 @@ class CouncilRegulation(models.Model):
 
     class Meta:
         verbose_name_plural = 'Council Regulation'
-    
+
 class CouncilModelQuestion(models.Model):
     """
     Represents council model question with specific attributes
@@ -91,7 +91,6 @@ class CouncilPastQuestion(models.Model):
     class Meta:
         verbose_name_plural = 'Council Past Question'
 
-
 class LoksewaModelQuestion(models.Model):
     """
     Represents loksewa model question with specific attributes
@@ -114,7 +113,6 @@ class LoksewaModelQuestion(models.Model):
 
     class Meta:
         verbose_name_plural = 'Loksewa Model Question'
-
 
 class LoksewaPastQuestion(models.Model):
     """
@@ -140,7 +138,6 @@ class LoksewaPastQuestion(models.Model):
     class Meta:
         verbose_name_plural = 'Loksewa Past Question'
 
-
 class LoksewaNotes(models.Model):
     """
     Represents loksewa notes with specific attributes
@@ -164,7 +161,6 @@ class LoksewaNotes(models.Model):
     class Meta:
         verbose_name_plural = 'Loksewa Note'
 
-
 university_choices        = (
                                 ('AFU', 'Agriculture and Forestry University'),
                                 ('TU', 'Tribhuvan University'),
@@ -175,7 +171,6 @@ faculty_choices           = (
                                 ('B.Sc Agriculture', 'B.Sc Agriculture'),
                                 ('B.Sc Forestry', 'B.Sc Forestry'),
                                 )
-
 
 class SyllabusInfo(models.Model):
     """
@@ -200,7 +195,6 @@ class SyllabusInfo(models.Model):
 
     class Meta:
         verbose_name_plural = 'Syllabus Info'
-
 
 class CollegeInfo(models.Model):
     """

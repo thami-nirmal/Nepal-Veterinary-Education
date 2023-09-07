@@ -833,6 +833,7 @@ def BlogPostSearch(blog_search_data):
     # Return the list of search results
     return results_list
 
+
 def EntrancePastQuestion(entrance_past_question_search_data):
     # Build a dynamic query using Q objects
     query = Q()

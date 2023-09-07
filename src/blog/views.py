@@ -106,7 +106,7 @@ class PostContentView(View):
             'user_post_like_obj'                       : user_post_like_obj,
 
             'post_content_object'                      : post_content_object,
-            
+
             'level_material_detail_list'               : level_material_detail_list,
 
             'posted_comment_object_list'               : posted_comment_object_list,
@@ -301,7 +301,7 @@ class CommentEditView(View):
         
         # Return True if the request is not an AJAX request
         return True
-    
+
 class CommentUpdateView(View):
     """
     A view class for handling the updating of comments
@@ -338,7 +338,7 @@ class CommentUpdateView(View):
         
         # Return True if the request is not an AJAX request
         return True
-    
+
 class CommentDeleteView(View):
     """
     A view class for handling the deletion of comments.
@@ -372,7 +372,7 @@ class CommentDeleteView(View):
         
         # Return True if the request is not an AJAX request
         return True
-    
+
 class likeBtnView(View):
     """
     A view class for handling the like button functionality
@@ -567,7 +567,6 @@ class UserViewsView(View):
 
         # If the request is not AJAX, return True
         return True
-
 
 class SharePostView(View):
     """
