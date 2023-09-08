@@ -26,7 +26,7 @@ from post_graduate.models import (LoksewaNotes,
                                 CouncilModelQuestion)
 
 from entrance.models import GK, PastQuestion
-from blog.models import Post, FeaturePost
+from blog.models import Post, FeaturePost, PostViews
 
 from django.db.models import Q
 # Create your views here.
@@ -151,6 +151,9 @@ class UsefulLinksView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -161,7 +164,9 @@ class UsefulLinksView(View):
 
             'useful_links_data_list'                   : useful_links_data_list,
 
-            'ads_object_list'                          : ads_object_list
+            'ads_object_list'                          : ads_object_list,
+
+            'popular_post'                             : popular_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -206,6 +211,9 @@ class NewsNoticeView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -216,7 +224,9 @@ class NewsNoticeView(View):
 
             'news_notice_items_per_page'               : news_notice_items_per_page,
 
-            'ads_object_list'                          : ads_object_list
+            'ads_object_list'                          : ads_object_list,
+
+            'popular_post'                             : popular_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -263,6 +273,9 @@ class KrishiDiarysView(View):
         # Retrieve the ads list
         ads_object_list                                   = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
+
         # Create a context dictionary to store the data to be passed to the template
         context   = {
             'level_material_detail_list'                  : level_material_detail_list,
@@ -273,7 +286,9 @@ class KrishiDiarysView(View):
 
             'items_per_page'                              : items_per_page,
 
-            'ads_object_list'                             : ads_object_list
+            'ads_object_list'                             : ads_object_list,
+
+            'popular_post'                                : popular_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -307,6 +322,9 @@ class KrishiDiarysContentView(View):
 
         # Retrieve the ads list
         ads_object_list                                   = Ads.objects.filter(is_shown=True)
+
+        # Retrieve the two popular post which has most of the views
+        popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
         
         # Create a context dictionary to store the data to be passed to the template
         context = {
@@ -314,8 +332,10 @@ class KrishiDiarysContentView(View):
 
             'krishi_diarys_object'                        : krishi_diarys_object,
 
-            'ads_object_list'                             : ads_object_list
-        }
+            'ads_object_list'                             : ads_object_list,
+
+            'popular_post'                                : popular_post
+        }   
         
         # Render the template with the specified context and return the rendered response
         return render(request, template_name, context)
@@ -413,6 +433,9 @@ class DrugIndexView(View):
         # Retrieve the ads list
         ads_object_list                                     = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'                    : level_material_detail_list,
@@ -423,7 +446,9 @@ class DrugIndexView(View):
 
             'items_per_page'                                : items_per_page,
 
-            'ads_object_list'                               : ads_object_list
+            'ads_object_list'                               : ads_object_list,
+
+            'popular_post'                                  : popular_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -458,13 +483,18 @@ class DrugIndexContentView(View):
         # Retrieve the ads list
         ads_object_list                                         = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                            = PostViews.objects.all().order_by('-views')[:2]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'drug_index_object'                                 : drug_index_object,
 
             'level_material_detail_list'                        : level_material_detail_list,
 
-            'ads_object_list'                                   : ads_object_list
+            'ads_object_list'                                   : ads_object_list,
+
+            'popular_post'                                      : popular_post
         }
 
         # Render the template with the provided context

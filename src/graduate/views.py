@@ -11,6 +11,8 @@ from .models import (SemYear,
 
 from personal.models import Ads
 
+from blog.models import PostViews
+
 from personal.views import LevelAndMaterialDetails
 
 # Create your views here.
@@ -94,6 +96,9 @@ class GraduateView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+
         #Prepare the context data for redering the template
         context = {
             'selected_level_object'                    : selected_level_object,
@@ -106,7 +111,9 @@ class GraduateView(View):
 
             'sem_year_object_list'                     : sem_year_object_list,
 
-            'ads_object_list'                          : ads_object_list
+            'ads_object_list'                          : ads_object_list,
+
+            'popular_post'                             : popular_post
         }
 
         # Render the 'graduate.html' template with the provided context
@@ -144,6 +151,9 @@ class GraduateContentView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+
         # Prepare the context data for rendering the template
         context = {
             'graduate_details_object'                  : graduate_details_object,
@@ -152,7 +162,9 @@ class GraduateContentView(View):
 
             'graduate_level_details_object'            : graduate_level_details_object,
 
-            'ads_object_list'                          : ads_object_list
+            'ads_object_list'                          : ads_object_list,
+
+            'popular_post'                             : popular_post
         }
 
         # Render the 'graduate_content_view.html' template with provided context
@@ -223,6 +235,9 @@ class GraduateSubContentView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+
         # Prepare the context data for rendering the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -237,7 +252,9 @@ class GraduateSubContentView(View):
 
             'selected_sub_content_subject_name'        : selected_sub_content_subject_name,
 
-            'ads_object_list'                          : ads_object_list
+            'ads_object_list'                          : ads_object_list,
+
+            'popular_post'                             : popular_post
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context

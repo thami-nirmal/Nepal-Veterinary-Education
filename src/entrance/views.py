@@ -8,6 +8,7 @@ from .models import (SyllabusInfo,
                     PastQuestion, 
                     ModelQuestion)
 from personal.models import Ads
+from blog.models import PostViews
 
 from personal.views import LevelAndMaterialDetails
 from django.core.paginator import Paginator
@@ -50,6 +51,9 @@ class GkView(View):
         # Retrieve the ads list
         ads_object_list           = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()
 
@@ -64,7 +68,9 @@ class GkView(View):
 
         'gk_object_list'                  : gk_object_list,
 
-        'ads_object_list'                 : ads_object_list
+        'ads_object_list'                 : ads_object_list,
+
+        'popular_post'                    : popular_post
     }
 
         return render(request, template_name, context)
@@ -94,6 +100,9 @@ class GkContentView(View):
         # Retrieve the ads list
         ads_object_list                       = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
 
@@ -103,7 +112,9 @@ class GkContentView(View):
 
             'level_material_detail_list'      : level_material_detail_list,
 
-            'ads_object_list'                 : ads_object_list
+            'ads_object_list'                 : ads_object_list,
+
+            'popular_post'                    : popular_post
         }
 
         # Render the template with the provided context
@@ -173,6 +184,9 @@ class PastQuestionView(View):
         # Retrieve the ads list
         ads_object_list                          = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list               = LevelAndMaterialDetails()
 
@@ -184,7 +198,9 @@ class PastQuestionView(View):
 
             'level_material_detail_list'         : level_material_detail_list,
 
-            'ads_object_list'                    : ads_object_list
+            'ads_object_list'                    : ads_object_list,
+
+            'popular_post'                       : popular_post
         }
 
         # Render the template with the provided context
@@ -252,6 +268,9 @@ class ModelQuestionView(View):
         # Retrieve the ads list
         ads_object_list               = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list    = LevelAndMaterialDetails()
 
@@ -263,7 +282,9 @@ class ModelQuestionView(View):
 
             'level_material_detail_list'      : level_material_detail_list,
 
-            'ads_object_list'                 : ads_object_list
+            'ads_object_list'                 : ads_object_list,
+
+            'popular_post'                    : popular_post
         }
 
         # Render the template with the provided context
@@ -326,6 +347,9 @@ class SyllabusInfoView(View):
         # Retrieve the ads list
         ads_object_list                     = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
@@ -338,7 +362,9 @@ class SyllabusInfoView(View):
 
             'level_material_detail_list'    : level_material_detail_list,
 
-            'ads_object_list'               : ads_object_list
+            'ads_object_list'               : ads_object_list,
+
+            'popular_post'                  : popular_post
         }
 
         # Render the template with the provided context
@@ -404,6 +430,9 @@ class CollegeInfoView(View):
         # Retrieve the ads list
         ads_object_list                     = Ads.objects.filter(is_shown=True)
 
+        # Retrieve the two popular post which has most of the views
+        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                    : college_data,
@@ -414,7 +443,9 @@ class CollegeInfoView(View):
 
             'level_material_detail_list'      : level_material_detail_list,
 
-            'ads_object_list'                 : ads_object_list
+            'ads_object_list'                 : ads_object_list,
+
+            'popular_post'                    : popular_post
         }
 
         # Render the template with the provided context

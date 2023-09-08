@@ -3,30 +3,20 @@
         <h2>Popular Posts</h2>
     </div>
     <div class="error-404-underline que-coll-line"></div>
+    {% for popular_post_data in popular_post %}
     <div class="que-coll-popular-post-item">
         <div class="que-coll-popular-post-item-left">
             <h3>
-                Public Speaking Workshop and Seminar
+                {{popular_post_data.post.title}}
             </h3>
-            <p>AUGUST 13, 2021</p>
+            <p>{{popular_post_data.post.created_at|date:"M d, Y"}}</p>
         </div>
         <div class="que-coll-popular-post-item-right">
-            <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{% url 'post_content_view' slug=popular_post_data.post.uuid %}"><i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
     <div class="error-404-underline que-coll-line"></div>
-    <div class="que-coll-popular-post-item">
-        <div class="que-coll-popular-post-item-left">
-            <h3>
-                Public Speaking Workshop and Seminar
-            </h3>
-            <p>AUGUST 13, 2021</p>
-        </div>
-        <div class="que-coll-popular-post-item-right">
-            <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    </div>
-    <div class="error-404-underline que-coll-line"></div>
+    {% endfor %}
     
     <div class="sixth-ads-item ">
         <div class="sixth-ads-item-img">
