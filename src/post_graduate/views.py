@@ -12,7 +12,7 @@ from .models import (SyllabusInfo,
 
 from personal.models import Ads
 
-from blog.models import PostViews
+from blog.models import PostViews, Post
 
 from personal.views import LevelAndMaterialDetails
 
@@ -72,6 +72,9 @@ class SyllabusInfoView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context dictioanry to be passed to the template
         context = {
             'syllabus_data'                : syllabus_data,
@@ -84,7 +87,9 @@ class SyllabusInfoView(View):
 
             'ads_object_list'              : ads_object_list,
 
-            'popular_post'                 : popular_post
+            'popular_post'                 : popular_post,
+
+            'other_related_post'           : other_related_post
         }
 
         # Render the template with the provided context
@@ -144,6 +149,9 @@ class CollegeInfoView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                : college_data,
@@ -156,7 +164,9 @@ class CollegeInfoView(View):
 
             'ads_object_list'             : ads_object_list, 
 
-            'popular_post'                : popular_post
+            'popular_post'                : popular_post,
+
+            'other_related_post'          : other_related_post
         }
 
         # Render the template with the provided context
@@ -190,6 +200,9 @@ class LoksewaView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                          = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'loksewa_model_question_object_list'    : loksewa_model_question_object_list,
@@ -197,7 +210,8 @@ class LoksewaView(View):
             'loksewa_notes_object_list'             : loksewa_notes_object_list,
             'level_material_detail_list'            : level_material_detail_list,
             'ads_object_list'                       : ads_object_list,
-            'popular_post'                          : popular_post
+            'popular_post'                          : popular_post,
+            'other_related_post'                    : other_related_post
         }
 
         # Render the template with the provided context
@@ -218,20 +232,24 @@ class LoksewaPastQuestionContentView(View):
         template_name                         = 'loksewa_past_question_content_view.html'
         loksewa_past_question_object          = LoksewaPastQuestion.objects.get(id = id)
 
-        level_material_detail_list          = LevelAndMaterialDetails()
+        level_material_detail_list            = LevelAndMaterialDetails()
 
         # Retrieve the ads list
-        ads_object_list                     = Ads.objects.filter(is_shown=True)
+        ads_object_list                       = Ads.objects.filter(is_shown=True)
 
         # Retrieve the two popular post which has most of the views
-        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+        popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Prepare the context data for rendering the template
         context = {
             'loksewa_past_question_object'    : loksewa_past_question_object,
             'level_material_detail_list'      : level_material_detail_list,
             'ads_object_list'                 : ads_object_list,
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -260,12 +278,16 @@ class LoksewaModelQuestionContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                           = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'loksewa_model_question_object'    : loksewa_model_question_object,
             'level_material_detail_list'       : level_material_detail_list,
             'ads_object_list'                  : ads_object_list,
-            'popular_post'                     : popular_post
+            'popular_post'                     : popular_post,
+            'other_related_post'               : other_related_post
         }
 
         # Render the template with the provided context
@@ -295,12 +317,16 @@ class LoksewaNotesContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'loksewa_notes_object'            : loksewa_notes_object,
             'level_material_detail_list'      : level_material_detail_list,
             'ads_object_list'                 : ads_object_list,
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -335,6 +361,9 @@ class CouncilView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                          = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'council_act_object_list'                : council_act_object_list,
@@ -343,7 +372,8 @@ class CouncilView(View):
             'council_model_question_object_list'     : council_model_question_object_list,
             'level_material_detail_list'             : level_material_detail_list,
             'ads_object_list'                        : ads_object_list,
-            'popular_post'                           : popular_post
+            'popular_post'                           : popular_post,
+            'other_related_post'                     : other_related_post
         }
 
         # Render the template with the provided context
@@ -362,6 +392,7 @@ class CouncilActContentView(View):
 
         # Set the template name for rendering
         template_name                         = 'council_act_content_view.html'
+
         council_act_object                    = CouncilAct.objects.get(id = id)
 
         level_material_detail_list            = LevelAndMaterialDetails()
@@ -372,12 +403,16 @@ class CouncilActContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                          = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'council_act_object'              : council_act_object,
             'level_material_detail_list'      : level_material_detail_list,
             'ads_object_list'                 : ads_object_list,
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -396,6 +431,7 @@ class CouncilRegulationContentView(View):
 
         # Set the template name for rendering
         template_name                        = 'council_regulation_content_view.html'
+
         council_regulation_object            = CouncilRegulation.objects.get(id = id)
 
         level_material_detail_list           = LevelAndMaterialDetails()
@@ -406,12 +442,16 @@ class CouncilRegulationContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'council_regulation_object'       : council_regulation_object,
             'level_material_detail_list'      : level_material_detail_list,
             'ads_object_list'                 : ads_object_list,
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -430,6 +470,7 @@ class CouncilPastQuestionContentView(View):
 
         # Set the template name for rendering
         template_name                          = 'council_past_question_content_view.html'
+
         council_past_question_object           = CouncilPastQuestion.objects.get(id = id)
 
         level_material_detail_list             = LevelAndMaterialDetails()
@@ -440,12 +481,16 @@ class CouncilPastQuestionContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                           = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                     = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'council_past_question_object'     : council_past_question_object,
             'level_material_detail_list'       : level_material_detail_list,
             'ads_object_list'                  : ads_object_list,
-            'popular_post'                     : popular_post
+            'popular_post'                     : popular_post,
+            'other_related_post'               : other_related_post
         }
 
         # Render the template with the provided context
@@ -464,6 +509,8 @@ class CouncilModelQuestionContentView(View):
 
         # Set the template name for rendering
         template_name                          = 'council_model_question_content_view.html'
+
+        #
         council_model_question_object          = CouncilModelQuestion.objects.get(id = id)
 
         level_material_detail_list             = LevelAndMaterialDetails()
@@ -474,12 +521,16 @@ class CouncilModelQuestionContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                           = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                     = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'council_model_question_object'    : council_model_question_object,
             'level_material_detail_list'       : level_material_detail_list,
             'ads_object_list'                  : ads_object_list,
-            'popular_post'                     : popular_post
+            'popular_post'                     : popular_post,
+            'other_related_post'               : other_related_post
         }
 
         # Render the template with the provided context

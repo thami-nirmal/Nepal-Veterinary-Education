@@ -18,70 +18,26 @@
     <div class="que-coll-bottom-head">
         <span>Other Related posts</span>
     </div>
+    {% for other_related_post_data in other_related_post %}
     <div class="que-coll-bottom-item">
         <div class="que-coll-bottom-item-left flex-column">
             <div class="que-coll-bottom-item-left-top">
                 <a href="#">
                     <p>Weekly updates</p>
                 </a>
-                <span>AUGUST 13, 2021</span>
+                <span>{{other_related_post_data.created_at|date:"M d, Y"}}</span>
             </div>
-            <a href="#"><h2>
-                10 Hilarious Cartoons That Depict Real-Life
-                Problems of Programmers
+            <a href="{% url 'post_content_view' slug=other_related_post_data.uuid %}"><h2>
+                {{other_related_post_data.title}}
             </h2></a>
             <span class="que-coll-item-span-res"
-                >Redefined the user acquisition and redesigned
-                the onboarding experience, all within 3 working
-                weeks.</span
+                >{{other_related_post_data.short_description}}</span
             >
         </div>
         <div class="que-coll-bottom-item-right">
-            <img src="{% static '/images/wishkey.png' %}" alt="Image-here" />
+            <img src="{{ other_related_post_data.feature_image.url }}" alt="Image-here" />
         </div>
     </div>
-    <div class="que-coll-bottom-item">
-        <div class="que-coll-bottom-item-left flex-column">
-            <div class="que-coll-bottom-item-left-top">
-                <a href="#">
-                    <p>Weekly updates</p>
-                </a>
-                <span>AUGUST 13, 2021</span>
-            </div>
-            <a href="#"><h2>
-                10 Hilarious Cartoons That Depict Real-Life
-                Problems of Programmers
-            </h2></a>
-            <span class="que-coll-item-span-res"
-                >Redefined the user acquisition and redesigned
-                the onboarding experience, all within 3 working
-                weeks.</span
-            >
-        </div>
-        <div class="que-coll-bottom-item-right">
-            <img src="{% static '/images/women.jpg' %}" alt="Image-here" />
-        </div>
-    </div>
-    <div class="que-coll-bottom-item">
-        <div class="que-coll-bottom-item-left flex-column">
-            <div class="que-coll-bottom-item-left-top">
-                <a href="#">
-                    <p>Weekly updates</p>
-                </a>
-                <span>AUGUST 13, 2021</span>
-            </div>
-            <a href="#"><h2>
-                10 Hilarious Cartoons That Depict Real-Life
-                Problems of Programmers
-            </h2></a>
-            <span class="que-coll-item-span-res"
-                >Redefined the user acquisition and redesigned
-                the onboarding experience, all within 3 working
-                weeks.</span
-            >
-        </div>
-        <div class="que-coll-bottom-item-right">
-            <img src="{% static '/images/wishkey.png' %}" alt="Image-here" />
-        </div>
-    </div>
+    {% endfor %}
+    
 </div>

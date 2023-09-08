@@ -11,7 +11,7 @@ from .models import (SemYear,
 
 from personal.models import Ads
 
-from blog.models import PostViews
+from blog.models import PostViews, Post
 
 from personal.views import LevelAndMaterialDetails
 
@@ -99,6 +99,9 @@ class GraduateView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         #Prepare the context data for redering the template
         context = {
             'selected_level_object'                    : selected_level_object,
@@ -113,7 +116,9 @@ class GraduateView(View):
 
             'ads_object_list'                          : ads_object_list,
 
-            'popular_post'                             : popular_post
+            'popular_post'                             : popular_post,
+
+            'other_related_post'                       : other_related_post
         }
 
         # Render the 'graduate.html' template with the provided context
@@ -154,6 +159,9 @@ class GraduateContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'graduate_details_object'                  : graduate_details_object,
@@ -164,7 +172,9 @@ class GraduateContentView(View):
 
             'ads_object_list'                          : ads_object_list,
 
-            'popular_post'                             : popular_post
+            'popular_post'                             : popular_post,
+
+            'other_related_post'                       : other_related_post
         }
 
         # Render the 'graduate_content_view.html' template with provided context
@@ -238,6 +248,9 @@ class GraduateSubContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context data for rendering the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -254,7 +267,9 @@ class GraduateSubContentView(View):
 
             'ads_object_list'                          : ads_object_list,
 
-            'popular_post'                             : popular_post
+            'popular_post'                             : popular_post,
+
+            'other_related_post'                       : other_related_post
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context

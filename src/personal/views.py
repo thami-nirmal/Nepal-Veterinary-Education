@@ -154,6 +154,9 @@ class UsefulLinksView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -166,7 +169,9 @@ class UsefulLinksView(View):
 
             'ads_object_list'                          : ads_object_list,
 
-            'popular_post'                             : popular_post
+            'popular_post'                             : popular_post,
+
+            'other_related_post'                       : other_related_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -214,6 +219,9 @@ class NewsNoticeView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'               : level_material_detail_list,
@@ -226,7 +234,9 @@ class NewsNoticeView(View):
 
             'ads_object_list'                          : ads_object_list,
 
-            'popular_post'                             : popular_post
+            'popular_post'                             : popular_post,
+
+            'other_related_post'                       : other_related_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -276,6 +286,9 @@ class KrishiDiarysView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                                = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Create a context dictionary to store the data to be passed to the template
         context   = {
             'level_material_detail_list'                  : level_material_detail_list,
@@ -288,7 +301,9 @@ class KrishiDiarysView(View):
 
             'ads_object_list'                             : ads_object_list,
 
-            'popular_post'                                : popular_post
+            'popular_post'                                : popular_post,
+
+            'other_related_post'                          : other_related_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -325,6 +340,9 @@ class KrishiDiarysContentView(View):
 
         # Retrieve the two popular post which has most of the views
         popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                                = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
         
         # Create a context dictionary to store the data to be passed to the template
         context = {
@@ -334,7 +352,9 @@ class KrishiDiarysContentView(View):
 
             'ads_object_list'                             : ads_object_list,
 
-            'popular_post'                                : popular_post
+            'popular_post'                                : popular_post,
+
+            'other_related_post'                          : other_related_post
         }   
         
         # Render the template with the specified context and return the rendered response
@@ -436,6 +456,9 @@ class DrugIndexView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'level_material_detail_list'                    : level_material_detail_list,
@@ -448,7 +471,9 @@ class DrugIndexView(View):
 
             'ads_object_list'                               : ads_object_list,
 
-            'popular_post'                                  : popular_post
+            'popular_post'                                  : popular_post,
+
+            'other_related_post'                            : other_related_post
         }
 
         # Render the template with the specified context and return the rendered response
@@ -486,6 +511,9 @@ class DrugIndexContentView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                                            = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                                      = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Create a context dictionary to store the data to be passed to the template
         context = {
             'drug_index_object'                                 : drug_index_object,
@@ -494,7 +522,9 @@ class DrugIndexContentView(View):
 
             'ads_object_list'                                   : ads_object_list,
 
-            'popular_post'                                      : popular_post
+            'popular_post'                                      : popular_post,
+
+            'other_related_post'                                : other_related_post
         }
 
         # Render the template with the provided context

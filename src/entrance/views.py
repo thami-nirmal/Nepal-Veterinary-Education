@@ -8,7 +8,7 @@ from .models import (SyllabusInfo,
                     PastQuestion, 
                     ModelQuestion)
 from personal.models import Ads
-from blog.models import PostViews
+from blog.models import PostViews, Post
 
 from personal.views import LevelAndMaterialDetails
 from django.core.paginator import Paginator
@@ -52,7 +52,10 @@ class GkView(View):
         ads_object_list           = Ads.objects.filter(is_shown=True)
 
         # Retrieve the two popular post which has most of the views
-        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+        popular_post              = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post        = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()
@@ -70,7 +73,9 @@ class GkView(View):
 
         'ads_object_list'                 : ads_object_list,
 
-        'popular_post'                    : popular_post
+        'popular_post'                    : popular_post,
+
+        'other_related_post'              : other_related_post
     }
 
         return render(request, template_name, context)
@@ -101,7 +106,10 @@ class GkContentView(View):
         ads_object_list                       = Ads.objects.filter(is_shown=True)
 
         # Retrieve the two popular post which has most of the views
-        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+        popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list            = LevelAndMaterialDetails()
@@ -114,7 +122,9 @@ class GkContentView(View):
 
             'ads_object_list'                 : ads_object_list,
 
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -185,7 +195,10 @@ class PastQuestionView(View):
         ads_object_list                          = Ads.objects.filter(is_shown=True)
 
         # Retrieve the two popular post which has most of the views
-        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+        popular_post                             = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                       = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list               = LevelAndMaterialDetails()
@@ -200,7 +213,9 @@ class PastQuestionView(View):
 
             'ads_object_list'                    : ads_object_list,
 
-            'popular_post'                       : popular_post
+            'popular_post'                       : popular_post,
+
+            'other_related_post'                 : other_related_post
         }
 
         # Render the template with the provided context
@@ -257,22 +272,25 @@ class ModelQuestionView(View):
             return JsonResponse({'data' : model_question_collection_list})
 
         # Set the template name for rendering
-        template_name                 = 'model_question.html'
+        template_name                         = 'model_question.html'
 
         # Retrieve the first ModelQuestion object where is_shown is True
-        model_question_object         = ModelQuestion.objects.filter(is_shown=True).first()
+        model_question_object                 = ModelQuestion.objects.filter(is_shown=True).first()
 
         # Retrieve all ModelQuestion objects where is_shown is True
-        model_question_object_list    = ModelQuestion.objects.filter(is_shown=True)
+        model_question_object_list            = ModelQuestion.objects.filter(is_shown=True)
 
         # Retrieve the ads list
-        ads_object_list               = Ads.objects.filter(is_shown=True)
+        ads_object_list                       = Ads.objects.filter(is_shown=True)
 
         # Retrieve the two popular post which has most of the views
-        popular_post                        = PostViews.objects.all().order_by('-views')[:2]
+        popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list    = LevelAndMaterialDetails()
+        level_material_detail_list            = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -284,7 +302,9 @@ class ModelQuestionView(View):
 
             'ads_object_list'                 : ads_object_list,
 
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
@@ -350,6 +370,9 @@ class SyllabusInfoView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list          = LevelAndMaterialDetails()
 
@@ -364,7 +387,9 @@ class SyllabusInfoView(View):
 
             'ads_object_list'               : ads_object_list,
 
-            'popular_post'                  : popular_post
+            'popular_post'                  : popular_post,
+
+            'other_related_post'            : other_related_post
         }
 
         # Render the template with the provided context
@@ -433,6 +458,9 @@ class CollegeInfoView(View):
         # Retrieve the two popular post which has most of the views
         popular_post                        = PostViews.objects.all().order_by('-views')[:2]
 
+        # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
+        other_related_post                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+
         # Prepare the context dictionary to be passed to the template
         context = {
             'college_data'                    : college_data,
@@ -445,7 +473,9 @@ class CollegeInfoView(View):
 
             'ads_object_list'                 : ads_object_list,
 
-            'popular_post'                    : popular_post
+            'popular_post'                    : popular_post,
+
+            'other_related_post'              : other_related_post
         }
 
         # Render the template with the provided context
