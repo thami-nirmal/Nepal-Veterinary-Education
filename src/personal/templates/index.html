@@ -156,8 +156,8 @@
                 </div>
             </div>
             {% endfor %}
-            
-            {% if ads_object_list %}
+
+            {% if '1' in ads_position_list %}
             <div class="first-ads-item">
                 <div class="first-ads-item-img ads-item">
                     {% for ads_object_data in ads_object_list %}
@@ -258,6 +258,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% if '2' in ads_position_list %}
                 <div class="second-ads-item">
                     <div class="second-ads-item-img ads-item">
                         {% for ads_object_data in ads_object_list %}
@@ -272,7 +273,8 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                </div>    
+                </div>
+                {% endif %}
                 
                 <div class="diary-item-view-more-bottom">
                     <a href="{% url 'krishi_diarys' %}">
@@ -528,6 +530,7 @@
                             <span>Exam Results</span>
                         </a>
                     </div>
+                    {% if '3' in ads_position_list %}
                     <div class="third-ads-item flex-column">
                         <div class="third-ads-item-img ads-item">
                             {% for ads_object_data in ads_object_list %}
@@ -538,12 +541,21 @@
                             {% else %}
                             <p>No image available</p>
                             {% endif %}
-
+                            
                             {% endif %}
                             {% endfor %}
                         </div>
-                        
                     </div>
+                    {% else %}
+                    <div class="category-item flex-column">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 15H4V5H20V15ZM14 18H10V17H14V18ZM22 18V3H2V18H0V20H24V18H22Z" />
+                        </svg>
+                        <a href="#">
+                            <span>Exam Results</span>
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

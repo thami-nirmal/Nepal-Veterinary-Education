@@ -1,4 +1,5 @@
 {% load static %}
+{% if '5' in ads_position_list %}
 <div class="fifth-ads-item">
     <div class="fifth-ads-item-img">
         {% for ads_object_data in ads_object_list %}
@@ -13,7 +14,9 @@
         {% endif %}
         {% endfor %}
     </div>
-</div>  
+</div>
+{% endif %}
+
 <div class="que-coll-bottom">
     <div class="que-coll-bottom-head">
         <span>Other Related posts</span>
@@ -39,5 +42,6 @@
         </div>
     </div>
     {% endfor %}
+    
     
 </div>

@@ -96,8 +96,24 @@ class GraduateView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -118,7 +134,9 @@ class GraduateView(View):
 
             'popular_post'                             : popular_post,
 
-            'other_related_post'                       : other_related_post
+            'other_related_post'                       : other_related_post,
+
+            'ads_position_list'                        : ads_position_list
         }
 
         # Render the 'graduate.html' template with the provided context
@@ -156,8 +174,24 @@ class GraduateContentView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                               = PostViews.objects.all().order_by('-views')[:2] 
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                               = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -174,7 +208,9 @@ class GraduateContentView(View):
 
             'popular_post'                             : popular_post,
 
-            'other_related_post'                       : other_related_post
+            'other_related_post'                       : other_related_post,
+
+            'ads_position_list'                        : ads_position_list
         }
 
         # Render the 'graduate_content_view.html' template with provided context
@@ -245,8 +281,24 @@ class GraduateSubContentView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -269,7 +321,9 @@ class GraduateSubContentView(View):
 
             'popular_post'                             : popular_post,
 
-            'other_related_post'                       : other_related_post
+            'other_related_post'                       : other_related_post,
+
+            'ads_position_list'                        : ads_position_list
         }
 
         # Render the 'graduate_chapter_content_view.html' template with provided context

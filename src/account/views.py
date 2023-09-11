@@ -192,6 +192,7 @@ class LoginView(View):
             # Retrieve the username and password from the POST data submitted by the user.
             email = request.POST.get('email')
             password = request.POST.get('password')
+            
 
             # Authenticate the user using the provided username and password.
             user = authenticate(request, username=email, password=password)
@@ -200,6 +201,9 @@ class LoginView(View):
             if user is not None:
                 # If the user is authenticated, log the user in, and create a session.
                 login(request, user)
+
+                # if request.POST.get('remember_me'):
+                #     response.set_cookie('')
 
                 # Redirect the user to the 'index' page
                 return redirect('index')

@@ -70,9 +70,6 @@ class HomeView(View):
         # Specify the template to be rendered
         template_name                                   = 'index.html'
 
-        # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 5 objects
-        krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:4]
-
         # Retrieve a list of News and Notice objects where is_shown is True and order them by descending Id, taking the latest 4 objects list
         news_notice_object_list                         = NewsAndNotice.objects.filter(is_shown=True).order_by('-id')[:4]
 
@@ -88,8 +85,21 @@ class HomeView(View):
         # Retrieve the list of ads 
         ads_object_list                                 = Ads.objects.filter(is_shown=True)
 
+        ads_object_position_list                        = ads_object_list.values_list('position')
+
+        ads_position_list =[]
+        for item in ads_object_position_list:
+            ads_position_list.append(item[0])
+
+        if '2' in ads_position_list:
+            # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 4 objects where krishi diarys have ads
+            krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:4]
+        else:
+            # Retrieve a list of KrishiDiarys objects where is_shown is True and order them by descending ID, taking the latest 5 objects where krishi diarys haven't ads
+            krishi_diary_details                            = KrishiDiarys.objects.filter(is_shown=True).order_by('-id')[:5]
+            
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list                      = LevelAndMaterialDetails()
+        level_material_detail_list                          = LevelAndMaterialDetails()
 
         # Create a context dictionary to store the data to be passed to the template
         context = {
@@ -105,7 +115,9 @@ class HomeView(View):
 
             'feature_post_object_list'                  : feature_post_object_list,
 
-            'ads_object_list'                           : ads_object_list
+            'ads_object_list'                           : ads_object_list,
+
+            'ads_position_list'                         : ads_position_list
         }
 
         # Render the template with specified context and return the rendered response
@@ -151,8 +163,24 @@ class UsefulLinksView(View):
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -171,7 +199,9 @@ class UsefulLinksView(View):
 
             'popular_post'                             : popular_post,
 
-            'other_related_post'                       : other_related_post
+            'other_related_post'                       : other_related_post,
+
+            'ads_position_list'                        : ads_position_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -215,9 +245,25 @@ class NewsNoticeView(View):
 
         # Retrieve the ads list
         ads_object_list                                = Ads.objects.filter(is_shown=True)
+        
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                   = PostViews.objects.all().order_by('-views')[:2]
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -236,7 +282,9 @@ class NewsNoticeView(View):
 
             'popular_post'                             : popular_post,
 
-            'other_related_post'                       : other_related_post
+            'other_related_post'                       : other_related_post,
+
+            'ads_position_list'                        : ads_position_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -283,8 +331,24 @@ class KrishiDiarysView(View):
         # Retrieve the ads list
         ads_object_list                                   = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                                = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -303,7 +367,9 @@ class KrishiDiarysView(View):
 
             'popular_post'                                : popular_post,
 
-            'other_related_post'                          : other_related_post
+            'other_related_post'                          : other_related_post, 
+
+            'ads_position_list'                           : ads_position_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -338,8 +404,24 @@ class KrishiDiarysContentView(View):
         # Retrieve the ads list
         ads_object_list                                   = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                      = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                                = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -354,7 +436,9 @@ class KrishiDiarysContentView(View):
 
             'popular_post'                                : popular_post,
 
-            'other_related_post'                          : other_related_post
+            'other_related_post'                          : other_related_post,
+
+            'ads_position_list'                           : ads_position_list
         }   
         
         # Render the template with the specified context and return the rendered response
@@ -453,8 +537,24 @@ class DrugIndexView(View):
         # Retrieve the ads list
         ads_object_list                                     = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                        = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                                  = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -473,7 +573,9 @@ class DrugIndexView(View):
 
             'popular_post'                                  : popular_post,
 
-            'other_related_post'                            : other_related_post
+            'other_related_post'                            : other_related_post,
+
+            'ads_position_list'                             : ads_position_list
         }
 
         # Render the template with the specified context and return the rendered response
@@ -508,8 +610,24 @@ class DrugIndexContentView(View):
         # Retrieve the ads list
         ads_object_list                                         = Ads.objects.filter(is_shown=True)
 
-        # Retrieve the two popular post which has most of the views
-        popular_post                                            = PostViews.objects.all().order_by('-views')[:2]
+        # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
+        ads_object_position_list              = ads_object_list.values_list('position')
+
+        # Create an empty list called ads_position_list to store 'position' values
+        ads_position_list =[]
+
+        # Loop through each item in ads_object_position_list
+        for item in ads_object_position_list:
+            # Append the first element (position) of each item to the ads_position_list
+            ads_position_list.append(item[0])
+
+        # Check if '6' is in the ads_position_list
+        if '6' in ads_position_list:
+            # Retrieve the two popular post which has most of the views and have the ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:2]
+        else:
+            # Retrieve the two popular post which has most of the views and haven't ads
+            popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
         other_related_post                                      = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
@@ -524,7 +642,9 @@ class DrugIndexContentView(View):
 
             'popular_post'                                      : popular_post,
 
-            'other_related_post'                                : other_related_post
+            'other_related_post'                                : other_related_post,
+
+            'ads_position_list'                                 : ads_position_list
         }
 
         # Render the template with the provided context

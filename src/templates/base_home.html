@@ -124,7 +124,8 @@
     </header>
     {% block content %}
     {% endblock content %}
-    
+
+    {% if '4' in ads_position_list %}
     <div class="fourth-ads-container">
         <div class="fourth-ads-item">
             <div class="fourth-ads-item-img">
@@ -140,8 +141,9 @@
                 {% endif %}
                 {% endfor %}
             </div>
-        </div> 
+        </div>
     </div>
+    {% endif %}
 
     <section class="news-lette">
         <div class="nve-above-footer-container flex-column">
