@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from personal.views import LevelAndMaterialDetails
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from django.http import HttpResponse
 # Create your views here.
 
 # Send OTP on specific email
@@ -164,15 +165,13 @@ class LoginView(View):
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list   = LevelAndMaterialDetails()
-
+        
         # Create a context dictionary to store the data to tbe passed to the template
         context = {
             'level_material_detail_list'      : level_material_detail_list,
         }
-
         # Render the tempate with provided context and return it as a HTTP response
         return render(request, template_name, context)
-    
     
     def post(self, request, *args, **kwargs):
         """
@@ -193,7 +192,6 @@ class LoginView(View):
             email = request.POST.get('email')
             password = request.POST.get('password')
             
-
             # Authenticate the user using the provided username and password.
             user = authenticate(request, username=email, password=password)
             
@@ -201,10 +199,7 @@ class LoginView(View):
             if user is not None:
                 # If the user is authenticated, log the user in, and create a session.
                 login(request, user)
-
-                # if request.POST.get('remember_me'):
-                #     response.set_cookie('')
-
+                
                 # Redirect the user to the 'index' page
                 return redirect('index')
             else:

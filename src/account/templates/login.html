@@ -48,7 +48,7 @@
             <div class="remember_container">
                 <div class="remember_innerContainer">
 
-                    <input type="checkbox" id='customCheckbox' name="remember_me" onclick="toggleCheckbox()"></input>
+                    <input type="checkbox" id='customCheckbox' onclick="setcookie()"></input>
                     <label for="customCheckbox">Remember Me</label>
                 </div>
                 <b><a href="{% url 'reset_password' %}">Forgot Password?</a></b>
@@ -154,6 +154,43 @@
     //     const checkbox = document.getElementById('customCheckbox');
     //     checkbox.checked = !checkbox.checked;
     // }
+    
+    // -----------------for remember me----------------
+    // set cookie for remember me
+    function setcookie(){
+        var e = document.getElementById('email').value;
+        var p = document.getElementById('password').value;
+
+        document.cookie="email="+e+";path=http://127.0.0.1:8000/";
+        document.cookie="password="+p+";path=http://127.0.0.1:8000/";
+    }
+
+    // set the cookie data into login field
+    function getcookiedata(){
+        var user = getCookie('email');
+        var pswd = getCookie('password');
+
+        document.getElementById('email').value=user;
+        document.getElementById('password').value=pswd;
+    }
+
+    // getting set cookies value
+    function getCookie(cname){
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i<ca.length; i++){
+            var c = ca[i];
+            while(c.charAt(0) == ' '){
+                c = c.substring(1);
+            }
+            if(c.indexOf(name) == 0){
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    // --------------end---------------
 
 </script>
 {% endblock content %}
