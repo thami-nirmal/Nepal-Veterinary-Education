@@ -1,4 +1,6 @@
 {% extends 'base_home.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block content %}
 <section class="user_section">
@@ -82,7 +84,7 @@
                             d="M17.2143 7.04495C17.5308 7.29306 17.9908 7.27515 18.2807 6.99925L20.5327 4.85601C20.8616 4.54298 20.8382 4.03059 20.4868 3.7405C18.3375 1.96588 15.5409 0.892578 12.501 0.892578V5.43451C14.289 5.43451 15.9314 6.03917 17.2143 7.04495Z"
                             fill="#D93F21" />
                     </svg>Google</a>
-                <a class="social_links" href="#"><i class="fa-brands fa-facebook fa-xl"
+                <a class="social_links" href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fa-brands fa-facebook fa-xl"
                         style="margin-right: 0.8rem; color:#4176FF" ,></i>Facebook</a>
             </div>
 

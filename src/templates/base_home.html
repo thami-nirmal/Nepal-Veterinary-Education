@@ -41,6 +41,7 @@
         <p>Please Wait..</p>
     </div>
     <!-- Popup ads -->
+    {% if '0' in ads_position_list %}
     <div id="popup" class="popup">
         <div class="popup-content">
             <div class="zero-ads-item">
@@ -61,6 +62,7 @@
             <button id="close-button" class="popup-button">x</button>
         </div>
     </div>
+    {% endif %}
     <header class="nve-header">
         <div class="nve-header-top">
             <a href="#">

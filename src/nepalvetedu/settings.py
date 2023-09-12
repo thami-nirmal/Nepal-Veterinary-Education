@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,12 +42,22 @@ INSTALLED_APPS = [
     'entrance',
     'post_graduate',
     'personal',
-    'account',
+    'accounts',
     'blog',
     'ckeditor',
     'ckeditor_uploader',
     'pagination',
-    'django_social_share'
+    'django_social_share',
+    'django.contrib.sites',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # providers
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google'
 
 ]
 
@@ -60,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'nepalvetedu.urls'
@@ -124,6 +134,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -136,7 +159,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
-
 
 
 # Default primary key field type

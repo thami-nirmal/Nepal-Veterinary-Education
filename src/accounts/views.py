@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
-from account.models import Profile
+from accounts.models import Profile
 from django.contrib.auth import authenticate, login, logout
 from personal.views import LevelAndMaterialDetails
 from email.mime.text import MIMEText
