@@ -42,7 +42,7 @@
     </div>
     <!-- Popup ads -->
     {% if '0' in ads_position_list %}
-    <div id="popup" class="popup">
+    <div id="popup">
         <div class="popup-content">
             <div class="zero-ads-item">
                 <div class="zero-ads-item-img">
@@ -442,6 +442,15 @@
                                         const anchorTag = `<a href="/entrance/past-question" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
+                                    else if (result.entrance_model_question) {
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}- Model Question (Entrance Preparation)`;
+
+                                        const anchorTag = `<a href="/entrance/model-question" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
+                                    }
                                     else {
                                         // Format the search item as desired
                                         const { id, has_sub_content, subject, material_type, level, sem_year } = result;
@@ -542,7 +551,7 @@
                 // Close the popup after 5 seconds
                 setTimeout(function () {
                         popup.style.display = 'none';
-                    }, 5000);    
+                    }, 5000);
 
                 // Add a click event listener to the cancel button
                 cancelButton.addEventListener('click', function () {
@@ -551,17 +560,19 @@
             });
         }        
 
-        //----------- Ads images slide-------------
 
+        //----------- Ads images slide-------------
         function AdsSlideshow(selector) {
             const images = document.querySelectorAll(selector + ' img');
             let currentIndex = 0;
 
             function showImage(index) {
-                images.forEach(image => {
-                    image.style.display = 'none';
-                });
-                images[index].style.display = 'block';
+                if (images[index]){
+                    images.forEach(image => {
+                        image.style.display = 'none';
+                    });
+                    images[index].style.display = 'block';
+                }
             }
 
             function showNextImage() {

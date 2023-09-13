@@ -25,7 +25,7 @@ from post_graduate.models import (LoksewaNotes,
                                 CouncilPastQuestion,
                                 CouncilModelQuestion)
 
-from entrance.models import GK, PastQuestion
+from entrance.models import GK, PastQuestion, ModelQuestion
 from blog.models import Post, FeaturePost, PostViews
 
 from django.db.models import Q
@@ -752,7 +752,7 @@ def MaterialContentSearch(material_content_search_data):
         )
 
     # Query MaterialContent objects that match the search terms
-    search_results = MaterialContent.objects.filter(query)
+    search_results = MaterialContent.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -781,7 +781,7 @@ def LoksewaNotesSearch(loksewa_notes_search_data):
         )
 
     # Query MaterialContent objects that match the search terms
-    search_results = LoksewaNotes.objects.filter(query)
+    search_results = LoksewaNotes.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -807,7 +807,7 @@ def LoksewaPastQuestionSearch(loksewa_past_question_search_data):
         )
     
     # Query LoksewaPastQuestion objects that match the search terms
-    search_results = LoksewaPastQuestion.objects.filter(query)
+    search_results = LoksewaPastQuestion.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -834,7 +834,7 @@ def LoksewaModelQuestionSearch(loksewa_model_question_search_data):
         )
 
     # Query LoksewaModelQuestion objects that match the search terms
-    search_results = LoksewaModelQuestion.objects.filter(query)
+    search_results = LoksewaModelQuestion.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -861,7 +861,7 @@ def CouncilActSearch(council_act_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = CouncilAct.objects.filter(query)
+    search_results = CouncilAct.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -888,7 +888,7 @@ def CouncilRegulationSearch(council_regulation_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = CouncilRegulation.objects.filter(query)
+    search_results = CouncilRegulation.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -915,7 +915,7 @@ def CouncilPastQuestionSearch(council_past_question_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = CouncilPastQuestion.objects.filter(query)
+    search_results = CouncilPastQuestion.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -942,7 +942,7 @@ def CouncilModelQuestionSearch(council_model_question_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = CouncilModelQuestion.objects.filter(query)
+    search_results = CouncilModelQuestion.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -969,7 +969,7 @@ def GKSearch(gk_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = GK.objects.filter(query)
+    search_results = GK.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -996,7 +996,7 @@ def BlogPostSearch(blog_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = Post.objects.filter(query)
+    search_results = Post.objects.filter(query, is_published=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -1023,7 +1023,7 @@ def EntrancePastQuestion(entrance_past_question_search_data):
         )
 
     # Query CouncilAct objects that match the search terms
-    search_results = PastQuestion.objects.filter(query)
+    search_results = PastQuestion.objects.filter(query, is_shown=True)
 
     # Generate a list of dictionaries with relevant information from search_results
     results_list = []
@@ -1034,6 +1034,33 @@ def EntrancePastQuestion(entrance_past_question_search_data):
             'id' : result.id,
             'year':result.year,
             'entrance_past_question':'entrance_past_question'   # Flag indicating it's a entrance past question result
+        }
+        results_list.append(search_term)
+    
+    # Return the list of search results
+    return results_list
+
+
+def EntranceModelQuestion(entrance_model_question_search_data):
+    # Build a dynamic query using Q objects
+    query = Q()
+    for search_term in entrance_model_question_search_data:
+        query |= (
+            Q(name__icontains=search_term)
+        )
+
+    # Query CouncilAct objects that match the search terms
+    search_results = ModelQuestion.objects.filter(query, is_shown=True)
+
+    # Generate a list of dictionaries with relevant information from search_results
+    results_list = []
+
+    for result in search_results:
+        # Extract relevant information from the search result and create a dictionary
+        search_term = {
+            'id' : result.id,
+            'name':result.name,
+            'entrance_model_question':'entrance_model_question'   # Flag indicating it's a entrance past question result
         }
         results_list.append(search_term)
     
@@ -1073,11 +1100,12 @@ class SearchView(View):
 
             general_knowledge_results            = GKSearch(search_terms_list)
             entrance_past_question_results       = EntrancePastQuestion(search_terms_list)
+            entrance_model_question_results      = EntranceModelQuestion(search_terms_list)
 
             blog_post_results                    = BlogPostSearch(search_terms_list)
 
             # Combine the results from both functions
-            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results + general_knowledge_results + entrance_past_question_results + blog_post_results
+            results_list = material_content_results + loksewa_notes_results + loksewa_past_question_results + loksewa_model_question_results + council_act_results + council_regulation_results + council_past_question_results + council_model_question_results + general_knowledge_results + entrance_past_question_results + entrance_model_question_results + blog_post_results
             
             # Sort the results_list based on the number of matched search terms with each object's value
             results_list = sorted(results_list, key=lambda x: sum(any(term.lower() in str(value).lower() for term in search_terms_list) for value in x.values()), reverse=True)

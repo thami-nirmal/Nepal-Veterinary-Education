@@ -3,7 +3,7 @@ from django.views import View
 from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
 from personal.views import LevelAndMaterialDetails
-
+from django.db.models import Q
 # Create your views here.
 
 class PostView(View):
@@ -67,7 +67,8 @@ class PostContentView(View):
 
         # Retrieve the latest 4 comments for the load more comments
         posted_comment_object_list               = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
-        
+        # next_suggested_blog = Post.objects.filter(time__lt = time).last()
+
         # Logged in user
         user = request.user
 

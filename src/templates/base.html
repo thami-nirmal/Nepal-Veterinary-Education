@@ -430,6 +430,15 @@
                                         const anchorTag = `<a href="/entrance/past-question" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
+                                    else if (result.entrance_model_question) {
+                                        // Format the search item as desired
+                                        const { id, name } = result;
+                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem = `${highlightedName}- Model Question (Entrance Preparation)`;
+
+                                        const anchorTag = `<a href="/entrance/model-question" class="search-window-item-link">${formattedItem}</a>`;
+                                        return `<li class="search-window-item">${anchorTag}</li>`;
+                                    }
                                     else {
                                         // Format the search item as desired
                                         const { id, has_sub_content, subject, material_type, level, sem_year } = result;
@@ -513,16 +522,18 @@
 
 
     // Ads images slide
-
     function AdsSlideshow(selector) {
         const images = document.querySelectorAll(selector + ' img');
         let currentIndex = 0;
 
         function showImage(index) {
-            images.forEach(image => {
-                image.style.display = 'none';
-            });
-            images[index].style.display = 'block';
+            if(images[index]){
+                images.forEach(image => {
+                    image.style.display = 'none';
+                });
+                images[index].style.display = 'block';
+            }
+            
         }
 
         function showNextImage() {
