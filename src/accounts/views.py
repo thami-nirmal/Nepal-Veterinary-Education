@@ -326,11 +326,11 @@ class OTPVerificationView(View):
         :param kwargs: additional keyword arguments
         :return: the rendered http response
         """
-        " Set the template for rendering"
+        # Set the template for rendering
         template_name = 'otp_page.html'
 
+        # Get the email from keyword arguments
         email                        = kwargs['email']
-        print(email,"___________+++++++++++")
 
         # Call the LevelAndMaterialDetails function to retrieve level an material data
         level_material_detail_list = LevelAndMaterialDetails()
@@ -357,6 +357,7 @@ class OTPVerificationView(View):
         email                        = kwargs['email']
 
         selected_profile_object      = Profile.objects.get(email=email)
+
         get_otp_token                = selected_profile_object.verified_email_otp
         
         # Set the template for rendering
@@ -487,6 +488,88 @@ class RenewPasswordView(View):
             # Re-render the template with provided context
             return render(request, template_name, context)
 
+
+class ChangePasswordView(View):
+    """
+    A class-based view to handle change password
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Handle HTTP GET request and render the 'change_password.html'
+        :param request: the HTTp request object
+        :param args: additional positional argument
+        :param kwargs: additional keyword arguments
+        :return: the rendered http response
+        """
+        " Set the template for rendering"
+        template_name                  = 'change_password.html'
+
+        # Call the LevelAndMaterialDetails function to retrieve level an material data
+        level_material_detail_list     = LevelAndMaterialDetails()
+
+        # Create a context dictionary to store the data to the passed to the template
+        context = {
+            'level_material_detail_list'      : level_material_detail_list,
+        }
+
+        # Render to the template with provided context
+        return render(request, template_name, context)
+    
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the POST request for user's change password
+        :param request: the HTTP request object
+        :param args: additional positional arguments
+        :param kwargs: additional keyword arguments
+        :return: the rendered HTTP response or redirects to another view
+        """
+
+        # Set the template for rendering
+        template_name = 'change_password.html'
+
+        # Get the password, confirm password and old password from request
+        get_password                = request.POST.get('password')
+        get_confirm_password        = request.POST.get('confirm_password')
+        get_old_password            = request.POST.get('old_password')
+
+        # Get the logged-in user's email
+        user_email = request.user.email
+
+        # Authenticate the user with their old password
+        user = authenticate(request, username=user_email, password=get_old_password)
+
+        if user is not None:
+            # User's old password is correct
+            # You can now change their password if the new and confirm passwords match
+            if get_password == get_confirm_password:
+                # Set the new password for the user and save the user object
+                user.set_password(get_password)
+                user.save()
+
+                # If the user is authenticated, log the user in, and create a session.
+                login(request, user)
+                
+                # Redirect the user to the 'index' page
+                return redirect('index')
+            else:
+                # Display an error message if passwords don't match
+                messages.error(request, 'Password and Confirm password do not match')
+                # Return the same template
+                return render(request, template_name)
+        else:
+            # If the user is not authenticated (invalid credentials), display an error message.
+                messages.error(request, 'Old password is incorrect')
+
+                # Call the LevelAndMaterialDetails function to retrieve level and material data
+                level_material_detail_list   = LevelAndMaterialDetails()
+
+                # Create a context dictionary to store the data to tbe passed to the template
+                context = {
+                    'level_material_detail_list':level_material_detail_list
+                }
+
+                # Render the template with the provided context
+                return render(request, template_name, context)
 
 
 

@@ -74,9 +74,16 @@
             <div class="top-right">
                 <div class="top-right-login">
                     {% if user.is_authenticated %}
-                    <span> <a href="#">{{request.user.first_name}}</a></span>
+                    <div class="user-info">
+                        <span><a href="#">{{request.user.first_name}}</a></span>
+                        <div class="options">
+                            <a href="{% url 'change_password' %}">Change Password</a>
+                            <a href="{% url 'user_logout' %}">Logout</a>
+                        </div>
+                    </div>
+                    <!-- <span> <a href="#">{{request.user.first_name}}</a></span>
                     <div class="slash">|</div>
-                    <a href="{% url 'user_logout' %}">Logout</a>
+                    <a href="{% url 'user_logout' %}">Logout</a> -->
                     {% else %}
                     <svg width="17" height="20" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
