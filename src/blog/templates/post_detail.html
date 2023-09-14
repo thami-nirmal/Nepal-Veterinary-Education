@@ -286,16 +286,15 @@ Post Detail Page
         </div>
     </div>
 </div>
+{% if previous_suggested_blog %}
 <div class="subinner_container8">
     <div class="subinner_innercontainer8">
         <p class="p_post">NEXT POST</p>
-        <b>Vacancy announcement for ED of Nepal Agriculture Research Council</b>
-        <p class="p_tag"> You made it so simple. My new site is so much faster and easier to work
-            with
-            than
-            my old site. I just choose the page, make the changes.</p>
+        <b>{{previous_suggested_blog.title}}</b>
+        <p class="p_tag">{{previous_suggested_blog.short_description}}</p>
     </div>
 </div>
+{% endif %}
 
 <script>
     //for like button

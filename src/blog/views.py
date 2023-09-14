@@ -67,7 +67,12 @@ class PostContentView(View):
 
         # Retrieve the latest 4 comments for the load more comments
         posted_comment_object_list               = PostComments.objects.filter(post__uuid=slug).order_by('-id')[:4]
-        # next_suggested_blog = Post.objects.filter(time__lt = time).last()
+
+        # Retrieve the current post time
+        current_post_time = post_content_object.created_at
+        
+        # Retrieve the previous post of current post
+        previous_suggested_blog = Post.objects.filter(created_at__lt=current_post_time).order_by('-created_at').first()
 
         # Logged in user
         user = request.user
@@ -116,7 +121,9 @@ class PostContentView(View):
 
             'post_like_count'                          : post_like_count,
 
-            'share_post_count'                         : share_post_count
+            'share_post_count'                         : share_post_count,
+
+            'previous_suggested_blog'                  : previous_suggested_blog
 
         }
 

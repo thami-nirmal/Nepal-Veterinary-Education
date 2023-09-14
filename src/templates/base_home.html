@@ -34,7 +34,7 @@
     <title>Home</title>
 </head>
 
-<body class="body-one" onload="getcookiedata()">
+<body class="body-one" onload="if(typeof getcookiedata === 'function') getcookiedata();">
     <!-- Loading Spinner -->
     <div id="loading-spinner">
         <img src="{% static 'images/spinner2.gif' %}" alt="Loading...">
@@ -355,98 +355,98 @@
                                 const searchWindowItems = searchResults.map(result => {
                                     if (result.loksewa_notes) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-Notes (Loksewa)`;
+                                        const { id, name }        = result;
+                                        const highlightedName     = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem       = `${highlightedName}-Notes (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-notes-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.loksewa_past_question) {
-                                        const { id, year } = result;
-                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
-                                        const formattedItem = `${highlightedYear}-Past Question (Loksewa)`;
+                                        const { id, year }        = result;
+                                        const highlightedYear     = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem       = `${highlightedYear}-Past Question (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.loksewa_model_question) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-Model Question (Loksewa)`;
+                                        const { id, name }         = result;
+                                        const highlightedName      = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem        = `${highlightedName}-Model Question (Loksewa)`;
 
                                         const anchorTag = `<a href="/post-graduate/loksewa-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_act) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-Council Act (Council)`;
+                                        const { id, name }         = result;
+                                        const highlightedName      = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem        = `${highlightedName}-Council Act (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-act-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_regulation) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-Council Regulation (Council)`;
+                                        const { id, name }          = result;
+                                        const highlightedName       = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem         = `${highlightedName}-Council Regulation (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-regulation-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_past_question) {
                                         // Format the search item as desired
-                                        const { id, year } = result;
-                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
-                                        const formattedItem = `${highlightedYear}-Council Past Question (Council)`;
+                                        const { id, year }          = result;
+                                        const highlightedYear       = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem         = `${highlightedYear}-Council Past Question (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-past-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.council_model_question) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-Council Model Question (Council)`;
+                                        const { id, name }         = result;
+                                        const highlightedName      = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem        = `${highlightedName}-Council Model Question (Council)`;
 
                                         const anchorTag = `<a href="/post-graduate/council-model-question-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.general_knowledge) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}-General Knowledge (Entrance Preparation)`;
+                                        const { id, name }         = result;
+                                        const highlightedName      = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem        = `${highlightedName}-General Knowledge (Entrance Preparation)`;
 
                                         const anchorTag = `<a href="/entrance/gk-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.blog_post) {
                                         // Format the search item as desired
-                                        const { id, title } = result;
-                                        const highlightedTitle = highlightMatchedLetters(title, searchTerm);
-                                        const formattedItem = `${highlightedTitle}- (Blog)`;
+                                        const { id, title }       = result;
+                                        const highlightedTitle    = highlightMatchedLetters(title, searchTerm);
+                                        const formattedItem       = `${highlightedTitle}- (Blog)`;
 
                                         const anchorTag = `<a href="/blog/post-content-view/${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.entrance_past_question) {
                                         // Format the search item as desired
-                                        const { id, year } = result;
-                                        const highlightedYear = highlightMatchedLetters(year.toString(), searchTerm);
-                                        const formattedItem = `${highlightedYear}- Past Question (Entrance Preparation)`;
+                                        const { id, year }       = result;
+                                        const highlightedYear    = highlightMatchedLetters(year.toString(), searchTerm);
+                                        const formattedItem      = `${highlightedYear}- Past Question (Entrance Preparation)`;
 
                                         const anchorTag = `<a href="/entrance/past-question" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else if (result.entrance_model_question) {
                                         // Format the search item as desired
-                                        const { id, name } = result;
-                                        const highlightedName = highlightMatchedLetters(name, searchTerm);
-                                        const formattedItem = `${highlightedName}- Model Question (Entrance Preparation)`;
+                                        const { id, name }        = result;
+                                        const highlightedName     = highlightMatchedLetters(name, searchTerm);
+                                        const formattedItem       = `${highlightedName}- Model Question (Entrance Preparation)`;
 
                                         const anchorTag = `<a href="/entrance/model-question" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
@@ -454,11 +454,11 @@
                                     else {
                                         // Format the search item as desired
                                         const { id, has_sub_content, subject, material_type, level, sem_year } = result;
-                                        const highlightedSubject = highlightMatchedLetters(subject, searchTerm);
-                                        const highlightedMaterialType = highlightMatchedLetters(material_type, searchTerm);
-                                        const highlightedLevel = highlightMatchedLetters(level, searchTerm);
-                                        const highlightedSemYear = highlightMatchedLetters(sem_year.toString(), searchTerm);
-                                        const formattedItem = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
+                                        const highlightedSubject          = highlightMatchedLetters(subject, searchTerm);
+                                        const highlightedMaterialType     = highlightMatchedLetters(material_type, searchTerm);
+                                        const highlightedLevel            = highlightMatchedLetters(level, searchTerm);
+                                        const highlightedSemYear          = highlightMatchedLetters(sem_year.toString(), searchTerm);
+                                        const formattedItem               = `${highlightedSubject} - ${highlightedMaterialType} (${highlightedLevel}, ${highlightedSemYear} Semester)`;
 
                                         let anchorTag;
                                         if (has_sub_content) {
@@ -542,21 +542,23 @@
                 const popup = document.getElementById('popup');
                 const cancelButton = document.getElementById('close-button');
 
-                // Show the popup
-                popup.style.display = 'block';
+                if (popup && cancelButton) {
+                    // The elements exist, so you can proceed with your code
+                    popup.style.display = 'block';
 
-                // Set a flag in sessionStorage to indicate that the popup has been shown
-                sessionStorage.setItem('popupShown', 'true');
+                    // Set a flag in sessionStorage to indicate that the popup has been shown
+                    sessionStorage.setItem('popupShown', 'true');
 
-                // Close the popup after 5 seconds
-                setTimeout(function () {
+                    // Close the popup after 5 seconds
+                    setTimeout(function () {
                         popup.style.display = 'none';
                     }, 5000);
 
-                // Add a click event listener to the cancel button
-                cancelButton.addEventListener('click', function () {
-                    popup.style.display = 'none';
-                });
+                    // Add a click event listener to the cancel button
+                    cancelButton.addEventListener('click', function () {
+                        popup.style.display = 'none';
+                    });
+                }
             });
         }        
 
