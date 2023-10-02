@@ -294,6 +294,7 @@ class ModelQuestionView(View):
         :param kwargs: additional keyword arguments
         :return: the rendered http response
         """
+        
         # Check if the request was made via AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
 
@@ -328,17 +329,23 @@ class ModelQuestionView(View):
         # Set the template name for rendering
         template_name                         = 'model_question.html'
 
-        # Retrieve the first ModelQuestion object where is_shown is True
-        model_question_object                 = ModelQuestion.objects.filter(is_shown=True).first()
+        selected_id = request.GET.get('id')
+        if selected_id :
+            model_question_object               =ModelQuestion.objects.filter(is_shown=True,id=selected_id)
+            print(model_question_object, "FROM SEARCHING")
+        else:
+            # Retrieve the first ModelQuestion object where is_shown is True
+            model_question_object               = ModelQuestion.objects.filter(is_shown=True).first()
+            print(model_question_object)
 
         # Retrieve all ModelQuestion objects where is_shown is True
-        model_question_object_list            = ModelQuestion.objects.filter(is_shown=True)
+        model_question_object_list              = ModelQuestion.objects.filter(is_shown=True)
 
         # Retrieve the ads list
-        ads_object_list                       = Ads.objects.filter(is_shown=True)
+        ads_object_list                         = Ads.objects.filter(is_shown=True)
 
         # Retrieve the 'position' values from the ads_object_list and store them in ads_object_position_list
-        ads_object_position_list              = ads_object_list.values_list('position')
+        ads_object_position_list                = ads_object_list.values_list('position')
 
         # Create an empty list called ads_position_list to store 'position' values
         ads_position_list =[]
@@ -357,10 +364,10 @@ class ModelQuestionView(View):
             popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
-        other_related_post                    = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+        other_related_post                        = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Call the LevelAndMaterialDetails function to retrieve level and material data
-        level_material_detail_list            = LevelAndMaterialDetails()
+        level_material_detail_list                = LevelAndMaterialDetails()
 
         # Prepare the context data for rendering the template
         context = {
@@ -376,7 +383,9 @@ class ModelQuestionView(View):
 
             'other_related_post'              : other_related_post,
 
-            'ads_position_list'               : ads_position_list
+            'ads_position_list'               : ads_position_list,
+
+            'selected_id'                     : selected_id
         }
 
         # Render the template with the provided context

@@ -448,7 +448,7 @@
                                         const highlightedName     = highlightMatchedLetters(name, searchTerm);
                                         const formattedItem       = `${highlightedName}- Model Question (Entrance Preparation)`;
 
-                                        const anchorTag = `<a href="/entrance/model-question" class="search-window-item-link">${formattedItem}</a>`;
+                                        const anchorTag = `<a href="{% url 'model_question' %}?id=${id}" class="search-window-item-link">${formattedItem}</a>`;
                                         return `<li class="search-window-item">${anchorTag}</li>`;
                                     }
                                     else {

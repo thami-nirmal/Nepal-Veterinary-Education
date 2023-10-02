@@ -43,9 +43,11 @@ Entrance - Model Question
                 </a>
             </div>
             <div class="error-404-underline que-coll-line"></div>
+            
             {% if model_question_object_list %}
             <div class="top-bar-view">
                 {% for item in model_question_object_list %}
+
                 <a id="model_question_id{{item.id}}" class="year-tags{% if forloop.first %} active{% endif %}" model_question_object_data="{{item.id}}">Name:{{item.name}}</a>
                 {% endfor %}
             </div>

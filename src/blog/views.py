@@ -4,7 +4,26 @@ from django.http import JsonResponse
 from .models import Post, PostComments, PostLikes, PostViews, UserViews
 from personal.views import LevelAndMaterialDetails
 from django.db.models import Q
+
+from django.utils import timezone
+from django.contrib.humanize.templatetags.humanize import naturalday
+from datetime import datetime
 # Create your views here.
+
+def calculate_timestamp(timestamp):
+    timestamp = timezone.localtime(timestamp)
+    ts = ""
+    # today or yesterday
+    if (naturalday(timestamp)== "today") or (naturalday(timestamp)=="yesterday"):
+        str_time = datetime.strftime(timestamp, "%I:%M %p")
+        str_time = str_time.strip("0")
+        ts = f"{naturalday(timestamp)} at {str_time}"
+    # other day
+    else:
+        str_time = datetime.strftime(timestamp,'%m/%d/%y')
+        ts = f"{str_time}"
+    return str(ts)
+
 
 class PostView(View):
     """
@@ -105,6 +124,9 @@ class PostContentView(View):
         # Call the LevelAndMaterialDetails function to retrieve level and material data
         level_material_detail_list              = LevelAndMaterialDetails()
 
+        # Blog posting time since
+        posting_time_since                      = calculate_timestamp(current_post_time)
+
         # Prepare the context data for rendering the template
         context = {
             'user_post_like'                           : user_post_like,
@@ -123,7 +145,9 @@ class PostContentView(View):
 
             'share_post_count'                         : share_post_count,
 
-            'previous_suggested_blog'                  : previous_suggested_blog
+            'previous_suggested_blog'                  : previous_suggested_blog,
+
+            'posting_time_since'                       : posting_time_since
 
         }
 
@@ -620,3 +644,4 @@ class SharePostView(View):
         
         # If not an AJAX request, return True
         return True
+

@@ -123,7 +123,7 @@ Post Detail Page
                                 <path d="M12.0003 12.0002L9.66699 13.5558M12.0003 8.11133V12.0002" stroke="#232E52"
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                        </span>{{post_content_object.created_at|timesince }} ago</div>
+                        </span>{{ posting_time_since }}</div>
                 </div>
             </div>
             <div class="subinner_container2">
@@ -290,6 +290,7 @@ Post Detail Page
 <div class="subinner_container8">
     <div class="subinner_innercontainer8">
         <p class="p_post">NEXT POST</p>
+        
         <b>{{previous_suggested_blog.title}}</b>
         <p class="p_tag">{{previous_suggested_blog.short_description}}</p>
     </div>
@@ -934,6 +935,8 @@ Post Detail Page
             likeCountElement.text((likeCount / 1000).toFixed(1) + "k");
         }
     });
+
+    
 </script>
 
 {% endblock content %}

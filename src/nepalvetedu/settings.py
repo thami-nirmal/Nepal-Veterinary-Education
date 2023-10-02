@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'pagination',
     'django_social_share',
+    'django.contrib.humanize',
 
 ]
 
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
