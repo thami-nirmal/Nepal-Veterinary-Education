@@ -301,7 +301,7 @@ class GraduateSubContentView(View):
             popular_post                          = PostViews.objects.all().order_by('-views')[:3]
 
         # Retrieve a list of other related post where is_published is True and order them by descending created_at, taking the latest 3 objects list
-        other_related_post                             = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
+        other_related_post                        = Post.objects.filter(is_published=True).order_by('-created_at')[:3]
 
         # Prepare the context data for rendering the template
         context = {

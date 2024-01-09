@@ -56,5 +56,3 @@ def create_user_profile(sender, instance, **kwargs):
         Profile.objects.create(user=instance,email=instance.username+'@nepalvetedu.com',first_name='admin',last_name='admin')
 
 
-    
-

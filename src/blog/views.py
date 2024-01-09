@@ -91,7 +91,7 @@ class PostContentView(View):
         current_post_time = post_content_object.created_at
         
         # Retrieve the previous post of current post
-        previous_suggested_blog = Post.objects.filter(created_at__lt=current_post_time).order_by('-created_at').first()
+        previous_suggested_blog                  = Post.objects.filter(created_at__lt=current_post_time).order_by('-created_at').first()
 
         # Logged in user
         user = request.user
